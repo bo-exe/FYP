@@ -59,29 +59,50 @@ body {
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 0 auto;
 }
-.login-container h2 {
+
+h2 {
     margin-bottom: 20px;
     font-size: 24px;
+    text-align: center;
 }
-.login-container input[type="text"],
-.login-container input[type="password"] {
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="password"],
+button {
     width: 100%;
     padding: 10px;
-    margin: 10px 0;
+    margin: 8px 0;
     border: 1px solid #ccc;
     border-radius: 3px;
 }
-.login-container button {
-    width: 100%;
-    padding: 10px;
+
+button {
     background-color: #5cb85c;
-    border: none;
-    border-radius: 3px;
     color: #fff;
-    font-size: 16px;
+    border: none;
     cursor: pointer;
 }
-.login-container button:hover {
+
+button:hover {
     background-color: #4cae4c;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 600px) {
+    .login-container {
+        width: 90%;
+        padding: 15px;
+    }
 }

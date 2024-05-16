@@ -1,4 +1,3 @@
-<!-- <?php include "navbar.php"; ?> -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+
     <div class="navbar">
         <a href="#home">Home</a>
         <a href="#about">About</a>
@@ -33,6 +32,5 @@
         <p>Get in touch with us.</p>
     </div>
     <script src="script.js"></script>
-   
 </body>
 </html>

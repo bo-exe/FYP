@@ -108,9 +108,3 @@ button:hover {
 }
 
 /* QR Page */
-
-#scanner {
-    display: flex;
-    justify-content: center;
-    width: 500px;
-}

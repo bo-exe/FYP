@@ -4,17 +4,10 @@ function toggleMenu() {
     navbar.classList.toggle('responsive');
 }
 
-// QR Code
-
-function domReady(fn) {
-    if (
-        document.readyState === "complete" ||
-        document.readyState === "interactive"
-    ) {
-        setTimeout(fn, 1000);
-    } else {
-        document.addEventListener("DOMContentLoaded", fn);
-    }
+// QR
+function onScanSuccess(decodedText, decodedResult) {
+    // Handle on success condition with the decoded text or result.
+    console.log(`Scan result: ${decodedText}`, decodedResult);
 }
  
 domReady(function () {

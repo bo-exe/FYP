@@ -19,7 +19,7 @@ function domReady(fn) {
 domReady(function () {
  
     function onScanSuccess(decodeText, decodeResult) {
-        alert("You Qr is : " + decodeText, decodeResult);  /* Tells you the message encoded in the QR code*/
+        alert("You Qr is : " + decodeText, '_blank');  /* Tells you the message encoded in the QR code*/
         html5QrcodeScanner.clear(); /* QR Code Scanner closes after scanning a QR */
     }
  

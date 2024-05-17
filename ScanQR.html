@@ -4,21 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet"
-          href="style.css">
+    <link rel="stylesheet"href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.4/html5-qrcode.min.js" integrity="sha512-k/KAe4Yff9EUdYI5/IAHlwUswqeipP+Cp5qnrsUjTPCgl51La2/JhyyjNciztD7mWNKLSXci48m7cctATKfLlQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <title>QR Code Scanner</title>
 </head>
 <body>
     <div class="container">
         <h1>Scan QR Codes</h1>
         <div class="section">
-            <div id="scanner">
-            </div>
+            <div id="reader"></div>
+            <div id="result"></div>
         </div>
     </div>
-    <script
-        src="https://unpkg.com/html5-qrcode">
-    </script>
     <script src="script.js"></script>
 </body>
 </html>

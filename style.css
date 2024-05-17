@@ -110,7 +110,27 @@ button:hover {
 /* QR Page */
 
 #scanner {
-    display: flex;
-    justify-content: center;
-    width: 500px;
+    padding: 20px;
+    border: 1.5px solid #b2b2b2;
+    border-radius: 8px;
+}
+
+#scanner img[alt = "Info Icon"]{
+    display: none;
+}
+
+#scanner img[alt = "Camera based scan"]{
+    width: 100px;
+    height: 100px;
+}
+
+#html5-qrcode-anchor-scan-type-change {
+    text-decoration: none;
+    color: #1d9bf0;
+}
+
+video {
+    width: 100%;
+    border: 1px solid #b2b2b2;
+    border-radius: 0.25em;
 }

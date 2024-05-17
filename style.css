@@ -106,3 +106,11 @@ button:hover {
         padding: 15px;
     }
 }
+
+/* QR Page */
+
+#scanner {
+    display: flex;
+    justify-content: center;
+    width: 500px;
+}

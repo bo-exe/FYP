@@ -5,9 +5,15 @@ function toggleMenu() {
 }
 
 // QR
-function onScanSuccess(decodedText, decodedResult) {
-    // Handle on success condition with the decoded text or result.
-    console.log(`Scan result: ${decodedText}`, decodedResult);
+function domReady(fn) {
+    if (
+        document.readyState === "complete" ||
+        document.readyState === "interactive"
+    ) {
+        setTimeout(fn, 1000);
+    } else {
+        document.addEventListener("DOMContentLoaded", fn);
+    }
 }
  
 domReady(function () {
@@ -17,7 +23,7 @@ domReady(function () {
     }
  
     let htmlscanner = new Html5QrcodeScanner(
-        "my-qr-reader",
+        "qr-scanner",
         { fps: 10, qrbos: 250 }
     );
     htmlscanner.render(onScanSuccess);

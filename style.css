@@ -196,6 +196,9 @@ video {
     width: 100%;
     max-width: 500px;
     margin: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
  
 .qr-container h1 {

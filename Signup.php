@@ -18,20 +18,21 @@
             </div>
 
             <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" class="form-control" placeholder="Enter Email" name="email" required>
-            </div>
-
-            <div class="form-group">
                 <label for="psw">Password</label>
                 <input type="password" class="form-control" placeholder="Enter Password" name="password" required>
             </div>
 
-            <div class="text-center">
-                <button type="submit" class="btn btn-dark btn-block">Register</button>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" placeholder="Enter Email" name="email" required>
             </div>
-            
-            <p class="form-text text-center mt-3">Note: A link will be sent to your email for account verification purposes.</p>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-dark btn-block">Sign Up</button>
+            </div>
+            <div class="form-text text-center mt-3">
+                Note: A link will be sent to your email for account verification purposes.
+            </div>
         </form>
     </div>
 </body>

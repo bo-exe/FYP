@@ -28,7 +28,7 @@
             </div>
 
             <div class="text-center">
-                <button type="submit" class="btn btn-dark btn-block">Sign Up</button>
+                <button type="submit" class="btn btn-dark btn-block">Register</button>
             </div>
             <div class="form-text text-center mt-3">
                 Note: A link will be sent to your email for account verification purposes.

@@ -20,7 +20,7 @@ mysqli_stmt_bind_param($stmt, 'sss', $username, $email, $hashed_password);
 // Execute the statement
 if (mysqli_stmt_execute($stmt)) {
     // Redirect to the login page
-    header("Location: login.html");
+    header("Location: login.php");
     exit;
 } else {
     // Display an error message if the query fails

@@ -11,13 +11,14 @@
     <!-- Navbar Section -->
     <div class="header">
         <nav class="navbar navbar-expand-sm sticky-top">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="#">
                 <img src="images/logo.png" alt="logo" style="width:100px;" class="logo">
             </a>
             <div class="nav-items" style="display: none;">
                 <a class="nav-item active nav-mobile-item" href="#home"><i class='bx bx-home'></i> Home</a>
-                <a class="nav-item nav-mobile-item" href="#about"><i class='bx bx-user'></i> About Us</a>
-                <a class="nav-item nav-mobile-item" href="#contact"><i class='bx bx-phone'></i> Contact</a>
+                <a class="nav-item nav-mobile-item" href="#activities"><i class='bx bx-user'></i> Activities</a>
+                <a class="nav-item nav-mobile-item" href="#redeem"><i class='bx bx-phone'></i> Redeem</a>
+                <a class="nav-item nav-mobile-item" href="#stores"><i class='bx bx-user'></i> Stores</a>
             </div>
             <div class="nav-item hamburger"><i class='bx bx-menu'></i></div>
         </nav>

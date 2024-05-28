@@ -13,17 +13,41 @@
         <h1>Welcome,</h1>
         <p>@username041924</p>
     </div>
-    <div id="about" style="padding:20px;">
-        <h1>About</h1>
-        <p>Learn more about us here.</p>
+    <div class="carousel-container">
+        <h2>Recommended Activities</h2>
+        <div class="carousel">
+            <img src="images/activity1.jpg" alt="Activity 1">
+            <img src="images/activity2.jpg" alt="Activity 2">
+            <img src="images/activity3.jpg" alt="Activity 3">
+        </div>
+        <div class="dots">
+            <span class="dot" onclick="currentSlide(1, 0)"></span>
+            <span class="dot" onclick="currentSlide(2, 0)"></span>
+            <span class="dot" onclick="currentSlide(3, 0)"></span>
+        </div>
+        <div class="carousel-buttons">
+            <button onclick="prevSlide(0)">Prev</button>
+            <button onclick="nextSlide(0)">Next</button>
+        </div>
     </div>
-    <div id="services" style="padding:20px;">
-        <h1>Services</h1>
-        <p>These are the services we offer.</p>
-    </div>
-    <div id="contact" style="padding:20px;">
-        <h1>Contact</h1>
-        <p>Get in touch with us.</p>
+
+    <!-- Second Carousel: Recommended Stores -->
+    <div class="carousel-container">
+        <h2>Recommended Stores</h2>
+        <div class="carousel">
+            <img src="images/ikeaa.jpg" alt="Store 1">
+            <img src="images/Giantt.jpg" alt="Store 2">
+            <img src="images/thebodyshopp.jpg" alt="Store 3">
+        </div>
+        <div class="dots">
+            <span class="dot" onclick="currentSlide(1, 1)"></span>
+            <span class="dot" onclick="currentSlide(2, 1)"></span>
+            <span class="dot" onclick="currentSlide(3, 1)"></span>
+        </div>
+        <div class="carousel-buttons">
+            <button onclick="prevSlide(1)">Prev</button>
+            <button onclick="nextSlide(1)">Next</button>
+        </div>
     </div>
 
       <!-- Footer Section -->

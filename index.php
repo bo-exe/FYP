@@ -10,8 +10,8 @@
     <?php include "navbar.php"; ?>
 
     <div id="home" style="padding:20px;">
-        <h1>Home</h1>
-        <p>Welcome to the home page!</p>
+        <h1>Welcome,</h1>
+        <p>@username041924</p>
     </div>
     <div id="about" style="padding:20px;">
         <h1>About</h1>

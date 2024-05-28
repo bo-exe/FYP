@@ -11,6 +11,9 @@ body {
     align-items: center;
     background-color: #FFD036;
     padding: 14px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 .navbar a {
     color: white;
@@ -31,6 +34,67 @@ body {
     display: flex;
     flex-direction: row;
 }
+
+#logo-container {
+    margin-right: 20px;
+}
+
+.nav-items {
+    display: flex;
+    align-items: center;
+}
+
+.nav-items a {
+    color: var(--white-color);
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+.navbar .nav-item {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: bold;
+    font-size: 2rem;
+    margin: 0 25px;
+    transition: color 0.35s;
+    position: relative;
+}
+
+.navbar a {
+    position: relative;
+    font-size: 1.7rem;
+    color: var(--white-color);
+    font-weight: 500;
+    margin-right: 3.5rem;
+}
+
+.navbar .nav-item::after {
+    content: '';
+    width: 0;
+    height: 3px;
+    background: #ff004f;
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    transition: 0.5s;
+}
+
+.navbar .nav-item:hover::after {
+    width: 100%;
+}
+
+.logo:hover {
+    animation: spin 1s linear;
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 /* Responsive for homepage */
 @media screen and (max-width: 768px) {
     .navbar-links {

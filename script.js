@@ -20,6 +20,7 @@ domReady(function () {
  
     function onScanSuccess(decodedText) {
         window.location.href = decodedText;
+        codeID = decodedText;
         html5QrcodeScanner.clear(); /* QR Code Scanner closes after scanning a QR */
     }
  
@@ -30,6 +31,7 @@ domReady(function () {
     htmlscanner.render(onScanSuccess);
 });
 
+// Carousel
 let slideIndex = [1, 1];
 let slideId = ["carousel1", "carousel2"];
 showSlides(1, 0);

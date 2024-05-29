@@ -31,9 +31,9 @@
     <div class="carousel-container">
         <h2>Recommended Stores</h2>
         <div class="carousel">
-            <img src="images/ikeaa.jpg" alt="Store 1">
-            <img src="images/Giantt.jpg" alt="Store 2">
-            <img src="images/thebodyshopp.jpg" alt="Store 3">
+            <img src="images/ikea.jpg" alt="Store 1">
+            <img src="images/Giant.jpg" alt="Store 2">
+            <img src="images/thebodyshop.jpg" alt="Store 3">
         </div>
         <div class="dots">
             <span class="dot" onclick="currentSlide(1, 1)"></span>

@@ -25,10 +25,6 @@
             <span class="dot" onclick="currentSlide(2, 0)"></span>
             <span class="dot" onclick="currentSlide(3, 0)"></span>
         </div>
-        <div class="carousel-buttons">
-            <button onclick="prevSlide(0)">Prev</button>
-            <button onclick="nextSlide(0)">Next</button>
-        </div>
     </div>
 
     <!-- Second Carousel: Recommended Stores -->
@@ -43,10 +39,6 @@
             <span class="dot" onclick="currentSlide(1, 1)"></span>
             <span class="dot" onclick="currentSlide(2, 1)"></span>
             <span class="dot" onclick="currentSlide(3, 1)"></span>
-        </div>
-        <div class="carousel-buttons">
-            <button onclick="prevSlide(1)">Prev</button>
-            <button onclick="nextSlide(1)">Next</button>
         </div>
     </div>
 

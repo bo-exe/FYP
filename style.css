@@ -336,17 +336,33 @@ video {
 body {
     font-family: 'Lato', sans-serif;
     background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
+/* Signup Container */
 .signup-container {
     max-width: 400px;
-    margin: 50px auto;
+    width: 100%;
     background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
 }
 
+h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form
 .form-group {
     margin-bottom: 20px;
 }
@@ -354,13 +370,17 @@ body {
 label {
     display: block;
     margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
 }
 
-.input-field {
+.form-control {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
 }
 
 .btn {
@@ -371,6 +391,9 @@ label {
     cursor: pointer;
     background-color: #333;
     color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s;
 }
 
 .btn:hover {
@@ -384,116 +407,94 @@ label {
 .form-text {
     font-size: 14px;
     color: #666;
+    margin-top: 10px;
 }
 
-/* <!-- Footer Section --> */
+/* Footer Section */
 .footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    padding: 2rem 9%;
+    width: 100%;
     background-color: #ECECE7;
+    padding: 20px 0;
+    text-align: center;
+    position: relative;
+    bottom: 0;
 }
 
 .footer-content {
-    text-align: center;
-    padding: 1rem;
-    min-height: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
 }
 
 .logo-container {
     display: flex;
     align-items: center;
-    margin-bottom: 2rem;
+    margin-bottom: 10px;
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+.footer h4 {
+    color: #333;
+    margin: 0;
+    font-size: 18px;
 }
 
 .social-section {
-    display: flex;
-    flex-direction: column;
-}
-
-.social-text {
-    display: flex;
-    margin-top: 5px;
+    margin-bottom: 20px;
 }
 
 .footer-icons {
     display: flex;
-    align-items: center;
-    gap: 10px;
+    justify-content: center;
+    gap: 15px;
 }
 
-.footer .social-icons a {
+.footer-icons a {
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    width: 4rem;
-    height: 4rem;
-    background: transparent;
-    border: .2rem solid #333;
+    width: 40px;
+    height: 40px;
+    border: 2px solid #333;
     border-radius: 50%;
-    box-shadow: 0 .2rem .5rem #333;
-    font-size: 2rem;
+    font-size: 20px;
     color: #333;
-    margin: 2.5rem 1.5rem 3rem 0;
-    transition: .5s ease;
+    transition: background-color 0.3s, color 0.3s;
 }
 
-.footer .social-icons a:hover {
-    background: #333;
+.footer-icons a:hover {
+    background-color: #333;
     color: #fff;
 }
 
 .footer-content h4 {
     color: #333;
-    margin-bottom: 1.5rem;
-    font-size: 20px;
+    margin-bottom: 10px;
 }
 
 .footer-content li {
-    margin-bottom: 16px;
+    list-style: none;
+    margin-bottom: 8px;
 }
 
 .footer-content li a {
-    display: block;
     color: #333;
-    font-size: 15px;
-    font-weight: 400;
-    transition: all 0.40s ease;
+    text-decoration: none;
+    transition: color 0.3s;
 }
 
 .footer-content li a:hover {
-    transform: translateY(-3px) translateX(-5px);
-    color: #333;
-}
-
-.footer-iconTop a {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    padding: .8rem;
-    background: #fff;
-    border-radius: .8rem;
-    border: .2rem solid #333;
-    outline: .3rem solid transparent;
-    transition: .5s ease;
-}
-
-.footer-iconTop a:hover {
-    outline-color: #fff;
-}
-
-.footer-iconTop a i {
-    font-size: 2.4rem;
-    color: #333;
+    color: #555;
 }
 
 .copyright {
-    width: 100%;
-    text-align: center;
-    padding: 25px 0;
-    font-weight: 300;
-    margin-top: 20px;
-    font-size: 1.5rem;
+    font-size: 14px;
+    color: #666;
 }

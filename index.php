@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Home Page</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -64,7 +64,7 @@
         </div>
         <div class="footer-content">
             <div class="social-section">
-                <h4 class="social-text">Social:</h4>
+                <h4 class="social-text">Socials:</h4>
                 <div class="social-icons">
                     <a href="https://www.instagram.com/vomo/?hl=en"><i class='bx bxl-instagram'></i></a>
                     <a href="https://web.telegram.org/a/#vomo"><i class='bx bxl-telegram'></i></a>

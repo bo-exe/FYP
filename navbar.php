@@ -12,7 +12,7 @@
     <div class="header">
         <nav class="navbar navbar-expand-sm sticky-top">
             <a class="navbar-brand" href="#">
-                <img src="images/logo.png" alt="logo" style="width:100px;" class="logo">
+                <img src="images/logo.jpg" alt="logo" style="width:100px;" class="logo">
             </a>
             <div class="nav-items" style="display: none;">
                 <a class="nav-item active nav-mobile-item" href="#home"><i class='bx bx-home'></i> Home</a>

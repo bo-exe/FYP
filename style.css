@@ -173,7 +173,7 @@ body {
 /* Login Page */
 
 .login-container {
-    background-color: #fff;
+    background-color: #FFD036;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -221,9 +221,9 @@ button {
     padding: 10px;
     margin: 8px 0;
     border: none;
-    border-radius: 3px;
+    border-radius:25px;
     background-color: #FFD036;
-    color: #fff;
+    color: #FFD036;
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -275,7 +275,7 @@ button:focus {
 }
 
 .form-text a {
-    color: #5cb85c;
+    color: #FFD036;
     text-decoration: none;
 }
 

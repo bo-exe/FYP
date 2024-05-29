@@ -38,6 +38,7 @@ if (mysqli_num_rows($resultCheck) == 1) {
     } else {
         $msg = "<p>Invalid password. Please try again.</p>";
         $msg .= "<p><a href='Login.html'>Go back to login page</a></p>";
+        $msg = "password received:" . $entered_password;
     }
 } else {
     $msg = "<p>Username not found. Please try again.</p>";

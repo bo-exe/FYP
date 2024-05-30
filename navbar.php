@@ -13,7 +13,7 @@
 <div class="w3-top">
   <div class="w3-bar w3-white w3-card" id="myNavbar">
   <a class="navbar-brand" href="#home">
-                <img src="images/logo.png" alt="logo" class="logo">
+                <img src="images/logo.jpg" alt="logo" class="logo">
             </a>
     <!-- Right-sided navbar links -->
     <div class="w3-right w3-hide-small">

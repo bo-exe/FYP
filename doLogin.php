@@ -9,9 +9,7 @@ $entered_password = $_POST['password'];
 
 $msg = "";
 
-$queryCheck = "SELECT * FROM users
-          WHERE username='$entered_username'
-          AND password = '$entered_password'";
+$queryCheck = "SELECT * FROM users WHERE username='$entered_username' AND password='$entered_password'";
 
 $resultCheck = mysqli_query($link, $queryCheck) or die(mysqli_error($link));
 
@@ -19,9 +17,7 @@ if (mysqli_num_rows($resultCheck) == 1) {
     $row = mysqli_fetch_array($resultCheck);
     $_SESSION['userId'] = $row['userId'];
     $_SESSION['username'] = $row['username'];
-    $msg = "<p><i>You are logged in as " . $_SESSION['username'] . "</p>";
-    
-    $msg .= "<p><a href='index.php'>Home</a></p>";
+    $_SESSION['role'] = $row['role']; // Assuming you have a 'role' column in your users table
 
     // Set the 'rememberUsername' cookie if the "Remember Me" checkbox is checked
     if (isset($_POST['remember'])) {
@@ -30,13 +26,29 @@ if (mysqli_num_rows($resultCheck) == 1) {
         // Clear the 'rememberUsername' cookie if the "Remember Me" checkbox is not checked
         setcookie('rememberUsername', '', time() - 3600);
     }
+
+    // Redirect based on user role
+    switch ($_SESSION['role']) {
+        case 'volunteer':
+            header("Location: index.php");
+            break;
+        case 'retail':
+            header("Location: retailAdminHome.php");
+            break;
+        case 'team':
+            header("Location: teamAdminHome.php");
+            break;
+        default:
+            header("Location: activityAdminHome.php");
+            break;
+    }
+    exit(); // Ensure no further code is executed after redirection
 } else {
     $msg = "<p>Sorry, you must enter a valid username and password to log in</p>";
     $msg .= "<p><a href='login.php'>Go back to login page</a></p>";
 }
-?>  
+?>
 
-<!DOCTYPE html>
 <!DOCTYPE html>
 <html>
 <head>

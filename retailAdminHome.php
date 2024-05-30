@@ -9,39 +9,6 @@
 <body>
     <?php include "navbar.php"; ?>
 
-    <div id="home" style="padding:20px;">
-        <h1>Welcome,</h1>
-        <p>@username041924</p>
-    </div>
-    <div class="carousel-container">
-        <h2>Recommended Activities</h2>
-        <div class="carousel">
-            <img src="images/activity1.jpg" alt="Activity 1">
-            <img src="images/activity2.jpg" alt="Activity 2">
-            <img src="images/activity3.jpg" alt="Activity 3">
-        </div>
-        <div class="dots">
-            <span class="dot" onclick="currentSlide(1, 0)"></span>
-            <span class="dot" onclick="currentSlide(2, 0)"></span>
-            <span class="dot" onclick="currentSlide(3, 0)"></span>
-        </div>
-    </div>
-
-    <!-- Second Carousel: Recommended Stores -->
-    <div class="carousel-container">
-        <h2>Recommended Stores</h2>
-        <div class="carousel">
-            <img src="images/ikea.jpg" alt="Store 1">
-            <img src="images/Giant.jpg" alt="Store 2">
-            <img src="images/thebodyshop.jpg" alt="Store 3">
-        </div>
-        <div class="dots">
-            <span class="dot" onclick="currentSlide(1, 1)"></span>
-            <span class="dot" onclick="currentSlide(2, 1)"></span>
-            <span class="dot" onclick="currentSlide(3, 1)"></span>
-        </div>
-    </div>
-
       <!-- Footer Section -->
       <footer class="footer">
         <div class="footer-content">

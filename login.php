@@ -1,4 +1,3 @@
-<?php include "navbar.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,6 +9,7 @@
 <body>
     <br>
     <div class="login-container">
+    <img src="images/logo.jpg" alt="Description of the image" width="300" height="200">
         <form method="post" action="doLogin.php">
             <h2 class="text-center mb-4">Login</h2>
             <div class="form-group">

@@ -57,7 +57,7 @@ body {
     margin: 0 5px;
     border: none;
     background-color: #717171;
-    color: white;
+    color: rgb(17, 8, 8);
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.3s ease;
@@ -67,107 +67,43 @@ body {
     background-color: #555;
 }
 /* Navbar */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #FFD036;
-    padding: 14px 20px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
+.w3-custom-color {
+    background-color: #FFD036; /* Change this to your desired color */
 }
-.navbar a {
+
+.navbar-brand img {
+    width: 150px; /* Adjust the logo size as needed */
+    height: auto;
+}
+
+.w3-bar-item {
+    color: white !important;
+    font-size: 1.2rem;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.w3-bar-item:hover {
+    background-color: #3e8e41 !important; /* Darken the color on hover */
+    color: white !important;
+}
+
+.hamburger, .w3-bar-item.w3-button.w3-right.w3-hide-large.w3-hide-medium {
     color: white;
-    text-decoration: none;
-    padding: 14px 20px;
-    text-align: center;
-}
-.navbar a:hover {
-    background-color: #ddd;
-    color: black;
-}
-.navbar .menu-icon {
-    display: none;
     font-size: 28px;
-    cursor: pointer;
-}
-.navbar-links {
-    display: flex;
-    flex-direction: row;
 }
 
-#logo-container {
-    margin-right: 20px;
+/* Sidebar styling */
+.w3-sidebar {
+    background-color: #333 !important;
 }
 
-.nav-items {
-    display: flex;
-    align-items: center;
+.w3-sidebar .w3-bar-item {
+    color: white !important;
 }
 
-.nav-items a {
-    color: var(--white-color);
-    text-decoration: none;
-    margin: 0 15px;
-    font-size: 2rem;
-    font-weight: 500;
-}
-
-.navbar .nav-item {
-    text-decoration: none;
-    color: var(--text-color);
-    font-weight: bold;
-    font-size: 2rem;
-    margin: 0 25px;
-    transition: color 0.35s;
-    position: relative;
-}
-
-.navbar a {
-    position: relative;
-    font-size: 1.7rem;
-    color: var(--white-color);
-    font-weight: 500;
-    margin-right: 3.5rem;
-}
-
-.navbar .nav-item::after {
-    content: '';
-    width: 0;
-    height: 3px;
-    background: #ff004f;
-    position: absolute;
-    left: 0;
-    bottom: -6px;
-    transition: 0.5s;
-}
-
-.navbar .nav-item:hover::after {
-    width: 100%;
-}
-
-
-
-/* Responsive for homepage */
-@media screen and (max-width: 768px) {
-    .navbar-links {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-        text-align: center;
-    }
-    .navbar-links a {
-        padding: 10px;
-        border-top: 1px solid #444;
-        border-bottom: 1px solid #444;
-    }
-    .navbar .menu-icon {
-        display: block;
-    }
-    .navbar.responsive .navbar-links {
-        display: flex;
-    }
+.w3-sidebar .w3-bar-item:hover {
+    background-color: #575757 !important; /* Darken the color on hover */
+    color: white !important;
 }
 
 /* Login Page */
@@ -176,13 +112,12 @@ body {
     background-color: #FFD036;
     padding: 20px;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);    
     max-width: 400px;
     margin: 0 auto;
     font-family: Arial, sans-serif;
 }
 
-/* Heading styling */
 h2 {
     margin-bottom: 20px;
     font-size: 24px;
@@ -190,20 +125,18 @@ h2 {
     color: #333;
 }
 
-/* Form styling */
 form {
     display: flex;
     flex-direction: column;
 }
 
-/* Label styling */
 label {
     font-weight: bold;
     margin-bottom: 5px;
     color: #333;
 }
 
-/* Input field styling */
+
 input[type="text"],
 input[type="password"] {
     width: 100%;
@@ -215,7 +148,7 @@ input[type="password"] {
     box-sizing: border-box;
 }
 
-/* Button styling */
+
 button {
     width: 100%;
     padding: 10px;
@@ -237,7 +170,7 @@ button:active {
     background-color: #FFD036;
 }
 
-/* Focus state for inputs and buttons */
+
 input[type="text"]:focus,
 input[type="password"]:focus,
 button:focus {
@@ -245,7 +178,7 @@ button:focus {
     box-shadow: 0 0 5px #FFD036;
 }
 
-/* Form group styling */
+
 .form-group {
     margin-bottom: 15px;
 }

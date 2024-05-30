@@ -1,8 +1,13 @@
 // Navbar
-function toggleMenu() {
-    var navbar = document.querySelector('.navbar');
-    navbar.classList.toggle('responsive');
+
+function w3_open() {
+    document.getElementById("mySidebar").style.display = "block";
 }
+
+function w3_close() {
+    document.getElementById("mySidebar").style.display = "none";
+}
+
 
 // QR
 function domReady(fn) {

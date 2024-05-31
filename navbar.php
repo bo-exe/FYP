@@ -5,42 +5,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Responsive Navigation Bar</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
+<style>
+/* Navbar styling */
+.navbar {
+    width: 100%;
+    background-color: #FFD036; /* Changed background color to #FFD036 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+}
+
+/* List styling */
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.navbar ul li {
+    margin: 0;
+}
+
+/* Link styling */
+.navbar ul li a {
+    display: block;
+    padding: 14px 20px;
+    text-decoration: none;
+    color: black; /* Adjusted text color for better contrast */
+    text-align: center;
+}
+
+/* Hover effect */
+.navbar ul li a:hover {
+    background-color: #FFC107; /* Adjusted hover background color for a slight contrast */
+    color: black; /* Adjusted hover text color for consistency */
+}
+
+/* Content styling */
+.content {
+    margin-top: 50px; /* Adjust margin to prevent content from being hidden behind the navbar */
+    padding: 20px;
+}
+
+/* Media Query for mobile devices */
+@media (max-width: 768px) {
+    .navbar {
+        top: auto;
+        bottom: 0;
+    }
+    .content {
+        margin-top: 0;
+        margin-bottom: 50px; /* Adjust margin to prevent content from being hidden behind the navbar */
+    }
+}
+</style>
 <body>
-    <!-- Navbar Section -->
-    <!-- Navbar (sit on top) -->
-<div class="w3-top">
-  <div class="w3-bar w3-white w3-card" id="myNavbar">
-  <a class="navbar-brand" href="#home">
-                <img src="images/logo.jpg" alt="logo" class="logo">
-            </a>
-    <!-- Right-sided navbar links -->
-    <div class="w3-right w3-hide-small">
-      <a href="#about" class="w3-bar-item w3-button">ABOUT</a>
-      <a href="#team" class="w3-bar-item w3-button"><i class="fa fa-user"></i> TEAM</a>
-      <a href="#work" class="w3-bar-item w3-button"><i class="fa fa-th"></i> WORK</a>
-      <a href="#pricing" class="w3-bar-item w3-button"><i class="fa fa-usd"></i> PRICING</a>
-      <a href="#contact" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> CONTACT</a>
-    </div>
-    <!-- Hide right-floated links on small screens and replace them with a menu icon -->
-
-    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
-      <i class="fa fa-bars"></i>
-    </a>
-  </div>
-</div>
-
-<!-- Sidebar on small screens when clicking the menu icon -->
-<nav class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large" style="display:none" id="mySidebar">
-  <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-large w3-padding-16">Close ×</a>
-  <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">ABOUT</a>
-  <a href="#team" onclick="w3_close()" class="w3-bar-item w3-button">TEAM</a>
-  <a href="#work" onclick="w3_close()" class="w3-bar-item w3-button">WORK</a>
-  <a href="#pricing" onclick="w3_close()" class="w3-bar-item w3-button">PRICING</a>
-  <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button">CONTACT</a>
-</nav>
-
+    <nav class="navbar">
+        <ul>
+            <li><a href="#">HOME</a></li>
+            <li><a href="#">MANAGE</a></li>
+            <li><a href="#">SCANNER</a></li>
+            <li><a href="#">MILESTONES</a></li>
+            <li><a href="#">PROFILE</a></li>
+        </ul>
+    </nav>
     <script src="script.js"></script>
 </body>
 </html>

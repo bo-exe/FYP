@@ -6,14 +6,30 @@
     <title>Home</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<br>
     <?php include "navbar.php"; ?>
+<br></br>
+    <div class="buttons-container">
+            <button class="button" id="button1">
+                <img src="images/coin.jpg" alt="Icon 1">
+                <br>MANAGE CURRENT OFFERS
+            </button>
+            <button class="button" id="button2">
+                <img src="images/wand.jpg" alt="Icon 2">
+                <br>CREATE CURRENT OFFERS
+            </button>
+            <button class="button" id="button3">
+                <img src="images/milestones.jpg" alt="Icon 3">
+                <br>MILESTONES
+            </button>
+        </div>
+    </div>
 
       <!-- Footer Section -->
       <footer class="footer">
         <div class="footer-content">
             <div class="logo-container">
-                <img src="images/logo.png" alt="logo" style="width:100px;">
+                <img src="images/admin_logo.jpg" alt="logo" style="width:100px;">
             </div>
         </div>
         <div class="footer-content">

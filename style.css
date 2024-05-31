@@ -67,45 +67,56 @@ body {
     background-color: #555;
 }
 /* Navbar */
-.w3-custom-color {
-    background-color: #FFD036; /* Change this to your desired color */
+.navbar {
+    width: 100%;
+    background-color: #333;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
 }
 
-.navbar-brand img {
-    width: 150px; /* Adjust the logo size as needed */
-    height: auto;
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
 }
 
-.w3-bar-item {
-    color: white !important;
-    font-size: 1.2rem;
-    transition: background-color 0.3s, color 0.3s;
+.navbar ul li {
+    margin: 0;
 }
 
-.w3-bar-item:hover {
-    background-color: #3e8e41 !important; /* Darken the color on hover */
-    color: white !important;
-}
-
-.hamburger, .w3-bar-item.w3-button.w3-right.w3-hide-large.w3-hide-medium {
+.navbar ul li a {
+    display: block;
+    padding: 14px 20px;
+    text-decoration: none;
     color: white;
-    font-size: 28px;
+    text-align: center;
 }
 
-/* Sidebar styling */
-.w3-sidebar {
-    background-color: #333 !important;
+.navbar ul li a:hover {
+    background-color: #575757;
 }
 
-.w3-sidebar .w3-bar-item {
-    color: white !important;
+/* Content styling */
+.content {
+    margin-top: 50px; /* Adjust margin to prevent content from being hidden behind the navbar */
+    padding: 20px;
 }
 
-.w3-sidebar .w3-bar-item:hover {
-    background-color: #575757 !important; /* Darken the color on hover */
-    color: white !important;
+/* Media Query for mobile devices */
+@media (max-width: 768px) {
+    .navbar {
+        top: auto;
+        bottom: 0;
+    }
+    .content {
+        margin-top: 0;
+        margin-bottom: 50px; /* Adjust margin to prevent content from being hidden behind the navbar */
+    }
 }
-
 /* Login Page */
 
 .login-container {
@@ -432,3 +443,19 @@ label {
     color: #666;
 }
 
+/* Retail Admin Homepage */
+.button {
+    margin: 10px;
+    padding: 12px 24px; /* Increased padding for better touchability */
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #FFD036;
+    color: #333; /* Changed text color for better contrast */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+}
+
+.button:hover {
+    background-color: #deb530; /* Darken the background on hover */
+}

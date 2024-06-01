@@ -12,74 +12,82 @@ while ($row = mysqli_fetch_array($result)) {
 ?>
 <!DOCTYPE html>
 <br lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Manage Offers</title>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <style>
-    .offer-card-container{
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top: 20px;
-}
-.offer-card{
-    width:325px;
-    background-color: #ECECE7;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-    margin:20px;
-    height: 300px;
-}
+    .offer-card-container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 20px;
+    }
 
-.offer-card img{
-    width: 100%;
-    height: 165px;
-}
-.offer-card-content{
-    padding: 1px;
-}
-.offer-card-content h2{
-    font-size: 28px;
-    margin-bottom: 10px;
-    margin-top: 10px;
-}
-.offer-card-content p{
-    color:#333333;
-    font-size: 15px;
-    line-height:1.3;
-    margin-left: 10px;
-}
-.offer-card-content .del-btn{
-    display: inline-block;
-    padding: 8px 16px;
-    background-color: #EF1E1E;
-    text-decoration: none;
-    border-radius: 30px;
-    margin-top: 16px;
-    color:#FFF5F5;
-    font-weight: bold;
-    margin-left: 10px;
-    margin-bottom: 10px;
-}
-.offer-card-content .edit-btn{
-    display: inline-block;
-    padding: 8px 16px;
-    background-color: #FFD036;
-    text-decoration: none;
-    border-radius: 30px;
-    margin-top: 16px;
-    margin-left: 155px;
-    margin-bottom: 10px;
-    color:#FFF5F5;
-    font-weight: bold;
-}
+    .offer-card {
+        width: 325px;
+        background-color: #ECECE7;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+        margin: 20px;
+        height: 300px;
+    }
+
+    .offer-card img {
+        width: 100%;
+        height: 165px;
+    }
+
+    .offer-card-content {
+        padding: 1px;
+    }
+
+    .offer-card-content h2 {
+        font-size: 28px;
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
+
+    .offer-card-content p {
+        color: #333333;
+        font-size: 15px;
+        line-height: 1.3;
+        margin-left: 10px;
+    }
+
+    .offer-card-content .del-btn {
+        display: inline-block;
+        padding: 8px 16px;
+        background-color: #EF1E1E;
+        text-decoration: none;
+        border-radius: 30px;
+        margin-top: 16px;
+        color: #FFF5F5;
+        font-weight: bold;
+        margin-left: 10px;
+        margin-bottom: 10px;
+    }
+
+    .offer-card-content .edit-btn {
+        display: inline-block;
+        padding: 8px 16px;
+        background-color: #FFD036;
+        text-decoration: none;
+        border-radius: 30px;
+        margin-top: 16px;
+        margin-left: 155px;
+        margin-bottom: 10px;
+        color: #FFF5F5;
+        font-weight: bold;
+    }
 </style>
+
 <body>
-    <?php include "navbar.php"; ?>
+<?php include "retail_navbar.php"; ?>
     <?php include "ft.php"; ?>
     <br>
     <h1>Organisation Vouchers</h1>
@@ -97,17 +105,17 @@ while ($row = mysqli_fetch_array($result)) {
         }
     ?>
         <div class="offer-card">
-            <img src="Images/<?php echo $picture; ?>" alt="NTUC $10 Voucher" class="card-img-top">
+            <img src="Images/<?php echo $picture; ?>" alt="<?php echo $title; ?>" class="card-img-top">
             <div class="offer-card-content">
+            <input type="hidden" name="offerId" value="<?php echo $offerId; ?>">
                 <h2 class="card-title"><?php echo $title; ?></h2>
                 <p class="card-text">Use By: <?php echo $dateTimeEnd; ?></p>
-                <a href="offerDetails.php?offerId=<?php echo $offerId; ?>" class="del-btn">Delete</a>
-                <a href="offerDetails.php?offerId=<?php echo $offerId; ?>" class="edit-btn">Edit</a>
+                <a href="deleteOffer.php?offerId=<?php echo $offerId; ?>" class="del-btn">Delete</a>
+                <a href="editOffer.php?offerId=<?php echo $offerId; ?>" class="edit-btn">Edit</a>
             </div>
         </div>
     <?php } ?>
-</div>
-
+    </div>
 
     <!-- Footer Section -->
     <footer class="footer">

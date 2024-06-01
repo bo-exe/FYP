@@ -72,6 +72,7 @@
 
         .about-container-reverse .about-content {
             text-align: left;
+            margin-right: 50px; 
         }
 
     </style>

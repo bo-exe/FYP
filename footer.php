@@ -159,8 +159,8 @@
                     <div class="footer-column">
                         <h4>CONTACT US</h4>
                         <ul>
-                            <li><a href="index.html#contact">Feedback</a></li>
-                            <li><a href="index.html#contact">Support Us</a></li>
+                            <li><a href="feedback.php">Feedback</a></li>
+                            <li><a href="contactUs.php">Support Us</a></li>
                         </ul>
                     </div>
                     <div class="footer-column">

@@ -8,69 +8,108 @@
 </head>
 <style>
 /* Navbar styling */
-.navbar {
+.navbar-main {
     width: 100%;
-    background-color: #FFD036; /* Changed background color to #FFD036 */
+    background-color: #FFD036; 
     position: fixed;
     top: 0;
     left: 0;
     display: flex;
-    justify-content: center;
+    justify-content: space-between; 
+    align-items: center;
+    padding: 0 20px; 
 }
 
-/* List styling */
-.navbar ul {
+.logo {
+    margin-right: auto;
+}
+
+.search-bar {
+    margin-right: 20px;
+}
+
+.navbar-main ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     display: flex;
 }
 
-.navbar ul li {
+.navbar-main ul li {
     margin: 0;
 }
 
-/* Link styling */
-.navbar ul li a {
+.navbar-main ul li a {
     display: block;
     padding: 14px 20px;
     text-decoration: none;
-    color: black; /* Adjusted text color for better contrast */
+    color: #333; 
     text-align: center;
 }
 
-/* Hover effect */
-.navbar ul li a:hover {
-    background-color: #FFC107; /* Adjusted hover background color for a slight contrast */
-    color: black; /* Adjusted hover text color for consistency */
+.navbar-main ul li a:hover {
+    background-color: #FFC107; 
+    color: #555;
 }
 
-/* Content styling */
+/* .search-bar {
+    margin-right: 10px;
+    position: relative;
+}
+
+.search-bar input[type="text"] {
+    padding: 10px 30px 10px 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 200px;
+}
+
+.search-icon {
+    position: absolute; 
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+} */
+
+
 .content {
-    margin-top: 50px; /* Adjust margin to prevent content from being hidden behind the navbar */
+    margin-top: 50px;
     padding: 20px;
 }
 
-/* Media Query for mobile devices */
 @media (max-width: 768px) {
-    .navbar {
+    .navbar-main {
         top: auto;
         bottom: 0;
+        flex-direction: column;
+        align-items: flex-start; 
+        padding: 20px; 
     }
-    .content {
-        margin-top: 0;
-        margin-bottom: 50px; /* Adjust margin to prevent content from being hidden behind the navbar */
+    
+    .logo,
+    .search-bar,
+    #profile {
+        display: none;
     }
 }
 </style>
 <body>
-    <nav class="navbar">
+    <nav class="navbar-main">
+        <div class="logo">
+            <img src="images/logo.jpg" alt="Logo" style="width: 100px;">
+        </div>
+        <!-- <div class="search-bar">
+            <input type="text" placeholder="Search">
+            <div class="search-icon">
+                <i class="bx bx-search"></i>
+            </div>
+        </div> -->
         <ul>
-            <li><a href="#">HOME</a></li>
-            <li><a href="#">MANAGE</a></li>
-            <li><a href="#">SCANNER</a></li>
-            <li><a href="#">MILESTONES</a></li>
-            <li><a href="#">PROFILE</a></li>
+            <li><a href="index.php">HOME</a></li>
+            <li><a href="all_activities.php">ACTIVITIES</a></li>
+            <li><a href="#">REDEEM</a></li>
+            <li><a href="all_vouchers.php">STORES</a></li>
+            <li><a href=""><i class='bx bx-user' id="profile"></i></a></li>
         </ul>
     </nav>
     <script src="script.js"></script>

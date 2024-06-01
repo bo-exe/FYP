@@ -5,83 +5,223 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
+    <style>
+        /* Navbar styling */
+nav {
+    position: fixed; 
+    top: 0;
+    width: 100%;
+    z-index: 1000; 
+}
+
+/* Homepage */
+.home {
+    margin-top: 100px;
+}
+
+.home h1, p {
+    margin-right: 800px;
+    text-align: left;
+}
+
+.container {
+    padding: 2rem;
+    margin-top: 20px; 
+    margin-right: 800px;
+}
+
+.container h2 {
+    text-align: left;
+}
+
+.slider-wrapper {
+    position: relative;
+    max-width: 48rem;
+    margin: 0 auto;
+}
+
+.slider {
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    z-index: 1; 
+}
+
+.slider img {
+    width: 100%;
+    flex: 0 0 100%; 
+    transition: transform 0.5s ease;
+}
+
+.slider-nav {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 1.25rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+}
+
+.slider-nav .dot {
+    height: 10px;
+    width: 10px;
+    background-color: #fff;
+    opacity: 0.75;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.slider-nav .dot:hover {
+    opacity: 1;
+}
+
+.slider::-webkit-scrollbar {
+    display: none;
+}
+
+.slider {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.about-btn {
+    display: inline-block;
+    padding: 0.3rem 0.7rem;
+    background: #FFD036;
+    border-radius: .6rem;
+    box-shadow: 0 .2rem .5rem #333;
+    font-size: 0.8rem;
+    color: #333 ;
+    letter-spacing: .1rem;
+    font-weight: 600;
+    border: .2rem solid transparent;
+    transition: .5s ease;
+    margin-top: 30px;
+    margin-left: 300px;
+}
+
+.about-btn:hover {
+    background: #deb530;
+    color: #333;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+}
+
+.greeting {
+    flex-grow: 1; 
+}
+
+.points-container {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    font-size: 14px;
+    color: #333;
+    background-color: #ECECE7;
+    border-radius: .6rem;
+    box-shadow: 0 .2rem .5rem #333;
+    letter-spacing: .2rem;
+    font-weight: 800;
+    padding: 10px;
+}
+
+.points-container i {
+    margin-right: 5px;
+}
+
+.points-container .vomo-points {
+    display: flex;
+    align-items: center;
+}
+
+.points-container .vomo-points span:first-child {
+    margin-right: 100px;
+}
+
+
+
+.calendar-container {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #ECECE7;
+    border-radius: 10px;
+    box-shadow: 0 .2rem .5rem #333;
+}
+
+.calendar-container h2 {
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+
+
+
+</style>
 </head>
 <body>
     <?php include "navbar.php"; ?>
 
-    <div id="home" style="padding:20px;">
-        <h1>Welcome,</h1>
-        <p>@username041924</p>
+    <section class="home" id="home">
+    <div class="header">
+        <div class="greeting">
+            <h1>Good Morning,</h1>
+        </div>
+        <div class="points-container">
+            <i class='bx bx-gift'></i>
+            <div class="vomo-points">
+                <span>VOMOPoints</span>
+                <span>0</span>
+            </div>
+        </div>
     </div>
-    <div class="carousel-container">
+    <p>@username041924</p>
+</section>
+
+    <section class="container">
         <h2>Recommended Activities</h2>
-        <div class="carousel">
-            <img src="images/activity1.jpg" alt="Activity 1">
-            <img src="images/activity2.jpg" alt="Activity 2">
-            <img src="images/activity3.jpg" alt="Activity 3">
+        <div class="slider-wrapper">
+            <div class="slider">
+                <img id="activity-slide-1" src="images/volunteer-booth.jpg" alt="activity 1">
+                <img id="activity-slide-2" src="images/education.jpg" alt="activity 2">
+                <img id="activity-slide-3" src="images/clean.jpg" alt="activity 3">
+            </div>
+            <div class="slider-nav">
+                <a href="#activity-slide-1" class="dot"></a>
+                <a href="#activity-slide-2" class="dot"></a>
+                <a href="#activity-slide-3" class="dot"></a>
+            </div>
         </div>
-        <div class="dots">
-            <span class="dot" onclick="currentSlide(1, 0)"></span>
-            <span class="dot" onclick="currentSlide(2, 0)"></span>
-            <span class="dot" onclick="currentSlide(3, 0)"></span>
-        </div>
-    </div>
+        <a href="all_activities.php" class="about-btn">See More</a>
+    </section>
 
-    <!-- Second Carousel: Recommended Stores -->
-    <div class="carousel-container">
+    <section class="container">
         <h2>Recommended Stores</h2>
-        <div class="carousel">
-            <img src="images/ikea.jpg" alt="Store 1">
-            <img src="images/Giant.jpg" alt="Store 2">
-            <img src="images/thebodyshop.jpg" alt="Store 3">
+        <div class="slider-wrapper">
+            <div class="slider">
+                <img id="store-slide-1" src="images/ikea.jpg" alt="store 1">
+                <img id="store-slide-2" src="images/Giant.jpg" alt="store 2">
+                <img id="store-slide-3" src="images/thebodyshop.jpg" alt="store 3">
+            </div>
+            <div class="slider-nav">
+                <a href="#store-slide-1" class="dot"></a>
+                <a href="#store-slide-2" class="dot"></a>
+                <a href="#store-slide-3" class="dot"></a>
+            </div>
         </div>
-        <div class="dots">
-            <span class="dot" onclick="currentSlide(1, 1)"></span>
-            <span class="dot" onclick="currentSlide(2, 1)"></span>
-            <span class="dot" onclick="currentSlide(3, 1)"></span>
-        </div>
-    </div>
+        <a href="all_vouchers.php" class="about-btn">See More</a>
+    </section>
 
-      <!-- Footer Section -->
-      <footer class="footer">
-        <div class="footer-content">
-            <div class="logo-container">
-                <img src="images/logo.png" alt="logo" style="width:100px;">
-            </div>
-        </div>
-        <div class="footer-content">
-            <h4>ABOUT</h4>
-            <ul>
-                <li><a href="index.html#about">About VOMO</a></li>
-            </ul>
-        </div>
-        <div class="footer-content">
-            <h4>CONTACT US</h4>
-            <ul>
-                <li><a href="index.html#contact">Feedback</a></li>
-                <li><a href="index.html#contact">Support Us</a></li>
-            </ul>
-        </div>
-        <div class="footer-content">
-            <div class="social-section">
-                <h4 class="social-text">Socials:</h4>
-                <div class="social-icons">
-                    <a href="https://www.instagram.com/vomo/?hl=en"><i class='bx bxl-instagram'></i></a>
-                    <a href="https://web.telegram.org/a/#vomo"><i class='bx bxl-telegram'></i></a>
-                    <a href="https://api.whatsapp.com/send/?phone=%2B90716235&text&type=phone_number&app_absent=0"><i
-                            class='bx bxl-whatsapp'></i></a>
-                    <a href="https://mail.google.com/mail/u/0/?hl=en#inbox?compose=new"><i
-                            class='bx bx-envelope'></i></a>
-                </div>
-            </div>
-        </div>
-        <div class="footer-iconTop">
-            <a href="index.php"><i class='bx bx-up-arrow-alt'></i></a>
-        </div>
-        <div class="copyright">
-            <p>Copyright © VOMO.</p>
-        </div>
-    </footer>
+
+    <?php include "footer.php"; ?>
+
     <script src="script.js"></script>
 </body>
 </html>

@@ -51,7 +51,7 @@
 <body>
     <div class="signup-container">
         <form method="post" action="doSignup.php">
-            <h2 class="text-center mb-4">Sign Up</h2>
+            <h2 class="text-center mb-4">Become a volunteer with us.</h2>
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" class="form-control" id="username" placeholder="Enter Username" name="username" required>

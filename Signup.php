@@ -1,3 +1,4 @@
+<?php include "navbar.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +9,44 @@
     <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
     <link rel="icon" type="image/x-icon" href="images/logo.jpg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body, html {
+            height: 100%;
+        }
+        .signup-container {
+            min-height: 80%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-bottom: 50px; /* Adjusted bottom margin */
+        }
+
+        
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+        .btn-register {
+    background-color: #FFD036; /* Background color set to #FFD036 */
+    border: none;
+    color: black;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+.btn-register:hover {
+    background-color: #e0b400; /* Hover color set to a slightly darker shade */
+}
+
+    </style>
 </head>
 <body>
     <div class="signup-container">
@@ -29,7 +68,7 @@
             </div>
 
             <div class="text-center">
-                <button type="submit" class="btn btn-dark btn-block">Register</button>
+                <button type="submit" class="btn btn-register btn-block">Register</button>
             </div>
             <div class="form-text text-center mt-3">
                 Note: A link will be sent to your email for account verification purposes.
@@ -37,6 +76,6 @@
         </form>
     </div>
 
-
+    <?php include "footer.php"; ?>
 </body>
 </html>

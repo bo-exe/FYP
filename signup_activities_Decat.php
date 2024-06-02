@@ -98,10 +98,10 @@
 </head>
 <body>
     <div class="main-content">
-        <h2 class="signup-heading">ActiveSG Community Morning Sign Up</h2>
+        <h2 class="signup-heading">NTUC Charity Run 2024 Sign Up</h2>
         <div class="signup-section">
             <div class="signup-image-container">
-                <img src="images/ActiveSG.jpg" alt="Active-image" class="signup-image">
+                <img src="images/Decat.jpg" alt="Decat-image" class="signup-image">
             </div>
             <div class="signup-content">
                 <form class="signup-form" action="submit_signup.php" method="POST">
@@ -131,4 +131,3 @@
     <script src="script.js"></script>
 </body>
 </html>
-

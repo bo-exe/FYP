@@ -19,6 +19,15 @@
                 <br>Manage Current Gigs
             </a>
         </button>
+
+        <!-- Test card -->
+        <div class="volunteeradmincard">
+            <img src="images/exercise.png" alt="volunteeradminicon1">
+            <div class="volunteeradmincardcontainer">
+                <h4><b>Manage Current Gigs</b></h4>
+            </div>
+        </div>
+
         <button class="volunteeradminbutton" id="button2">
             <a href="admin_addGig.php">
                 <img src="images/wand.jpg" alt="Icon 2">

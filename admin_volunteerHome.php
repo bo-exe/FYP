@@ -15,7 +15,7 @@
     <div class="volunteeradminbuttons-container">
         <button class="volunteeradminbutton" id="button1">
             <a href="admin_gigOverview.php">
-                <img src="images/" alt="Icon 1">
+                <img src="images/exercise.png" alt="Icon 1">
                 <br>Manage Current Gigs
             </a>
         </button>

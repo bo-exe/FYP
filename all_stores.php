@@ -170,6 +170,7 @@
             <img src="images/NTUCvoucher.jpg">
             <div class="card-content">
                 <h3>NTUC</h3>
+                <p>3 Vouchers</p>
                 <a href="ntuc_vouchers.php" class="btn">More</a>
             </div>
         </div>
@@ -178,6 +179,7 @@
             <img src="images/ikea-voucher.jpg">
             <div class="card-content">
                 <h3>IKEA</h3>
+                <p>5 Vouchers</p>
                 <a href="ikea_vouchers.php" class="btn">More</a>
             </div>
         </div>
@@ -186,6 +188,7 @@
             <img src="images/giant-voucher.jpg">
             <div class="card-content">
                 <h3>Giant</h3>
+                <p>5 Vouchers</p>
                 <a href="giant_vouchers.php" class="btn">More</a>
             </div>
         </div>
@@ -194,6 +197,7 @@
             <img src="images/body-shop-voucher.jpg">
             <div class="card-content">
                 <h3>The Body Shop</h3>
+                <p>5 Vouchers</p>
                 <a href="body_shop_vouchers.php" class="btn">More</a>
             </div>
         </div>

@@ -175,7 +175,7 @@
                 </div>
             </div>
             <div class="footer-iconTop">
-                <a href="index.php"><i class='bx bx-up-arrow-alt'></i></a>
+                <a href="#"><i class='bx bx-up-arrow-alt'></i></a>
             </div>
             <div class="copyright">
                 <p>&copy; VOMO. All Rights Reserved.</p>

@@ -1,3 +1,28 @@
+<?php
+session_start();
+include "dbFunctions.php";
+
+// Check if form data has been submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $date = $_POST['date'];
+    $username = $_POST['username'];
+    $description = $_POST['description'];
+    
+    $date = mysqli_real_escape_string($link, $date);
+    $username = mysqli_real_escape_string($link, $username);
+    $description = mysqli_real_escape_string($link, $description);
+
+    $query = "INSERT INTO feedback (date, username, description) VALUES ('$date', '$username', '$description')";
+    if (mysqli_query($link, $query)) {
+        $message = "Response submitted successfully!";
+    } else {
+        $message = "Error: " . $query . "<br>" . mysqli_error($link);
+    }
+    
+    // Close the database connection
+    mysqli_close($link);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

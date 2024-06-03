@@ -1,4 +1,4 @@
-<?php include "navbar.php"; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -76,6 +76,6 @@
         </form>
     </div>
 
-    <?php include "footer.php"; ?>
+    
 </body>
 </html>

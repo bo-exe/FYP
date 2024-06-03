@@ -21,7 +21,7 @@ if (isset($_SESSION['userId'])) {
         include ("dbFunctions.php");
 
         //match the username and password entered with database record
-           $query = "SELECT id, username, password, name, dob, email FROM users 
+           $query = "SELECT id, username, password, email FROM users 
                   WHERE username='$entered_username' AND 
                   password = SHA1('$entered_password') AND
                   email = '$entered_email'";

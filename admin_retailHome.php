@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <br>
-<?php include "navbar.php"; ?>
+<?php include "admin_retailNavbar.php"; ?>
 <?php include "ft.php"; ?>
 <br></br>
 

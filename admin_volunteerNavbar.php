@@ -79,10 +79,10 @@
             <img src="images/admin_logo.jpg" alt="Logo" style="width: 100px;">
         </div>
         <ul>
-            <li><a href="retailAdminHome.php">HOME</a></li>
-            <li><a href="retail_manage.php">MANAGE</a></li>
-            <li><a href="retail_milestones">MILESTONES</a></li>
-            <li><a href="retail_milestones">PROFILE</a></li>
+            <li><a href="admin_volunteerHome.php">HOME</a></li>
+            <li><a href="admin_gigOverview.php">MANAGE</a></li>
+            <li><a href="admin_gigMilestone.php">MILESTONES</a></li>
+            <li><a href="admin_volunteerProfile.php">PROFILE</a></li>
             <li><a href=""><i class='bx bx-user' id="profile"></i></a></li>
         </ul>
     </nav>

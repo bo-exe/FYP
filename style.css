@@ -391,38 +391,3 @@ label {
     transform: scale(1.05);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-
-/* Volunteer Admin Card Test */
-.volunteeradmincard {
-    background-color: #FFD036;
-    border: none;
-    border-radius: 10px;
-    padding: 15px;
-    cursor: pointer;
-    transition: transform 0.2s ease-in-out;
-    width: 150px; /* Adjust as needed */
-    height: 200px; /* Adjust as needed */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.volunteeradmincard:hover {
-    color: #000; /* Ensure the text color remains black on hover */
-}
-
-.volunteeradmincard img {
-    width: 50px;
-    height: 50px; 
-    margin-bottom: 10px;
-}
-
-.volunteeradmincard:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.volunteeradmincardcontainer{
-    background-color: #FFF197;
-}

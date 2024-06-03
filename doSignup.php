@@ -1,40 +1,49 @@
 <?php
 session_start();
+$msg = "";
 
-// Include the file that contains the common database connection code
-include "dbFunctions.php";
+//check whether session variable 'user_id' is set
+//in other words, check whether the user is already logged in
+if (isset($_SESSION['userId'])) {
+    $msg = "You are already logged in.";
+} else { //user is not logged in
+    //check whether form input 'username' contains value
+    if (isset($_POST['username'])) {
 
-// Check if the form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Retrieve form data
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+        //retrieve form data
+        $entered_username = $_POST['username'];
+        $entered_password = $_POST['password'];
+        $entered_email = $_POST['email'];
+        
+        
+        
+        //connect to database
+        include ("dbFunctions.php");
 
-    // Hash the password
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        //match the username and password entered with database record
+           $query = "SELECT id, username, password, name, dob, email FROM users 
+                  WHERE username='$entered_username' AND 
+                  password = SHA1('$entered_password') AND
+                  email = '$entered_email'";
+        $result = mysqli_query($link, $query) or die(mysqli_error($link));
 
-    // Prepare and bind SQL statement
-    $query = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
-    $stmt = mysqli_prepare($link, $query);
-    mysqli_stmt_bind_param($stmt, 'sss', $username, $email, $hashed_password);
+        //if record is found, store id and username into session
+        if (mysqli_num_rows($result) == 1) {
+            $row = mysqli_fetch_array($result);
+            $_SESSION['user_id'] = $row['id'];
+            $_SESSION['username'] = $row['username'];
+            $_SESSION['email'] = $row['email'];
+            
+            
+            $msg = "<p><i>You are logged in as " . $_SESSION['username'] . "</p>"; 
+            $msg .= "<p><a href='home.php'>Home</a></p>";
 
-    // Execute the statement
-    if (mysqli_stmt_execute($stmt)) {
-        // Redirect to the login page
-        header("Location: login.php");
-        exit;
-    } else {
-        // Display an error message if the query fails
-        echo "Error: " . mysqli_error($link);
-    }
-
-    // Close the statement and database connection
-    mysqli_stmt_close($stmt);
-    mysqli_close($link);
-} else {
-    // If the form was not submitted, redirect to the signup page
-    header("Location: signup.php");
-    exit;
+            
+            header("location: Register.php");
+        } else { //record not found
+            $msg = "Sorry, you must enter a valid username 
+                    and password to log in.";
+        }
+    } 
 }
 ?>

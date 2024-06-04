@@ -46,7 +46,7 @@ if (mysqli_num_rows($resultCheck) == 1) {
     exit(); // Ensure no further code is executed after redirection
 } else {
     $msg = "<p>Sorry, you must enter a valid username and password to log in</p>";
-    $msg .= "<p><a href='login.php'>Go back to login page</a></p>";
+    $msg .= "<p><a href='admin_login.php'>Go back to login page</a></p>";
 }
 ?>
 

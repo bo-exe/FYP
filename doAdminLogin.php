@@ -9,13 +9,13 @@ $entered_password = $_POST['password'];
 
 $msg = "";
 
-$queryCheck = "SELECT * FROM users WHERE username='$entered_username' AND password='$entered_password'";
+$queryCheck = "SELECT * FROM admins WHERE username='$entered_username' AND password='$entered_password'";
 
 $resultCheck = mysqli_query($link, $queryCheck) or die(mysqli_error($link));
 
 if (mysqli_num_rows($resultCheck) == 1) {
     $row = mysqli_fetch_array($resultCheck);
-    $_SESSION['userId'] = $row['userId'];
+    $_SESSION['adminID'] = $row['adminID'];
     $_SESSION['username'] = $row['username'];
     $_SESSION['role'] = $row['role'];
     $_SESSION['Approval_Status'] = 0;

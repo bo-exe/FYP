@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -183,7 +187,7 @@ nav {
             </div>
         </div>
     </div>
-    <p>@username041924</p>
+    <p>@<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'Guest'; ?></p>
 </section>
 
     <section class="container">
@@ -217,7 +221,7 @@ nav {
                 <a href="#store-slide-3" class="dot"></a>
             </div>
         </div>
-        <a href="all_vouchers.php" class="about-btn">See More</a>
+        <a href="all_stores.php" class="about-btn">See More</a>
     </section>
 
 

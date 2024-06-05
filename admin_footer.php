@@ -140,6 +140,7 @@
 </style>
 </head>
 <body>
+<?php include "ft.php"; ?>
     <!-- Footer Section -->
     <footer class="footer">
         <div class="footer-content">
@@ -175,7 +176,7 @@
                 </div>
             </div>
             <div class="footer-iconTop">
-                <a href="index.php"><i class='bx bx-up-arrow-alt'></i></a>
+                <a href="#"><i class='bx bx-up-arrow-alt'></i></a>
             </div>
             <div class="copyright">
                 <p>&copy; VOMO. All Rights Reserved.</p>

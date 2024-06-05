@@ -105,10 +105,10 @@
             </div>
         </div> -->
         <ul>
-            <li><a href="retailAdminHome.php">HOME</a></li>
-            <li><a href="retail_manage.php">MANAGE</a></li>
-            <li><a href="retail_scanQR">SCANNER</a></li>
-            <li><a href="retail_milestones">MILESTONES</a></li>
+            <li><a href="admin_retailHome.php">HOME</a></li>
+            <li><a href="admin_retailManage.php">MANAGE</a></li>
+            <li><a href="admin_retailScanner.php">SCANNER</a></li>
+            <li><a href="admin_retailMilestones.php">MILESTONES</a></li>
             <li><a href=""><i class='bx bx-user' id="profile"></i></a></li>
         </ul>
     </nav>

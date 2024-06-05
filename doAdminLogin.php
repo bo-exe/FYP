@@ -9,15 +9,16 @@ $entered_password = $_POST['password'];
 
 $msg = "";
 
-$queryCheck = "SELECT * FROM volunteers WHERE username='$entered_username' AND password='$entered_password'";
+$queryCheck = "SELECT * FROM admins WHERE username='$entered_username' AND password='$entered_password'";
 
 $resultCheck = mysqli_query($link, $queryCheck) or die(mysqli_error($link));
 
 if (mysqli_num_rows($resultCheck) == 1) {
     $row = mysqli_fetch_array($resultCheck);
-    $_SESSION['volunteerID'] = $row['volunteerID'];
+    $_SESSION['adminID'] = $row['adminID'];
     $_SESSION['username'] = $row['username'];
-    $_SESSION['role'] = $row['role']; // Assuming you have a 'role' column in your users table
+    $_SESSION['role'] = $row['role'];
+    $_SESSION['Approval_Status'] = 0;
 
     // Set the 'rememberUsername' cookie if the "Remember Me" checkbox is checked
     if (isset($_POST['remember'])) {
@@ -29,17 +30,23 @@ if (mysqli_num_rows($resultCheck) == 1) {
 
     // Redirect based on user role
     switch ($_SESSION['role']) {
-        case 'volunteer':
-            header("Location: index.php");
+        case 'retailAdmin':
+            header("Location: admin_retailHome.php");
+            break;
+        case 'volunteerAdmin':
+            header("Location: admin_volunteerHome.php");
+            break;
+        case 'vomoAdmin':
+            header("Location: admin_vomoHome.php");
             break;
         default:
-            header("Location: index.php.php");
+            header("Location: activityAdminHome.php");
             break;
     }
     exit(); // Ensure no further code is executed after redirection
 } else {
     $msg = "<p>Sorry, you must enter a valid username and password to log in</p>";
-    $msg .= "<p><a href='login.php'>Go back to login page</a></p>";
+    $msg .= "<p><a href='admin_login.php'>Go back to login page</a></p>";
 }
 ?>
 
@@ -61,7 +68,6 @@ if (mysqli_num_rows($resultCheck) == 1) {
     </style>
 </head>
 <body>
-    <?php include "navbar.php"; ?>
         
     <div style="text-align: center;">
         <?php echo $msg; ?>

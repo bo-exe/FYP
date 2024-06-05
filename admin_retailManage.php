@@ -87,7 +87,7 @@ while ($row = mysqli_fetch_array($result)) {
 </style>
 
 <body>
-<?php include "retail_navbar.php"; ?>
+<?php include "admin_retailnavbar.php"; ?>
     <?php include "ft.php"; ?>
     <br>
     <h1>Organisation Vouchers</h1>

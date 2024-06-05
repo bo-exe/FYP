@@ -14,19 +14,19 @@
 
     <div class="retailbuttons-container">
         <button class="retailbutton" id="button1">
-            <a href="retail_manage.php">
+            <a href="admin_retailManage.php">
                 <img src="images/coin.jpg" alt="Icon 1">
                 <br>MANAGE CURRENT OFFERS
             </a>
         </button>
         <button class="retailbutton" id="button2">
-            <a href="retail_manage.php">
+            <a href="admin_retailManage.php">
                 <img src="images/wand.jpg" alt="Icon 2">
                 <br>CREATE CURRENT OFFERS
             </a>
         </button>
         <button class="retailbutton" id="button3">
-            <a href="retail_milestones.php">
+            <a href="admin_retailMilestones.php">
                 <img src="images/milestones.jpg" alt="Icon 3">
                 <br>MILESTONES
             </a>

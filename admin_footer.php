@@ -147,7 +147,7 @@
             <div class="footer-row">
             <a href="index.php">
                 <div class="logo-container">
-                    <img src="images/admin_logo.jpg" alt="logo" class="logo">
+                    <img src="images/adminlogo.jpg" alt="logo" class="logo">
                 </div>
             </a>
                 <div class="footer-columns">

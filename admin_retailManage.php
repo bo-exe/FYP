@@ -84,6 +84,22 @@ while ($row = mysqli_fetch_array($result)) {
         color: #FFF5F5;
         font-weight: bold;
     }
+    .add-btn {
+        display: inline-block;
+        padding: 8px 16px;
+        background-color: #BFB7B7;
+        text-decoration: none;
+        border-radius: 30px;
+        color: #FFF5F5;
+        font-weight: bold;
+        margin-top: 20px;
+    }
+
+    .add-btn-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
 </style>
 
 <body>
@@ -117,7 +133,9 @@ while ($row = mysqli_fetch_array($result)) {
         </div>
     <?php } ?>
     </div>
-
+    <div class="add-btn-container">
+        <a href="addOffer.php" class="add-btn">Add More</a>
+    </div>
 
     <script src="script.js"></script>
     <?php include "admin_footer.php"; ?>

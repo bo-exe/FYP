@@ -33,13 +33,13 @@ if (mysqli_num_rows($resultCheck) == 1) {
             header("Location: index.php");
             break;
         case 'retail':
-            header("Location: retailAdminHome.php");
+            header("Location: admin_retailHome.php");
             break;
         case 'team':
-            header("Location: teamAdminHome.php");
+            header("Location: admin_teamHome.php");
             break;
         default:
-            header("Location: activityAdminHome.php");
+            header("Location: admin_activityHome.php");
             break;
     }
     exit(); // Ensure no further code is executed after redirection

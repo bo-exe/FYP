@@ -33,7 +33,7 @@ while ($row = mysqli_fetch_array($result)) {
             overflow: hidden;
             box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
             margin: 20px;
-            height: 300px;
+            height: auto;
             text-decoration: none;
             color: inherit;
             position: relative;
@@ -45,7 +45,7 @@ while ($row = mysqli_fetch_array($result)) {
         }
 
         .offer-card-content {
-            padding: 1px;
+            padding: 15px;
         }
 
         .offer-card-content h2 {
@@ -58,7 +58,7 @@ while ($row = mysqli_fetch_array($result)) {
             color: #333333;
             font-size: 15px;
             line-height: 1.3;
-            margin-left: 10px;
+            margin-bottom: 10px;
         }
 
         .offer-card-content .del-btn {
@@ -70,7 +70,7 @@ while ($row = mysqli_fetch_array($result)) {
             margin-top: 16px;
             color: #FFF5F5;
             font-weight: bold;
-            margin-left: 10px;
+            margin-right: 10px;
             margin-bottom: 10px;
         }
 
@@ -81,10 +81,9 @@ while ($row = mysqli_fetch_array($result)) {
             text-decoration: none;
             border-radius: 30px;
             margin-top: 16px;
-            margin-left: 160px;
-            margin-bottom: 10px;
             color: #FFF5F5;
             font-weight: bold;
+            margin-bottom: 10px;
         }
 
         .add-btn {
@@ -117,7 +116,12 @@ while ($row = mysqli_fetch_array($result)) {
         foreach ($arrContent as $offerData) {
             $offerId = $offerData['offerId'];
             $title = $offerData['title'];
+            $dateTimeStart = $offerData['dateTimeStart'];
             $dateTimeEnd = $offerData['dateTimeEnd'];
+            $locations = $offerData['locations'];
+            $termsAndConditions = $offerData['tandc'];
+            $points = $offerData['points'];
+            $amount = $offerData['amount'];
             $picture = $offerData['images'];
 
             // If no picture is available, use a default image
@@ -126,12 +130,17 @@ while ($row = mysqli_fetch_array($result)) {
             }
         ?>
             <div class="offer-card">
-                <a href="admin_retailVoucher.php?offerId=<?php echo $offerId; ?>" style="text-decoration: none; color: inherit;">
+                <a href="admin_retailEdit.php?offerId=<?php echo $offerId; ?>" style="text-decoration: none; color: inherit;">
                     <img src="Images/<?php echo $picture; ?>" alt="<?php echo $title; ?>" class="card-img-top">
                     <div class="offer-card-content">
                         <input type="hidden" name="offerId" value="<?php echo $offerId; ?>">
                         <h2 class="card-title"><?php echo $title; ?></h2>
-                        <p class="card-text">Use By: <?php echo $dateTimeEnd; ?></p>
+                        <p class="card-text"><b>Start Date:</b> <?php echo $dateTimeStart; ?></p>
+                        <p class="card-text"><b>End Date:</b> <?php echo $dateTimeEnd; ?></p>
+                        <p class="card-text"><b>Locations:</b> <?php echo $locations; ?></p>
+                        <p class="card-text"><b>T&C:</b> <?php echo $termsAndConditions; ?></p>
+                        <p class="card-text"><b>Points:</b> <?php echo $points; ?></p>
+                        <p class="card-text"><b>Amount:</b> <?php echo $amount; ?></p>
                     </div>
                 </a>
                 <div class="offer-card-content">

@@ -19,7 +19,7 @@ if (isset($_GET['offerId'])) {
         $dateTimeStart = $row['dateTimeStart'];
         $dateTimeEnd = $row['dateTimeEnd'];
         $locations = $row['locations'];
-        $termsAndConditions = $row['t&c'];
+        $termsAndConditions = $row['tandc'];
         $points = $row['points'];
         $amount = $row['amount'];
         $image = $row['images'];

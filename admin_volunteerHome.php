@@ -12,6 +12,27 @@
 <?php include "ft.php"; ?>
 <br></br>
 
+    <?php
+    session_start();
+    if (isset($_SESSION['username'])) 
+        {
+        $username = $_SESSION['username'];
+        echo "@" . htmlspecialchars($username); 
+        }
+    ?>
+    
+    <div class="volunteeradmin-cardcontainer">
+        <div class="volunteeradmin-card">
+            <div class="volunteeradmin-cardbody">
+                <img src="images/exercise.png" alt="Icon 1">
+            </div>
+            <div class="volunteeradmin-cardfooter">
+                Manage <br>
+                Current Gigs
+            </div>
+        </div>
+    </div>
+
     <div class="volunteeradminbuttons-container">
         <button class="volunteeradminbutton" id="button1">
             <a href="admin_gigOverview.php">
@@ -34,7 +55,6 @@
         </button>
 </div>
 
-<!-- Footer Section -->
 <footer class="footer">
     <div class="footer-content">
         <div class="logo-container">

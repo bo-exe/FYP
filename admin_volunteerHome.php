@@ -20,43 +20,53 @@
         echo "@" . htmlspecialchars($username); 
         }
     ?>
-    
-    <div class="volunteeradmin-cardcontainer">
-        <div class="volunteeradmin-card">
-            <a href="admin_gigOverview.php">
-            <div class="volunteeradmin-cardbody">
-                <img src="images/exercise.png" alt="Icon 1">
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="volunteeradmin-card">
+                <a href="admin_gigOverview.php">
+                    <div class="volunteeradmin-cardbody">
+                        <img src="images/exercise.png" alt="Icon 1">
+                    </div>
+                    <div class="volunteeradmin-cardfooter">
+                        Manage <br>
+                        Current Gigs
+                    </div>
+                </a>
             </div>
-            <div class="volunteeradmin-cardfooter">
-                Manage <br>
-                Current Gigs
+        </div>
+
+        <div class="col-md-6">
+            <div class="volunteeradmin-card">
+                <a href="admin_addGig.php">
+                    <div class="volunteeradmin-cardbody">
+                        <img src="images/wand.jpg" alt="Icon 2">
+                    </div>
+                    <div class="volunteeradmin-cardfooter">
+                        Create <br>
+                        New Gigs
+                    </div>
+                </a>
             </div>
-            </a>
+        </div>
+
+        <div class="col-md-12">
+            <div class="volunteeradmin-card">
+                <a href="admin_gigMilestone.php">
+                    <div class="volunteeradmin-cardbody">
+                        <img src="images/milestones.jpg" alt="Icon 3">
+                    </div>
+                    <div class="volunteeradmin-cardfooter">
+                        Milestones Reached
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
-
-    <div class="volunteeradminbuttons-container">
-        <button class="volunteeradminbutton" id="button1">
-            <a href="admin_gigOverview.php">
-                <img src="images/exercise.png" alt="Icon 1">
-                <br>Manage Current Gigs
-            </a>
-        </button>
-
-        <button class="volunteeradminbutton" id="button2">
-            <a href="admin_addGig.php">
-                <img src="images/wand.jpg" alt="Icon 2">
-                <br>Create New Gigs
-            </a>
-        </button>
-        <button class="volunteeradminbutton" id="button3">
-            <a href="admin_gigMilestone.php">
-                <img src="images/milestones.jpg" alt="Icon 3">
-                <br>Milestones Reached
-            </a>
-        </button>
 </div>
 
+        </div>
 <footer class="footer">
     <div class="footer-content">
         <div class="logo-container">

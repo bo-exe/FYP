@@ -394,8 +394,18 @@ label {
 
 .volunteeradmin-card {
     background-color: #FFD036;
+    border-radius: 15px;
+    overflow: hidden;
 }
 
 .volunteeradmin-cardfooter {
     background-color: #FFF197;
+    padding: 10px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.volunteeradmin-cardbodyimg {
+    width: 192px;
+    height: auto;
 }

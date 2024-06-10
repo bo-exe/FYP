@@ -23,6 +23,7 @@
     
     <div class="volunteeradmin-cardcontainer">
         <div class="volunteeradmin-card">
+            <a href="admin_gigOverview.php">
             <div class="volunteeradmin-cardbody">
                 <img src="images/exercise.png" alt="Icon 1">
             </div>
@@ -30,6 +31,7 @@
                 Manage <br>
                 Current Gigs
             </div>
+            </a>
         </div>
     </div>
 

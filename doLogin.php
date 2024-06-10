@@ -9,7 +9,7 @@ $entered_password = $_POST['password'];
 
 $msg = "";
 
-$queryCheck = "SELECT * FROM users WHERE username='$entered_username' AND password='$entered_password'";
+$queryCheck = "SELECT * FROM users AND admins WHERE username='$entered_username' AND password='$entered_password'";
 
 $resultCheck = mysqli_query($link, $queryCheck) or die(mysqli_error($link));
 
@@ -32,14 +32,17 @@ if (mysqli_num_rows($resultCheck) == 1) {
         case 'volunteer':
             header("Location: index.php");
             break;
-        case 'retail':
+        case 'retailAdmin':
             header("Location: admin_retailHome.php");
             break;
-        case 'team':
-            header("Location: admin_teamHome.php");
+        case 'vomoAdmin':
+            header("Location: admin_vomoHome.php");
             break;
+        case 'volunteerAdmin':
+            header("Location: admin_volunteerHome.php");
+            break;    
         default:
-            header("Location: admin_activityHome.php");
+            header("Location: index.php");
             break;
     }
     exit(); // Ensure no further code is executed after redirection

@@ -74,16 +74,43 @@
 }
 </style>
 <body>
-    <nav class="navbar-admin">
+    <nav class="navbar-volunteeradmin">
         <div class="logo">
             <img src="images/admin_logo.jpg" alt="Logo" style="width: 100px;">
         </div>
         <ul>
-            <li><a href="admin_volunteerHome.php">HOME</a></li>
-            <li><a href="admin_gigOverview.php">MANAGE</a></li>
-            <li><a href="admin_gigMilestone.php">MILESTONES</a></li>
-            <li><a href="admin_volunteerProfile.php">PROFILE</a></li>
-            <li><a href=""><i class='bx bx-user' id="profile"></i></a></li>
+            <li>
+                <a href="admin_volunteerHome.php">
+                    <img src="images/navhome.png" alt="Home Icon" class="volunteernav-icon">
+                    HOME
+                </a>
+            </li>
+
+            <li>
+                <a href="admin_gigOverview.php">
+                    <img src="images/navmanage.png" alt="Manage Icon" class="volunteernav-icon">
+                    MANAGE
+                </a>
+            </li>
+
+            <li>
+                <a href="admin_gigMilestone.php">
+                    <img src="images/navmilestones.png" alt="Milestones Icon" class="volunteernav-icon">
+                    MILESTONES
+                </a>
+            </li>
+
+            <li>
+                <a href="admin_volunteerProfile.php">
+                <img src="images/navprofile.png" alt="Profile Icon" class="volunteernav-icon">
+                    PROFILE
+                </a>
+            </li>
+
+            <li>
+                <a href=""><i class='bx bx-user' id="profile"></i>
+            </a>
+            </li>
         </ul>
     </nav>
     <script src="script.js"></script>

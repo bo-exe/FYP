@@ -12,6 +12,8 @@ $msg = "";
 $queryCheck = "
 (SELECT * FROM admins WHERE username='$entered_username' AND password='$entered_password')";
 
+$_SESSION['approval_status'] = $row['approval_status'];
+
 $resultCheck = mysqli_query($link, $queryCheck) or die(mysqli_error($link));
 
 if (mysqli_num_rows($resultCheck) == 1 && $row['approval_status'] == 1) {

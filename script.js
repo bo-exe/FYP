@@ -35,8 +35,25 @@ domReady(function () {
     htmlscanner.render(onScanSuccess);
 });
 
-document.querySelectorAll('.slider-nav .dot').forEach((dot, index) => {
-    dot.addEventListener('click', () => {
-        document.querySelector('.slider').style.transform = `translateX(-${index * 100}%)`;
+// Slider Homepage
+document.addEventListener('DOMContentLoaded', function () {
+    const sliders = document.querySelectorAll('.slider-wrapper');
+
+    sliders.forEach(wrapper => {
+        const slider = wrapper.querySelector('.slider');
+        const dots = wrapper.querySelectorAll('.dot');
+
+        dots.forEach(dot => {
+            dot.addEventListener('click', function () {
+                const slideIndex = parseInt(this.getAttribute('data-slide'), 10) - 1;
+                const slideWidth = slider.querySelector('img').clientWidth;
+                slider.style.transform = `translateX(-${slideWidth * slideIndex}px)`;
+
+                // Remove active class from all dots
+                dots.forEach(d => d.classList.remove('active'));
+                // Add active class to the clicked dot
+                this.classList.add('active');
+            });
+        });
     });
 });

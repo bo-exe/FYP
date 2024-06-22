@@ -120,10 +120,12 @@
     border: .2rem solid #333;
     outline: .3rem solid transparent;
     transition: .5s ease;
+    text-decoration: none;
 }
 
 .footer-iconTop a:hover {
     color: #fff;
+    text-decoration: none;
 }
 
 .copyright {
@@ -140,6 +142,7 @@
 </style>
 </head>
 <body>
+<?php include "ft.php"; ?>
     <!-- Footer Section -->
     <footer class="footer">
         <div class="footer-content">

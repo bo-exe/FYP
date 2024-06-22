@@ -21,11 +21,7 @@
 }
 
 .logo {
-    margin-right: auto;
-}
-
-.search-bar {
-    margin-right: 20px;
+    width: 100%;
 }
 
 .navbar-volunteeradmin ul {
@@ -109,11 +105,6 @@
                 <img src="images/navprofile.png" alt="Profile Icon" class="volunteernav-icon">
                     PROFILE
                 </a>
-            </li>
-
-            <li>
-                <a href="admin_volunteerProfile.php"><i class='bx bx-user' id="profile"></i>
-            </a>
             </li>
         </ul>
     </nav>

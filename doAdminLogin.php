@@ -9,14 +9,11 @@ $entered_password = $_POST['password'];
 
 $msg = "";
 
-$queryCheck = "
-(SELECT * FROM admins WHERE username='$entered_username' AND password='$entered_password')";
-
-$_SESSION['approval_status'] = $row['approval_status'];
+$queryCheck = "SELECT * FROM admins WHERE username='$entered_username' AND password='$entered_password' AND approval_status='1'";
 
 $resultCheck = mysqli_query($link, $queryCheck) or die(mysqli_error($link));
 
-if (mysqli_num_rows($resultCheck) == 1 && $row['approval_status'] == 1) {
+if (mysqli_num_rows($resultCheck) == 1) {
     $row = mysqli_fetch_array($resultCheck);
     $_SESSION['adminID'] = $row['adminID'];
     $_SESSION['username'] = $row['username'];
@@ -49,13 +46,11 @@ if (mysqli_num_rows($resultCheck) == 1 && $row['approval_status'] == 1) {
             break;
     }
     exit(); // Ensure no further code is executed after redirection
-} else if (mysqli_num_rows($resultCheck) == 1 && $row['approval_status'] == 0) {
-    $msg = "<p>We are still processing your sign up approval. Please wait till then to log in.</p>";
-    $msg .= "<p><a href='login.php'>Go back to login page</a></p>";
 }
 
 else {
-    $msg = "<p>Sorry, you must enter a valid username and password to log in</p>";
+    $msg = "<p>Sorry, you must enter a valid username and password to log in.</p>";
+    $msg .= "<p>If you have already signed up, please wait for your account's apporval before logging in.</p>";
     $msg .= "<p><a href='login.php'>Go back to login page</a></p>";
 }
 ?>

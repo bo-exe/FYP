@@ -76,7 +76,7 @@ while ($row = mysqli_fetch_array($result)) {
 
         .offer-card-content .edit-btn {
             display: inline-block;
-            padding: 8px 16px;
+            padding: 8px 20px;
             background-color: #FFD036;
             text-decoration: none;
             border-radius: 30px;

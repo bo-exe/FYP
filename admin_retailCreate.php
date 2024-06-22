@@ -123,7 +123,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <label>Amount:</label><br>
             <input type="number" name="amount" min="0" required><br>
             <label>Images:</label><br>
-            <input type="file" name="images" accept="images/*" required><br><br>
+            <input type="file" name="images" accept="images/" required><br><br>
             <input type="submit" value="Add Offer">
         </form>
     <?php endif; ?>

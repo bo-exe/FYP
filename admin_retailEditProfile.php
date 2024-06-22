@@ -2,7 +2,7 @@
 session_start();
 
 // Check if user is logged in
-if (!isset($_SESSION['userId'])) {
+if (!isset($_SESSION['adminId'])) {
     // Redirect to login page if not logged in
     header("Location: login.php");
     exit();
@@ -10,10 +10,10 @@ if (!isset($_SESSION['userId'])) {
 include "dbFunctions.php";
 
 // Fetch user data from database based on session userId
-$userId = $_SESSION['userId'];
-$query = "SELECT * FROM users WHERE userId = ?";
+$adminId = $_SESSION['adminId'];
+$query = "SELECT * FROM admins WHERE adminId = ?";
 $stmt = mysqli_prepare($link, $query);
-mysqli_stmt_bind_param($stmt, "i", $userId);
+mysqli_stmt_bind_param($stmt, "i", $adminId);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 
@@ -40,9 +40,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate and update other fields as needed
 
     // Update user data in the database
-    $query = "UPDATE users SET username = ?, email = ?, number = ? WHERE userId = ?";
+    $query = "UPDATE admins SET username = ?, email = ?, number = ? WHERE adminId = ?";
     $stmt = mysqli_prepare($link, $query);
-    mysqli_stmt_bind_param($stmt, "sssi", $username, $email, $number, $userId);
+    mysqli_stmt_bind_param($stmt, "sssi", $username, $email, $number, $adminId);
     if (mysqli_stmt_execute($stmt)) {
         // Update session variables if necessary
         $_SESSION['username'] = $username; // Update session with new username if changed

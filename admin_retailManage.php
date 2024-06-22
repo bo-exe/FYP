@@ -42,6 +42,7 @@ while ($row = mysqli_fetch_array($result)) {
         .offer-card img {
             width: 100%;
             height: 165px;
+            object-fit: cover;
         }
 
         .offer-card-content {
@@ -110,44 +111,44 @@ while ($row = mysqli_fetch_array($result)) {
     <?php include "admin_retailNavBar.php"; ?>
     <?php include "ft.php"; ?>
 
-    <br></br><br></br>
+    <br><br>
     <h1>Organisation Vouchers</h1>
     <div class="offer-card-container">
-    <?php
-    foreach ($arrContent as $offerData) {
-        $offerId = $offerData['offerId'];
-        $title = $offerData['title'];
-        $dateTimeEnd = $offerData['dateTimeEnd'];
-        $picture = $offerData['images'];
+        <?php foreach ($arrContent as $offerData) : ?>
+            <?php
+            $offerId = $offerData['offerId'];
+            $title = $offerData['title'];
+            $dateTimeEnd = $offerData['dateTimeEnd'];
+            $picture = $offerData['images'];
 
-        // If no picture is available, use a default image
-        if ($picture == "none") {
-            $picture = "none.png";
-        }
-    ?>
-        <div class="offer-card">
-            <a href="admin_retailVoucher.php?offerId=<?php echo $offerId; ?>" style="text-decoration: none; color: inherit;">
-                <img src="Images/<?php echo $picture; ?>" alt="<?php echo $title; ?>" class="card-img-top">
+            // Convert BLOB data to base64 encoded image
+            $imageSrc = 'data:image/jpeg;base64,' . base64_encode($picture);
+
+            // If no picture is available, use a default image
+            if (empty($picture)) {
+                $imageSrc = 'images/none.png'; // Provide path to your default image
+            }
+            ?>
+            <div class="offer-card">
+                <a href="admin_retailVoucher.php?offerId=<?php echo $offerId; ?>" style="text-decoration: none; color: inherit;">
+                    <img src="<?php echo $imageSrc; ?>" alt="<?php echo $title; ?>" class="card-img-top">
+                    <div class="offer-card-content">
+                        <h2 class="card-title"><?php echo $title; ?></h2>
+                        <p class="card-text">Use By: <?php echo $dateTimeEnd; ?></p>
+                    </div>
+                </a>
                 <div class="offer-card-content">
-                    <input type="hidden" name="offerId" value="<?php echo $offerId; ?>">
-                    <h2 class="card-title"><?php echo $title; ?></h2>
-                    <p class="card-text">Use By: <?php echo $dateTimeEnd; ?></p>
+                    <a href="admin_retailDelete.php?offerId=<?php echo $offerId; ?>" class="del-btn">Delete</a>
+                    <a href="admin_retailEdit.php?offerId=<?php echo $offerId; ?>" class="edit-btn">Edit</a>
                 </div>
-            </a>
-            <div class="offer-card-content">
-                <a href="admin_retailDelete.php?offerId=<?php echo $offerId; ?>" class="del-btn">Delete</a>
-                <a href="admin_retailEdit.php?offerId=<?php echo $offerId; ?>" class="edit-btn">Edit</a>
             </div>
-        </div>
-    <?php } ?>
-</div>
+        <?php endforeach; ?>
+    </div>
 
     <div class="add-btn-container">
         <a href="admin_retailCreate.php" class="add-btn">Add More</a>
     </div>
 
-    <script src="script.js"></script>
-    <br></br>
     <?php include "admin_footer.php"; ?>
 </body>
 

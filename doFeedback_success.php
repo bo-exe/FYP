@@ -1,9 +1,35 @@
+<?php
+session_start();
+include "dbFunctions.php";
+include "ft.php";
+
+// Check if form data has been submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $date = $_POST['date'];
+    $username = $_POST['username'];
+    $description = $_POST['description'];
+    
+    $date = mysqli_real_escape_string($link, $date);
+    $username = mysqli_real_escape_string($link, $username);
+    $description = mysqli_real_escape_string($link, $description);
+
+    $query = "INSERT INTO feedback (date, username, description) VALUES ('$date', '$username', '$description')";
+    if (mysqli_query($link, $query)) {
+        $message = "Feedback submitted successfully!";
+    } else {
+        $message = "Error: " . $query . "<br>" . mysqli_error($link);
+    }
+    
+    // Close the database connection
+    mysqli_close($link);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us</title>
+    <title>Feedback</title>
     <link rel="icon" type="image/x-icon" href="images/logo.jpg">
     <link rel="stylesheet" href="style.css">
     <style>
@@ -45,32 +71,15 @@
 <body>
     <br>
     <div class="container">
-    <img src="images/logo.jpg" alt="Description of the image" width="300" height="200">
-        <form method="post" action="doContactUs_success.php">
-            <h2 class="text-center mb-4">Contact Us!</h2>
-            <div class="form-group">
-                <label for="date">Date of Issue</label>
-                <input type="date" class="form-control" name="date" required>
-            </div>
-            <div class="form-group">
-                <label for="uname">Username</label>
-                <input type="text" class="form-control" placeholder="Enter Username" name="username" required>
-            </div>
-            <div class="form-group">
-                <label for="description"></label>
-                <input type="text" class="form-control" placeholder="Describe your problem.." name="description" required>
-            </div>
+        <img src="images/logo.jpg" alt="Logo" width="300" height="200">
+        <form method="post" action="index.php">
+            <h2 class="text-center mb-4">Feedback Form</h2>
+            <h3 class="text-center mb-4">Sent Successfully</h3>
+            <img src="images/tick.jpg" alt="Tick" height="150" width="150">
             <div class="text-center">
-                <button type="submit" class="btn btn-dark btn-block">Submit form</button>
+                <button type="submit" class="btn btn-block">Back</button>
             </div>
         </form>
     </div>
-    <p class="form-text text-center mt-3">Call for Support (8am to 8pm)!
-        <br><br>
-        +65 9999 9999 
-        <br><br>
-        Email for Support (8am to 8pm)!
-        <br><br>
-        vomosupport@gmail.com</p>
 </body>
 </html>

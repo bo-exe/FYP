@@ -6,12 +6,47 @@
     <title>Feedback</title>
     <link rel="icon" type="image/x-icon" href="images/logo.jpg">
     <link rel="stylesheet" href="style.css">
+    <style>
+        .container {
+            background: #FFFFFF;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .btn {
+            padding: 0.3rem 0.7rem;
+            background: #FFD036;
+            border-radius: .6rem;
+            box-shadow: 0 .2rem .5rem #333;
+            font-size: 0.8rem;
+            color: #333;
+            letter-spacing: .1rem;
+            font-weight: 600;
+            border: .2rem solid transparent;
+            margin-top: 16px;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background: #FFD036;
+            color: #333; 
+            border: .2rem solid transparent;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <br>
-    <div class="login-container">
+    <div class="container">
     <img src="images/logo.jpg" alt="Description of the image" width="300" height="200">
-        <form method="post" action="doLogin.php">
+        <form method="post" action="doFeedback_success.php">
             <h2 class="text-center mb-4">Feeback Form</h2>
             <div class="form-group">
                 <label for="date">Date of Issue</label>

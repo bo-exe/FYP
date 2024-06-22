@@ -120,10 +120,12 @@
     border: .2rem solid #333;
     outline: .3rem solid transparent;
     transition: .5s ease;
+    text-decoration: none;
 }
 
 .footer-iconTop a:hover {
     color: #fff;
+    text-decoration: none;
 }
 
 .copyright {
@@ -151,12 +153,6 @@
                 </div>
             </a>
                 <div class="footer-columns">
-                    <div class="footer-column">
-                        <h4>ABOUT</h4>
-                        <ul>
-                            <li><a href="aboutUs.php#about">About VOMO</a></li>
-                        </ul>
-                    </div>
                     <div class="footer-column">
                         <h4>CONTACT US</h4>
                         <ul>

@@ -31,6 +31,30 @@ if (mysqli_num_rows($result) == 1) {
     exit();
 }
 
+// Handle form submission for updating user profile
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Sanitize and validate input data
+    $username = mysqli_real_escape_string($link, $_POST['username']);
+    $email = mysqli_real_escape_string($link, $_POST['email']);
+    $number = mysqli_real_escape_string($link, $_POST['number']);
+    // Validate and update other fields as needed
+
+    // Update user data in the database
+    $query = "UPDATE users SET username = ?, email = ?, number = ? WHERE userId = ?";
+    $stmt = mysqli_prepare($link, $query);
+    mysqli_stmt_bind_param($stmt, "sssi", $username, $email, $number, $userId);
+    if (mysqli_stmt_execute($stmt)) {
+        // Update session variables if necessary
+        $_SESSION['username'] = $username; // Update session with new username if changed
+
+        // Redirect to profile page with updated information
+        header("Location: userProfile.php");
+        exit();
+    } else {
+        // Handle update error
+        echo "Error updating profile: " . mysqli_error($link);
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -38,7 +62,7 @@ if (mysqli_num_rows($result) == 1) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
+    <title>Edit Profile</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
@@ -61,7 +85,7 @@ if (mysqli_num_rows($result) == 1) {
         .profile-details {
             margin-bottom: 20px;
         }
-        .btn-edit-profile {
+        .btn-save-profile {
             display: inline-block;
             padding: 8px 20px;
             background-color: #FFD036;
@@ -71,7 +95,7 @@ if (mysqli_num_rows($result) == 1) {
             text-decoration: none;
             transition: background-color 0.3s, color 0.3s;
         }
-        .btn-edit-profile:hover {
+        .btn-save-profile:hover {
             background-color: #ffcd00;
             color: white;
         }
@@ -109,26 +133,31 @@ if (mysqli_num_rows($result) == 1) {
 <?php include "ft.php"; ?>
     <div class="profile-container">
         <img src="images/admin_logo.jpg" alt="Admin Logo" class="logo">
-        <h1 class="profile-heading">User Profile</h1>
+        <h1 class="profile-heading">Edit Profile</h1>
         
-        <div class="profile-details">
-            <img src="images/<?php echo htmlspecialchars($profile_pic); ?>" alt="Profile Picture" class="profile-picture">
-            <p><strong>Username:</strong> <?php echo htmlspecialchars($username); ?></p>
-            <p><strong>Email:</strong> <?php echo htmlspecialchars($email); ?></p>
-            <p><strong>Company Number:</strong> <?php echo htmlspecialchars($number); ?></p>
-            <p><strong>Password: </strong></p>
-            <div class="password-container">
-                <input type="password" id="password" value="<?php echo htmlspecialchars($password); ?>" readonly>
-                <span class="toggle-password" onclick="togglePassword()">
-                    <i class="fas fa-eye"></i>
-                </span>
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+            <div class="profile-details">
+                <img src="images/<?php echo htmlspecialchars($profile_pic); ?>" alt="Profile Picture" class="profile-picture">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" value="<?php echo htmlspecialchars($username); ?>" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" required>
+                </div>
+                <div class="mb-3">
+                    <label for="number" class="form-label">Company Number</label>
+                    <input type="text" class="form-control" id="number" name="number" value="<?php echo htmlspecialchars($number); ?>" required>
+                </div>
+                <!-- Add more fields as needed for other user information -->
+                
+                <!-- Save button -->
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary btn-save-profile">Save Profile</button>
+                </div>
             </div>
-        </div>
-        
-        <div class="text-center">
-            <a href="admin_retailEditProfile.php" class="btn-edit-profile">Edit Profile</a>
-            <!-- Link to edit profile page -->
-        </div>
+        </form>
     </div>
 
     <script>

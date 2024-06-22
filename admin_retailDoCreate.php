@@ -12,7 +12,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $tandc = mysqli_real_escape_string($link, $_POST['tandc']);
     $points = intval($_POST['points']);
     $amount = floatval($_POST['amount']);
-    $images = mysqli_real_escape_string($link, $_POST['images']);
+    
+    // Handle image upload
+    if (isset($_FILES['images']) && $_FILES['images']['error'] == UPLOAD_ERR_OK) {
+        $imageTmpPath = $_FILES['images']['tmp_name'];
+        $imageName = basename($_FILES['images']['name']);
+        $uploadDir = 'images/';
+        $destPath = $uploadDir . $imageName;
+
+        if (move_uploaded_file($imageTmpPath, $destPath)) {
+            $images = mysqli_real_escape_string($link, $imageName);
+        } else {
+            $errorMessage = "Error uploading the image file.";
+            header("Location: form.php?error=" . urlencode($errorMessage));
+            exit();
+        }
+    } else {
+        $images = 'none.png';  // Default image if no image uploaded
+    }
 
     // Get the highest existing offerId from the database
     $query = "SELECT MAX(offerId) AS maxOfferId FROM offers";

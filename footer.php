@@ -170,7 +170,7 @@
                         <h4 class="social-text">SOCIALS:</h4>
                         <div class="social-icons">
                             <a href="https://www.instagram.com/vomo/?hl=en"><i class='bx bxl-instagram'></i></a>
-                            <a href="https://web.telegram.org/a/#vomo"><i class='bx bxl-telegram'></i></a>
+                            <a href=""><i class='bx bxl-telegram'></i></a>
                             <a href=""><i class='bx bxl-tiktok'></i></a>
                             <a href="https://mail.google.com/mail/u/0/?hl=en#inbox?compose=new"><i class='bx bx-envelope'></i></a>
                         </div>

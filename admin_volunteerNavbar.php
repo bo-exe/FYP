@@ -8,7 +8,7 @@
 </head>
 <style>
 /* Navbar styling */
-.navbar-admin {
+.navbar-volunteeradmin {
     width: 100%;
     background-color: #FFD036; 
     position: fixed;
@@ -28,18 +28,18 @@
     margin-right: 20px;
 }
 
-.navbar-admin ul {
+.navbar-volunteeradmin ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     display: flex;
 }
 
-.navbar-admin ul li {
+.navbar-volunteeradmin ul li {
     margin: 0;
 }
 
-.navbar-admin ul li a {
+.navbar-volunteeradmin ul li a {
     display: block;
     padding: 14px 20px;
     text-decoration: none;
@@ -47,7 +47,11 @@
     text-align: center;
 }
 
-.navbar-admin ul li a:hover {
+.navbar-volunteeradmin ul li img {
+    width: 15%;
+}
+
+.navbar-volunteeradmin ul li a:hover {
     background-color: #FFC107; 
     color: #555;
 }
@@ -58,7 +62,7 @@
 }
 
 @media (max-width: 768px) {
-    .navbar-admin {
+    .navbar-volunteeradmin {
         top: auto;
         bottom: 0;
         flex-direction: column;
@@ -108,7 +112,7 @@
             </li>
 
             <li>
-                <a href=""><i class='bx bx-user' id="profile"></i>
+                <a href="admin_volunteerProfile.php"><i class='bx bx-user' id="profile"></i>
             </a>
             </li>
         </ul>

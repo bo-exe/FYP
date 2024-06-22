@@ -108,7 +108,7 @@
             <li><a href="admin_retailManage.php">MANAGE</a></li>
             <li><a href="admin_retailScanner.php">SCANNER</a></li>
             <li><a href="admin_retailMilestones.php">MILESTONES</a></li>
-            <li><a href=""><i class='bx bx-user' id="profile"></i></a></li>
+            <li><a href="admin_retailProfile.php"><i class='bx bx-user' id="profile"></i></a></li>
         </ul>
     </nav>
     <script src="script.js"></script>

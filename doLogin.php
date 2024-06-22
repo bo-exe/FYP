@@ -9,7 +9,7 @@ $entered_password = $_POST['password'];
 
 $msg = "";
 
-$queryCheck = "SELECT * FROM users AND admins WHERE username='$entered_username' AND password='$entered_password'";
+$queryCheck = "SELECT * FROM users WHERE username='$entered_username' AND password='$entered_password'";
 
 $resultCheck = mysqli_query($link, $queryCheck) or die(mysqli_error($link));
 

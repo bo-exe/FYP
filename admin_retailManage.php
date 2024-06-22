@@ -113,34 +113,34 @@ while ($row = mysqli_fetch_array($result)) {
     <br></br><br></br>
     <h1>Organisation Vouchers</h1>
     <div class="offer-card-container">
-        <?php
-        foreach ($arrContent as $offerData) {
-            $offerId = $offerData['offerId'];
-            $title = $offerData['title'];
-            $dateTimeEnd = $offerData['dateTimeEnd'];
-            $picture = $offerData['images'];
+    <?php
+    foreach ($arrContent as $offerData) {
+        $offerId = $offerData['offerId'];
+        $title = $offerData['title'];
+        $dateTimeEnd = $offerData['dateTimeEnd'];
+        $picture = $offerData['images'];
 
-            // If no picture is available, use a default image
-            if ($picture == "none") {
-                $picture = "none.png";
-            }
-        ?>
-            <div class="offer-card">
-                <a href="admin_retailVoucher.php?offerId=<?php echo $offerId; ?>" style="text-decoration: none; color: inherit;">
-                    <img src="Images/<?php echo $picture; ?>" alt="<?php echo $title; ?>" class="card-img-top">
-                    <div class="offer-card-content">
-                        <input type="hidden" name="offerId" value="<?php echo $offerId; ?>">
-                        <h2 class="card-title"><?php echo $title; ?></h2>
-                        <p class="card-text">Use By: <?php echo $dateTimeEnd; ?></p>
-                    </div>
-                </a>
+        // If no picture is available, use a default image
+        if ($picture == "none") {
+            $picture = "none.png";
+        }
+    ?>
+        <div class="offer-card">
+            <a href="admin_retailVoucher.php?offerId=<?php echo $offerId; ?>" style="text-decoration: none; color: inherit;">
+                <img src="Images/<?php echo $picture; ?>" alt="<?php echo $title; ?>" class="card-img-top">
                 <div class="offer-card-content">
-                    <a href="admin_retailDelete.php?offerId=<?php echo $offerId; ?>" class="del-btn">Delete</a>
-                    <a href="admin_retailEdit.php?offerId=<?php echo $offerId; ?>" class="edit-btn">Edit</a>
+                    <input type="hidden" name="offerId" value="<?php echo $offerId; ?>">
+                    <h2 class="card-title"><?php echo $title; ?></h2>
+                    <p class="card-text">Use By: <?php echo $dateTimeEnd; ?></p>
                 </div>
+            </a>
+            <div class="offer-card-content">
+                <a href="admin_retailDelete.php?offerId=<?php echo $offerId; ?>" class="del-btn">Delete</a>
+                <a href="admin_retailEdit.php?offerId=<?php echo $offerId; ?>" class="edit-btn">Edit</a>
             </div>
-        <?php } ?>
-    </div>
+        </div>
+    <?php } ?>
+</div>
 
     <div class="add-btn-container">
         <a href="admin_retailCreate.php" class="add-btn">Add More</a>

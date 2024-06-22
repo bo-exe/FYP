@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 include "dbFunctions.php";
 session_start();
 include "ft.php";
@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errorMessage = "Error adding offer: " . mysqli_error($link);
     }
 }
-?>
+?> -->
 <!DOCTYPE html>
 <html>
 
@@ -121,9 +121,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <label>Points:</label><br>
             <input type="number" name="points" min="0" required><br>
             <label>Amount:</label><br>
-            <input type="number" name="amount" min="0" step="0.01" required><br>
+            <input type="number" name="amount" min="0" required><br>
             <label>Images:</label><br>
-            <input type="file" name="image" accept="image/*" required><br><br>
+            <input type="file" name="images" accept="images/*" required><br><br>
             <input type="submit" value="Add Offer">
         </form>
     <?php endif; ?>
@@ -131,7 +131,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </body>
 
 </html>
-```
-
-This modified code will add a new offer to the database, automatically assigning an `offerId` that is one more than the
-highest existing `offerId`.

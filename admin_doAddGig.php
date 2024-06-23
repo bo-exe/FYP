@@ -10,6 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $locations = mysqli_real_escape_string($link, $_POST['locations']);
     $descs = mysqli_real_escape_string($link, $_POST['descs']);
     $points = intval($_POST['points']);
+    $images = $_POST['eventImage'];
     
     // Handle image upload
     if (isset($_FILES['eventImage']) && $_FILES['eventImage']['error'] == UPLOAD_ERR_OK) {

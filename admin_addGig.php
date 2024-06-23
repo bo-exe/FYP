@@ -18,13 +18,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $query = "SELECT MAX(eventID) AS maxeventID FROM events";
     $result = mysqli_query($link, $query);
     $row = mysqli_fetch_assoc($result);
-    $maxOfferId = $row['maxeventID'];
+    $maxeventID = $row['maxeventID'];
 
-    // Increment the highest offerId by 1 to get the new offerId
+    // Increment the highest eventID by 1 to get the new eventID
     $neweventID = $maxeventID + 1;
 
     // Insert the new offer into the database
-    $insertQuery = "INSERT INTO offers (offerId, title, dateTimeStart, dateTimeEnd, locations, tandc, points, amount, images) 
+    $insertQuery = "INSERT INTO events (eventID, title, dateTimeStart, dateTimeEnd, location, desc, points, images) 
                     VALUES ('$neweventID', '$title', '$dateTimeStart', '$dateTimeEnd', '$location', '$points', '$desc', '$images')";
     if (mysqli_query($link, $insertQuery)) {
         $message = "Gig added successfully.";
@@ -99,7 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <?php include "admin_volunteerNavbar.php"; ?>
 <br></br>
 <div class="container">
-    <h2>Add Offer</h2>
+    <h2>Add Gigs</h2>
     <?php if (isset($errorMessage)): ?>
         <p>Error: <?php echo $errorMessage; ?></p>
     <?php endif; ?>

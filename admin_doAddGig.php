@@ -8,8 +8,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = mysqli_real_escape_string($link, $_POST['title']);
     $dateTimeStart = mysqli_real_escape_string($link, $_POST['dateTimeStart']);
     $dateTimeEnd = mysqli_real_escape_string($link, $_POST['dateTimeEnd']);
-    $location = mysqli_real_escape_string($link, $_POST['location']);
-    $desc = mysqli_real_escape_string($link, $_POST['desc']);
+    $locations = mysqli_real_escape_string($link, $_POST['locations']);
+    $descs = mysqli_real_escape_string($link, $_POST['descs']);
     $points = intval($_POST['points']);
     
     // Handle image upload
@@ -40,8 +40,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $neweventID = $maxeventID + 1;
 
     // Insert the new offer into the database
-    $insertQuery = "INSERT INTO events (eventID, title, dateTimeStart, dateTimeEnd, location, desc, points, images) 
-                    VALUES ('$neweventID', '$title', '$dateTimeStart', '$dateTimeEnd', '$location', '$desc', '$points', '$images')";
+    $insertQuery = "INSERT INTO events (eventID, title, dateTimeStart, dateTimeEnd, locations, descs, points, images) 
+                    VALUES ('$neweventID', '$title', '$dateTimeStart', '$dateTimeEnd', '$locations', '$descs', '$points', '$images')";
     if (mysqli_query($link, $insertQuery)) {
         $message = "Gig added successfully.";
     } else {

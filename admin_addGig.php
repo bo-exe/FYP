@@ -9,8 +9,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = $_POST['title'];
     $dateTimeStart = $_POST['dateTimeStart'];
     $dateTimeEnd = $_POST['dateTimeEnd'];
-    $location = $_POST['location'];
-    $desc = $_POST['desc'];
+    $locations = $_POST['locations'];
+    $descs = $_POST['descs'];
     $points = $_POST['points'];
     $images = $_POST['eventImage'];
 
@@ -24,8 +24,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $neweventID = $maxeventID + 1;
 
     // Insert the new offer into the database
-    $insertQuery = "INSERT INTO events (eventID, title, dateTimeStart, dateTimeEnd, location, desc, points, images) 
-                    VALUES ('$neweventID', '$title', '$dateTimeStart', '$dateTimeEnd', '$location', '$points', '$desc', '$images')";
+    $insertQuery = "INSERT INTO events (eventID, title, dateTimeStart, dateTimeEnd, locations, descs, points, images) 
+                    VALUES ('$neweventID', '$title', '$dateTimeStart', '$dateTimeEnd', '$locations', '$descs', '$points', '$images')";
     if (mysqli_query($link, $insertQuery)) {
         $message = "Gig added successfully.";
     } else {
@@ -114,9 +114,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <label>Date Time End:</label><br>
             <input type="datetime-local" name="dateTimeEnd" required><br>
             <label>Locations:</label><br>
-            <input type="text" name="location" required><br>
+            <input type="text" name="locations" required><br>
             <label>Event Description:</label><br>
-            <input type="text" name="desc" required><br>
+            <input type="text" name="descs" required><br>
             <label>Points:</label><br>
             <input type="number" name="points" min="0" required><br>
             <label>Event Image:</label><br>

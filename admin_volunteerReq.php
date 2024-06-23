@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 include "dbFunctions.php";
@@ -30,8 +29,8 @@ $resultCheck = mysqli_query($link, $queryCheck) or die(mysqli_error($link));
 <body>
     <h1>Volunteer Approval Requests</h1>
     <?php
-    if ($result->num_rows > 0) {
-        while($row = $result->fetch_assoc()) {
+    if (mysqli_num_rows($resultCheck) > 0) {
+        while($row = mysqli_fetch_assoc($resultCheck)) {
             echo "<div class='card'>";
             echo "<h2>" . htmlspecialchars($row["name"]) . "</h2>";
             echo "<p>Username: " . htmlspecialchars($row["username"]) . "</p>";

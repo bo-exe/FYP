@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $images = mysqli_real_escape_string($link, $imageName);
         } else {
             $errorMessage = "Error uploading the image file.";
-            header("Location: admin_addGig?error=" . urlencode($errorMessage));
+            header("Location: form.php?error=" . urlencode($errorMessage));
             exit();
         }
     } else {
@@ -51,11 +51,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 // Redirect back to the form page with a success or error message
 if (isset($message)) {
-    header("Location: admin_addGig?message=" . urlencode($message));
+    header("Location: form.php?message=" . urlencode($message));
 } elseif (isset($errorMessage)) {
-    header("Location: admin_addGig?error=" . urlencode($errorMessage));
+    header("Location: form.php?error=" . urlencode($errorMessage));
 } else {
-    header("Location: admin_addGig");
+    header("Location: form.php");
 }
 exit();
 ?>

@@ -2,7 +2,6 @@
 include "dbFunctions.php";
 session_start();
 
-// Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate and sanitize form data
     $title = mysqli_real_escape_string($link, $_POST['title']);
@@ -13,9 +12,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $points = intval($_POST['points']);
     
     // Handle image upload
-    if (isset($_FILES['images']) && $_FILES['images']['error'] == UPLOAD_ERR_OK) {
-        $imageTmpPath = $_FILES['images']['tmp_name'];
-        $imageName = basename($_FILES['images']['name']);
+    if (isset($_FILES['eventImage']) && $_FILES['eventImage']['error'] == UPLOAD_ERR_OK) {
+        $imageTmpPath = $_FILES['eventImage']['tmp_name'];
+        $imageName = basename($_FILES['eventImage']['name']);
         $uploadDir = 'images/';
         $destPath = $uploadDir . $imageName;
 
@@ -23,14 +22,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $images = mysqli_real_escape_string($link, $imageName);
         } else {
             $errorMessage = "Error uploading the image file.";
-            header("Location: form.php?error=" . urlencode($errorMessage));
+            header("Location: admin_addGig.php?error=" . urlencode($errorMessage));
             exit();
         }
     } else {
         $images = 'none.png';  // Default image if no image uploaded
     }
 
-    // Get the highest existing offerId from the database
+    // Get the highest existing eventID from the database
     $query = "SELECT MAX(eventID) AS maxeventID FROM events";
     $result = mysqli_query($link, $query);
     $row = mysqli_fetch_assoc($result);
@@ -51,11 +50,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 // Redirect back to the form page with a success or error message
 if (isset($message)) {
-    header("Location: form.php?message=" . urlencode($message));
+    header("Location: admin_addGig.php?message=" . urlencode($message));
 } elseif (isset($errorMessage)) {
-    header("Location: form.php?error=" . urlencode($errorMessage));
+    header("Location: admin_addGig.php?error=" . urlencode($errorMessage));
 } else {
-    header("Location: form.php");
+    header("Location: admin_addGig.php");
 }
 exit();
 ?>

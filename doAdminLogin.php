@@ -1,7 +1,5 @@
 <?php
 session_start();
-
-// Include the file that contains the common database connection code
 include "dbFunctions.php";
 
 $entered_username = $_POST['username'];

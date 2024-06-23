@@ -134,7 +134,7 @@ while ($row = mysqli_fetch_array($result)) {
                     <img src="<?php echo $imageSrc; ?>" alt="<?php echo $title; ?>" class="card-img-top">
                     <div class="event-card-content">
                         <h2 class="card-title"><?php echo $title; ?></h2>
-                        <p class="card-text">Use By: <?php echo $dateTimeEnd; ?></p>
+                        <p class="card-text">Event Date: <?php echo $dateTimeEnd; ?></p>
                     </div>
                 </a>
                 <div class="event-card-content">

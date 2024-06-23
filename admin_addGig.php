@@ -120,7 +120,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <label>Points:</label><br>
             <input type="number" name="points" min="0" required><br>
             <label>Event Image:</label><br>
-            <input type="file" name="eventImage" accept="images/" required><br><br>
+            <input type="file" name="eventImage" accept="images/"><br><br>
             <input type="submit" value="Add Gig">
         </form>
     <?php endif; ?>

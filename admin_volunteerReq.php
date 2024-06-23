@@ -44,7 +44,7 @@ $resultCheck = mysqli_query($link, $queryCheck) or die(mysqli_error($link));
         echo "<p>No volunteers awaiting approval.</p>";
     }
 
-    $conn->close();
+    mysqli_close($link);
     ?>
 </body>
 </html>

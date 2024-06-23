@@ -7,37 +7,38 @@ if (isset($_GET['volunteerId'])) {
 
     // Fetch volunteer details
     $sql = "SELECT username, email, password FROM volunteers WHERE volunteerId = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $volunteerId);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $volunteer = $result->fetch_assoc();
+    $stmt = mysqli_prepare($link, $sql);
+    mysqli_stmt_bind_param($stmt, "s", $volunteerId);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    $volunteer = mysqli_fetch_assoc($result);
+    mysqli_stmt_close($stmt);
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (isset($_POST['approve'])) {
             // Approve volunteer
             $sql = "UPDATE volunteers SET approval_status = 1 WHERE volunteerId = ?";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("s", $volunteerId);
-            $stmt->execute();
+            $stmt = mysqli_prepare($link, $sql);
+            mysqli_stmt_bind_param($stmt, "s", $volunteerId);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_close($stmt);
             echo "<p>Volunteer approved successfully.</p>";
         } elseif (isset($_POST['reject'])) {
             // Reject (delete) volunteer
             $sql = "DELETE FROM volunteers WHERE volunteerId = ?";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("s", $volunteerId);
-            $stmt->execute();
+            $stmt = mysqli_prepare($link, $sql);
+            mysqli_stmt_bind_param($stmt, "s", $volunteerId);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_close($stmt);
             echo "<p>Volunteer rejected and deleted successfully.</p>";
         }
-        $stmt->close();
-        $conn->close();
+        mysqli_close($link);
         exit();
     }
 } else {
     echo "<p>Invalid volunteer ID.</p>";
     exit();
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -63,5 +64,5 @@ if (isset($_GET['volunteerId'])) {
 </html>
 
 <?php
-$conn->close();
+mysqli_close($link);
 ?>

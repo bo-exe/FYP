@@ -108,7 +108,7 @@ while ($row = mysqli_fetch_array($result)) {
 </head>
 
 <body>
-    <?php include "admin_volunteerNavBar.php"; ?>
+    <?php include "admin_volunteerNavbar.php"; ?>
     <?php include "ft.php"; ?>
 
     <br><br>

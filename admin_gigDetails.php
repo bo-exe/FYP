@@ -2,13 +2,33 @@
 include "dbFunctions.php";
 session_start();
 
-$query = "SELECT * FROM events";
-$result = mysqli_query($link, $query) or die(mysqli_error($link));
-
-$arrContent = array();
-while ($row = mysqli_fetch_array($result)) {
-    $arrContent[] = $row;
+// Ensure eventID is set and numeric
+if (!isset($_GET['eventID']) || !is_numeric($_GET['eventID'])) {
+    echo "Invalid event ID.";
+    exit();
 }
+
+$eventID = $_GET['eventID'];
+
+$query = "SELECT * FROM events WHERE eventID = ?";
+$stmt = $link->prepare($query);
+$stmt->bind_param("i", $eventID);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows == 1) {
+    $eventData = $result->fetch_assoc();
+
+    // Retrieve BLOB data and convert to base64 encoded string
+    $imageData = base64_encode($eventData['images']);
+    $imageSrc = 'data:image/jpeg;base64,' . $imageData;
+} else {
+    echo "Gig not found.";
+    exit();
+}
+
+$stmt->close();
+$link->close();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,7 +53,7 @@ while ($row = mysqli_fetch_array($result)) {
             overflow: hidden;
             box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
             margin: 20px;
-            height: 300px;
+            height: auto;
             text-decoration: none;
             color: inherit;
             position: relative;
@@ -46,20 +66,22 @@ while ($row = mysqli_fetch_array($result)) {
         }
 
         .event-card-content {
-            padding: 1px;
+            padding: 15px;
         }
 
         .event-card-content h2 {
             font-size: 28px;
             margin-bottom: 10px;
             margin-top: 10px;
+            text-align: center;
+            /* Center align the title */
         }
 
         .event-card-content p {
             color: #333333;
             font-size: 15px;
             line-height: 1.3;
-            margin-left: 10px;
+            margin-bottom: 10px;
         }
 
         .event-card-content .del-btn {
@@ -77,12 +99,12 @@ while ($row = mysqli_fetch_array($result)) {
 
         .event-card-content .edit-btn {
             display: inline-block;
-            padding: 8px 20px;
+            padding: 8px 16px;
             background-color: #FFD036;
             text-decoration: none;
             border-radius: 30px;
             margin-top: 16px;
-            margin-left: 160px;
+            margin-left: 110px;
             margin-bottom: 10px;
             color: #FFF5F5;
             font-weight: bold;
@@ -111,42 +133,24 @@ while ($row = mysqli_fetch_array($result)) {
     <?php include "admin_volunteerNavBar.php"; ?>
     <?php include "ft.php"; ?>
 
-    <br><br>
-    <h1>Gigs</h1>
     <div class="event-card-container">
-        <?php foreach ($arrContent as $eventData) : ?>
-            <?php
-            $eventID = $eventData['eventID'];
-            $title = $eventData['title'];
-            $dateTimeEnd = $eventData['dateTimeEnd'];
-            $picture = $eventData['images'];
-
-            // Convert BLOB data to base64 encoded image
-            $imageSrc = 'data:image/jpeg;base64,' . base64_encode($picture);
-
-            // If no picture is available, use a default image
-            if (empty($picture)) {
-                $imageSrc = 'images/none.png'; // Provide path to your default image
-            }
-            ?>
-            <div class="event-card">
-                <a href="admin_gigDetails.php?eventID=<?php echo $eventID; ?>" style="text-decoration: none; color: inherit;">
-                    <img src="<?php echo $imageSrc; ?>" alt="<?php echo $title; ?>" class="card-img-top">
-                    <div class="event-card-content">
-                        <h2 class="card-title"><?php echo $title; ?></h2>
-                        <p class="card-text">Use By: <?php echo $dateTimeEnd; ?></p>
-                    </div>
-                </a>
-                <div class="event-card-content">
-                    <a href="admin_deleteGig.php?eventID=<?php echo $eventID; ?>" class="del-btn">Delete</a>
-                    <a href="admin_editGig.php?eventID=<?php echo $eventID; ?>" class="edit-btn">Edit</a>
-                </div>
+        <div class="event-card">
+            <br>
+            <h1 style="text-align: center;"><?php echo $eventData['title'] ?></h1>
+            <br>
+            <img src="<?php echo $imageSrc; ?>" alt="<?php echo $eventData['title']; ?>" class="card-img-top">
+            <div class="event-card-content">
+                <p class="card-text"><b>Start Date:</b> <?php echo $eventData['dateTimeStart']; ?></p>
+                <p class="card-text"><b>End Date:</b> <?php echo $eventData['dateTimeEnd']; ?></p>
+                <p class="card-text"><b>Locations:</b> <?php echo $eventData['locations']; ?></p>
+                <p class="card-text"><b>Event Description:</b> <?php echo $eventData['descs']; ?></p>
+                <p class="card-text"><b>Points:</b> <?php echo $eventData['points']; ?></p>
             </div>
-        <?php endforeach; ?>
-    </div>
-
-    <div class="add-btn-container">
-        <a href="admin_addGig.php" class="add-btn">Add More</a>
+            <div class="event-card-content">
+                <a href="admin_retailDelete.php?eventID=<?php echo $eventData['eventID']; ?>" class="del-btn">Delete</a>
+                <a href="admin_retailEdit.php?eventID=<?php echo $eventData['eventID']; ?>" class="edit-btn">Edit</a>
+            </div>
+        </div>
     </div>
 
     <?php include "admin_footer.php"; ?>

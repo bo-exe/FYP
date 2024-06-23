@@ -93,7 +93,7 @@ include "ft.php";
             <label>Points:</label>
             <input type="number" name="points" min="0" required>
             <label>Event Image:</label>
-            <input type="file" name="eventImage" accept="image/*">
+            <input type="file" name="images" accept="image/*">
             <br><br>
             <input type="submit" value="Add Gig">
         </form>

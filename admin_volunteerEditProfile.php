@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Update user data in the database
     $query = "UPDATE admins SET username = ?, email = ? WHERE adminID = ?";
     $stmt = mysqli_prepare($link, $query);
-    mysqli_stmt_bind_param($stmt, $username, $email, $adminID);
+    mysqli_stmt_bind_param($stmt, "ssi", $username, $email, $adminID);
     if (mysqli_stmt_execute($stmt)) {
         // Update session variables if necessary
         $_SESSION['username'] = $username; // Update session with new username if changed

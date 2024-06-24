@@ -22,7 +22,6 @@ if (mysqli_num_rows($result) == 1) {
     $username = $row['username'];
     $email = $row['email'];
     $password = $row['password'];
-    $number = $row['number'];
     $profile_pic = $row['profile_pic']; 
     // Add more fields as needed
 } else {
@@ -36,7 +35,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Sanitize and validate input data
     $username = mysqli_real_escape_string($link, $_POST['username']);
     $email = mysqli_real_escape_string($link, $_POST['email']);
-    $number = mysqli_real_escape_string($link, $_POST['number']);
     // Validate and update other fields as needed
 
     // Update user data in the database
@@ -145,10 +143,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
                     <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" required>
-                </div>
-                <div class="mb-3">
-                    <label for="number" class="form-label">Company Number</label>
-                    <input type="text" class="form-control" id="number" name="number" value="<?php echo htmlspecialchars($number); ?>" required>
                 </div>
                 <!-- Add more fields as needed for other user information -->
                 

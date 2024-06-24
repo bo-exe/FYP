@@ -115,7 +115,6 @@ if (mysqli_num_rows($result) == 1) {
             <img src="images/<?php echo htmlspecialchars($profile_pic); ?>" alt="Profile Picture" class="profile-picture">
             <p><strong>Username:</strong> <?php echo htmlspecialchars($username); ?></p>
             <p><strong>Email:</strong> <?php echo htmlspecialchars($email); ?></p>
-            <p><strong>Company Number:</strong> <?php echo htmlspecialchars($number); ?></p>
             <p><strong>Password: </strong></p>
             <div class="password-container">
                 <input type="password" id="password" value="<?php echo htmlspecialchars($password); ?>" readonly>

@@ -34,7 +34,7 @@ while ($row = mysqli_fetch_array($result)) {
             margin-top: 100px;
         }
 
-        .home p, h3{
+        .home p, h3 {
             margin-right: 800px;
             text-align: left;
         }
@@ -196,17 +196,19 @@ while ($row = mysqli_fetch_array($result)) {
             // If no picture is available, use a default image
             if ($picture == "none") {
                 $picture = "none.png";
+            } else {
+                $picture = 'data:image/jpeg;base64,' . base64_encode($picture);
             }
         ?>
-            <div class="store-card">
+            <div class="stores-card">
                 <a href="all_vouchers.php?storeId=<?php echo $storeId; ?>" style="text-decoration: none; color: inherit;">
-                    <img src="Images/<?php echo $picture; ?>" alt="<?php echo $title; ?>" class="card-img-top">
-                    <div class="store-card-content">
-                        <input type="hidden" name="offerId" value="<?php echo $offerId; ?>">
+                    <img src="<?php echo $picture; ?>" alt="<?php echo $title; ?>" class="card-img-top">
+                    <div class="stores-card-content">
+                        <input type="hidden" name="offerId" value="<?php echo $storeId; ?>">
                         <p class="card-text"><b>Quantity:</b> <?php echo $quantity; ?></p>
                     </div>
                 </a>
-                <div class="store-card-content">
+                <div class="stores-card-content">
                     <a href="all_vouchers.php?storeId=<?php echo $storeId; ?>" class="more-btn">More</a>
                 </div>
             </div>

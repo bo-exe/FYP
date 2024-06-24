@@ -1,4 +1,17 @@
 
+<?php
+session_start();
+
+// Check whether session variable 'user_id' is set (i.e., check whether the user is already logged in)
+if (isset($_SESSION['user_id'])) {
+    // Redirect to homepage if already logged in
+    header("Location: http://localhost/Github/fyp/");
+    exit();
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +31,9 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            margin-bottom: 50px; /* Adjusted bottom margin */
+            margin-bottom: 50px; 
+            margin-top: 200px !important;
+        
         }
 
         
@@ -49,6 +64,7 @@
     </style>
 </head>
 <body>
+<?php include "navbar.php"; ?>
     <div class="signup-container">
         <form method="post" action="doSignup.php">
             <h2 class="text-center mb-4">Become a volunteer with us.</h2>
@@ -75,7 +91,6 @@
             </div>
         </form>
     </div>
-
-    
+    <?php include "footer.php"; ?>
 </body>
 </html>

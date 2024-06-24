@@ -22,7 +22,6 @@ if (mysqli_num_rows($result) == 1) {
     $username = $row['username'];
     $email = $row['email'];
     $password = $row['password'];
-    $number = $row['number'];
     $profile_pic = $row['profile_pic']; 
     // Add more fields as needed
 } else {

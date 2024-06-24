@@ -9,115 +9,122 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
     <link rel="stylesheet" href="style.css">
     <style>
-        .about-btn {
-            display: inline-block;
-            padding: 0.3rem 0.7rem;
-            background: #FFD036;
-            border-radius: .6rem;
-            box-shadow: 0 .2rem .5rem #333;
-            font-size: 0.8rem;
-            color: #333;
-            letter-spacing: .1rem;
-            font-weight: 600;
-            border: .2rem solid transparent;
-            transition: .5s ease;
-            margin-top: 30px;
-        }
+    .about-btn {
+        display: inline-block;
+        padding: 0.3rem 0.7rem;
+        background: #FFD036;
+        border-radius: .6rem;
+        box-shadow: 0 .2rem .5rem #333;
+        font-size: 0.8rem;
+        color: #333;
+        letter-spacing: .1rem;
+        font-weight: 600;
+        border: .2rem solid transparent;
+        transition: .5s ease;
+        margin-top: 30px;
+    }
 
-        .about-btn:hover {
-            background: #deb530;
-            color: #333;
-        }
+    .about-btn:hover {
+        background: #deb530;
+        color: #333;
+    }
 
-        .points-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            color: #333;
-            background-color: #ECECE7;
-            border-radius: .6rem;
-            box-shadow: 0 .2rem .5rem #333;
-            letter-spacing: .2rem;
-            font-weight: 800;
-            padding: 10px;
-            margin-bottom: 20px;
-        }
+    .points-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        color: #333;
+        background-color: #ECECE7;
+        border-radius: .6rem;
+        box-shadow: 0 .2rem .5rem #333;
+        letter-spacing: .2rem;
+        font-weight: 800;
+        padding: 10px;
+        margin-bottom: 20px;
+    }
 
-        .points-container i {
-            margin-right: 5px;
-        }
+    .points-container i {
+        margin-right: 5px;
+    }
 
-        .points-container .vomo-points {
-            display: flex;
-            align-items: center;
-        }
+    .points-container .vomo-points {
+        display: flex;
+        align-items: center;
+    }
 
-        .points-container .vomo-points span:first-child {
-            margin-right: 10px;
-        }
+    .points-container .vomo-points span:first-child {
+        margin-right: 10px;
+    }
 
-        .card-content {
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
+    .card-content {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
-        .card-content h1 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-        }
+    .card-content h1 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+        font-weight: bold; /* Make h1 bold */
+    }
 
-        .card-content .vomo-points {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
+    .card-content .vomo-points {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
 
-        .card-content button {
-            background: #FFD036;
-            border: none;
-            padding: 6px 12px; /* Adjusted padding for smaller size */
-            cursor: pointer;
-            transition: background 0.3s ease;
-            font-size: 0.7rem; /* Reduced font size */
-            margin-top: 8px; /* Added margin to separate button */
-        }
+    .card-content button {
+        background: #FFD036;
+        border: none;
+        padding: 6px 50px; /* Adjusted padding for slightly larger size */
+        cursor: pointer;
+        transition: background 0.3s ease, box-shadow 0.3s ease;
+        font-size: 0.7rem; /* Adjusted font size */
+        margin-top: 8px; /* Added margin to separate button */
+        color: #000; /* Set text color to black */
+        box-shadow: 0 8px 10px rgba(0, 0, 0, 0.1); /* Added drop shadow */
+        width: auto; /* Ensure button width is determined by its content */
+        font-weight: bold; /* Make button text bold */
+    }
 
-        .card-content button:hover {
-            background: #deb530;
-        }
+    .card-content button:hover {
+        background: #FFD036; /* Keep background color the same on hover */
+        color: #000; /* Ensure text color stays black on hover */
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
+    }
 
-        .custom-container {
-            max-width: 1400px; /* Increased the max-width */
-            margin: 0 auto;
-            padding: 40px; /* Increased padding */
-            background-color: transparent; /* Changed background color to transparent */
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+    .custom-container {
+        max-width: 1400px; /* Increased the max-width */
+        margin: 0 auto;
+        padding: 40px; /* Increased padding */
+        background-color: transparent; /* Changed background color to transparent */
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
 
-        .header-section {
-            margin-top: 20px;
-            text-align: left; /* Align header text to the left */
-        }
+    .header-section {
+        margin-top: 20px;
+        text-align: left; /* Align header text to the left */
+    }
 
-        body {
-            background-color: #f8f9fa;
-        }
+    body {
+        background-color: #f8f9fa;
+    }
 
-        /* Custom CSS for more spacing between cards */
-        .mb-5 {
-            margin-bottom: 60px !important; /* Adjust margin-bottom as needed */
-        }
+    /* Custom CSS for more spacing between cards */
+    .mb-5 {
+        margin-bottom: 60px !important; /* Adjust margin-bottom as needed */
+    }
 
-        @media (min-width: 1000px) {
-            .mb-lg-5 {
-                margin-bottom: 120px !important; /* Larger margin for larger screens */
-            }
+    @media (min-width: 1000px) {
+        .mb-lg-5 {
+            margin-bottom: 120px !important; /* Larger margin for larger screens */
         }
-    </style>
+    }
+</style>
 </head>
 <body>
     <?php include "navbar.php"; ?>
@@ -223,7 +230,6 @@
     <script src="script.js"></script>
 </body>
 </html>
-
 
 
 

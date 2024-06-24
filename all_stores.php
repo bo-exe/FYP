@@ -1,9 +1,23 @@
+<?php
+include "dbFunctions.php";
+include "ft.php"; 
+session_start();
+
+$query = "SELECT * FROM stores";
+$result = mysqli_query($link, $query) or die(mysqli_error($link));
+
+$arrContent = array();
+while ($row = mysqli_fetch_array($result)) {
+    $arrContent[] = $row;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
+    <title>All Stores</title>
+    <link rel="icon" type="image/x-icon" href="images/logo.jpg">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
     <style>
@@ -20,68 +34,99 @@
             margin-top: 100px;
         }
 
-        .home h1, p{
+        .home p, h3{
             margin-right: 800px;
             text-align: left;
         }
 
-        .voucher-card-container{
+        .home h1 {
+            margin-right: 800px;
+            text-align: left;
+            text-shadow: 0 .1rem .1rem #333;
+        }
+
+        .stores-card-container {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            margin-top: 100px;
+            margin-top: 20px;
         }
 
-        .voucher-card{
-            width: 20%; 
+        .stores-card {
+            width: 325px;
             background-color: #ECECE7;
-            border-radius: 8px;
+            border-radius: 10px;
             overflow: hidden;
             box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
             margin: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            height: auto;
+            text-decoration: none;
+            color: inherit;
+            position: relative;
         }
 
-        .voucher-card img {
+        .stores-card img {
             width: 100%;
-            height: 100%;
+            height: 165px;
         }
 
-        .card-content {
-            padding: 16px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+        .stores-card-content {
+            padding: 15px;
         }
 
-        .card-content h3 {
+        .stores-card-content h2 {
             font-size: 28px;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            margin-top: 10px;
         }
 
-        .card-content p {
-            color: #333;
+        .stores-card-content p {
+            color: #333333;
             font-size: 15px;
             line-height: 1.3;
+            margin-bottom: 10px;
         }
 
-        .card-content .btn {
-            align-self: flex-end;
-            padding: 0.3rem 0.7rem;
-            background: #FFD036;
-            border-radius: .6rem;
-            box-shadow: 0 .2rem .5rem #333;
-            font-size: 0.8rem;
-            color: #333;
-            letter-spacing: .1rem;
-            font-weight: 600;
-            border: .2rem solid transparent;
-            margin-top: 16px;
+        .stores-card-content .del-btn {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #EF1E1E;
             text-decoration: none;
-            text-align: center;
+            border-radius: 30px;
+            margin-top: 16px;
+            color: #FFF5F5;
+            font-weight: bold;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .stores-card-content .edit-btn {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #FFD036;
+            text-decoration: none;
+            border-radius: 30px;
+            margin-top: 16px;
+            color: #FFF5F5;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .more-btn {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #BFB7B7;
+            text-decoration: none;
+            border-radius: 30px;
+            color: #FFF5F5;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .more-btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
         }
 
         .header {
@@ -119,41 +164,16 @@
         .points-container .vomo-points span:first-child {
             margin-right: 100px;
         }
-
-        @media (max-width: 1200px) {
-            .voucher-card {
-                width: 30%; 
-            }
-        }
-
-        @media (max-width: 992px) {
-            .voucher-card {
-                width: 45%; 
-            }
-        }
-
-        @media (max-width: 768px) {
-            .voucher-card {
-                width: 70%; 
-            }
-        }
-
-        @media (max-width: 576px) {
-            .voucher-card {
-                width: 90%; 
-                margin: 10px;
-            }
-        }
     </style>
 </head>
 <body>
-    <?php include "navbar.php"; ?>
-    <?php include "ft.php"; ?>
-    
+<?php include "navbar.php"; ?>
     <section class="home" id="home">
         <div class="header">
             <div class="greeting">
-                <h1>All Vouchers</h1>
+                <h1>Stores</h1>
+                <br>
+                <h3>Store Vouchers</h3>
             </div>
             <div class="points-container">
                 <i class='bx bx-gift'></i>
@@ -165,46 +185,35 @@
         </div>
     </section>
 
-    <div class="voucher-card-container">
-        <div class="voucher-card">
-            <img src="images/NTUCvoucher.jpg">
-            <div class="card-content">
-                <h3>NTUC</h3>
-                <p>3 Vouchers</p>
-                <a href="ntuc_vouchers.php" class="btn">More</a>
-            </div>
-        </div>
+    <div class="stores-card-container">
+        <?php
+        foreach ($arrContent as $storeData) {
+            $storeId = $storeData['storeId'];
+            $title = $storeData['title'];
+            $quantity = $storeData['quantity'];
+            $picture = $storeData['image'];
 
-        <div class="voucher-card">
-            <img src="images/ikea-voucher.jpg">
-            <div class="card-content">
-                <h3>IKEA</h3>
-                <p>5 Vouchers</p>
-                <a href="ikea_vouchers.php" class="btn">More</a>
+            // If no picture is available, use a default image
+            if ($picture == "none") {
+                $picture = "none.png";
+            }
+        ?>
+            <div class="store-card">
+                <a href="all_vouchers.php?storeId=<?php echo $storeId; ?>" style="text-decoration: none; color: inherit;">
+                    <img src="Images/<?php echo $picture; ?>" alt="<?php echo $title; ?>" class="card-img-top">
+                    <div class="store-card-content">
+                        <input type="hidden" name="offerId" value="<?php echo $offerId; ?>">
+                        <p class="card-text"><b>Quantity:</b> <?php echo $quantity; ?></p>
+                    </div>
+                </a>
+                <div class="store-card-content">
+                    <a href="all_vouchers.php?storeId=<?php echo $storeId; ?>" class="more-btn">More</a>
+                </div>
             </div>
-        </div>
-
-        <div class="voucher-card">
-            <img src="images/giant-voucher.jpg">
-            <div class="card-content">
-                <h3>Giant</h3>
-                <p>5 Vouchers</p>
-                <a href="giant_vouchers.php" class="btn">More</a>
-            </div>
-        </div>
-
-        <div class="voucher-card">
-            <img src="images/body-shop-voucher.jpg">
-            <div class="card-content">
-                <h3>The Body Shop</h3>
-                <p>5 Vouchers</p>
-                <a href="body_shop_vouchers.php" class="btn">More</a>
-            </div>
-        </div>
+        <?php } ?>
     </div>
 
     <?php include "footer.php"; ?>
-
     <script src="script.js"></script>
 </body>
 </html>

@@ -25,7 +25,6 @@ if (isset($_GET['eventID'])) {
     }
 
 } else {
-    // EventID not provided
     echo "Event ID not provided.";
 }
 ?>
@@ -44,7 +43,6 @@ if (isset($_GET['eventID'])) {
             border-radius: 5px;
             background-color: #f9f9f9;
             text-align: center;
-            /* Center align content */
         }
 
         h1 {

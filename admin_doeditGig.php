@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $points = $_POST['points'];
     
 
-            // Update the offer in the database
+            // Update the gig in the database
             $updateQuery = "UPDATE events SET title=?, dateTimeStart=?, dateTimeEnd=?, locations=?, descs=?, points=?, images=? WHERE eventID=?";
             $stmt = mysqli_prepare($link, $updateQuery);
             mysqli_stmt_bind_param($stmt, $title, $dateTimeStart, $dateTimeEnd, $locations, $descs, $points, $image, $eventID);

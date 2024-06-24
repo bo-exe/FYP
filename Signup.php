@@ -5,7 +5,7 @@ session_start();
 // Check whether session variable 'user_id' is set (i.e., check whether the user is already logged in)
 if (isset($_SESSION['user_id'])) {
     // Redirect to homepage if already logged in
-    header("Location: http://localhost/Github/FYP/");
+    header("Location: http://localhost/fyp/");
     exit();
 }
 ?>

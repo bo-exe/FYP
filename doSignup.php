@@ -2,48 +2,66 @@
 session_start();
 $msg = "";
 
-//check whether session variable 'user_id' is set
-//in other words, check whether the user is already logged in
+// Check whether session variable 'user_id' is set (i.e., check whether the user is already logged in)
 if (isset($_SESSION['userId'])) {
     $msg = "You are already logged in.";
-} else { //user is not logged in
-    //check whether form input 'username' contains value
+} else {
+    // Check whether form input 'username' contains value
     if (isset($_POST['username'])) {
-
-        //retrieve form data
+        // Retrieve form data
         $entered_username = $_POST['username'];
         $entered_password = $_POST['password'];
         $entered_email = $_POST['email'];
-        
-        
-        
-        //connect to database
+
+        // Connect to database
         include ("dbFunctions.php");
 
-        //match the username and password entered with database record
-           $query = "SELECT id, username, password, email FROM users 
-                  WHERE username='$entered_username' AND 
-                  password = SHA1('$entered_password') AND
-                  email = '$entered_email'";
+        // Check if the username or email already exists
+        $query = "SELECT * FROM volunteers WHERE username='$entered_username' OR email='$entered_email'";
         $result = mysqli_query($link, $query) or die(mysqli_error($link));
 
-        //if record is found, store id and username into session
-        if (mysqli_num_rows($result) == 1) {
-            $row = mysqli_fetch_array($result);
-            $_SESSION['user_id'] = $row['id'];
-            $_SESSION['username'] = $row['username'];
-            $_SESSION['email'] = $row['email'];
-            
-            
-            $msg = "<p><i>You are logged in as " . $_SESSION['username'] . "</p>"; 
-            $msg .= "<p><a href='home.php'>Home</a></p>";
+        if (mysqli_num_rows($result) == 0) {
+            // If the username and email do not exist, proceed to insert new volunteer
+            $hashed_password = password_hash($entered_password, PASSWORD_DEFAULT);
 
-            
-            header("location: Register.php");
-        } else { //record not found
-            $msg = "Sorry, you must enter a valid username 
-                    and password to log in.";
+            $insert_query = "INSERT INTO volunteers (username, password, email, role, points, approval_status)
+                             VALUES ('$entered_username', '$hashed_password', '$entered_email', 'volunteer', 0, 'pending')";
+
+            if (mysqli_query($link, $insert_query)) {
+                // Get the ID of the newly inserted record
+                $new_user_id = mysqli_insert_id($link);
+
+                // Store user ID and username into session
+                $_SESSION['user_id'] = $new_user_id;
+                $_SESSION['username'] = $entered_username;
+                $_SESSION['email'] = $entered_email;
+
+                $msg = "<p><i>You are logged in as " . $_SESSION['username'] . "</p>";
+                $msg .= "<p><a href='home.php'>Home</a></p>";
+
+                // Redirect to homepage
+                header("Location: http://localhost/fyp/");
+                exit();
+            } else {
+                $msg = "Error: " . mysqli_error($link);
+            }
+        } else {
+            $msg = "Sorry, the username or email is already taken.";
         }
-    } 
+    } else {
+        $msg = "Please fill in all the required fields.";
+    }
 }
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Status</title>
+</head>
+<body>
+    <?php echo $msg; ?>
+</body>
+</html>

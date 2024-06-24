@@ -2,7 +2,7 @@
 session_start();
 
 // Check if user is logged in
-if (!isset($_SESSION['adminId'])) {
+if (!isset($_SESSION['adminID'])) {
     // Redirect to login page if not logged in
     header("Location: login.php");
     exit();
@@ -10,8 +10,8 @@ if (!isset($_SESSION['adminId'])) {
 include "dbFunctions.php";
 
 // Fetch user data from database based on session userId
-$userId = $_SESSION['adminId'];
-$query = "SELECT * FROM admins WHERE adminId = ?";
+$userId = $_SESSION['adminID'];
+$query = "SELECT * FROM admins WHERE adminID = ?";
 $stmt = mysqli_prepare($link, $query);
 mysqli_stmt_bind_param($stmt, "i", $userId);
 mysqli_stmt_execute($stmt);

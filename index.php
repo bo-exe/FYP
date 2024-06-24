@@ -12,7 +12,7 @@ session_start();
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
-    <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <style>
         /* Navbar styling */
         nav {
@@ -169,6 +169,48 @@ session_start();
         .w3-badge {
             height:13px;width:13px;padding:0
         }
+
+        /* Responsive styling */
+        @media (max-width: 1200px) {
+            .home h1, p {
+                margin-right: 20px; /* Adjust margin for smaller screens */
+            }
+            .container {
+                margin-right: 20px; /* Adjust margin for smaller screens */
+            }
+            .about-btn {
+                margin-left: 20px; /* Adjust margin for smaller screens */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .home h1 {
+                font-size: 1.5rem; /* Decrease font size for smaller screens */
+            }
+            .home p {
+                font-size: 0.875rem; /* Decrease font size for smaller screens */
+            }
+            .container {
+                padding: 1rem; /* Decrease padding for smaller screens */
+            }
+            .container h2 {
+                font-size: 1.25rem; /* Decrease font size for smaller screens */
+            }
+            .slider img {
+                width: 100%; /* Ensure images take full width on smaller screens */
+            }
+            .about-btn {
+                padding: 0.5rem 1rem; /* Increase padding for smaller screens */
+                margin-top: 10px; /* Adjust margin for smaller screens */
+            }
+            .points-container {
+                font-size: 0.875rem; /* Decrease font size for smaller screens */
+                padding: 8px; /* Decrease padding for smaller screens */
+            }
+            .points-container .vomo-points span:first-child {
+                margin-right: 10px; /* Adjust margin for smaller screens */
+            }
+        }
     </style>
 </head>
 <body>
@@ -193,15 +235,15 @@ session_start();
     <section class="container">
     <h2>Recommended Activities</h2>
     <div class="slider-wrapper">
-        <div class="slider">
-            <img id="activity-slide-1" src="images/volunteer-booth.jpg" alt="activity 1">
-            <img id="activity-slide-2" src="images/education.jpg" alt="activity 2">
-            <img id="activity-slide-3" src="images/clean.jpg" alt="activity 3">
+        <div class="slider" id="activity-slider">
+            <img src="images/volunteer-booth.jpg" alt="activity 1">
+            <img src="images/education.jpg" alt="activity 2">
+            <img src="images/clean.jpg" alt="activity 3">
         </div>
-        <div class="slider-nav">
-            <span class="dot" data-slide="1"></span>
-            <span class="dot" data-slide="2"></span>
-            <span class="dot" data-slide="3"></span>
+        <div class="slider-nav" id="activity-slider-nav">
+            <span class="dot" onclick="currentSlide(1, 'activity-slider')"></span>
+            <span class="dot" onclick="currentSlide(2, 'activity-slider')"></span>
+            <span class="dot" onclick="currentSlide(3, 'activity-slider')"></span>
         </div>
     </div>
     <a href="all_activities.php" class="about-btn">See More</a>
@@ -210,74 +252,46 @@ session_start();
     <section class="container">
     <h2>Recommended Stores</h2>
     <div class="slider-wrapper">
-        <div class="slider">
-            <img id="store-slide-1" src="images/ikea.jpg" alt="store 1">
-            <img id="store-slide-2" src="images/Giant.jpg" alt="store 2">
-            <img id="store-slide-3" src="images/thebodyshop.jpg" alt="store 3">
+        <div class="slider" id="store-slider">
+            <img src="images/ikea.jpg" alt="store 1">
+            <img src="images/Giant.jpg" alt="store 2">
+            <img src="images/thebodyshop.jpg" alt="store 3">
         </div>
-        <div class="slider-nav">
-            <span class="dot" data-slide="1"></span>
-            <span class="dot" data-slide="2"></span>
-            <span class="dot" data-slide="3"></span>
+        <div class="slider-nav" id="store-slider-nav">
+            <span class="dot" onclick="currentSlide(1, 'store-slider')"></span>
+            <span class="dot" onclick="currentSlide(2, 'store-slider')"></span>
+            <span class="dot" onclick="currentSlide(3, 'store-slider')"></span>
         </div>
     </div>
     <a href="all_stores.php" class="about-btn">See More</a>
 </section>
 
-
-<!-- <section>
-     <div class="w3-container">
-        <h2>Recommended Activities</h2>
-    </div>
-
-<div class="w3-content w3-display-container" style="max-width:800px">
-  <img class="mySlides" src="images/volunteer-booth.jpg"  style="height:300px width:50px">
-  <img class="mySlides" src="images/education.jpg" " style="height:300px width:50px">
-  <img class="mySlides" src="images/clean.jpg"  style="height:300px width:50px">
-  <div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-bottommiddle" style="width:300px">
-    <div class="w3-left w3-hover-text-khaki" onclick="plusDivs(-1)">&#10094;</div>
-    <div class="w3-right w3-hover-text-khaki" onclick="plusDivs(1)">&#10095;</div>
-    <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(1)"></span>
-    <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(2)"></span>
-    <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(3)"></span>
-  </div>
-</div>
-<a href="all_activities.php" class="about-btn">See More</a>
-    </section>
-
-    
-<script>
-var slideIndex = 1;
-showDivs(slideIndex);
-
-function plusDivs(n) {
-  showDivs(slideIndex += n);
-}
-
-function currentDiv(n) {
-  showDivs(slideIndex = n);
-}
-
-function showDivs(n) {
-  var i;
-  var x = document.getElementsByClassName("mySlides");
-  var dots = document.getElementsByClassName("demo");
-  if (n > x.length) {slideIndex = 1}
-  if (n < 1) {slideIndex = x.length}
-  for (i = 0; i < x.length; i++) {
-    x[i].style.display = "none";  
-  }
-  for (i = 0; i < dots.length; i++) {
-    dots[i].className = dots[i].className.replace(" w3-white", "");
-  }
-  x[slideIndex-1].style.display = "block";  
-  dots[slideIndex-1].className += " w3-white";
-}
-</script>
- -->
-
     <?php include "footer.php"; ?>
 
-    
+    <script>
+        let slideIndex = 1;
+        showSlides(slideIndex, 'activity-slider');
+        showSlides(slideIndex, 'store-slider');
+
+        function currentSlide(n, sliderId) {
+            showSlides(slideIndex = n, sliderId);
+        }
+
+        function showSlides(n, sliderId) {
+            let i;
+            let slides = document.querySelectorAll(`#${sliderId} img`);
+            let dots = document.querySelectorAll(`#${sliderId}-nav .dot`);
+            if (n > slides.length) {slideIndex = 1}
+            if (n < 1) {slideIndex = slides.length}
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";  
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex-1].style.display = "block";  
+            dots[slideIndex-1].className += " active";
+        }
+    </script>
 </body>
 </html>

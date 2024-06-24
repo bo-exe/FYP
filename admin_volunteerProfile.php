@@ -105,7 +105,7 @@ if (mysqli_num_rows($result) == 1) {
     </style>
 </head>
 <body>
-<?php include "admin_retailNavBar.php"; ?>
+<?php include "admin_volunteerNavBar.php"; ?>
 <?php include "ft.php"; ?>
     <div class="profile-container">
         <img src="images/admin_logo.jpg" alt="Admin Logo" class="logo">

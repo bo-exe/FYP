@@ -22,7 +22,7 @@ if (mysqli_num_rows($result) == 1) {
     $username = $row['username'];
     $email = $row['email'];
     $password = $row['password'];
-    $profile_pic = $row['profile_pic']; 
+    $profile_pic = $row['profile_pic'];
     // Add more fields as needed
 } else {
     // Handle error if user data not found
@@ -35,7 +35,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Sanitize and validate input data
     $username = mysqli_real_escape_string($link, $_POST['username']);
     $email = mysqli_real_escape_string($link, $_POST['email']);
-    
+    // Validate and update other fields as needed
+
     // Check if a profile picture is uploaded
     if (isset($_FILES['profile_pic']) && $_FILES['profile_pic']['error'] == 0) {
         // Define the allowed file types and max file size
@@ -61,6 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (move_uploaded_file($file_tmp_name, $upload_path)) {
             // File upload successful, update the profile picture path
             $profile_pic = $new_file_name;
+            echo "File uploaded successfully to " . $upload_path; // Debugging statement
         } else {
             echo "Error: There was a problem uploading the file.";
             exit();
@@ -103,7 +105,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             margin: 100px auto;
             background-color: #ffffff;
             padding: 20px;
-            border-radius: 28px; 
+            border-radius: 28px;
             box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
         }
         .profile-heading {
@@ -163,13 +165,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <img src="images/admin_logo.jpg" alt="Admin Logo" class="logo">
         <h1 class="profile-heading">Edit Profile</h1>
         
-        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data">
             <div class="profile-details">
                 <img src="images/<?php echo htmlspecialchars($profile_pic); ?>" alt="Profile Picture" class="profile-picture">
                 <div class="mb-3">
                     <label for="profile_pic" class="form-label">Profile Picture</label>
                     <input type="file" class="form-control" id="profile_pic" name="profile_pic">
-                 </div> 
+                </div>
                 <div class="mb-3">
                     <label for="username" class="form-label">Username</label>
                     <input type="text" class="form-control" id="username" name="username" value="<?php echo htmlspecialchars($username); ?>" required>

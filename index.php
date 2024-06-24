@@ -1,5 +1,31 @@
 <?php
 session_start();
+include "dbFunctions.php";
+
+$conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+if (isset($_SESSION['username'])) {
+    $username = $_SESSION['username'];
+    $sql = "SELECT points FROM volunteers WHERE username = '$username'";
+    $result = $conn->query($sql);
+
+    if ($result) {
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $vomoPoints = $row['points'];
+        } else {
+            $vomoPoints = 0;
+        }
+    } else {
+        $vomoPoints = 0; 
+    }
+} else {
+    $vomoPoints = 0;
+}
 ?>
 
 <!DOCTYPE html>
@@ -156,59 +182,44 @@ session_start();
             margin-right: 100px;
         }
 
-        * {
-            box-sizing: border-box;
-        }
-
-        .mySlides {
-            display:none
-        }
-        .w3-left, .w3-right, .w3-badge {
-            cursor:pointer
-        }
-        .w3-badge {
-            height:13px;width:13px;padding:0
-        }
-
-        /* Responsive styling */
         @media (max-width: 1200px) {
             .home h1, p {
-                margin-right: 20px; /* Adjust margin for smaller screens */
+                margin-right: 20px; 
             }
             .container {
-                margin-right: 20px; /* Adjust margin for smaller screens */
+                margin-right: 20px; 
             }
             .about-btn {
-                margin-left: 20px; /* Adjust margin for smaller screens */
+                margin-left: 20px;
             }
         }
 
         @media (max-width: 768px) {
             .home h1 {
-                font-size: 1.5rem; /* Decrease font size for smaller screens */
+                font-size: 1.5rem; 
             }
             .home p {
-                font-size: 0.875rem; /* Decrease font size for smaller screens */
+                font-size: 0.875rem; 
             }
             .container {
-                padding: 1rem; /* Decrease padding for smaller screens */
+                padding: 1rem;
             }
             .container h2 {
-                font-size: 1.25rem; /* Decrease font size for smaller screens */
+                font-size: 1.25rem; 
             }
             .slider img {
-                width: 100%; /* Ensure images take full width on smaller screens */
+                width: 100%;
             }
             .about-btn {
-                padding: 0.5rem 1rem; /* Increase padding for smaller screens */
-                margin-top: 10px; /* Adjust margin for smaller screens */
+                padding: 0.5rem 1rem;
+                margin-top: 10px; 
             }
             .points-container {
-                font-size: 0.875rem; /* Decrease font size for smaller screens */
-                padding: 8px; /* Decrease padding for smaller screens */
+                font-size: 0.875rem; 
+                padding: 8px; 
             }
             .points-container .vomo-points span:first-child {
-                margin-right: 10px; /* Adjust margin for smaller screens */
+                margin-right: 10px; 
             }
         }
     </style>
@@ -225,7 +236,7 @@ session_start();
                 <i class='bx bx-gift'></i>
                 <div class="vomo-points">
                     <span>VOMOPoints</span>
-                    <span>0</span>
+                    <span><?php echo $vomoPoints; ?></span>
                 </div>
             </div>
         </div>

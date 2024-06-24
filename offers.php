@@ -1,8 +1,12 @@
 <?php
-include "dbFunctions.php";
-include "ft.php"; 
 session_start();
+include "dbFunctions.php"; 
 
+$conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
 if (isset($_SESSION['username'])) {
     $username = $_SESSION['username'];
@@ -23,21 +27,33 @@ if (isset($_SESSION['username'])) {
     $vomoPoints = 0;
 }
 
-$query = "SELECT * FROM stores";
-$result = mysqli_query($link, $query) or die(mysqli_error($link));
+if (isset($_GET['storeId'])) {
+    $storeId = mysqli_real_escape_string($conn, $_GET['storeId']);
+    $queryStore = "SELECT title FROM stores WHERE storeId = ?";
+    $stmtStore = mysqli_prepare($conn, $queryStore);
+    mysqli_stmt_bind_param($stmtStore, "i", $storeId);
+    mysqli_stmt_execute($stmtStore);
+    mysqli_stmt_bind_result($stmtStore, $storeTitle);
+    mysqli_stmt_fetch($stmtStore);
+    mysqli_stmt_close($stmtStore);
+    $sql = "SELECT * FROM offers WHERE title LIKE ?";
+    $likeParam = '%' . $storeTitle . '%';
 
-$arrContent = array();
-while ($row = mysqli_fetch_array($result)) {
-    $arrContent[] = $row;
-}
+    $stmt = mysqli_prepare($conn, $sql);
+    
+    if ($stmt) {
+        mysqli_stmt_bind_param($stmt, "s", $likeParam);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+
+        if (mysqli_num_rows($result) > 0) {
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Stores</title>
+    <title><?php echo htmlspecialchars($storeTitle); ?> Vouchers</title>
     <link rel="icon" type="image/x-icon" href="images/logo.jpg">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
@@ -55,7 +71,7 @@ while ($row = mysqli_fetch_array($result)) {
             margin-top: 100px;
         }
 
-        .home p, h3 {
+        .home p, h3{
             margin-right: 800px;
             text-align: left;
         }
@@ -66,49 +82,50 @@ while ($row = mysqli_fetch_array($result)) {
             text-shadow: 0 .1rem .1rem #333;
         }
 
-        .stores-card-container {
+        .voucher-card-container{
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            margin-top: 20px;
+            margin-top: 100px;
         }
 
-        .stores-card {
-            width: 325px;
+        .voucher-card{
+            width: 20%; 
             background-color: #ECECE7;
-            border-radius: 10px;
+            border-radius: 8px;
             overflow: hidden;
             box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
             margin: 20px;
-            height: auto;
-            text-decoration: none;
-            color: inherit;
-            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
-        .stores-card img {
+        .voucher-card img {
             width: 100%;
             height: 165px;
         }
 
-        .stores-card-content {
-            padding: 15px;
+        .card-content {
+            padding: 16px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
-        .stores-card-content h2 {
+        .card-content h3 {
             font-size: 28px;
-            margin-bottom: 10px;
-            margin-top: 10px;
+            margin-bottom: 8px;
         }
 
-        .stores-card-content p {
-            color: #333333;
+        .card-content p {
+            color: #333;
             font-size: 15px;
             line-height: 1.3;
-            margin-bottom: 10px;
         }
 
-        .more-btn {
+        .card-content .btn {
             padding: 0.3rem 0.7rem;
             background: #FFD036;
             border-radius: .6rem;
@@ -123,7 +140,7 @@ while ($row = mysqli_fetch_array($result)) {
             text-align: center;
         }
 
-        .more-btn-container {
+        .card-content .btn:hover {
             display: flex;
             justify-content: center;
             margin-top: 20px;
@@ -167,10 +184,36 @@ while ($row = mysqli_fetch_array($result)) {
         .points-container .vomo-points span:first-child {
             margin-right: 100px;
         }
+
+        @media (max-width: 1200px) {
+            .voucher-card {
+                width: 30%; 
+            }
+        }
+
+        @media (max-width: 992px) {
+            .voucher-card {
+                width: 45%; 
+            }
+        }
+
+        @media (max-width: 768px) {
+            .voucher-card {
+                width: 70%; 
+            }
+        }
+
+        @media (max-width: 576px) {
+            .voucher-card {
+                width: 90%; 
+                margin: 10px;
+            }
+        }
     </style>
 </head>
 <body>
     <?php include "navbar.php"; ?>
+    <?php include "ft.php"; ?>
     
     <section class="home" id="home">
         <div class="header">
@@ -188,24 +231,41 @@ while ($row = mysqli_fetch_array($result)) {
         <p>@<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'Guest'; ?></p>
     </section>
 
-    <div class="stores-card-container">
-    <?php foreach ($arrContent as $storeData) : ?>
-        <div class="stores-card">
-            <a href="offers.php?storeId=<?php echo $storeData['storeId']; ?>" style="text-decoration: none; color: inherit;">
-                <img src="<?php echo ($storeData['image'] == 'none') ? 'images/default.jpg' : 'data:image/jpeg;base64,' . base64_encode($storeData['image']); ?>" alt="<?php echo $storeData['title']; ?>" class="card-img-top">
-                <div class="stores-card-content">
-                    <h2><?php echo $storeData['title']; ?></h2>
-                    <p><b>Quantity:</b> <?php echo $storeData['quantity']; ?></p>
+    <section class="store-vouchers" id="store-vouchers">
+        <div class="voucher-card-container">
+            <?php while ($row = mysqli_fetch_assoc($result)) : ?>
+                <div class="voucher-card">
+                    <div class="image-container">
+                    <img src="data:image/jpeg;base64,<?php echo base64_encode($row['images']); ?>" alt="<?php echo htmlspecialchars($row['title']); ?>">
+                    </div>
+                    <div class="card-content">
+                        <h3><?php echo htmlspecialchars($row['title']); ?></h3>
+                        <p>Points: <?php echo htmlspecialchars($row['points']); ?></p>
+                        <a href="#" class="btn">Redeem Now</a>
+                    </div>
                 </div>
-            </a>
-            <div class="stores-card-content">
-                <a href="offers.php?storeId=<?php echo $storeData['storeId']; ?>" class="more-btn">More</a>
-            </div>
+            <?php endwhile; ?>
         </div>
-    <?php endforeach; ?>
-    </div>
+    </section>
 
     <?php include "footer.php"; ?>
+
     <script src="script.js"></script>
 </body>
 </html>
+
+<?php
+        } else {
+            echo "No vouchers found for " . htmlspecialchars($storeTitle) . "."; 
+        }
+        mysqli_stmt_close($stmt);
+    } else {
+        echo "Error preparing SQL statement: " . mysqli_error($conn);
+    }
+
+    mysqli_close($conn);
+
+} else {
+    echo "StoreId parameter is missing.";
+}
+?>

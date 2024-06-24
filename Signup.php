@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 
@@ -64,7 +63,7 @@ if (isset($_SESSION['user_id'])) {
     </style>
 </head>
 <body>
-<?php include "navbar.php"; ?>
+
     <div class="signup-container">
         <form method="post" action="doSignup.php">
             <h2 class="text-center mb-4">Become a volunteer with us.</h2>
@@ -91,6 +90,6 @@ if (isset($_SESSION['user_id'])) {
             </div>
         </form>
     </div>
-    <?php include "footer.php"; ?>
+    
 </body>
 </html>

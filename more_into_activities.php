@@ -15,11 +15,14 @@
 <div class="event-details-container">
     <?php
     include "dbFunctions.php";
-    
-    // Query to fetch event with eventID = 2
-    $query = "SELECT * FROM events WHERE eventID = 7";
+
+    // Get the eventID from the URL parameter
+    $eventID = isset($_GET['eventID']) ? intval($_GET['eventID']) : 0;
+
+    // Query to fetch event with the specified eventID
+    $query = "SELECT * FROM events WHERE eventID = $eventID";
     $result = mysqli_query($link, $query);
-    
+
     if ($result && mysqli_num_rows($result) > 0) {
         $event = mysqli_fetch_assoc($result);
         ?>
@@ -32,6 +35,9 @@
             <p><strong>Points:</strong> <?php echo htmlspecialchars($event['points']); ?></p>
             <p><strong>Image:</strong></p>
             <img src="https://placehold.co/600" alt="<?php echo htmlspecialchars($event['title']); ?>" style="max-width:100%;">
+            <div class="text-center mt-4">
+                <a href="signup_activities.php?eventID=<?php echo $eventID; ?>"><button class="btn btn-primary">Apply Now</button></a>
+            </div>
         </div>
         <?php
     } else {

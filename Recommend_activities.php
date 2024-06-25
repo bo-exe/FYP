@@ -199,81 +199,41 @@ if (isset($_SESSION['username'])) {
         </div>
 </section> -->
 
-    <section class="custom-container py-5">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-12 col-lg-10 mb-5 mb-lg-5"> <!-- Increased margin-bottom for both md and lg screens -->
-                    <div class="card">
-                        <img src="images/NTUC Charity Run.jpg" class="card-img-top" alt="NTUC-image">
-                        <div class="card-content">
-                            <h1>NTUC Charity Run 2024</h1>
-                            <div class="vomo-points">
-                                <span>Obtainable VOMO Points:</span>
-                                <span>200</span>
+<section class="custom-container py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <?php
+            include "dbFunctions.php";
+            
+            // Query to fetch all events
+            $query = "SELECT * FROM events";
+            $result = mysqli_query($link, $query);
+            
+            if ($result && mysqli_num_rows($result) > 0) {
+                while ($event = mysqli_fetch_assoc($result)) {
+                    ?>
+                    <div class="col-md-12 col-lg-10 mb-5 mb-lg-5"> <!-- Increased margin-bottom for both md and lg screens -->
+                        <div class="card">
+                            <img src="https://placehold.co/600" class="card-img-top" alt="<?php echo htmlspecialchars($event['title']); ?>-image">
+                            <div class="card-content">
+                                <h1><?php echo htmlspecialchars($event['title']); ?></h1>
+                                <div class="vomo-points">
+                                    <span>Obtainable VOMO Points:</span>
+                                    <span><?php echo htmlspecialchars($event['points']); ?></span>
+                                </div>
+                                <a href="more_info_activities.php?eventID=<?php echo $event['eventID']; ?>"><button>More</button></a>
                             </div>
-                            <button>More</button>
                         </div>
                     </div>
-                </div>
-                <!-- Repeat similar blocks for other activities -->
-                <div class="col-md-12 col-lg-10 mb-5 mb-lg-5"> <!-- Increased margin-bottom for both md and lg screens -->
-                    <div class="card">
-                        <img src="images/ActiveSG.jpg" class="card-img-top" alt="NTUC-image">
-                        <div class="card-content">
-                            <h1>ActiveSG Community Morning</h1>
-                            <div class="vomo-points">
-                                <span>Obtainable VOMO Points:</span>
-                                <span>100</span>
-                            </div>
-                            <button>More</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-12 col-lg-10 mb-5 mb-lg-5"> <!-- Increased margin-bottom for both md and lg screens -->
-                    <div class="card">
-                        <img src="images/Decat.jpg" class="card-img-top" alt="NTUC-image">
-                        <div class="card-content">
-                            <h1>Decathalon Beach Clean Up</h1>
-                            <div class="vomo-points">
-                                <span>Obtainable VOMO Points:</span>
-                                <span>200</span>
-                            </div>
-                            <button>More</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-12 col-lg-10 mb-5 mb-lg-5"> <!-- Increased margin-bottom for both md and lg screens -->
-                    <div class="card">
-                        <img src="images/NTU.jpg" class="card-img-top" alt="NTUC-image">
-                        <div class="card-content">
-                            <h1>NTU Community Clean Up</h1>
-                            <div class="vomo-points">
-                                <span>Obtainable VOMO Points:</span>
-                                <span>180</span>
-                            </div>
-                            <button>More</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-12 col-lg-10 mb-5 mb-lg-5"> <!-- Increased margin-bottom for both md and lg screens -->
-                    <div class="card">
-                        <img src="images/Atome.jpg" class="card-img-top" alt="NTUC-image">
-                        <div class="card-content">
-                            <h1>Atome Awareness Run</h1>
-                            <div class="vomo-points">
-                                <span>Obtainable VOMO Points:</span>
-                                <span>350</span>
-                            </div>
-                            <button>More</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                    <?php
+                }
+            } else {
+                echo "<p>No events found.</p>";
+            }
+            ?>
         </div>
-    </section>
+    </div>
+</section>
 
     <?php include "footer.php"; ?>
 
@@ -283,6 +243,8 @@ if (isset($_SESSION['username'])) {
     <script src="script.js"></script>
 </body>
 </html>
+
+
 
 
 

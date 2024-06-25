@@ -1,3 +1,32 @@
+<?php
+session_start();
+include "dbFunctions.php";
+
+$conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+if (isset($_SESSION['username'])) {
+    $username = $_SESSION['username'];
+    $sql = "SELECT points FROM volunteers WHERE username = '$username'";
+    $result = $conn->query($sql);
+
+    if ($result) {
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $vomoPoints = $row['points'];
+        } else {
+            $vomoPoints = 0;
+        }
+    } else {
+        $vomoPoints = 0; 
+    }
+} else {
+    $vomoPoints = 0;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,32 +59,31 @@
     }
 
     .points-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 14px;
-        color: #333;
-        background-color: #ECECE7;
-        border-radius: .6rem;
-        box-shadow: 0 .2rem .5rem #333;
-        letter-spacing: .2rem;
-        font-weight: 800;
-        padding: 10px;
-        margin-bottom: 20px;
-    }
+            display: flex;
+            align-items: center;
+            justify-content: left;
+            font-size: 14px;
+            color: #333;
+            background-color: #ECECE7;
+            border-radius: .6rem;
+            box-shadow: 0 .2rem .5rem #333;
+            letter-spacing: .2rem;
+            font-weight: 800;
+            padding: 10px;
+        }
 
-    .points-container i {
-        margin-right: 5px;
-    }
+        .points-container i {
+            margin-right: 5px;
+        }
 
-    .points-container .vomo-points {
-        display: flex;
-        align-items: center;
-    }
+        .points-container .vomo-points {
+            display: flex;
+            align-items: center;
+        }
 
-    .points-container .vomo-points span:first-child {
-        margin-right: 10px;
-    }
+        .points-container .vomo-points span:first-child {
+            margin-right: 100px;
+        }
 
     .card-content {
         padding: 20px;
@@ -110,6 +138,15 @@
         text-align: left; /* Align header text to the left */
     }
 
+    .header {
+            display: flex;
+            align-items: center;
+        }
+
+        .row .greeting {
+            flex-grow: 1; 
+        }
+
     body {
         background-color: #f8f9fa;
     }
@@ -131,20 +168,36 @@
 
     <section class="header-section py-5">
         <div class="container">
-            <h2 class="text-left mb-5">Recommended Activities</h2>
             <div class="row">
-               
-                    <div class="points-container">
-                        <i class='bx bx-gift'></i>
-                        <div class="vomo-points">
-                            <span>VOMOPoints</span>
-                            <span>0</span>
-                        </div>
-                    </div>
+            <div class="greeting">
+                <h1>Recommend Activities</h1>
+            </div>
+            <div class="points-container">
+                <i class='bx bx-gift'></i>
+                <div class="vomo-points">
+                    <span>VOMOPoints</span>
+                    <span><?php echo $vomoPoints; ?></span>
+                </div>
+            </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- <section class="home" id="home">
+        <div class="header">
+            <div class="greeting">
+                <h1>Recommend Activities</h1>
+            </div>
+            <div class="points-container">
+                <i class='bx bx-gift'></i>
+                <div class="vomo-points">
+                    <span>VOMOPoints</span>
+                    <span><?php echo $vomoPoints; ?></span>
+                </div>
+            </div>
+        </div>
+</section> -->
 
     <section class="custom-container py-5">
         <div class="container">

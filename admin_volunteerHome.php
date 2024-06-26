@@ -25,7 +25,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="volunteeradmin-card">
-                <a href="admin_gigOverview.php">
+                <a href="admin_allGigs.php">
                     <div class="volunteeradmin-cardbody">
                         <img src="images/exercise.png" alt="Icon 1">
                     </div>

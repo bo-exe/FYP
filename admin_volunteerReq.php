@@ -12,6 +12,7 @@ $resultCheck = mysqli_query($link, $queryCheck) or die(mysqli_error($link));
 <head>
     <meta charset="UTF-8">
     <title>Volunteer Approval Requests</title>
+    <link rel="stylesheet" type="text/css" href="volunteeradminstyle.css">
 </head>
 <body>
     <h1>Volunteer Approval Requests</h1>

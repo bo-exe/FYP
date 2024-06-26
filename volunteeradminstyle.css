@@ -149,7 +149,7 @@ form {
 }
 
 /* Styles for admin_deletegig.php */
-.container {
+.deletegig-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -189,7 +189,7 @@ form {
 }
 
 /* Styles for admin_editGig.php */
-.container {
+.editgig-container {
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
@@ -199,7 +199,7 @@ form {
     text-align: center;
 }
 
-h1 {
+.editgig-container h1 {
     margin-bottom: 20px;
 }
 
@@ -207,16 +207,16 @@ h1 {
     margin-bottom: 20px;
 }
 
-label {
+.editgig-container label {
     display: block;
     font-weight: bold;
     margin-bottom: 5px;
 }
 
-textarea,
-input[type="datetime-local"],
-input[type="text"],
-input[type="number"] {
+.editgig-container textarea,
+.editgig-container input[type="datetime-local"],
+.editgig-container input[type="text"],
+.editgig-container input[type="number"] {
     width: 100%;
     padding: 8px;
     border: 1px solid #ccc;
@@ -225,12 +225,12 @@ input[type="number"] {
     font-size: 16px;
 }
 
-textarea {
+.editgig-container textarea {
     height: 100px;
     resize: vertical;
 }
 
-input[type="submit"] {
+.editgig-container input[type="submit"] {
     background-color: #FFD036;
     color: #fff;
     padding: 10px 20px;
@@ -239,6 +239,6 @@ input[type="submit"] {
     cursor: pointer;
 }
 
-input[type="submit"]:hover {
+.editgig-container input[type="submit"]:hover {
     background-color: #E7BC32;
 }

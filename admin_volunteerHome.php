@@ -65,7 +65,7 @@
         </div>
     </div>
 </div>
-</div>
+
 <?php include "admin_footer.php"; ?>
 <script src="script.js"></script>
 </body>

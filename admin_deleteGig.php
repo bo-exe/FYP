@@ -38,19 +38,10 @@ if (isset($_GET['eventID'])) {
     <link rel="stylesheet" type="text/css" href="volunteeradminstyle.css">
 </head>
 <body>
-    <?php 
-    // Convert BLOB data to base64 encoded image
-    $imageSrc = 'data:image/jpeg;base64,' . base64_encode($image);
-
-    // If no picture is available, use a default image
-    if (empty($image)) {
-        $imageSrc = 'images/none.png'; // Provide path to your default image
-}
-    ?>
 <div class="deletegig-container">
         <?php if (!empty($eventID)) { ?>
             <div class="card">
-                <img src="Images/<?php echo $imageSrc; ?>" alt="Event Image">
+                <img src="Images/<?php echo $image; ?>" alt="Event Image">
                 <h2><?php echo $title; ?></h2>
                 <p><b>Start Date:</b> <?php echo $dateTimeStart; ?></p>
                 <p><b>End Date:</b> <?php echo $dateTimeEnd; ?></p>

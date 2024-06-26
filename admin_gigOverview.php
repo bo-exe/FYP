@@ -37,7 +37,7 @@ $link->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Gigs</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="volunteeradminstyle.css">
 </head>
 
 <body>

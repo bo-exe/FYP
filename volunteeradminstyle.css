@@ -11,6 +11,34 @@ body {
     font-family: 'Lato';
 }
 
+/* Volunteer Admin Homepage */
+.volunteeradmin-card {
+    background-color: #FFD036;
+    border-radius: 15px;
+    overflow: hidden;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.volunteeradmin-cardfooter {
+    background-color: #FFF197;
+    padding: 10px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.volunteeradmin-card:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: #000;
+}
+
+.volunteeradmin-card a {
+    text-decoration: none;
+    color: #000;
+}
+
 /* Styles for admin_addgig.php */
 .addgig-container {
     max-width: 500px;

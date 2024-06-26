@@ -124,7 +124,7 @@
     </style>
 </head>
 <body>
-<?php // include "navbar.php"; ?>
+<?php include "navbar.php"; ?>
 <div class="main-content">
     <?php
     include "dbFunctions.php";
@@ -208,7 +208,7 @@ document.getElementById('popup-overlay').addEventListener('click', function() {
 });
 </script>
 
-    <?php // include "footer.php"; ?>
+    <?php include "footer.php"; ?>
 
  
 </body>

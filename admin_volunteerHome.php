@@ -105,7 +105,6 @@
         <p>Copyright © VOMO.</p>
     </div>
 </footer>
-<?php include "admin_footer.php"; ?>
 <script src="script.js"></script>
 </body>
 

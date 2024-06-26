@@ -74,6 +74,7 @@
 }
 </style>
 <body>
+<?php include "ft.php"; ?>
     <nav class="navbar-volunteeradmin">
         <div class="logo">
             <img src="images/admin_logo.jpg" alt="Logo" style="width: 100px;">
@@ -108,6 +109,43 @@
             </li>
         </ul>
     </nav>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-row">
+            <a href="index.php">
+                <div class="logo-container">
+                    <img src="images/admin_logo.jpg" alt="logo" class="logo">
+                </div>
+            </a>
+                <div class="footer-columns">
+                    <div class="footer-column">
+                        <h4>CONTACT US</h4>
+                        <ul>
+                            <li><a href="feedback.php">Feedback</a></li>
+                            <li><a href="contactUs.php">Support Us</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="social-text">SOCIALS:</h4>
+                        <div class="social-icons">
+                            <a href="https://www.instagram.com/vomo/?hl=en"><i class='bx bxl-instagram'></i></a>
+                            <a href=""><i class='bx bxl-telegram'></i></a>
+                            <a href=""><i class='bx bxl-tiktok'></i></a>
+                            <a href="https://mail.google.com/mail/u/0/?hl=en#inbox?compose=new"><i class='bx bx-envelope'></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-iconTop">
+                <a href="#"><i class='bx bx-up-arrow-alt'></i></a>
+            </div>
+            <div class="copyright">
+                <p>&copy; VOMO. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
     <script src="script.js"></script>
 </body>
 </html>

@@ -45,19 +45,19 @@ $link->close();
     <?php include "ft.php"; ?>
 
     <div class="gigoverview-event-card-container">
-        <div class="gigoverview-event-card">
+        <div class="event-card">
             <br>
             <h1 style="text-align: center;"><?php echo $eventData['title'] ?></h1>
             <br>
-            <img src="<?php echo $imageSrc; ?>" alt="<?php echo $eventData['title']; ?>" class="gigoverview-card-img-top">
-            <div class="gigoverview-event-card-content">
+            <img src="<?php echo $imageSrc; ?>" alt="<?php echo $eventData['title']; ?>" class="card-img-top">
+            <div class="event-card-content">
                 <p class="card-text"><b>Start Date:</b> <?php echo $eventData['dateTimeStart']; ?></p>
                 <p class="card-text"><b>End Date:</b> <?php echo $eventData['dateTimeEnd']; ?></p>
                 <p class="card-text"><b>Locations:</b> <?php echo $eventData['locations']; ?></p>
                 <p class="card-text"><b>Event Description:</b> <?php echo $eventData['descs']; ?></p>
                 <p class="card-text"><b>Points:</b> <?php echo $eventData['points']; ?></p>
             </div>
-            <div class="gigoverview-event-card-content">
+            <div class="event-card-content">
                 <a href="admin_retailDelete.php?eventID=<?php echo $eventData['eventID']; ?>" class="del-btn">Delete</a>
                 <a href="admin_retailEdit.php?eventID=<?php echo $eventData['eventID']; ?>" class="edit-btn">Edit</a>
             </div>

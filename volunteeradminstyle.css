@@ -251,7 +251,7 @@ form {
     margin-top: 20px;
 }
 
-.gigoverview-event-card {
+.gigoverview-event-card-container .event-card {
     width: 325px;
     background-color: #ECECE7;
     border-radius: 10px;
@@ -264,31 +264,31 @@ form {
     position: relative;
 }
 
-.gigoverview-event-card img {
+.gigoverview-event-card-container .event-card img {
     width: 100%;
     height: 165px;
     object-fit: cover;
 }
 
-.gigoverview-event-card-content {
+.gigoverview-event-card-container .event-card-content {
     padding: 15px;
 }
 
-.gigoverview-event-card-content h2 {
+.gigoverview-event-card-container .event-card-content h2 {
     font-size: 28px;
     margin-bottom: 10px;
     margin-top: 10px;
     text-align: center;
 }
 
-.gigoverview-event-card-content p {
+.gigoverview-event-card-container .event-card-content p {
     color: #333333;
     font-size: 15px;
     line-height: 1.3;
     margin-bottom: 10px;
 }
 
-.gigoverview-event-card-content .del-btn {
+.gigoverview-event-card-container .event-card-content .del-btn {
     display: inline-block;
     padding: 8px 16px;
     background-color: #EF1E1E;
@@ -301,7 +301,7 @@ form {
     margin-bottom: 10px;
 }
 
-.gigoverview-event-card-content .edit-btn {
+.gigoverview-event-card-container .event-card-content .edit-btn {
     display: inline-block;
     padding: 8px 16px;
     background-color: #FFD036;

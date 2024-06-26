@@ -19,11 +19,12 @@ while ($row = mysqli_fetch_array($result)) {
     <title>Manage Gigs</title>
     <link rel="stylesheet" type="text/css" href="volunteeradminstyle.css">
 </head>
+<br>
 <?php include "admin_volunteerNavbar.php"; ?>
-<body>
-    <?php include "ft.php"; ?>
+<?php include "ft.php"; ?>
+<br></br>
 
-    <br><br>
+<body>
     <h1>Gigs</h1>
     <div class="event-card-container">
         <?php foreach ($arrContent as $eventData) : ?>
@@ -61,7 +62,4 @@ while ($row = mysqli_fetch_array($result)) {
         <a href="admin_addGig.php" class="add-btn">Add More</a>
     </div>
 </body>
-
-<?php include "admin_footer.php"; ?>
-
 </html>

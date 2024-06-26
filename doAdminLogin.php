@@ -49,7 +49,7 @@ if (mysqli_num_rows($resultCheck) == 1) {
 else {
     $msg = "<p>Sorry, you must enter a valid username and password to log in.</p>";
     $msg .= "<p>If you have already signed up, please wait for your account's apporval before logging in.</p>";
-    $msg .= "<p><a href='login.php'>Go back to login page</a></p>";
+    $msg .= "<p><a href='admin_login.php'>Go back to login page</a></p>";
 }
 ?>
 

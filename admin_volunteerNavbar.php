@@ -87,7 +87,7 @@
             </li>
 
             <li>
-                <a href="admin_gigOverview.php">
+                <a href="admin_allGigs.php">
                     <img src="images/navmanage.png" alt="Manage Icon" class="volunteernav-icon">
                     MANAGE
                 </a>

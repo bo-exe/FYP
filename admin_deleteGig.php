@@ -3,10 +3,10 @@ include "dbFunctions.php";
 include "admin_volunteerNavbar.php";
 include "ft.php";
 // Convert BLOB data to base64 encoded image
-$imageSrc = 'data:image/jpeg;base64,' . base64_encode($picture);
+$imageSrc = 'data:image/jpeg;base64,' . base64_encode($image);
 
 // If no picture is available, use a default image
-if (empty($picture)) {
+if (empty($image)) {
     $imageSrc = 'images/none.png'; // Provide path to your default image
 }
 

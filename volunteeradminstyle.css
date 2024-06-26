@@ -18,7 +18,8 @@ body {
     overflow: hidden;
     margin-top: 10px;
     margin-bottom: 10px;
-    width: 50%;
+    width: 25%;
+    justify-content: center;
 }
 
 .volunteeradmin-cardfooter {

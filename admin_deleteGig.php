@@ -35,50 +35,10 @@ if (isset($_GET['eventID'])) {
 <head>
     <meta charset="UTF-8">
     <title>Delete Gig</title>
+    <link rel="stylesheet" type="text/css" href="volunteeradminstyle.css">
 </head>
-<style>
-    .container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-    }
-
-    .card {
-        background-color: #fff;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-        width: 400px;
-    }
-
-    .card img {
-        max-width: 100%;
-        height: auto;
-        border-radius: 5px;
-        margin-bottom: 10px;
-    }
-
-    .del-btn {
-        display: inline-block;
-        padding: 8px 16px;
-        background-color: #EF1E1E;
-        text-decoration: none;
-        border-radius: 30px;
-        margin-top: 16px;
-        color: #FFF5F5;
-        font-weight: bold;
-        text-align: center;
-        margin-left: 130px;
-    }
-
-    .del-btn:hover {
-        background-color: #d81b1b;
-    }
-</style>
-
 <body>
-<div class="container">
+<div class="deletegig-container">
         <?php if (!empty($eventID)) { ?>
             <div class="card">
                 <img src="Images/<?php echo $image; ?>" alt="Event Image">

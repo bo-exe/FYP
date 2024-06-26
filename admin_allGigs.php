@@ -106,7 +106,7 @@ while ($row = mysqli_fetch_array($result)) {
         }
     </style>
 </head>
-
+<?php include "admin_volunteerNavbar.php"; ?>
 <body>
     <?php include "admin_volunteerNavbar.php"; ?>
     <?php include "ft.php"; ?>
@@ -148,8 +148,8 @@ while ($row = mysqli_fetch_array($result)) {
     <div class="add-btn-container">
         <a href="admin_addGig.php" class="add-btn">Add More</a>
     </div>
-
-    <?php include "admin_footer.php"; ?>
 </body>
+
+<?php include "admin_footer.php"; ?>
 
 </html>

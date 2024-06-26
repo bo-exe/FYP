@@ -3,13 +3,13 @@ session_start();
 
 // Check if user is logged in
 if (!isset($_SESSION['adminID'])) {
-    // Redirect to login page if not logged in
+    // Redirect to the login page if user is not logged in
     header("Location: login.php");
     exit();
 }
 include "dbFunctions.php";
 
-// Fetch user data from database based on session userId
+// Fetch user data from database based on session adminID
 $userId = $_SESSION['adminID'];
 $query = "SELECT * FROM admins WHERE adminID = ?";
 $stmt = mysqli_prepare($link, $query);
@@ -23,7 +23,6 @@ if (mysqli_num_rows($result) == 1) {
     $email = $row['email'];
     $password = $row['password'];
     $profile_pic = $row['profile_pic']; 
-    // Add more fields as needed
 } else {
     // Handle error if user data not found
     echo "Error: User data not found.";
@@ -125,7 +124,6 @@ if (mysqli_num_rows($result) == 1) {
         
         <div class="text-center">
             <a href="admin_volunteerEditProfile.php" class="btn-edit-profile">Edit Profile</a>
-            <!-- Link to edit profile page -->
         </div>
     </div>
 

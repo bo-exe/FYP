@@ -2,13 +2,6 @@
 include "dbFunctions.php";
 include "admin_volunteerNavbar.php";
 include "ft.php";
-// Convert BLOB data to base64 encoded image
-$imageSrc = 'data:image/jpeg;base64,' . base64_encode($image);
-
-// If no picture is available, use a default image
-if (empty($image)) {
-    $imageSrc = 'images/none.png'; // Provide path to your default image
-}
 
 if (isset($_GET['eventID'])) {
     $eventID = $_GET['eventID'];
@@ -45,6 +38,15 @@ if (isset($_GET['eventID'])) {
     <link rel="stylesheet" type="text/css" href="volunteeradminstyle.css">
 </head>
 <body>
+    <?php 
+    // Convert BLOB data to base64 encoded image
+    $imageSrc = 'data:image/jpeg;base64,' . base64_encode($image);
+
+    // If no picture is available, use a default image
+    if (empty($image)) {
+        $imageSrc = 'images/none.png'; // Provide path to your default image
+}
+    ?>
 <div class="deletegig-container">
         <?php if (!empty($eventID)) { ?>
             <div class="card">

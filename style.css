@@ -19,6 +19,51 @@ nav {
     z-index: 1000; 
 }
 
+/* Volunteer Admin Navbar styling */
+.navbar-volunteeradmin {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #333;
+    padding: 10px 20px;
+}
+
+.navbar-volunteeradmin .logo img {
+    max-width: 25%;
+    height: auto;
+}
+
+.navbar-volunteeradmin ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-volunteeradmin ul li {
+    margin-left: 20px;
+}
+
+.navbar-volunteeradmin ul li a {
+    text-decoration: none;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.navbar-volunteeradmin ul li a:hover {
+    color: #FFD036;
+}
+
+.navbar-volunteeradmin .nav-icon {
+    width: 24px; /* Adjust the size as needed */
+    height: 24px; /* Adjust the size as needed */
+    margin-bottom: 5px;
+}
+
 /* Example styling for the bx-user icon */
 #profile {
     font-size: 24px;

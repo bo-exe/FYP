@@ -37,103 +37,14 @@ $link->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Gigs</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <style>
-        .event-card-container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-
-        .event-card {
-            width: 325px;
-            background-color: #ECECE7;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-            margin: 20px;
-            height: auto;
-            text-decoration: none;
-            color: inherit;
-            position: relative;
-        }
-
-        .event-card img {
-            width: 100%;
-            height: 165px;
-            object-fit: cover;
-        }
-
-        .event-card-content {
-            padding: 15px;
-        }
-
-        .event-card-content h2 {
-            font-size: 28px;
-            margin-bottom: 10px;
-            margin-top: 10px;
-            text-align: center;
-            /* Center align the title */
-        }
-
-        .event-card-content p {
-            color: #333333;
-            font-size: 15px;
-            line-height: 1.3;
-            margin-bottom: 10px;
-        }
-
-        .event-card-content .del-btn {
-            display: inline-block;
-            padding: 8px 16px;
-            background-color: #EF1E1E;
-            text-decoration: none;
-            border-radius: 30px;
-            margin-top: 16px;
-            color: #FFF5F5;
-            font-weight: bold;
-            margin-left: 10px;
-            margin-bottom: 10px;
-        }
-
-        .event-card-content .edit-btn {
-            display: inline-block;
-            padding: 8px 16px;
-            background-color: #FFD036;
-            text-decoration: none;
-            border-radius: 30px;
-            margin-top: 16px;
-            margin-left: 110px;
-            margin-bottom: 10px;
-            color: #FFF5F5;
-            font-weight: bold;
-        }
-
-        .add-btn {
-            display: inline-block;
-            padding: 8px 16px;
-            background-color: #BFB7B7;
-            text-decoration: none;
-            border-radius: 30px;
-            color: #FFF5F5;
-            font-weight: bold;
-            margin-top: 20px;
-        }
-
-        .add-btn-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="volunteeradminstyle.css">
 </head>
 
 <body>
     <?php include "admin_volunteerNavBar.php"; ?>
     <?php include "ft.php"; ?>
 
-    <div class="event-card-container">
+    <div class="gigoverview-event-card-container">
         <div class="event-card">
             <br>
             <h1 style="text-align: center;"><?php echo $eventData['title'] ?></h1>

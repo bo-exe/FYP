@@ -30,73 +30,17 @@ if (isset($_GET['eventID'])) {
 ?>
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8">
     <title>Edit Gig</title>
-    <style>
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-            text-align: center;
-        }
-
-        h1 {
-            margin-bottom: 20px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        textarea,
-        input[type="datetime-local"],
-        input[type="text"],
-        input[type="number"] {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-            /* Ensure padding and border are included in width */
-            font-size: 16px;
-        }
-
-        textarea {
-            height: 100px;
-            resize: vertical;
-        }
-
-        input[type="submit"] {
-            background-color: #FFD036;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #E7BC32;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="volunteeradminstyle.css">
 </head>
 
 <body>
 
     <?php if (!empty($eventID)) { ?>
         <br></br><br></br>
-        <div class="container">
+        <div class="editgig-container">
             <h1><b>Edit Gig</b></h1>
             <form action="admin_doeditGig.php" method="post">
                 <input type="hidden" name="eventID" value="<?php echo $eventID; ?>" />

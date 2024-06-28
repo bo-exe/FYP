@@ -1,0 +1,491 @@
+/* General */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Lato';
+    
+}
+body {
+    background-color: #ECECE7;
+    font-family: 'Lato';
+}
+
+/* Volunteer Admin Homepage */
+.volunteeradmin-card {
+    background-color: #FFD036;
+    border-radius: 15px;
+    overflow: hidden;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 25%;
+}
+
+.volunteeradmin-cardfooter {
+    background-color: #FFF197;
+    padding: 10px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.volunteeradmin-card:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: #000;
+}
+
+.volunteeradmin-card a {
+    text-decoration: none;
+    color: #000;
+}
+
+/* Styles for admin_addgig.php */
+.addgig-container {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+form {
+    margin-top: 20px;
+}
+
+.addgig-container label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.addgig-container input[type="text"],
+.addgig-container input[type="datetime-local"],
+.addgig-container input[type="number"],
+.addgig-container input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.addgig-container input[type="submit"] {
+    background-color: #FFD036;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.addgig-container input[type="submit"]:hover {
+    background-color: #E7BC32;
+}
+
+/* Styles for admin_allgig.php */
+.event-card-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.event-card {
+    width: 325px;
+    background-color: #ECECE7;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    margin: 20px;
+    height: 300px;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+}
+
+.event-card img {
+    width: 100%;
+    height: 165px;
+    object-fit: cover;
+}
+
+.event-card-content {
+    padding: 1px;
+}
+
+.event-card-content h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.event-card-content p {
+    color: #333333;
+    font-size: 15px;
+    line-height: 1.3;
+    margin-left: 10px;
+}
+
+.event-card-content .del-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #EF1E1E;
+    text-decoration: none;
+    border-radius: 30px;
+    margin-top: 16px;
+    color: #FFF5F5;
+    font-weight: bold;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.event-card-content .edit-btn {
+    display: inline-block;
+    padding: 8px 20px;
+    background-color: #FFD036;
+    text-decoration: none;
+    border-radius: 30px;
+    margin-top: 16px;
+    margin-left: 160px;
+    margin-bottom: 10px;
+    color: #FFF5F5;
+    font-weight: bold;
+}
+
+.add-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #BFB7B7;
+    text-decoration: none;
+    border-radius: 30px;
+    color: #FFF5F5;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.add-btn-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Styles for admin_deletegig.php */
+.deletegig-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 400px;
+}
+
+.card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.del-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #EF1E1E;
+    text-decoration: none;
+    border-radius: 30px;
+    margin-top: 16px;
+    color: #FFF5F5;
+    font-weight: bold;
+    text-align: center;
+    margin-left: 130px;
+}
+
+.del-btn:hover {
+    background-color: #d81b1b;
+}
+
+/* Styles for admin_editGig.php */
+.editgig-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+.editgig-container h1 {
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.editgig-container label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.editgig-container textarea,
+.editgig-container input[type="datetime-local"],
+.editgig-container input[type="text"],
+.editgig-container input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.editgig-container textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+.editgig-container input[type="submit"] {
+    background-color: #FFD036;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.editgig-container input[type="submit"]:hover {
+    background-color: #E7BC32;
+}
+
+/* Styles for admin_gigoverview.php */
+.gigoverview-event-card-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.gigoverview-event-card-container .event-card {
+    width: 325px;
+    background-color: #ECECE7;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    margin: 20px;
+    height: auto;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+}
+
+.gigoverview-event-card-container .event-card img {
+    width: 100%;
+    height: 165px;
+    object-fit: cover;
+}
+
+.gigoverview-event-card-container .event-card-content {
+    padding: 15px;
+}
+
+.gigoverview-event-card-container .event-card-content h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.gigoverview-event-card-container .event-card-content p {
+    color: #333333;
+    font-size: 15px;
+    line-height: 1.3;
+    margin-bottom: 10px;
+}
+
+.gigoverview-event-card-container .event-card-content .del-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #EF1E1E;
+    text-decoration: none;
+    border-radius: 30px;
+    margin-top: 16px;
+    color: #FFF5F5;
+    font-weight: bold;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.gigoverview-event-card-container .event-card-content .edit-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #FFD036;
+    text-decoration: none;
+    border-radius: 30px;
+    margin-top: 16px;
+    margin-left: 110px;
+    margin-bottom: 10px;
+    color: #FFF5F5;
+    font-weight: bold;
+}
+
+/* Styles for volunteereditprofile.php and admin_volunteerprofile.php */
+.profile-container {
+    max-width: 500px;
+    margin: 100px auto;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 28px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+}
+
+.profile-heading {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-details {
+    margin-bottom: 20px;
+}
+
+.btn-save-profile, .btn-edit-profile {
+    display: inline-block;
+    padding: 8px 20px;
+    background-color: #FFD036;
+    color: black;
+    border: none;
+    border-radius: 28px;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-save-profile:hover, .btn-edit-profile:hover {
+    background-color: #ffcd00;
+    color: white;
+}
+
+.password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-container input {
+    width: 100%;
+    padding-right: 40px;
+}
+
+.password-container .toggle-password {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+}
+
+.profile-picture {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto 20px auto;
+    border: 1px solid #818080;
+}
+
+.profile-logo {
+    display: block;
+    margin: 0 auto 20px auto;
+}
+
+/* Styles for admin_volunteerreq.php */
+.req-card {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 12px #aaa;
+}
+
+.req-card a {
+    text-decoration: none;
+    color: blue;
+}
+
+/* Navbar styling */
+.navbar-volunteeradmin {
+    width: 100%;
+    background-color: #FFD036; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    padding: 0 20px; 
+}
+
+.navbar-volunteeradmin-logo {
+    width: 100%;
+}
+
+.navbar-volunteeradmin ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.navbar-volunteeradmin ul li {
+    margin: 0;
+}
+
+.navbar-volunteeradmin ul li a {
+    display: block;
+    padding: 14px 20px;
+    text-decoration: none;
+    color: #333; 
+    text-align: center;
+}
+
+.navbar-volunteeradmin ul li img {
+    width: 15%;
+}
+
+.navbar-volunteeradmin ul li a:hover {
+    background-color: #FFC107; 
+    color: #555;
+}
+
+.content {
+    margin-top: 50px;
+    padding: 20px;
+}
+
+@media (max-width: 768px) {
+    .navbar-volunteeradmin {
+        top: auto;
+        bottom: 0;
+        flex-direction: column;
+        align-items: flex-start; 
+        padding: 20px; 
+    }
+    
+    .navbar-volunteeradmin-logo,
+    .search-bar,
+    #profile {
+        display: none;
+    }
+}

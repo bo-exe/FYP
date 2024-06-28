@@ -39,74 +39,13 @@ if (mysqli_num_rows($result) == 1) {
     <title>User Profile</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <style>
-        body {
-            background-color: #f8f9fa;
-            padding: 20px;
-        }
-        .profile-container {
-            max-width: 500px;
-            margin: 100px auto;
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 28px; 
-            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
-        }
-        .profile-heading {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .profile-details {
-            margin-bottom: 20px;
-        }
-        .btn-edit-profile {
-            display: inline-block;
-            padding: 8px 20px;
-            background-color: #FFD036;
-            color: black;
-            border: none;
-            border-radius: 28px;
-            text-decoration: none;
-            transition: background-color 0.3s, color 0.3s;
-        }
-        .btn-edit-profile:hover {
-            background-color: #ffcd00;
-            color: white;
-        }
-        .password-container {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-        .password-container input {
-            width: 100%;
-            padding-right: 40px;
-        }
-        .password-container .toggle-password {
-            position: absolute;
-            right: 10px;
-            cursor: pointer;
-        }
-        .profile-picture {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            display: block;
-            margin: 0 auto 20px auto;
-            border: 1px solid #818080;
-        }
-        .logo {
-            display: block;
-            margin: 0 auto 20px auto;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="volunteeradminstyle.css">
 </head>
 <body>
 <?php include "admin_volunteerNavBar.php"; ?>
 <?php include "ft.php"; ?>
     <div class="profile-container">
-        <img src="images/admin_logo.jpg" alt="Admin Logo" class="logo">
+        <img src="images/admin_logo.jpg" alt="Admin Logo" class="profile-logo">
         <h1 class="profile-heading">User Profile</h1>
         
         <div class="profile-details">

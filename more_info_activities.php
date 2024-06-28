@@ -90,7 +90,7 @@
                 <img src="https://placehold.co/600" alt="<?php echo htmlspecialchars($event['title']); ?>">
             </div>
             <div class="event-info">
-                <p><strong>Description:</strong> <?php echo htmlspecialchars($event['descs']); ?></p>
+                <p><strong></strong> <?php echo htmlspecialchars($event['descs']); ?></p>
                 <p><strong>Date and Time Start:</strong> <?php echo htmlspecialchars($event['dateTimeStart']); ?></p>
                 <p><strong>Date and Time End:</strong> <?php echo htmlspecialchars($event['dateTimeEnd']); ?></p>
                 <p><strong>Location:</strong> <?php echo htmlspecialchars($event['locations']); ?></p>

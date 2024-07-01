@@ -3,6 +3,10 @@ include "dbFunctions.php";
 include "admin_retailNavbar.php";
 include "ft.php";
 
+session_start(); // Start session to maintain state
+
+$msg = "";
+
 if (isset($_GET['offerId'])) {
     $offerId = $_GET['offerId'];
 
@@ -14,7 +18,10 @@ if (isset($_GET['offerId'])) {
     $row = mysqli_fetch_array($result);
 
     if (!empty($row)) {
-        $offerId = $row['offerId'];
+        $_SESSION['offerId'] = $offerId; // Store offerId in session
+        $_SESSION['image'] = $row['images']; // Store image blob data in session
+
+        // Extract data from database for pre-filling form
         $title = $row['title'];
         $dateTimeStart = $row['dateTimeStart'];
         $dateTimeEnd = $row['dateTimeEnd'];
@@ -22,7 +29,6 @@ if (isset($_GET['offerId'])) {
         $termsAndConditions = $row['tandc'];
         $points = $row['points'];
         $amount = $row['amount'];
-        $image = $row['images'];
     }
 
 } else {
@@ -101,7 +107,7 @@ if (isset($_GET['offerId'])) {
         <br></br><br></br>
         <div class="container">
             <h1><b>Edit Offer</b></h1>
-            <form action="admin_retailDoEdit.php" method="post">
+            <form action="admin_retailDoEdit.php" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="offerId" value="<?php echo $offerId; ?>" />
                 <div class="form-group">
                     <label>Image:</label>
@@ -110,31 +116,31 @@ if (isset($_GET['offerId'])) {
 
                 <div class="form-group">
                     <label>Name:</label><br>
-                    <textarea name="title"><?php echo $row['title']; ?></textarea>
+                    <textarea name="title"><?php echo $title; ?></textarea>
                 </div>
                 <div class="form-group">
                     <label>Start Date:</label>
-                    <input type="datetime-local" name="dateTimeStart" value="<?php echo $row['dateTimeStart']; ?>">
+                    <input type="datetime-local" name="dateTimeStart" value="<?php echo $dateTimeStart; ?>">
                 </div>
                 <div class="form-group">
                     <label>End Date:</label>
-                    <input type="datetime-local" name="dateTimeEnd" value="<?php echo $row['dateTimeEnd']; ?>">
+                    <input type="datetime-local" name="dateTimeEnd" value="<?php echo $dateTimeEnd; ?>">
                 </div>
                 <div class="form-group">
                     <label>T&C:</label>
-                    <textarea name="tandc"><?php echo $row['tandc']; ?></textarea>
+                    <textarea name="tandc"><?php echo $termsAndConditions; ?></textarea>
                 </div>
                 <div class="form-group">
                     <label>Locations:</label>
-                    <input type="text" name="locations" value="<?php echo $row['locations']; ?>">
+                    <input type="text" name="locations" value="<?php echo $locations; ?>">
                 </div>
                 <div class="form-group">
                     <label>Points:</label>
-                    <input type="number" name="points" min="0" value="<?php echo $row['points']; ?>">
+                    <input type="number" name="points" min="0" value="<?php echo $points; ?>">
                 </div>
                 <div class="form-group">
                     <label>Amount:</label>
-                    <input type="number" name="amount" min="0" value="<?php echo $row['amount']; ?>">
+                    <input type="number" name="amount" min="0" value="<?php echo $amount; ?>">
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Save Changes">

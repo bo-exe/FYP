@@ -29,7 +29,7 @@
             <li>
                 <a href="admin_gigMilestone.php">
                     <img src="images/navmilestones.png" alt="Milestones Icon" class="volunteernav-icon">
-                    MILESTONES
+                    DASHBOARD
                 </a>
             </li>
 

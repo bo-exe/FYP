@@ -8,6 +8,7 @@ if (!isset($_SESSION['adminID'])) {
     exit();
 }
 include "dbFunctions.php";
+include "ft.php";
 
 // Fetch user data from database based on session userId
 $userId = $_SESSION['adminID'];
@@ -23,7 +24,7 @@ if (mysqli_num_rows($result) == 1) {
     $email = $row['email'];
     $password = $row['password'];
     $number = $row['number'];
-    $profile_pic = $row['profile_pic']; 
+    $profile_pic = $row['profile_pic'];
     // Add more fields as needed
 } else {
     // Handle error if user data not found
@@ -46,22 +47,26 @@ if (mysqli_num_rows($result) == 1) {
             background-color: #f8f9fa;
             padding: 20px;
         }
+
         .profile-container {
             max-width: 500px;
             margin: 100px auto;
             background-color: #ffffff;
             padding: 20px;
-            border-radius: 28px; 
-            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+            border-radius: 28px;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
         }
+
         .profile-heading {
             text-align: center;
             margin-bottom: 20px;
         }
+
         .profile-details {
             margin-bottom: 20px;
         }
-        .btn-edit-profile {
+
+        .btn-save-profile {
             display: inline-block;
             padding: 8px 20px;
             background-color: #FFD036;
@@ -70,25 +75,31 @@ if (mysqli_num_rows($result) == 1) {
             border-radius: 28px;
             text-decoration: none;
             transition: background-color 0.3s, color 0.3s;
+            margin-right: 10px;
         }
-        .btn-edit-profile:hover {
+
+        .btn-save-profile:hover {
             background-color: #ffcd00;
             color: white;
         }
+
         .password-container {
             position: relative;
             display: flex;
             align-items: center;
         }
+
         .password-container input {
             width: 100%;
             padding-right: 40px;
         }
+
         .password-container .toggle-password {
             position: absolute;
             right: 10px;
             cursor: pointer;
         }
+
         .profile-picture {
             width: 150px;
             height: 150px;
@@ -98,54 +109,88 @@ if (mysqli_num_rows($result) == 1) {
             margin: 0 auto 20px auto;
             border: 1px solid #818080;
         }
-        .logo {
-            display: block;
-            margin: 0 auto 20px auto;
+        .btn-edit-profile {
+            display: inline-block;
+            padding: 8px 20px;
+            background-color: #FFD036;
+            text-decoration: none;
+            border-radius: 30px;
+            margin-top: 16px;
+            margin-left: 5px;
+            margin-bottom: 10px;
+            color: #FFF5F5;
+            font-weight: bold;
         }
+
+        .btn-edit-profile:hover {
+            background-color: #ffcd00;
+            color: #d9d9d9;
+        }
+
+        .btn-logout {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #EF1E1E;
+            text-decoration: none;
+            border-radius: 30px;
+            margin-top: 16px;
+            color: #FFF5F5;
+            font-weight: bold;
+            margin-left: 10px;
+            margin-bottom: 10px;
+        }
+
+        .btn-logout:hover {
+            background-color: #EF1E1E;
+            color: #d9d9d9;
+        }
+
+       
     </style>
 </head>
 <body>
 <?php include "admin_retailNavBar.php"; ?>
-<?php include "ft.php"; ?>
-    <div class="profile-container">
-        <img src="images/admin_logo.jpg" alt="Admin Logo" class="logo">
-        <h1 class="profile-heading">User Profile</h1>
-        
-        <div class="profile-details">
-            <img src="images/<?php echo htmlspecialchars($profile_pic); ?>" alt="Profile Picture" class="profile-picture">
-            <p><strong>Username:</strong> <?php echo htmlspecialchars($username); ?></p>
-            <p><strong>Email:</strong> <?php echo htmlspecialchars($email); ?></p>
-            <p><strong>Company Number:</strong> <?php echo htmlspecialchars($number); ?></p>
-            <p><strong>Password: </strong></p>
-            <div class="password-container">
-                <input type="password" id="password" value="<?php echo htmlspecialchars($password); ?>" readonly>
-                <span class="toggle-password" onclick="togglePassword()">
-                    <i class="fas fa-eye"></i>
-                </span>
-            </div>
-        </div>
-        
-        <div class="text-center">
-            <a href="admin_retailEditProfile.php" class="btn-edit-profile">Edit Profile</a>
-            <!-- Link to edit profile page -->
+<div class="profile-container">
+<img src="images/admin_logo.jpg" alt="Admin Logo" class="profile-logo">
+    <h1 class="profile-heading">User Profile</h1>
+
+    <div class="profile-details">
+        <img src="images/<?php echo htmlspecialchars($profile_pic); ?>" alt="Profile Picture" class="profile-picture">
+        <p><strong>Username:</strong> <?php echo htmlspecialchars($username); ?></p>
+        <p><strong>Email:</strong> <?php echo htmlspecialchars($email); ?></p>
+        <p><strong>Company Number:</strong> <?php echo htmlspecialchars($number); ?></p>
+        <p><strong>Password: </strong></p>
+        <div class="password-container">
+            <input type="password" id="password" value="<?php echo htmlspecialchars($password); ?>" readonly>
+            <span class="toggle-password" onclick="togglePassword()">
+                <i class="fas fa-eye"></i>
+            </span>
         </div>
     </div>
 
-    <script>
-        function togglePassword() {
-            var passwordField = document.getElementById("password");
-            var passwordFieldType = passwordField.getAttribute("type");
-            var toggleIcon = document.querySelector(".toggle-password i");
-            if (passwordFieldType == "password") {
-                passwordField.setAttribute("type", "text");
-                toggleIcon.classList.remove("fa-eye");
-                toggleIcon.classList.add("fa-eye-slash");
-            } else {
-                passwordField.setAttribute("type", "password");
-                toggleIcon.classList.remove("fa-eye-slash");
-                toggleIcon.classList.add("fa-eye");
-            }
+    <div class="text-center">
+        <a href="admin_retailEditProfile.php" class="btn-edit-profile">Edit Profile</a>
+        <!-- Link to edit profile page -->
+        <a href="admin_logout.php" class="btn-logout">Logout</a>
+        <!-- Logout button -->
+    </div>
+</div>
+
+<script>
+    function togglePassword() {
+        var passwordField = document.getElementById("password");
+        var passwordFieldType = passwordField.getAttribute("type");
+        var toggleIcon = document.querySelector(".toggle-password i");
+        if (passwordFieldType == "password") {
+            passwordField.setAttribute("type", "text");
+            toggleIcon.classList.remove("fa-eye");
+            toggleIcon.classList.add("fa-eye-slash");
+        } else {
+            passwordField.setAttribute("type", "password");
+            toggleIcon.classList.remove("fa-eye-slash");
+            toggleIcon.classList.add("fa-eye");
         }
-    </script>
+    }
+</script>
 </body>
 </html>

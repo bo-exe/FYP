@@ -23,8 +23,9 @@ if (isset($_GET['offerId'])) {
         $instructions = $row['instructions'];
         $points = $row['points'];
         $amount = $row['amount'];
-        
+        // Fetch image blob data and convert to base64
         $imageData = $row['images'];
+        $imageType = $row['imageType']; // Assuming you store image type in database
 
         $image = 'data:image/' . $imageType . ';base64,' . base64_encode($imageData);
     }

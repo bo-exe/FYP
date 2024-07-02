@@ -3,6 +3,8 @@ include "dbFunctions.php";
 include "admin_retailNavbar.php";
 include "ft.php";
 
+session_start(); // Start session to maintain state
+
 $msg = "";
 
 if (isset($_GET['offerId'])) {
@@ -16,6 +18,9 @@ if (isset($_GET['offerId'])) {
     $row = mysqli_fetch_array($result);
 
     if (!empty($row)) {
+
+        $_SESSION['offerId'] = $offerId; // Store offerId in session
+        $_SESSION['image'] = $row['images']; // Store image blob data in session
         // Extract data from database for pre-filling form
         $title = $row['title'];
         $dateTimeStart = $row['dateTimeStart'];
@@ -25,7 +30,6 @@ if (isset($_GET['offerId'])) {
         $instructions = $row['instructions'];
         $points = $row['points'];
         $amount = $row['amount'];
-        $image = $row['images'];
     }
 
 } else {
@@ -149,6 +153,7 @@ if (isset($_GET['offerId'])) {
                 <div class="form-group">
                     <label>Amount:</label>
                     <input type="number" name="amount" min="0" value="<?php echo htmlspecialchars($amount); ?>">
+
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Save Changes">

@@ -5,6 +5,8 @@ include "admin_retailNavbar.php";
 
 $msg = "";
 
+session_start(); // Start session to maintain state
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve form data
     $offerId = $_POST['offerId'];
@@ -48,6 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 } else {
     $msg = "Method not allowed.";
+
 }
 ?>
 

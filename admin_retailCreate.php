@@ -12,6 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $locations = mysqli_real_escape_string($link, $_POST['locations']);
     $tandc = mysqli_real_escape_string($link, $_POST['tandc']);
     $instructions = mysqli_real_escape_string($link, $_POST['instructions']);
+
     $points = intval($_POST['points']);
     $amount = floatval($_POST['amount']);
     
@@ -44,6 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $newOfferId = $maxOfferId + 1;
 
     // Insert the new offer into the database
+
     $insertQuery = "INSERT INTO offers (offerId, title, dateTimeStart, dateTimeEnd, locations, tandc, instructions, points, amount, images) 
                     VALUES ('$newOfferId', '$title', '$dateTimeStart', '$dateTimeEnd', '$locations', '$tandc','$instructions', '$points', '$amount', '$imageData')";
     if (mysqli_query($link, $insertQuery)) {

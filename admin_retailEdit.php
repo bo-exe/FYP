@@ -3,6 +3,8 @@ include "dbFunctions.php";
 include "admin_retailNavbar.php";
 include "ft.php";
 
+$msg = "";
+
 if (isset($_GET['offerId'])) {
     $offerId = $_GET['offerId'];
 
@@ -14,12 +16,13 @@ if (isset($_GET['offerId'])) {
     $row = mysqli_fetch_array($result);
 
     if (!empty($row)) {
-        $offerId = $row['offerId'];
+        // Extract data from database for pre-filling form
         $title = $row['title'];
         $dateTimeStart = $row['dateTimeStart'];
         $dateTimeEnd = $row['dateTimeEnd'];
         $locations = $row['locations'];
         $termsAndConditions = $row['tandc'];
+        $instructions = $row['instructions'];
         $points = $row['points'];
         $amount = $row['amount'];
         $image = $row['images'];
@@ -45,7 +48,6 @@ if (isset($_GET['offerId'])) {
             border-radius: 5px;
             background-color: #f9f9f9;
             text-align: center;
-            /* Center align content */
         }
 
         h1 {
@@ -71,7 +73,6 @@ if (isset($_GET['offerId'])) {
             border: 1px solid #ccc;
             border-radius: 4px;
             box-sizing: border-box;
-            /* Ensure padding and border are included in width */
             font-size: 16px;
         }
 
@@ -92,49 +93,62 @@ if (isset($_GET['offerId'])) {
         input[type="submit"]:hover {
             background-color: #E7BC32;
         }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 
 <body>
 
-    <?php if (!empty($offerId)) { ?>
+<?php if (!empty($offerId)) { ?>
         <br></br><br></br>
         <div class="container">
             <h1><b>Edit Offer</b></h1>
-            <form action="admin_retailDoEdit.php" method="post">
+            <form action="admin_retailDoEdit.php" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="offerId" value="<?php echo $offerId; ?>" />
                 <div class="form-group">
                     <label>Image:</label>
                     <input type="file" name="image" accept="image/*">
+                    <?php if (!empty($image)) { ?>
+                        <img src="data:image/jpeg;base64,<?php echo base64_encode($image); ?>" alt="Current Image">
+                    <?php } ?>
                 </div>
 
                 <div class="form-group">
                     <label>Name:</label><br>
-                    <textarea name="title"><?php echo $row['title']; ?></textarea>
+                    <textarea name="title"><?php echo htmlspecialchars($title); ?></textarea>
                 </div>
                 <div class="form-group">
                     <label>Start Date:</label>
-                    <input type="datetime-local" name="dateTimeStart" value="<?php echo $row['dateTimeStart']; ?>">
+                    <input type="datetime-local" name="dateTimeStart" value="<?php echo date('Y-m-d\TH:i', strtotime($dateTimeStart)); ?>">
                 </div>
                 <div class="form-group">
                     <label>End Date:</label>
-                    <input type="datetime-local" name="dateTimeEnd" value="<?php echo $row['dateTimeEnd']; ?>">
+                    <input type="datetime-local" name="dateTimeEnd" value="<?php echo date('Y-m-d\TH:i', strtotime($dateTimeEnd)); ?>">
                 </div>
                 <div class="form-group">
                     <label>T&C:</label>
-                    <textarea name="tandc"><?php echo $row['tandc']; ?></textarea>
+                    <textarea name="tandc"><?php echo htmlspecialchars($termsAndConditions); ?></textarea>
                 </div>
                 <div class="form-group">
                     <label>Locations:</label>
-                    <input type="text" name="locations" value="<?php echo $row['locations']; ?>">
+                    <input type="text" name="locations" value="<?php echo htmlspecialchars($locations); ?>">
+                </div>
+                <div class="form-group">
+                    <label>Instructions:</label>
+                    <textarea name="instructions"><?php echo htmlspecialchars($instructions); ?></textarea>
                 </div>
                 <div class="form-group">
                     <label>Points:</label>
-                    <input type="number" name="points" min="0" value="<?php echo $row['points']; ?>">
+                    <input type="number" name="points" min="0" value="<?php echo htmlspecialchars($points); ?>">
                 </div>
                 <div class="form-group">
                     <label>Amount:</label>
-                    <input type="number" name="amount" min="0" value="<?php echo $row['amount']; ?>">
+                    <input type="number" name="amount" min="0" value="<?php echo htmlspecialchars($amount); ?>">
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Save Changes">

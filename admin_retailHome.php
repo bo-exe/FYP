@@ -28,7 +28,7 @@
         <button class="retailbutton" id="button3">
             <a href="admin_retailMilestones.php">
                 <img src="images/milestones.jpg" alt="Icon 3">
-                <br>MILESTONES
+                <br>DASHBOARD
             </a>
         </button>
 </div>

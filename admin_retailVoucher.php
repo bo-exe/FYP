@@ -1,90 +1,71 @@
 <?php
 include "dbFunctions.php";
-session_start();
+include "admin_retailNavbar.php";
+include "ft.php";
 
-// Ensure offerId is set and numeric
-if (!isset($_GET['offerId']) || !is_numeric($_GET['offerId'])) {
-    echo "Invalid offer ID.";
-    exit();
-}
+if (isset($_GET['offerId'])) {
+    $offerId = $_GET['offerId'];
 
-$offerId = $_GET['offerId'];
+    $query = "SELECT *, amount - redeemed_vouchers AS amount_after_redemption FROM offers WHERE offerId=?";
+    $stmt = mysqli_prepare($link, $query);
+    mysqli_stmt_bind_param($stmt, "i", $offerId);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    $row = mysqli_fetch_array($result);
 
-$query = "SELECT * FROM offers WHERE offerId = ?";
-$stmt = $link->prepare($query);
-$stmt->bind_param("i", $offerId);
-$stmt->execute();
-$result = $stmt->get_result();
+    if (!empty($row)) {
+        $offerId = $row['offerId'];
+        $title = $row['title'];
+        $dateTimeStart = $row['dateTimeStart'];
+        $dateTimeEnd = $row['dateTimeEnd'];
+        $locations = $row['locations'];
+        $termsAndConditions = $row['tandc'];
+        $instructions = $row['instructions'];
+        $points = $row['points'];
+        $amount = $row['amount_after_redemption']; // Use the calculated amount after deduction
+        $redeemedVouchers = $row['redeemed_vouchers'];
 
-if ($result->num_rows == 1) {
-    $offerData = $result->fetch_assoc();
+        // Fetch image blob data and convert to base64
+        $imageData = $row['images'];
+        $imageType = $row['imageType'];
 
-    // Retrieve BLOB data and convert to base64 encoded string
-    $imageData = base64_encode($offerData['images']);
-    $imageSrc = 'data:image/jpeg;base64,' . $imageData;
+        $image = 'data:image/' . $imageType . ';base64,' . base64_encode($imageData);
+    }
+
 } else {
-    echo "Offer not found.";
-    exit();
+    // Offer ID not provided
+    echo "Offer ID not provided.";
 }
-
-$stmt->close();
-$link->close();
 ?>
-<!DOCTYPE html>
-<html lang="en">
 
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Offers</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Delete Offer</title>
     <style>
-        .offer-card-container {
+        .container {
             display: flex;
             justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 20px;
+            align-items: center;
+            height: 100vh;
         }
 
-        .offer-card {
-            width: 325px;
-            background-color: #ECECE7;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-            margin: 20px;
+        .card {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 400px;
+        }
+
+        .card img {
+            max-width: 100%;
             height: auto;
-            text-decoration: none;
-            color: inherit;
-            position: relative;
-        }
-
-        .offer-card img {
-            width: 100%;
-            height: 165px;
-            object-fit: cover;
-        }
-
-        .offer-card-content {
-            padding: 15px;
-        }
-
-        .offer-card-content h2 {
-            font-size: 28px;
-            margin-bottom: 10px;
-            margin-top: 10px;
-            text-align: center;
-            /* Center align the title */
-        }
-
-        .offer-card-content p {
-            color: #333333;
-            font-size: 15px;
-            line-height: 1.3;
+            border-radius: 5px;
             margin-bottom: 10px;
         }
 
-        .offer-card-content .del-btn {
+        .del-btn {
             display: inline-block;
             padding: 8px 16px;
             background-color: #EF1E1E;
@@ -93,68 +74,39 @@ $link->close();
             margin-top: 16px;
             color: #FFF5F5;
             font-weight: bold;
-            margin-left: 10px;
-            margin-bottom: 10px;
+            text-align: center;
+            margin-left: 130px;
         }
 
-        .offer-card-content .edit-btn {
-            display: inline-block;
-            padding: 8px 16px;
-            background-color: #FFD036;
-            text-decoration: none;
-            border-radius: 30px;
-            margin-top: 16px;
-            margin-left: 110px;
-            margin-bottom: 10px;
-            color: #FFF5F5;
-            font-weight: bold;
-        }
-
-        .add-btn {
-            display: inline-block;
-            padding: 8px 16px;
-            background-color: #BFB7B7;
-            text-decoration: none;
-            border-radius: 30px;
-            color: #FFF5F5;
-            font-weight: bold;
-            margin-top: 20px;
-        }
-
-        .add-btn-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
+        .del-btn:hover {
+            background-color: #d81b1b;
         }
     </style>
 </head>
 
 <body>
-    <?php include "admin_retailNavBar.php"; ?>
-    <?php include "ft.php"; ?>
-
-    <div class="offer-card-container">
-        <div class="offer-card">
-            <br>
-            <h1 style="text-align: center;"><?php echo $offerData['title'] ?></h1>
-            <br>
-            <img src="<?php echo $imageSrc; ?>" alt="<?php echo $offerData['title']; ?>" class="card-img-top">
-            <div class="offer-card-content">
-                <p class="card-text"><b>Start Date:</b> <?php echo $offerData['dateTimeStart']; ?></p>
-                <p class="card-text"><b>End Date:</b> <?php echo $offerData['dateTimeEnd']; ?></p>
-                <p class="card-text"><b>Locations:</b> <?php echo $offerData['locations']; ?></p>
-                <p class="card-text"><b>T&C:</b> <?php echo $offerData['tandc']; ?></p>
-                <p class="card-text"><b>Points:</b> <?php echo $offerData['points']; ?></p>
-                <p class="card-text"><b>Amount:</b> <?php echo $offerData['amount']; ?></p>
-            </div>
-            <div class="offer-card-content">
-                <a href="admin_retailDelete.php?offerId=<?php echo $offerData['offerId']; ?>" class="del-btn">Delete</a>
-                <a href="admin_retailEdit.php?offerId=<?php echo $offerData['offerId']; ?>" class="edit-btn">Edit</a>
-            </div>
+<div class="container">
+    <?php if (!empty($offerId)) { ?>
+        <div class="card">
+            <img src="<?php echo $image; ?>" alt="Offer Image">
+            <h2><?php echo htmlspecialchars($title); ?></h2>
+            <p><b>Start Date:</b> <?php echo htmlspecialchars($dateTimeStart); ?></p>
+            <p><b>End Date:</b> <?php echo htmlspecialchars($dateTimeEnd); ?></p>
+            <p><b>Locations:</b> <?php echo htmlspecialchars($locations); ?></p>
+            <p><b>Terms and Conditions:</b> <?php echo htmlspecialchars($termsAndConditions); ?></p>
+            <p><b>Instructions:</b> <?php echo htmlspecialchars($instructions); ?></p>
+            <p><b>Points:</b> <?php echo htmlspecialchars($points); ?></p>
+            <p><b>Amount:</b> <?php echo htmlspecialchars($amount); ?></p>
+            <p><b>Redeemed Vouchers:</b> <?php echo htmlspecialchars($redeemedVouchers); ?></p>
+            <a href="admin_retailDoDelete.php?offerId=<?php echo htmlspecialchars($offerId); ?>" class="del-btn">Delete</a>
         </div>
-    </div>
-
-    <?php include "admin_footer.php"; ?>
+    <?php } else { ?>
+        <div style="text-align: center;">
+            <p>Invalid offer ID. Please try again.</p>
+            <p><a href="admin_retailManage.php">Back to Offers</a></p>
+        </div>
+    <?php } ?>
+</div>
 </body>
 
 </html>

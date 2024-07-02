@@ -16,19 +16,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Handle image upload
     if (isset($_FILES['images']) && $_FILES['images']['error'] == UPLOAD_ERR_OK) {
         $imageTmpPath = $_FILES['images']['tmp_name'];
-        $imageName = basename($_FILES['images']['name']);
-        $uploadDir = 'images/';
-        $destPath = $uploadDir . $imageName;
-
-        if (move_uploaded_file($imageTmpPath, $destPath)) {
-            $images = mysqli_real_escape_string($link, $imageName);
+        $imageType = $_FILES['images']['type'];
+        
+        // Check if the uploaded file is an image
+        if ($imageType == 'image/jpeg' || $imageType == 'image/png' || $imageType == 'image/gif') {
+            $imageData = file_get_contents($imageTmpPath);
+            $images = mysqli_real_escape_string($link, $imageData);
         } else {
-            $errorMessage = "Error uploading the image file.";
+            $errorMessage = "Unsupported image format. Please upload JPEG, PNG, or GIF.";
             header("Location: form.php?error=" . urlencode($errorMessage));
             exit();
         }
     } else {
-        $images = 'none.png';  // Default image if no image uploaded
+        $errorMessage = "No image uploaded.";
+        header("Location: form.php?error=" . urlencode($errorMessage));
+        exit();
     }
 
     // Get the highest existing offerId from the database
@@ -41,8 +43,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $newOfferId = $maxOfferId + 1;
 
     // Insert the new offer into the database
-    $insertQuery = "INSERT INTO offers (offerId, title, dateTimeStart, dateTimeEnd, locations, tandc, points, amount, images) 
-                    VALUES ('$newOfferId', '$title', '$dateTimeStart', '$dateTimeEnd', '$locations', '$tandc', '$points', '$amount', '$images')";
+    $insertQuery = "INSERT INTO offers (offerId, title, dateTimeStart, dateTimeEnd, locations, tandc, instructions, points, amount, images) 
+                    VALUES ('$newOfferId', '$title', '$dateTimeStart', '$dateTimeEnd', '$locations','$instructions', '$tandc', '$points', '$amount', '$images')";
     if (mysqli_query($link, $insertQuery)) {
         $message = "Offer added successfully.";
     } else {

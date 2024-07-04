@@ -49,7 +49,7 @@ if (isset($_GET['volunteerId']) && isset($_GET['requestNumber'])) {
     <title>Approve Volunteer</title>
 </head>
 <body>
-    <h1>Approve Volunteer - Request #<?php echo htmlspecialchars($requestNumber); ?></h1>
+    <h1>Volunteer Request #<?php echo htmlspecialchars($requestNumber); ?></h1>
     <?php if ($volunteer): ?>
         <p>Username: <?php echo htmlspecialchars($volunteer['username']); ?></p>
         <p>Email: <?php echo htmlspecialchars($volunteer['email']); ?></p>

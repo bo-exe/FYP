@@ -1,6 +1,6 @@
 <?php
 include "dbFunctions.php";
-include "ft.php"; 
+include "ft.php";
 session_start();
 
 $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
@@ -22,7 +22,7 @@ if (isset($_SESSION['username'])) {
             $vomoPoints = 0;
         }
     } else {
-        $vomoPoints = 0; 
+        $vomoPoints = 0;
     }
 } else {
     $vomoPoints = 0;
@@ -39,6 +39,7 @@ while ($row = mysqli_fetch_array($result)) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -49,10 +50,10 @@ while ($row = mysqli_fetch_array($result)) {
     <style>
         /* Navbar styling */
         nav {
-            position: fixed; 
+            position: fixed;
             top: 0;
             width: 100%;
-            z-index: 1000; 
+            z-index: 1000;
         }
 
         /* Homepage */
@@ -60,7 +61,8 @@ while ($row = mysqli_fetch_array($result)) {
             margin-top: 100px;
         }
 
-        .home p, h3 {
+        .home p,
+        h3 {
             margin-right: 800px;
             text-align: left;
         }
@@ -133,7 +135,7 @@ while ($row = mysqli_fetch_array($result)) {
             justify-content: center;
             margin-top: 20px;
             background: #FFD036;
-            color: #333; 
+            color: #333;
             border: .2rem solid transparent;
         }
 
@@ -143,7 +145,7 @@ while ($row = mysqli_fetch_array($result)) {
         }
 
         .greeting {
-            flex-grow: 1; 
+            flex-grow: 1;
         }
 
         .points-container {
@@ -174,9 +176,10 @@ while ($row = mysqli_fetch_array($result)) {
         }
     </style>
 </head>
+
 <body>
-    <?php include "navbar.php"; ?>
-    
+    <?php include "vol_navbar.php"; ?>
+
     <section class="home" id="home">
         <div class="header">
             <div class="greeting">
@@ -194,23 +197,26 @@ while ($row = mysqli_fetch_array($result)) {
     </section>
 
     <div class="stores-card-container">
-    <?php foreach ($arrContent as $storeData) : ?>
-        <div class="stores-card">
-            <a href="offers.php?storeId=<?php echo $storeData['storeId']; ?>" style="text-decoration: none; color: inherit;">
-                <img src="<?php echo ($storeData['image'] == 'none') ? 'images/default.jpg' : 'data:image/jpeg;base64,' . base64_encode($storeData['image']); ?>" alt="<?php echo $storeData['title']; ?>" class="card-img-top">
+        <?php foreach ($arrContent as $storeData): ?>
+            <div class="stores-card">
+                <a href="vol_storeVouchers.php?storeId=<?php echo $storeData['storeId']; ?>"
+                    style="text-decoration: none; color: inherit;">
+                    <img src="<?php echo ($storeData['image'] == 'none') ? 'images/default.jpg' : 'data:image/jpeg;base64,' . base64_encode($storeData['image']); ?>"
+                        alt="<?php echo $storeData['title']; ?>" class="card-img-top">
+                    <div class="stores-card-content">
+                        <h2><?php echo $storeData['title']; ?></h2>
+                        <p><b>Quantity:</b> <?php echo $storeData['quantity']; ?></p>
+                    </div>
+                </a>
                 <div class="stores-card-content">
-                    <h2><?php echo $storeData['title']; ?></h2>
-                    <p><b>Quantity:</b> <?php echo $storeData['quantity']; ?></p>
+                    <a href="vol_storeVouchers.php?storeId=<?php echo $storeData['storeId']; ?>" class="more-btn">More</a>
                 </div>
-            </a>
-            <div class="stores-card-content">
-                <a href="offers.php?storeId=<?php echo $storeData['storeId']; ?>" class="more-btn">More</a>
             </div>
-        </div>
-    <?php endforeach; ?>
+        <?php endforeach; ?>
     </div>
 
     <?php include "footer.php"; ?>
     <script src="script.js"></script>
 </body>
+
 </html>

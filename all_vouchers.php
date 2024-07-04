@@ -1,11 +1,9 @@
 <?php
 session_start();
-include "dbFunctions.php"; // Assuming this file contains database connection details
+include "dbFunctions.php"; 
 
-// Create connection
 $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
 
-// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }

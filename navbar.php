@@ -107,7 +107,7 @@
         <ul>
             <li><a href="index.php">HOME</a></li>
             <li><a href="Recommend_activities.php">ACTIVITIES</a></li>
-            <li><a href="#">REDEEM</a></li>
+            <li><a href="all_vouchers.php">REDEEM</a></li>
             <li><a href="all_stores.php">STORES</a></li>
             <li><a href=""><i class='bx bx-user' id="profile"></i></a></li>
         </ul>

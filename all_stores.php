@@ -3,6 +3,11 @@ include "dbFunctions.php";
 include "ft.php"; 
 session_start();
 
+$conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
 if (isset($_SESSION['username'])) {
     $username = $_SESSION['username'];

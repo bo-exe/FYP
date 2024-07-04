@@ -86,16 +86,8 @@ if ($resultOffers) {
 
         .offer-card {
             width: 325px;
-            background-color: #ECECE7;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-            margin: 20px;
-            height: 300px;
-            text-decoration: none;
-            color: inherit;
-            position: relative;
         }
+
 
         .offer-card img {
             width: 100%;
@@ -118,6 +110,30 @@ if ($resultOffers) {
             font-size: 15px;
             line-height: 1.3;
             margin-left: 10px;
+        }
+
+        .card-content .btn {
+            padding: 0.3rem 0.7rem;
+            background: #FFD036;
+            border-radius: .6rem;
+            box-shadow: 0 .2rem .5rem #333;
+            font-size: 0.8rem;
+            color: #333;
+            letter-spacing: .1rem;
+            font-weight: 600;
+            border: .2rem solid transparent;
+            margin-top: 16px;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .card-content .btn:hover {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            background: #FFD036;
+            color: #333;
+            border: .2rem solid transparent;
         }
 
         .header {
@@ -221,8 +237,8 @@ if ($resultOffers) {
     </div>
 
     <div class="offer-card-container">
-        <?php if (!empty($arrContent)) : ?>
-            <?php foreach ($arrContent as $offerData) : ?>
+        <?php if (!empty($arrContent)): ?>
+            <?php foreach ($arrContent as $offerData): ?>
                 <?php
                 $offerId = $offerData['offerId'];
                 $title = $offerData['title'];
@@ -248,9 +264,10 @@ if ($resultOffers) {
                     </div>
                 </div>
             <?php endforeach; ?>
-        <?php else : ?>
+        <?php else: ?>
             <p>No vouchers available at this time.</p>
         <?php endif; ?>
+
     </div>
 
     <?php include "footer.php"; ?>

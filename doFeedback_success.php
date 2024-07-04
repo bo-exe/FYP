@@ -20,7 +20,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $message = "Error: " . $query . "<br>" . mysqli_error($link);
     }
     
-    // Close the database connection
     mysqli_close($link);
 }
 ?>

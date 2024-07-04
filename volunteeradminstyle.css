@@ -427,7 +427,7 @@ form {
 /* Navbar styling */
 .navbar-volunteeradmin {
     width: 100%;
-    background-color: #FFD036; 
+    background-color: #F3F3E9; 
     position: fixed;
     top: 0;
     left: 0;
@@ -465,7 +465,7 @@ form {
 }
 
 .navbar-volunteeradmin ul li a:hover {
-    background-color: #F3F3E9; 
+    background-color: #FFD036; 
     color: #555;
 }
 

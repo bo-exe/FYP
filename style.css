@@ -187,14 +187,16 @@ video {
 .qr-container {
     width: 100%;
     max-width: 500px;
-    margin: 5px;
+    margin: 5px auto;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
  
 .qr-container h1 {
-    color: #ffffff;
+    color: #000000;
+    margin: 10px 0;
 }
 
 .qr-section {
@@ -203,6 +205,14 @@ video {
     border: 1.5px solid #b2b2b2;
     border-radius: 0.25em;
     box-shadow: 0 20px 25px rgba(0, 0, 0, 0.25);
+}
+
+.scan-here {
+    margin-bottom: 20px;
+}
+
+.redeem-points {
+    margin-top: 20px;
 }
 
 /* sign up page */ 

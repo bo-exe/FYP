@@ -66,7 +66,7 @@
     </style>
 </head>
 <body>
-<?php include "navbar.php"; ?>
+<?php include "vol_navbar.php"; ?>
 
 <div class="event-details-container">
     <?php
@@ -96,7 +96,7 @@
                 <p><strong>Location:</strong> <?php echo htmlspecialchars($event['locations']); ?></p>
                 <p><strong>Points:</strong> <?php echo htmlspecialchars($event['points']); ?></p>
                 <div class="text-center mt-4">
-                    <a href="signup_activities.php?eventID=<?php echo $eventID; ?>"><button class="btn btn-primary">Apply Now</button></a>
+                    <a href="vol_signUpActivities.php?eventID=<?php echo $eventID; ?>"><button class="btn btn-primary">Apply Now</button></a>
                 </div>
             </div>
         </div>

@@ -1,6 +1,7 @@
 <?php
+include "dbFunctions.php";
+include "ft.php";
 session_start();
-include "dbFunctions.php"; 
 
 $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
 
@@ -21,30 +22,38 @@ if (isset($_SESSION['username'])) {
             $vomoPoints = 0;
         }
     } else {
-        $vomoPoints = 0; 
+        $vomoPoints = 0;
     }
 } else {
     $vomoPoints = 0;
 }
 
+$query = "SELECT * FROM stores";
+$result = mysqli_query($link, $query) or die(mysqli_error($link));
+
+$arrContent = array();
+while ($row = mysqli_fetch_array($result)) {
+    $arrContent[] = $row;
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Vouchers</title>
+    <title>All Stores</title>
     <link rel="icon" type="image/x-icon" href="images/logo.jpg">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
     <style>
         /* Navbar styling */
         nav {
-            position: fixed; 
+            position: fixed;
             top: 0;
             width: 100%;
-            z-index: 1000; 
+            z-index: 1000;
         }
 
         /* Homepage */
@@ -52,7 +61,8 @@ if (isset($_SESSION['username'])) {
             margin-top: 100px;
         }
 
-        .home p, h3{
+        .home p,
+        h3 {
             margin-right: 800px;
             text-align: left;
         }
@@ -63,50 +73,49 @@ if (isset($_SESSION['username'])) {
             text-shadow: 0 .1rem .1rem #333;
         }
 
-        .voucher-card-container{
+        .stores-card-container {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            margin-top: 100px;
+            margin-top: 20px;
         }
 
-        .voucher-card{
-            width: 20%; 
+        .stores-card {
+            width: 325px;
             background-color: #ECECE7;
-            border-radius: 8px;
+            border-radius: 10px;
             overflow: hidden;
             box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
             margin: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            height: auto;
+            text-decoration: none;
+            color: inherit;
+            position: relative;
         }
 
-        .voucher-card img {
+        .stores-card img {
             width: 100%;
             height: 165px;
         }
 
-        .card-content {
-            padding: 16px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+        .stores-card-content {
+            padding: 15px;
         }
 
-        .card-content h3 {
+        .stores-card-content h2 {
             font-size: 28px;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            margin-top: 10px;
         }
 
-        .card-content p {
-            color: #333;
+        .stores-card-content p {
+            color: #333333;
             font-size: 15px;
             line-height: 1.3;
+            margin-bottom: 10px;
         }
 
-        .card-content .btn {
+        .more-btn {
             padding: 0.3rem 0.7rem;
             background: #FFD036;
             border-radius: .6rem;
@@ -121,12 +130,12 @@ if (isset($_SESSION['username'])) {
             text-align: center;
         }
 
-        .card-content .btn:hover {
+        .more-btn-container {
             display: flex;
             justify-content: center;
             margin-top: 20px;
             background: #FFD036;
-            color: #333; 
+            color: #333;
             border: .2rem solid transparent;
         }
 
@@ -136,7 +145,7 @@ if (isset($_SESSION['username'])) {
         }
 
         .greeting {
-            flex-grow: 1; 
+            flex-grow: 1;
         }
 
         .points-container {
@@ -165,37 +174,12 @@ if (isset($_SESSION['username'])) {
         .points-container .vomo-points span:first-child {
             margin-right: 100px;
         }
-
-        @media (max-width: 1200px) {
-            .voucher-card {
-                width: 30%; 
-            }
-        }
-
-        @media (max-width: 992px) {
-            .voucher-card {
-                width: 45%; 
-            }
-        }
-
-        @media (max-width: 768px) {
-            .voucher-card {
-                width: 70%; 
-            }
-        }
-
-        @media (max-width: 576px) {
-            .voucher-card {
-                width: 90%; 
-                margin: 10px;
-            }
-        }
     </style>
 </head>
+
 <body>
-    <?php include "navbar.php"; ?>
-    <?php include "ft.php"; ?>
-    
+    <?php include "vol_navbar.php"; ?>
+
     <section class="home" id="home">
         <div class="header">
             <div class="greeting">
@@ -212,37 +196,27 @@ if (isset($_SESSION['username'])) {
         <p>@<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'Guest'; ?></p>
     </section>
 
-    <div class="voucher-card-container">
-        <?php
-        $sql = "SELECT * FROM offers";
-        $result = $conn->query($sql);
-
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $title = $row['title'];
-                $points = $row['points'];
-                $image = base64_encode($row['images']);
-                ?>
-                <div class="voucher-card">
-                    <div class="image-container">
-                        <img src="data:image/jpeg;base64,<?php echo $image; ?>" alt="<?php echo $title; ?>">
+    <div class="stores-card-container">
+        <?php foreach ($arrContent as $storeData): ?>
+            <div class="stores-card">
+                <a href="vol_storeVouchers.php?storeId=<?php echo $storeData['storeId']; ?>"
+                    style="text-decoration: none; color: inherit;">
+                    <img src="<?php echo ($storeData['image'] == 'none') ? 'images/default.jpg' : 'data:image/jpeg;base64,' . base64_encode($storeData['image']); ?>"
+                        alt="<?php echo $storeData['title']; ?>" class="card-img-top">
+                    <div class="stores-card-content">
+                        <h2><?php echo $storeData['title']; ?></h2>
+                        <p><b>Quantity:</b> <?php echo $storeData['quantity']; ?></p>
                     </div>
-                    <div class="card-content">
-                        <h3><?php echo $title; ?></h3>
-                        <p>Points: <?php echo $points; ?></p>
-                        <a href="offers.php?offerId=<?php echo $row['offerId']; ?>" class="btn">More</a>
-                    </div>
+                </a>
+                <div class="stores-card-content">
+                    <a href="vol_storeVouchers.php?storeId=<?php echo $storeData['storeId']; ?>" class="more-btn">More</a>
                 </div>
-                <?php
-            }
-        } else {
-            echo "No vouchers found."; 
-        }
-        ?>
+            </div>
+        <?php endforeach; ?>
     </div>
 
     <?php include "footer.php"; ?>
-
     <script src="script.js"></script>
 </body>
+
 </html>

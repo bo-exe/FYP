@@ -11,7 +11,7 @@
     <br>
     <div class="login-container">
     <img src="images/logo.jpg" alt="Description of the image" width="300" height="200">
-        <form method="post" action="doLogin.php">
+        <form method="post" action="vol_doLogin.php">
             <h2 class="text-center mb-4">Login</h2>
             <div class="form-group">
                 <label for="uname">Username</label>

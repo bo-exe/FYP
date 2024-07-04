@@ -63,9 +63,8 @@ if (isset($_SESSION['user_id'])) {
     </style>
 </head>
 <body>
-<?php include "navbar.php"; ?>
     <div class="signup-container">
-        <form method="post" action="doSignup.php">
+        <form method="post" action="vol_doSignup.php">
             <h2 class="text-center mb-4">Become a volunteer with us.</h2>
             <div class="form-group">
                 <label for="username">Username</label>

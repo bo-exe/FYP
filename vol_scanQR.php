@@ -12,6 +12,7 @@ session_start();
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<?php include "vol_navbar.php"; ?>
     <div class="qr-container">
         <h1>Scan QR Codes</h1>
         <div class="qr-section">

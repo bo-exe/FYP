@@ -164,13 +164,13 @@ if (isset($_SESSION['username'])) {
 </style>
 </head>
 <body>
-    <?php include "navbar.php"; ?>
+<?php include "vol_navbar.php"; ?>
 
     <section class="header-section py-5">
         <div class="container">
             <div class="row">
             <div class="greeting">
-                <h1>Recommend Activities</h1>
+                <h1>Recommended Activities</h1>
             </div>
             <div class="points-container">
                 <i class='bx bx-gift'></i>
@@ -221,7 +221,7 @@ if (isset($_SESSION['username'])) {
                                     <span>Obtainable VOMO Points:</span>
                                     <span><?php echo htmlspecialchars($event['points']); ?></span>
                                 </div>
-                                <a href="more_info_activities.php?eventID=<?php echo $event['eventID']; ?>"><button>More</button></a>
+                                <a href="vol_moreInfoActivities.php?eventID=<?php echo $event['eventID']; ?>"><button>More</button></a>
                             </div>
                         </div>
                     </div>

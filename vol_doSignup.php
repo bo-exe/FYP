@@ -37,7 +37,7 @@ if (isset($_SESSION['userId'])) {
                 $_SESSION['email'] = $entered_email;
 
                 $msg = "<p><i>You are logged in as " . $_SESSION['username'] . "</p>";
-                $msg .= "<p><a href='home.php'>Home</a></p>";
+                $msg .= "<p><a href='index.php'>Home</a></p>";
 
                 // Redirect to homepage
                 header("Location: http://localhost/fyp/");

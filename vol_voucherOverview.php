@@ -1,6 +1,6 @@
 <?php
 include "dbFunctions.php";
-include "admin_retailNavbar.php";
+include "vol_Navbar.php";
 include "ft.php";
 
 if (isset($_GET['offerId'])) {
@@ -41,7 +41,7 @@ if (isset($_GET['offerId'])) {
 <html>
 <head>
     <meta charset="UTF-8">
-    <title><?php echo htmlspecialchars($title); ?></title>
+    <title>Delete Offer</title>
     <style>
         .container {
             display: flex;
@@ -65,32 +65,21 @@ if (isset($_GET['offerId'])) {
             margin-bottom: 10px;
         }
 
-        .del-btn, .edit-btn {
+        .del-btn {
             display: inline-block;
-            padding: 8px 20px;
+            padding: 8px 16px;
+            background-color: #EF1E1E;
+            text-decoration: none;
             border-radius: 30px;
             margin-top: 16px;
             color: #FFF5F5;
             font-weight: bold;
-            text-decoration: none;
             text-align: center;
-            margin-left: 10px; /* Adjust margin as needed */
-        }
-
-        .del-btn {
-            background-color: #EF1E1E;
+            margin-left: 130px;
         }
 
         .del-btn:hover {
             background-color: #d81b1b;
-        }
-
-        .edit-btn {
-            background-color: #FFD036;
-        }
-
-        .edit-btn:hover {
-            background-color: #e6b800;
         }
     </style>
 </head>
@@ -108,9 +97,6 @@ if (isset($_GET['offerId'])) {
             <p><b>Instructions:</b> <?php echo htmlspecialchars($instructions); ?></p>
             <p><b>Points:</b> <?php echo htmlspecialchars($points); ?></p>
             <p><b>Amount:</b> <?php echo htmlspecialchars($amount); ?></p>
-            <p><b>Redeemed Vouchers:</b> <?php echo htmlspecialchars($redeemedVouchers); ?></p>
-            <a href="admin_retailDoDelete.php?offerId=<?php echo htmlspecialchars($offerId); ?>" class="del-btn">Delete</a>
-            <a href="admin_retailEdit.php?offerId=<?php echo htmlspecialchars($offerId); ?>" class="edit-btn">Edit</a>
         </div>
     <?php } else { ?>
         <div style="text-align: center;">

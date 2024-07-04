@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 <!DOCTYPE html>
 <html>
-
+<link rel="icon" type="image/x-icon" href="images/admin_logo.jpg">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Add Offer</title>

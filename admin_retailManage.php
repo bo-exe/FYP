@@ -18,6 +18,7 @@ while ($row = mysqli_fetch_array($result)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Offers</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="icon" type="image/x-icon" href="images/admin_logo.jpg">
     <style>
         .offer-card-container {
             display: flex;
@@ -110,8 +111,6 @@ while ($row = mysqli_fetch_array($result)) {
 <body>
     <?php include "admin_retailNavBar.php"; ?>
     <?php include "ft.php"; ?>
-
-    <br><br>
     <h1>Organisation Vouchers</h1>
     <div class="offer-card-container">
         <?php foreach ($arrContent as $offerData) : ?>
@@ -148,7 +147,7 @@ while ($row = mysqli_fetch_array($result)) {
     <div class="add-btn-container">
         <a href="admin_retailCreate.php" class="add-btn">Add More</a>
     </div>
-
+    <br></br><br></br><br></br><br></br>
     <?php include "admin_footer.php"; ?>
 </body>
 

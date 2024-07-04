@@ -60,7 +60,7 @@
     }
 
     .content {
-        margin-top: 50px;
+        padding-top: 80px; /* Adjust this value to match the height of your navbar */
         padding: 20px;
     }
 
@@ -69,7 +69,7 @@
             top: auto;
             bottom: 0;
             flex-direction: column;
-            align-items: flex-start;
+            align-items: center;
             padding: 20px;
         }
 
@@ -79,15 +79,29 @@
             display: none;
         }
 
+        .navbar-admin ul {
+            justify-content: center; /* Center the icons */
+            width: 100%;
+        }
+
+        .navbar-admin ul li {
+            margin: 0 10px; /* Add some margin between the items */
+        }
+
         .navbar-admin ul li a span {
             display: none;
         }
 
         .navbar-admin ul li a .icon {
             display: inline-block;
+            font-size: 24px; /* Increase icon size */
+        }
+
+        .content {
+            padding-top: 120px; /* Adjust this value to match the height of your navbar in mobile */
         }
     }
-</style>
+    </style>
 
 </head>
 <body>
@@ -100,9 +114,15 @@
         <li><a href="admin_retailManage.php"><span>MANAGE</span> <i class='bx bx-cog icon'></i></a></li>
         <li><a href="admin_retailScanQR.php"><span>SCANNER</span> <i class='bx bx-scan icon'></i></a></li>
         <li><a href="admin_retailDashboard.php"><span>DASHBOARD</span> <i class='bx bx-bar-chart-alt icon'></i></a></li>
-        <li><a href="admin_retailProfile.php"><span>PROFILE</span> <i class='bx bx-user icon' id="profile"></i></a></li>
+        <li><a href="admin_retailProfile.php"><span>PROFILE</span> <i class='bx bx-user-circle icon' id="profile"></i></a></li>
+
     </ul>
 </nav>
+
+<div class="content">
+
+</div>
+
 <script src="script.js"></script>
 </body>
 </html>

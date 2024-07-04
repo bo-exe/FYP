@@ -120,6 +120,31 @@ if ($resultOffers) {
             margin-left: 10px;
         }
 
+        .card-content .btn {
+            padding: 0.3rem 0.7rem;
+            background: #FFD036;
+            border-radius: .6rem;
+            box-shadow: 0 .2rem .5rem #333;
+            font-size: 0.8rem;
+            color: #333;
+            letter-spacing: .1rem;
+            font-weight: 600;
+            border: .2rem solid transparent;
+            margin-top: 16px;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .card-content .btn:hover {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            background: #FFD036;
+            color: #333;
+            border: .2rem solid transparent;
+
+        }
+
         .header {
             display: flex;
             align-items: center;
@@ -251,7 +276,7 @@ if ($resultOffers) {
         <?php else : ?>
             <p>No vouchers available at this time.</p>
         <?php endif; ?>
-    </div>
+
 
     <?php include "footer.php"; ?>
 
@@ -259,3 +284,4 @@ if ($resultOffers) {
 </body>
 
 </html>
+

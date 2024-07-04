@@ -14,10 +14,13 @@ session_start();
 <body>
 <?php include "vol_navbar.php"; ?>
     <div class="qr-container">
-        <h1>Scan QR Codes</h1>
+        <h1>SCAN HERE</h1>
+        <br>
         <div class="qr-section">
             <div id="qr-scanner"></div>
         </div>
+        <br>
+        <h1>TO REDEEM POINTS</h1>
     </div>
     <script src="html5-qrcode.min.js"></script>
     <script src="script.js"></script>

@@ -27,18 +27,6 @@ if (isset($_SESSION['username'])) {
     $vomoPoints = 0;
 }
 
-// Initialize $arrContent
-$arrContent = [];
-
-$sqlOffers = "SELECT offerId, title, dateTimeEnd, images FROM offers"; // Replace with your actual query
-$resultOffers = $conn->query($sqlOffers);
-
-if ($resultOffers) {
-    while ($offerData = $resultOffers->fetch_assoc()) {
-        $arrContent[] = $offerData;
-    }
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -77,47 +65,47 @@ if ($resultOffers) {
             text-shadow: 0 .1rem .1rem #333;
         }
 
-        .offer-card-container {
+        .voucher-card-container {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            margin-top: 20px;
+            margin-top: 100px;
         }
 
-        .offer-card {
-            width: 325px;
+        .voucher-card {
+            width: 20%;
             background-color: #ECECE7;
-            border-radius: 10px;
+            border-radius: 8px;
             overflow: hidden;
             box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
             margin: 20px;
-            height: 300px;
-            text-decoration: none;
-            color: inherit;
-            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
-        .offer-card img {
+        .voucher-card img {
             width: 100%;
             height: 165px;
-            object-fit: cover;
         }
 
-        .offer-card-content {
-            padding: 1px;
+        .card-content {
+            padding: 16px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
-        .offer-card-content h2 {
+        .card-content h3 {
             font-size: 28px;
-            margin-bottom: 10px;
-            margin-top: 10px;
+            margin-bottom: 8px;
         }
 
-        .offer-card-content p {
-            color: #333333;
+        .card-content p {
+            color: #333;
             font-size: 15px;
             line-height: 1.3;
-            margin-left: 10px;
         }
 
         .card-content .btn {
@@ -142,7 +130,6 @@ if ($resultOffers) {
             background: #FFD036;
             color: #333;
             border: .2rem solid transparent;
-
         }
 
         .header {
@@ -166,7 +153,6 @@ if ($resultOffers) {
             letter-spacing: .2rem;
             font-weight: 800;
             padding: 10px;
-            margin-top: 20px;
         }
 
         .points-container i {
@@ -206,20 +192,6 @@ if ($resultOffers) {
                 margin: 10px;
             }
         }
-
-        /* More button styling */
-        .more-button {
-            display: inline-block;
-            padding: 8px 20px;
-            background-color: #FFD036;
-            text-decoration: none;
-            border-radius: 30px;
-            margin-top: 16px;
-            margin-left: 120px;
-            margin-bottom: 10px;
-            color: #FFF5F5;
-            font-weight: bold;
-        }
     </style>
 </head>
 
@@ -232,51 +204,45 @@ if ($resultOffers) {
             <div class="greeting">
                 <h1>Good Morning,</h1>
             </div>
+            <div class="points-container">
+                <i class='bx bx-gift'></i>
+                <div class="vomo-points">
+                    <span>VOMOPoints</span>
+                    <span><?php echo $vomoPoints; ?></span>
+                </div>
+            </div>
         </div>
         <p>@<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'Guest'; ?></p>
     </section>
 
-    <h1>Organisation Vouchers</h1>
-    <div class="points-container">
-        <i class='bx bx-gift'></i>
-        <div class="vomo-points">
-            <span>VOMOPoints</span>
-            <span><?php echo $vomoPoints; ?></span>
-        </div>
-    </div>
+    <div class="voucher-card-container">
+        <?php
+        $sql = "SELECT * FROM offers";
+        $result = $conn->query($sql);
 
-    <div class="offer-card-container">
-        <?php if (!empty($arrContent)) : ?>
-            <?php foreach ($arrContent as $offerData) : ?>
-                <?php
-                $offerId = $offerData['offerId'];
-                $title = $offerData['title'];
-                $dateTimeEnd = $offerData['dateTimeEnd'];
-                $picture = $offerData['images'];
-
-                // Convert BLOB data to base64 encoded image
-                $imageSrc = 'data:image/jpeg;base64,' . base64_encode($picture);
-
-                // If no picture is available, use a default image
-                if (empty($picture)) {
-                    $imageSrc = 'images/none.png'; // Provide path to your default image
-                }
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $title = $row['title'];
+                $points = $row['points'];
+                $image = base64_encode($row['images']);
                 ?>
-                <div class="offer-card">
-                    <img src="<?php echo $imageSrc; ?>" alt="<?php echo $title; ?>" class="card-img-top">
-                    <div class="offer-card-content">
-                        <h2 class="card-title"><?php echo $title; ?></h2>
-                        <p class="card-text">Use By: <?php echo $dateTimeEnd; ?></p>
+                <div class="voucher-card">
+                    <div class="image-container">
+                        <img src="data:image/jpeg;base64,<?php echo $image; ?>" alt="<?php echo $title; ?>">
                     </div>
-                    <div class="offer-card-content">
-                        <a href="vol_voucherOverview.php?offerId=<?php echo $offerId; ?>" class="more-button">More</a>
+                    <div class="card-content">
+                        <h3><?php echo $title; ?></h3>
+                        <p>Points: <?php echo $points; ?></p>
+                        <a href="vol_voucherOverview.php?offerId=<?php echo $row['offerId']; ?>" class="btn">More</a>
                     </div>
                 </div>
-            <?php endforeach; ?>
-        <?php else : ?>
-            <p>No vouchers available at this time.</p>
-        <?php endif; ?>
-
+                <?php
+            }
+        } else {
+            echo "No vouchers found.";
+        }
+        ?>
+    </div>
 
     <?php include "footer.php"; ?>
 
@@ -284,4 +250,3 @@ if ($resultOffers) {
 </body>
 
 </html>
-

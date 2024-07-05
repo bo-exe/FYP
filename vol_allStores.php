@@ -29,7 +29,7 @@ if (isset($_SESSION['username'])) {
 }
 
 $query = "SELECT * FROM stores";
-$result = mysqli_query($link, $query) or die(mysqli_error($link));
+$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 
 $arrContent = array();
 while ($row = mysqli_fetch_array($result)) {
@@ -62,7 +62,7 @@ while ($row = mysqli_fetch_array($result)) {
         }
 
         .home p,
-        h3 {
+        .home h3 {
             margin-right: 800px;
             text-align: left;
         }
@@ -70,7 +70,7 @@ while ($row = mysqli_fetch_array($result)) {
         .home h1 {
             margin-right: 800px;
             text-align: left;
-            text-shadow: 0 .1rem .1rem #333;
+            text-shadow: 0 .1rem 0.05rem #333;
         }
 
         .stores-card-container {
@@ -174,16 +174,127 @@ while ($row = mysqli_fetch_array($result)) {
         .points-container .vomo-points span:first-child {
             margin-right: 100px;
         }
+
+        /* Yellow Container */
+        .yellow-container {
+            background-color: #FFD036;
+            color: #333;
+            text-align: left;
+            padding: 15px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .yellow-container h1 {
+            margin: 0;
+            padding: 0;
+            font-size: 24px;
+            font-weight: bold;
+            padding-left: 20px;
+        }
+
+        .yellow-container .points-container {
+            display: none;
+        }
+
+        @media screen and (max-width: 768px) {
+            body {
+                padding-bottom: 20px; 
+                margin-top: 50px;
+            }
+
+            .stores-card-container {
+                padding-top: -100px;
+                padding-bottom: 90px;
+            }
+
+            .yellow-container {
+                display: block;
+                width: 100%;
+                text-align: center;
+                padding: 10px 0; 
+            }
+
+            .yellow-container h1, .yellow-container p {
+                text-align: left;
+                padding-left: 20px;
+            }
+
+            .home .points-container {
+                display: none;
+            }
+
+            .points-container {
+                display: flex;
+                align-items: center;
+                justify-content: left;
+                font-size: 14px;
+                color: #333;
+                background-color: #ECECE7;
+                border-radius: .6rem;
+                box-shadow: 0 .2rem .5rem #333;
+                letter-spacing: .1rem;
+                font-weight: 800;
+                padding: 10px;
+                max-width: 250px; 
+                white-space: nowrap; 
+                overflow: hidden; 
+                text-overflow: ellipsis; 
+                margin-left: 20px;
+            }
+
+            .points-container i {
+                margin-right: 5px;
+            }
+
+            .points-container .vomo-points {
+                display: flex;
+                align-items: center;
+            }
+
+            .points-container .vomo-points span:first-child {
+                margin-right: 10px; 
+            }
+
+            .yellow-container .points-container {
+                display: flex;
+                align-items: center;
+                justify-content: left;
+                font-size: 14px;
+                color: #333;
+                background-color: #ECECE7;
+                border-radius: .6rem;
+                box-shadow: 0 .2rem .5rem #333;
+                letter-spacing: .2rem;
+                font-weight: 800;
+                padding: 10px;
+            }
+        }
     </style>
 </head>
 
 <body>
     <?php include "vol_navbar.php"; ?>
 
+    <div class="yellow-container">
+        <h1>All Stores</h1>
+        <p>Stores</p>
+        <br>
+        <div class="points-container">
+            <i class='bx bx-gift'></i>
+            <div class="vomo-points">
+                <span>VOMOPoints</span>
+                <span><?php echo $vomoPoints; ?></span>
+            </div>
+        </div>
+    </div>
+
     <section class="home" id="home">
         <div class="header">
             <div class="greeting">
-                <h1>Good Morning,</h1>
+                <h1>All Stores</h1>
+                <p>Stores</p>
             </div>
             <div class="points-container">
                 <i class='bx bx-gift'></i>
@@ -193,30 +304,31 @@ while ($row = mysqli_fetch_array($result)) {
                 </div>
             </div>
         </div>
-        <p>@<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'Guest'; ?></p>
     </section>
 
-    <div class="stores-card-container">
-        <?php foreach ($arrContent as $storeData): ?>
-            <div class="stores-card">
-                <a href="vol_storeVouchers.php?storeId=<?php echo $storeData['storeId']; ?>"
-                    style="text-decoration: none; color: inherit;">
-                    <img src="<?php echo ($storeData['image'] == 'none') ? 'images/default.jpg' : 'data:image/jpeg;base64,' . base64_encode($storeData['image']); ?>"
-                        alt="<?php echo $storeData['title']; ?>" class="card-img-top">
+    <section class="stores">
+        <div class="stores-card-container">
+            <?php foreach ($arrContent as $storeData): ?>
+                <div class="stores-card">
+                    <a href="vol_storeVouchers.php?storeId=<?php echo $storeData['storeId']; ?>"
+                        style="text-decoration: none; color: inherit;">
+                        <img src="<?php echo ($storeData['image'] == 'none') ? 'images/default.jpg' : 'data:image/jpeg;base64,' . base64_encode($storeData['image']); ?>"
+                            alt="<?php echo $storeData['title']; ?>" class="card-img-top">
+                        <div class="stores-card-content">
+                            <h2><?php echo $storeData['title']; ?></h2>
+                            <p><b>Quantity:</b> <?php echo $storeData['quantity']; ?></p>
+                        </div>
+                    </a>
                     <div class="stores-card-content">
-                        <h2><?php echo $storeData['title']; ?></h2>
-                        <p><b>Quantity:</b> <?php echo $storeData['quantity']; ?></p>
+                        <a href="vol_storeVouchers.php?storeId=<?php echo $storeData['storeId']; ?>"
+                            class="more-btn">More</a>
                     </div>
-                </a>
-                <div class="stores-card-content">
-                    <a href="vol_storeVouchers.php?storeId=<?php echo $storeData['storeId']; ?>" class="more-btn">More</a>
                 </div>
-            </div>
-        <?php endforeach; ?>
-    </div>
+            <?php endforeach; ?>
+        </div>
+    </section>
 
     <?php include "footer.php"; ?>
     <script src="script.js"></script>
 </body>
-
 </html>

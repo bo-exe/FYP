@@ -241,7 +241,7 @@ if (isset($_GET['storeId'])) {
                     <div class="card-content">
                         <h3><?php echo htmlspecialchars($row['title']); ?></h3>
                         <p>Points: <?php echo htmlspecialchars($row['points']); ?></p>
-                        <a href="#" class="btn">Redeem Now</a>
+                        <a href="vol_voucherOverview.php?offerId=<?php echo $row['offerId']; ?>" class="btn">Redeem Now</a>
                     </div>
                 </div>
             <?php endwhile; ?>

@@ -1,5 +1,4 @@
 <?php include "ft.php"; ?>
-<?php include "vol_navbar.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,6 +15,7 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
+            margin-bottom: 30px;
         }
 
         .btn {

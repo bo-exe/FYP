@@ -237,7 +237,7 @@ while ($row = mysqli_fetch_array($result)) {
                 letter-spacing: .1rem;
                 font-weight: 800;
                 padding: 10px;
-                max-width: 250px; 
+                max-width: 300px; 
                 white-space: nowrap; 
                 overflow: hidden; 
                 text-overflow: ellipsis; 

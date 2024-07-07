@@ -68,8 +68,8 @@ if (isset($_GET['offerId'])) {
         justify-content: center;
         align-items: center;
         min-height: 100vh;
-        padding-top: 50px; /* Add padding top to container */
-        padding-bottom: 55px; /* Add padding bottom to container */
+        padding-top: 50px; 
+        padding-bottom: 55px; 
         position: relative;
     }
 

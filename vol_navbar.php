@@ -58,12 +58,10 @@
             display: none;
         }
 
-        /* Hide scanner in web mode */
         .nav-scanner {
             display: none;
         }
 
-        /* Responsive adjustments */
         @media (max-width: 768px) {
             .navbar-main {
                 top: auto;
@@ -100,12 +98,10 @@
                 padding: 10px;
             }
 
-            /* Hide stores in responsive mode */
             .nav-stores {
                 display: none;
             }
 
-            /* Show scanner in responsive mode */
             .nav-scanner {
                 display: inline;
             }
@@ -123,7 +119,7 @@
             <li class="nav-scanner"><a href="vol_allVouchers.php"><span class="nav-text">SCANNER</span><i class="bi bi-upc-scan nav-icon"></i></a></li>
             <li><a href="vol_allVouchers.php"><span class="nav-text">REDEEM</span><i class="bi bi-gift nav-icon"></i></a></li>
             <li class="nav-stores"><a href="vol_allStores.php"><span class="nav-text">STORES</span><i class="bi bi-shop nav-icon"></i></a></li>
-            <li><a href="#"><span class="nav-text">PROFILE</span><i class="bi bi-person nav-icon"></i></a></li>
+            <li><a href="vol_Profile.php"><span class="nav-text">PROFILE</span><i class="bi bi-person nav-icon"></i></a></li>
         </ul>
     </nav>
     <script src="script.js"></script>

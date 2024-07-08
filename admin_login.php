@@ -30,6 +30,6 @@
             </div>
         </form>
     </div>
-    <p class="form-text text-center mt-3">Not a member yet? <a href="signup.php">Sign Up</a> now!</p>
+    <p class="form-text text-center mt-3">Not a member yet? <a href="admin_signup.php">Sign Up</a> now!</p>
 </body>
 </html>

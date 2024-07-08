@@ -2,37 +2,45 @@
 session_start();
 include "dbFunctions.php";
 
-// Debug: Check if session is started and verification code is set
+// Check if the user is logged in
+if (!isset($_SESSION['volunteerId']) || empty($_SESSION['volunteerId'])) {
+    echo "User not logged in.";
+    exit();
+}
+
+// Check if the verification code is set in the session
 if (!isset($_SESSION['verification_code'])) {
     echo "Session verification code is not set.";
     exit();
-} else {
-    echo "Session verification code: " . $_SESSION['verification_code'] . "<br>";
 }
 
+// Debug: Output the session verification code for debugging purposes
+echo "Session verification code: " . $_SESSION['verification_code'] . "<br>";
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Debug: Check POST data
+    // Debug: Output the POST data for debugging purposes
     echo "POST data: ";
     print_r($_POST);
 
+    // Retrieve the entered verification code
     $enteredCode = isset($_POST['verification_code']) ? $_POST['verification_code'] : '';
 
-    // Validate the entered code
+    // Validate the entered verification code
     if (empty($enteredCode) || !ctype_digit($enteredCode)) {
         echo "Invalid verification code format.";
         exit();
     }
 
-    // Check if the entered code matches the one sent
+    // Check if the entered code matches the one stored in the session
     if ($enteredCode == $_SESSION['verification_code']) {
         // Get the saved form data from the session
-        if (isset($_SESSION['form_data']) && isset($_SESSION['userId'])) {
+        if (isset($_SESSION['form_data'])) {
             $formData = $_SESSION['form_data'];
             $eventID = intval($formData['eventID']);
-            $volunteerID = intval($_SESSION['userId']); // Assuming the user is logged in and user ID is stored in session
+            $volunteerID = intval($_SESSION['volunteerId']); // Retrieve the volunteer ID from the session
             $registrationDate = date('Y-m-d H:i:s');
 
-            // Insert data into event_volunteers table using prepared statements
+            // Insert the data into the event_volunteers table using prepared statements
             $query = "INSERT INTO event_volunteers (eventID, volunteerID, registration_date) VALUES (?, ?, ?)";
             $stmt = $link->prepare($query);
             $stmt->bind_param("iis", $eventID, $volunteerID, $registrationDate);
@@ -42,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 unset($_SESSION['verification_code']);
                 unset($_SESSION['form_data']);
 
-                // Redirect to confirmation page or show success message
+                // Redirect to the confirmation page or display a success message
                 header('Location: vol_confirmation.php');
                 exit();
             } else {

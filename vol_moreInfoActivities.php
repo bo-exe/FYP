@@ -15,7 +15,7 @@
         }
         .event-details-container {
             max-width: 800px;
-            margin: 0 auto;
+            margin: 20px auto; /* Add some top margin */
             padding: 20px;
             display: flex;
             align-items: flex-start; /* Align items at the top */
@@ -50,30 +50,46 @@
         .btn:hover {
             background-color: #0056b3;
         }
+        .page-header {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .event-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 20px 0;
+        }
     </style>
 </head>
 <body>
     <?php include "vol_navbar.php"; ?>
 
-    <div class="event-details-container">
-        <?php
-        include "dbFunctions.php";
+    <div class="page-header">
+        <h1>Event Details</h1>
+    </div>
 
-        // Get the eventID from the URL parameter
-        $eventID = isset($_GET['eventID']) ? intval($_GET['eventID']) : 0;
+    <?php
+    include "dbFunctions.php";
 
-        // Query to fetch event with the specified eventID
-        $query = "SELECT * FROM events WHERE eventID = $eventID";
-        $result = mysqli_query($link, $query);
+    // Get the eventID from the URL parameter
+    $eventID = isset($_GET['eventID']) ? intval($_GET['eventID']) : 0;
 
-        if ($result && mysqli_num_rows($result) > 0) {
-            $event = mysqli_fetch_assoc($result);
-            ?>
+    // Query to fetch event with the specified eventID
+    $query = "SELECT * FROM events WHERE eventID = $eventID";
+    $result = mysqli_query($link, $query);
+
+    if ($result && mysqli_num_rows($result) > 0) {
+        $event = mysqli_fetch_assoc($result);
+        ?>
+        <div class="event-title">
+            <?php echo htmlspecialchars($event['title']); ?>
+        </div>
+        <div class="event-details-container">
             <div>
                 <img src="https://placehold.co/600" alt="<?php echo htmlspecialchars($event['title']); ?>">
             </div>
             <div class="event-details">
-                <h1><?php echo htmlspecialchars($event['title']); ?></h1>
                 <p><strong>Date and Time Start:</strong> <?php echo htmlspecialchars($event['dateTimeStart']); ?></p>
                 <p><strong>Date and Time End:</strong> <?php echo htmlspecialchars($event['dateTimeEnd']); ?></p>
                 <p><strong>Location:</strong> <?php echo htmlspecialchars($event['locations']); ?></p>
@@ -83,13 +99,14 @@
                     <a href="vol_signUpActivities.php?eventID=<?php echo $eventID; ?>" class="btn">Apply Now</a>
                 </div>
             </div>
-            <?php
-        } else {
-            echo "<p>Event not found.</p>";
-        }
-        ?>
-    </div>
+        </div>
+        <?php
+    } else {
+        echo "<p>Event not found.</p>";
+    }
+    ?>
 
     <?php include "footer.php"; ?>
 </body>
 </html>
+

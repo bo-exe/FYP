@@ -164,13 +164,13 @@ if (isset($_SESSION['username'])) {
 </style>
 </head>
 <body>
-    <?php include "vol_navbar.php"; ?>
+<?php include "vol_navbar.php"; ?>
 
     <section class="header-section py-5">
         <div class="container">
             <div class="row">
             <div class="greeting">
-                <h1>Recommend Activities</h1>
+                <h1>Recommended Activities</h1>
             </div>
             <div class="points-container">
                 <i class='bx bx-gift'></i>
@@ -211,13 +211,10 @@ if (isset($_SESSION['username'])) {
             
             if ($result && mysqli_num_rows($result) > 0) {
                 while ($event = mysqli_fetch_assoc($result)) {
-                    // Convert the BLOB image data to a base64 encoded string
-                    $image_data = base64_encode($event['images']);
-                    $image_src = 'data:image/jpeg;base64,' . $image_data;
                     ?>
                     <div class="col-md-12 col-lg-10 mb-5 mb-lg-5"> <!-- Increased margin-bottom for both md and lg screens -->
                         <div class="card">
-                            <img src="<?php echo $image_src; ?>" class="card-img-top" alt="<?php echo htmlspecialchars($event['title']); ?>-image">
+                            <img src="https://placehold.co/600" class="card-img-top" alt="<?php echo htmlspecialchars($event['title']); ?>-image">
                             <div class="card-content">
                                 <h1><?php echo htmlspecialchars($event['title']); ?></h1>
                                 <div class="vomo-points">
@@ -238,7 +235,6 @@ if (isset($_SESSION['username'])) {
     </div>
 </section>
 
-
     <?php include "footer.php"; ?>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -247,9 +243,6 @@ if (isset($_SESSION['username'])) {
     <script src="script.js"></script>
 </body>
 </html>
-
-
-
 
 
 

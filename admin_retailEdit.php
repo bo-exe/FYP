@@ -3,14 +3,12 @@ include "dbFunctions.php";
 include "admin_retailNavbar.php";
 include "ft.php";
 
-session_start(); // Start session to maintain state
-
 $msg = "";
 
 if (isset($_GET['offerId'])) {
     $offerId = $_GET['offerId'];
 
-    $query = "SELECT * FROM offers WHERE offerId=?";
+    $query = "SELECT *, amount - redeemed_vouchers AS amount_after_redemption FROM offers WHERE offerId=?";
     $stmt = mysqli_prepare($link, $query);
     mysqli_stmt_bind_param($stmt, "i", $offerId);
     mysqli_stmt_execute($stmt);
@@ -18,10 +16,7 @@ if (isset($_GET['offerId'])) {
     $row = mysqli_fetch_array($result);
 
     if (!empty($row)) {
-
-        $_SESSION['offerId'] = $offerId; // Store offerId in session
-        $_SESSION['image'] = $row['images']; // Store image blob data in session
-        // Extract data from database for pre-filling form
+        $offerId = $row['offerId'];
         $title = $row['title'];
         $dateTimeStart = $row['dateTimeStart'];
         $dateTimeEnd = $row['dateTimeEnd'];
@@ -30,48 +25,52 @@ if (isset($_GET['offerId'])) {
         $instructions = $row['instructions'];
         $points = $row['points'];
         $amount = $row['amount'];
+        $imageData = $row['images'];
+        $imageType = $row['imageType'];
+    } else {
+        $msg = "Offer not found.";
     }
-
 } else {
-    // Offer ID not provided
-    echo "Offer ID not provided.";
+    $msg = "Offer ID not provided.";
 }
 ?>
-<!DOCTYPE html>
-<html>
 
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Edit Offer</title>
     <style>
         .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .card {
+            background-color: #fff;
             border-radius: 5px;
-            background-color: #f9f9f9;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 400px;
             text-align: center;
         }
-
-        h1 {
-            margin-bottom: 20px;
+        .card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 10px;
         }
-
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+            text-align: left;
         }
-
-        label {
+        .form-group label {
             display: block;
-            font-weight: bold;
             margin-bottom: 5px;
         }
-
-        textarea,
-        input[type="datetime-local"],
-        input[type="text"],
-        input[type="number"] {
+        .form-group input,
+        .form-group textarea {
             width: 100%;
             padding: 8px;
             border: 1px solid #ccc;
@@ -79,51 +78,56 @@ if (isset($_GET['offerId'])) {
             box-sizing: border-box;
             font-size: 16px;
         }
-
-        textarea {
-            height: 100px;
-            resize: vertical;
-        }
-
-        input[type="submit"] {
+        .form-group input[type="submit"] {
             background-color: #FFD036;
-            color: #fff;
-            padding: 10px 20px;
             border: none;
-            border-radius: 5px;
+            color: #fff;
             cursor: pointer;
         }
-
-        input[type="submit"]:hover {
+        .form-group input[type="submit"]:hover {
             background-color: #E7BC32;
         }
-
-        img {
-            max-width: 100%;
-            height: auto;
-            margin-bottom: 10px;
+        .del-btn, .edit-btn {
+            display: inline-block;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 30px;
+            margin-top: 16px;
+            font-weight: bold;
+        }
+        .del-btn {
+            background-color: #EF1E1E;
+            color: #FFF5F5;
+        }
+        .del-btn:hover {
+            background-color: #d81b1b;
+        }
+        .edit-btn {
+            background-color: #FFD036;
+            color: #FFF5F5;
+            margin-left: 10px;
+        }
+        .edit-btn:hover {
+            background-color: #E7BC32;
         }
     </style>
 </head>
-
 <body>
-
-<?php if (!empty($offerId)) { ?>
-        <br></br><br></br>
-        <div class="container">
-            <h1><b>Edit Offer</b></h1>
+<div class="container">
+    <?php if (!empty($offerId) && empty($msg)) { ?>
+        <div class="card">
+            <?php if (!empty($imageData)) { ?>
+                <img src="data:image/<?php echo htmlspecialchars($imageType); ?>;base64,<?php echo base64_encode($imageData); ?>" alt="Offer Image">
+            <?php } ?>
+            <h2>Edit Offer</h2>
             <form action="admin_retailDoEdit.php" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="offerId" value="<?php echo $offerId; ?>" />
+                <input type="hidden" name="offerId" value="<?php echo htmlspecialchars($offerId); ?>" />
                 <div class="form-group">
                     <label>Image:</label>
                     <input type="file" name="image" accept="image/*">
-                    <?php if (!empty($image)) { ?>
-                        <img src="data:image/jpeg;base64,<?php echo base64_encode($image); ?>" alt="Current Image">
-                    <?php } ?>
                 </div>
-
                 <div class="form-group">
-                    <label>Name:</label><br>
+                    <label>Name:</label>
                     <textarea name="title"><?php echo htmlspecialchars($title); ?></textarea>
                 </div>
                 <div class="form-group">
@@ -153,14 +157,18 @@ if (isset($_GET['offerId'])) {
                 <div class="form-group">
                     <label>Amount:</label>
                     <input type="number" name="amount" min="0" value="<?php echo htmlspecialchars($amount); ?>">
-
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Save Changes">
                 </div>
             </form>
         </div>
+    <?php } else { ?>
+        <div class="card">
+            <p><?php echo htmlspecialchars($msg); ?></p>
+            <a href="admin_retailManage.php" class="edit-btn">Back to Offers</a>
+        </div>
     <?php } ?>
+</div>
 </body>
-
 </html>

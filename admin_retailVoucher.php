@@ -41,7 +41,7 @@ if (isset($_GET['offerId'])) {
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Delete Offer</title>
+    <title><?php echo htmlspecialchars($title); ?></title>
     <style>
         .container {
             display: flex;
@@ -65,21 +65,32 @@ if (isset($_GET['offerId'])) {
             margin-bottom: 10px;
         }
 
-        .del-btn {
+        .del-btn, .edit-btn {
             display: inline-block;
-            padding: 8px 16px;
-            background-color: #EF1E1E;
-            text-decoration: none;
+            padding: 8px 20px;
             border-radius: 30px;
             margin-top: 16px;
             color: #FFF5F5;
             font-weight: bold;
+            text-decoration: none;
             text-align: center;
-            margin-left: 130px;
+            margin-left: 10px; /* Adjust margin as needed */
+        }
+
+        .del-btn {
+            background-color: #EF1E1E;
         }
 
         .del-btn:hover {
             background-color: #d81b1b;
+        }
+
+        .edit-btn {
+            background-color: #FFD036;
+        }
+
+        .edit-btn:hover {
+            background-color: #e6b800;
         }
     </style>
 </head>
@@ -99,6 +110,7 @@ if (isset($_GET['offerId'])) {
             <p><b>Amount:</b> <?php echo htmlspecialchars($amount); ?></p>
             <p><b>Redeemed Vouchers:</b> <?php echo htmlspecialchars($redeemedVouchers); ?></p>
             <a href="admin_retailDoDelete.php?offerId=<?php echo htmlspecialchars($offerId); ?>" class="del-btn">Delete</a>
+            <a href="admin_retailEdit.php?offerId=<?php echo htmlspecialchars($offerId); ?>" class="edit-btn">Edit</a>
         </div>
     <?php } else { ?>
         <div style="text-align: center;">

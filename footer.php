@@ -162,8 +162,8 @@
                     <div class="footer-column">
                         <h4>CONTACT US</h4>
                         <ul>
-                            <li><a href="feedback.php">Feedback</a></li>
-                            <li><a href="contactUs.php">Support Us</a></li>
+                            <li><a href="vol_feedback.php">Feedback</a></li>
+                            <li><a href="vol_contactUs.php">Support Us</a></li>
                         </ul>
                     </div>
                     <div class="footer-column">

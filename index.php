@@ -225,7 +225,7 @@ if (isset($_SESSION['username'])) {
     </style>
 </head>
 <body>
-    <?php include "navbar.php"; ?>
+    <?php include "vol_navbar.php"; ?>
     <?php include "ft.php"; ?>
     <section class="home" id="home">
         <div class="header">

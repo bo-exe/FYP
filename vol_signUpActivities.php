@@ -93,82 +93,38 @@
         .signup-button:hover {
             background-color: #0056b3;
         }
+          /* Add styles for the popup */
+          .popup {
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border: 2px solid #ccc;
+            z-index: 1000;
+        }
+        .popup.active {
+            display: block;
+        }
         .popup-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    transition: all 0.3s ease;
-}
-
-.popup-overlay.active {
-    display: block;
-}
-
-.popup {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    padding: 20px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    z-index: 1001;
-    transition: all 0.3s ease;
-}
-
-.popup.active {
-    display: block;
-}
-
-.popup h3 {
-    margin-top: 0;
-}
-
-.popup p {
-    margin-bottom: 20px;
-}
-
-.verification-code-inputs {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 10px;
-    justify-content: center;
-}
-
-.verification-code-inputs input {
-    width: 40px;
-    height: 40px;
-    font-size: 24px;
-    text-align: center;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.popup button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin: 0 auto;
-    display: block;
-}
-
-.popup button:hover {
-    background-color: #0056b3;
-}
-
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+        .popup-overlay.active {
+            display: block;
+        }
     </style>
 </head>
 <body>
-<?php  include "vol_navbar.php"; ?>
+<?php include "vol_navbar.php"; ?>
 <div class="main-content">
     <?php
     include "dbFunctions.php";
@@ -186,16 +142,10 @@
         <h2 class="signup-heading"><?php echo htmlspecialchars($event['title']); ?> Sign Up</h2>
         <div class="signup-section">
             <div class="signup-image-container">
-                <?php
-                if (!empty($event['images'])) {
-                    echo '<img src="data:image/jpeg;base64,' . base64_encode($event['images']) . '" alt="' . htmlspecialchars($event['title']) . '" class="signup-image">';
-                } else {
-                    echo '<img src="https://placehold.co/600" alt="' . htmlspecialchars($event['title']) . '" class="signup-image">';
-                }
-                ?>
+                <img src="https://placehold.co/600" alt="<?php echo htmlspecialchars($event['title']); ?>" class="signup-image">
             </div>
             <div class="signup-content">
-                <form class="signup-form" id="signup-form" action="vol_sendVerificationCode.php" method="POST">
+                <form class="signup-form" id="signup-form" action="send_verification_code.php" method="POST">
                     <input type="hidden" name="eventID" value="<?php echo $eventID; ?>">
                     <div class="name-fields">
                         <input type="text" name="first_name" placeholder="First Name" required>
@@ -223,110 +173,43 @@
     ?>
 </div>
 
-
 <div class="popup-overlay" id="popup-overlay"></div>
 <div class="popup" id="verification-popup">
-    <h3>Application Successful!</h3>
-    <p>
-        A verification code has been sent to your email. Please check your inbox and enter the verification code below to verify your email address. The code will expire in 15 minutes.
-    </p>
-    <form id="verification-form" action="vol_verificationCode.php" method="POST">
-    <input type="hidden" name="eventID" value="<?php echo $eventID; ?>">
-    <div class="verification-code-inputs">
-        <input type="text" name="verification_code[]" id="verification-digit-1" maxlength="1" required>
-        <input type="text" name="verification_code[]" id="verification-digit-2" maxlength="1" required>
-        <input type="text" name="verification_code[]" id="verification-digit-3" maxlength="1" required>
-        <span><strong>&dash;</strong></span>
-        <input type="text" name="verification_code[]" id="verification-digit-4" maxlength="1" required>
-        <input type="text" name="verification_code[]" id="verification-digit-5" maxlength="1" required>
-        <input type="text" name="verification_code[]" id="verification-digit-6" maxlength="1" required>
-    </div>
-    <button type="submit">Verify</button>
-</form>
-
+    <h3>Enter Verification Code</h3>
+    <form id="verification-form" action="verify_code.php" method="POST">
+        <input type="hidden" name="eventID" value="<?php echo $eventID; ?>">
+        <input type="text" name="verification_code" placeholder="Verification Code" required>
+        <button type="submit">Verify</button>
+    </form>
 </div>
-
 
 <script>
 function showVerificationPopup() {
     const form = document.getElementById('signup-form');
     const formData = new FormData(form);
 
-    fetch('vol_sendVerificationCode.php', {
+    fetch('send_verification_code.php', {
         method: 'POST',
         body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            document.getElementById('popup-overlay').classList.add('active');
-            document.getElementById('verification-popup').classList.add('active');
-        } else {
-            alert('Failed to send verification code. Please try again.');
-        }
-    })
-    .catch(error => {
-        console.error('There was a problem with the fetch operation:', error);
-        alert('Failed to send verification code. Please try again.');
-    });
+    }).then(response => response.json())
+      .then(data => {
+          if (data.success) {
+              document.getElementById('popup-overlay').classList.add('active');
+              document.getElementById('verification-popup').classList.add('active');
+          } else {
+              alert('Failed to send verification code. Please try again.');
+          }
+      });
 }
 
 document.getElementById('popup-overlay').addEventListener('click', function() {
     this.classList.remove('active');
     document.getElementById('verification-popup').classList.remove('active');
 });
-
-// const inputs = document.querySelectorAll('.verification-code-inputs input');
-// inputs.forEach((input, index) => {
-//     input.addEventListener('input', () => {
-//         if (input.value.length === 1 && index < inputs.length - 1) {
-//             inputs[index + 1].focus();
-//         }
-//     });
-// });
-
-
-document.getElementById('verification-form').addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    const form = event.target;
-    const formData = new FormData(form);
-    const verificationCodeArray = formData.getAll('verification_code[]');
-    const verificationCode = verificationCodeArray.join('');
-
-    // Add the concatenated verification code to the form data
-    formData.delete('verification_code[]');
-    formData.append('verification_code', verificationCode);
-
-    fetch('vol_verificationCode.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.text())
-    .then(data => {
-        console.log(data); // Debug: Output the response from the server
-        if (data.includes("Session verification code")) {
-            // Server-side success handling
-            window.location.href = 'vol_confirmation.php';
-        } else {
-            alert(data); // Display the server response for debugging
-        }
-    })
-    .catch(error => {
-        console.error('There was a problem with the fetch operation:', error);
-        alert('Failed to verify the code. Please try again.');
-    });
-});
-
-
-
-
 </script>
 
-    <?php  include "footer.php"; ?>
+    <?php include "footer.php"; ?>
 
  
 </body>
 </html>
-
-

@@ -2,27 +2,16 @@
 session_start();
 $msg = "";
 
-// Debugging: Check the current session status
-echo '<pre>';
-print_r($_SESSION);
-echo '</pre>';
-
 // Check whether session variable 'user_id' is set (i.e., check whether the user is already logged in)
 if (isset($_SESSION['userId'])) {
     $msg = "You are already logged in.";
 } else {
-    // Check whether all form inputs contain values
-    if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['email']) && isset($_POST['name']) && isset($_POST['dob']) && isset($_POST['gender'])) {
-        // Clear session variables
-        session_unset();
-        
+    // Check whether form input 'username' contains value
+    if (isset($_POST['username'])) {
         // Retrieve form data
         $entered_username = $_POST['username'];
         $entered_password = $_POST['password'];
         $entered_email = $_POST['email'];
-        $entered_name = $_POST['name'];
-        $entered_dob = $_POST['dob'];
-        $entered_gender = $_POST['gender'];
 
         // Connect to database
         include ("dbFunctions.php");
@@ -35,20 +24,23 @@ if (isset($_SESSION['userId'])) {
             // If the username and email do not exist, proceed to insert new volunteer
             $hashed_password = password_hash($entered_password, PASSWORD_DEFAULT);
 
-            $insert_query = "INSERT INTO volunteers (username, password, name, email, role, points, approval_status, dob, gender)
-                             VALUES ('$entered_username', '$hashed_password', '$entered_name', '$entered_email', 'volunteer', 0, 'pending', '$entered_dob', '$entered_gender')";
+            $insert_query = "INSERT INTO volunteers (username, password, email, role, points, approval_status)
+                             VALUES ('$entered_username', '$hashed_password', '$entered_email', 'volunteer', 0, 'pending')";
 
             if (mysqli_query($link, $insert_query)) {
                 // Get the ID of the newly inserted record
                 $new_user_id = mysqli_insert_id($link);
 
                 // Store user ID and username into session
-                $_SESSION['userId'] = $new_user_id;
+                $_SESSION['user_id'] = $new_user_id;
                 $_SESSION['username'] = $entered_username;
                 $_SESSION['email'] = $entered_email;
 
+                $msg = "<p><i>You are logged in as " . $_SESSION['username'] . "</p>";
+                $msg .= "<p><a href='index.php'>Home</a></p>";
+
                 // Redirect to homepage
-                header("Location: index.php");
+                header("Location: http://localhost/fyp/");
                 exit();
             } else {
                 $msg = "Error: " . mysqli_error($link);
@@ -73,3 +65,5 @@ if (isset($_SESSION['userId'])) {
     <?php echo $msg; ?>
 </body>
 </html>
+
+

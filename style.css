@@ -19,24 +19,20 @@ nav {
     z-index: 1000; 
 }
 
-/* Example styling for the bx-user icon */
 #profile {
     font-size: 24px;
     color: #fff;
 }
 
-/* Add margin to avoid overlapping with the last item */
 .navbar-admin ul li:last-child {
     margin-left: auto;
 }
 
-/* Content styling */
 .content {
     margin-top: 50px; 
     padding: 20px;
 }
 
-/* Media Query for mobile devices */
 @media (max-width: 768px) {
     .navbar {
         top: auto;
@@ -47,8 +43,8 @@ nav {
         margin-bottom: 50px;
     }
 }
-/* Login Page */
 
+/* Login Page */
 .login-container {
     background-color: #FFD036;
     padding: 20px;
@@ -206,7 +202,6 @@ video {
 }
 
 /* sign up page */ 
-
 body {
     font-family: 'Lato', sans-serif;
     background-color: #f0f0f0;
@@ -286,7 +281,6 @@ label {
 
 
 /* Retail Admin Homepage */
-
 .retailbuttons-container {
     display: flex;
     justify-content: center;
@@ -308,8 +302,8 @@ label {
     padding: 15px;
     cursor: pointer;
     transition: transform 0.2s ease-in-out;
-    width: 150px; /* Adjust as needed */
-    height: 200px; /* Adjust as needed */
+    width: 150px; 
+    height: 200px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -326,7 +320,7 @@ label {
 }
 
 .retailbutton a:hover {
-    color: #000; /* Ensure the text color remains black on hover */
+    color: #000; 
 }
 
 .retailbutton img {
@@ -339,6 +333,7 @@ label {
     transform: scale(1.05);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+
 /* Retail Admin Manage Offers */
 .offer-card-container{
     display: flex;
@@ -353,4 +348,71 @@ label {
     overflow: hidden;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
     margin: 20px;
+}
+
+/* Volunteer Profile */
+.profile-container {
+    max-width: 500px;
+    margin: 100px auto;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 28px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+}
+
+.profile-heading {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-details {
+    margin-bottom: 20px;
+}
+
+.btn-save-profile, .btn-edit-profile {
+    display: inline-block;
+    padding: 8px 20px;
+    background-color: #FFD036;
+    color: black;
+    border: none;
+    border-radius: 28px;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-save-profile:hover, .btn-edit-profile:hover {
+    background-color: #ffcd00;
+    color: white;
+}
+
+.password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-container input {
+    width: 100%;
+    padding-right: 40px;
+}
+
+.password-container .toggle-password {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+}
+
+.profile-picture {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto 20px auto;
+    border: 1px solid #818080;
+}
+
+.profile-logo {
+    display: block;
+    margin: 0 auto 20px auto;
 }

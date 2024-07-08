@@ -1,6 +1,6 @@
 <?php
 include "dbFunctions.php"; // Include your database connection file
-include "navbar.php"; // Include your navigation bar
+include "vol_navbar.php"; // Include your navigation bar
 include "ft.php"; // Include your footer or other necessary includes
 
 // Check if offerId is provided via GET parameter

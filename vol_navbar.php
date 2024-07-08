@@ -106,26 +106,20 @@
                 display: inline;
             }
         }
-
-        .bi.bi-bar-chart {
-            font-size: 24px;
-        }
-        .bi.bi-gear {
-            font-size: 24px;
-        }
     </style>
 </head>
 <body>
     <nav class="navbar-main">
         <div class="logo">
-            <img src="images/admin_logo.jpg" alt="Logo" style="width: 100px;">
+            <img src="images/logo.jpg" alt="Logo" style="width: 100px;">
         </div>
         <ul>
-            <li><a href="admin_retailHome.php"><span class="nav-text">HOME</span><i class="bi bi-house nav-icon"></i></a></li>
-            <li><a href="admin_retailManage.php"><span class="nav-text">MANAGE</span><i class="bi bi-gear nav-icon"></i></i></a></li>
-            <li class="nav-scanner"><a href="admin_retailScanQR.php"><span class="nav-text">SCANNER</span><i class="bi bi-upc-scan nav-icon"></i></a></li>
-            <li><a href="admin_retailMilestones.php"><span class="nav-text">DASHBOARD</span><i class="bi bi-bar-chart nav-icon"></i></a></li>
-            <li><a href="admin_retailProfile.php"><span class="nav-text">PROFILE</span><i class="bi bi-person nav-icon"></i></a></li>
+            <li><a href="index.php"><span class="nav-text">HOME</span><i class="bi bi-house nav-icon"></i></a></li>
+            <li><a href="vol_reccActivities.php"><span class="nav-text">ACTIVITIES</span><i class="bi bi-calendar nav-icon"></i></a></li>
+            <li class="nav-scanner"><a href="vol_allVouchers.php"><span class="nav-text">SCANNER</span><i class="bi bi-upc-scan nav-icon"></i></a></li>
+            <li><a href="vol_allVouchers.php"><span class="nav-text">REDEEM</span><i class="bi bi-gift nav-icon"></i></a></li>
+            <li class="nav-stores"><a href="vol_allStores.php"><span class="nav-text">STORES</span><i class="bi bi-shop nav-icon"></i></a></li>
+            <li><a href="vol_Profile.php"><span class="nav-text">PROFILE</span><i class="bi bi-person nav-icon"></i></a></li>
         </ul>
     </nav>
     <script src="script.js"></script>

@@ -2,16 +2,15 @@
 session_start();
 
 // Check if user is logged in
-if (!isset($_SESSION['adminID'])) {
+if (!isset($_SESSION['volunteerId'])) {
     // Redirect to login page if not logged in
-    header("Location: admin_login.php");
+    header("Location: login.php");
     exit();
 }
 include "dbFunctions.php";
 
-// Fetch user data from database based on session adminID
-$adminID = $_SESSION['adminID'];
-$query = "SELECT * FROM admins WHERE adminID = ?";
+$adminID = $_SESSION['volunteerId'];
+$query = "SELECT * FROM volunteers WHERE volunteerId = ?";
 $stmt = mysqli_prepare($link, $query);
 mysqli_stmt_bind_param($stmt, "i", $adminID);
 mysqli_stmt_execute($stmt);
@@ -22,8 +21,7 @@ if (mysqli_num_rows($result) == 1) {
     $username = $row['username'];
     $email = $row['email'];
     $number = $row['number'];
-    // Fetch profile picture as blob data
-    $profile_pic_blob = $row['profile_pic'];
+    $profile_pic = $row['profile_pic'];
     // No need to fetch password here if you're not displaying it
 } else {
     // Handle error if user data not found
@@ -66,14 +64,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         }
 
-        // Read the uploaded file into a variable
-        $profile_pic_blob = file_get_contents($file_tmp_name);
+        // Define the upload path and move the uploaded file
+        $new_file_name = $adminID . "." . $file_ext;
+        $upload_path = "images/" . $new_file_name;
+        if (move_uploaded_file($file_tmp_name, $upload_path)) {
+            // File upload successful, update the profile picture path
+            $profile_pic = $new_file_name;
+            echo "File uploaded successfully to " . $upload_path; // Debugging statement
+        } else {
+            echo "Error: There was a problem uploading the file.";
+            exit();
+        }
     }
 
     // Update user data in the database
     $query = "UPDATE admins SET username = ?, email = ?, profile_pic = ?, password = ?, number = ? WHERE adminID = ?";
     $stmt = mysqli_prepare($link, $query);
-    mysqli_stmt_bind_param($stmt, "ssbssi", $username, $email, $profile_pic_blob, $password, $number, $adminID);
+    mysqli_stmt_bind_param($stmt, "sssssi", $username, $email, $profile_pic, $password, $number, $adminID);
     if (mysqli_stmt_execute($stmt)) {
         // Update session variables if necessary
         $_SESSION['username'] = $username; // Update session with new username if changed
@@ -88,6 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -97,7 +105,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Edit Profile</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" type="text/css" href="volunteeradminstyle.css">
 </head>
 <style>
     .btn-save-profile {
@@ -129,13 +136,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>"
             enctype="multipart/form-data">
             <div class="profile-details">
-                <!-- Display profile picture if exists -->
-                <?php if (!empty($profile_pic_blob)) : ?>
-                <img src="data:image/jpeg;base64,<?php echo base64_encode($profile_pic_blob); ?>" alt="Profile Picture"
+                <img src="images/<?php echo htmlspecialchars($profile_pic); ?>" alt="Profile Picture"
                     class="profile-picture">
-                <?php else : ?>
-                <img src="images/default_profile_pic.jpg" alt="Default Profile Picture" class="profile-picture">
-                <?php endif; ?>
                 <div class="mb-3">
                     <label for="profile_pic" class="form-label">Profile Picture</label>
                     <input type="file" class="form-control" id="profile_pic" name="profile_pic">

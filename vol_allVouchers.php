@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "dbFunctions.php"; 
+include "dbFunctions.php";
 
 $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
 
@@ -21,7 +21,7 @@ if (isset($_SESSION['username'])) {
             $vomoPoints = 0;
         }
     } else {
-        $vomoPoints = 0; 
+        $vomoPoints = 0;
     }
 } else {
     $vomoPoints = 0;
@@ -31,6 +31,7 @@ if (isset($_SESSION['username'])) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -41,10 +42,10 @@ if (isset($_SESSION['username'])) {
     <style>
         /* Navbar styling */
         nav {
-            position: fixed; 
+            position: fixed;
             top: 0;
             width: 100%;
-            z-index: 1000; 
+            z-index: 1000;
         }
 
         /* Homepage */
@@ -52,7 +53,8 @@ if (isset($_SESSION['username'])) {
             margin-top: 100px;
         }
 
-        .home p, h3{
+        .home p,
+        h3 {
             margin-right: 800px;
             text-align: left;
         }
@@ -63,15 +65,15 @@ if (isset($_SESSION['username'])) {
             text-shadow: 0 .1rem .1rem #333;
         }
 
-        .voucher-card-container{
+        .voucher-card-container {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
             margin-top: 100px;
         }
 
-        .voucher-card{
-            width: 20%; 
+        .voucher-card {
+            width: 20%;
             background-color: #ECECE7;
             border-radius: 8px;
             overflow: hidden;
@@ -126,7 +128,7 @@ if (isset($_SESSION['username'])) {
             justify-content: center;
             margin-top: 20px;
             background: #FFD036;
-            color: #333; 
+            color: #333;
             border: .2rem solid transparent;
         }
 
@@ -136,13 +138,13 @@ if (isset($_SESSION['username'])) {
         }
 
         .greeting {
-            flex-grow: 1; 
+            flex-grow: 1;
         }
 
         .points-container {
             display: flex;
             align-items: center;
-            justify-content: left;
+            justify-content: center;
             font-size: 14px;
             color: #333;
             background-color: #ECECE7;
@@ -166,40 +168,124 @@ if (isset($_SESSION['username'])) {
             margin-right: 100px;
         }
 
-        @media (max-width: 1200px) {
-            .voucher-card {
-                width: 30%; 
-            }
+        .yellow-container {
+            background-color: #FFD036;
+            color: #333;
+            text-align: left;
+            padding: 15px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            display: none;
         }
 
-        @media (max-width: 992px) {
-            .voucher-card {
-                width: 45%; 
-            }
+        .yellow-container h1 {
+            margin: 0;
+            padding: 0;
+            font-size: 24px;
+            font-weight: bold;
+            padding-left: 20px;
         }
 
-        @media (max-width: 768px) {
-            .voucher-card {
-                width: 70%; 
-            }
+        .yellow-container .points-container {
+            display: none;
         }
 
-        @media (max-width: 576px) {
-            .voucher-card {
-                width: 90%; 
-                margin: 10px;
+        @media screen and (max-width: 768px) {
+            body {
+                padding-bottom: 20px; 
+                margin-top: 50px;
+            }
+
+            .stores-card-container {
+                padding-top: -100px;
+                padding-bottom: 90px;
+            }
+
+            .yellow-container {
+                display: block;
+                width: 100%;
+                text-align: center;
+                padding: 10px 0; 
+            }
+
+            .yellow-container h1{
+                text-align: left;
+                padding-left: 20px;
+            }
+
+            .home .points-container {
+                display: none;
+            }
+
+            .points-container {
+                display: flex;
+                align-items: center;
+                justify-content: left;
+                font-size: 14px;
+                color: #333;
+                background-color: #ECECE7;
+                border-radius: .6rem;
+                box-shadow: 0 .2rem .5rem #333;
+                letter-spacing: .1rem;
+                font-weight: 800;
+                padding: 10px;
+                max-width: 300px; 
+                white-space: nowrap; 
+                overflow: hidden; 
+                text-overflow: ellipsis; 
+                margin-left: 20px;
+            }
+
+            .points-container i {
+                margin-right: 5px;
+            }
+
+            .points-container .vomo-points {
+                display: flex;
+                align-items: center;
+            }
+
+            .points-container .vomo-points span:first-child {
+                margin-right: 10px; 
+            }
+
+            .yellow-container .points-container {
+                display: flex;
+                align-items: center;
+                justify-content: left;
+                font-size: 14px;
+                color: #333;
+                background-color: #ECECE7;
+                border-radius: .6rem;
+                box-shadow: 0 .2rem .5rem #333;
+                letter-spacing: .2rem;
+                font-weight: 800;
+                padding: 10px;
             }
         }
     </style>
 </head>
+
 <body>
-    <?php include "navbar.php"; ?>
+    <?php include "vol_navbar.php"; ?>
     <?php include "ft.php"; ?>
-    
+
+    <div class="yellow-container">
+        <h1>All Vouchers</h1>
+        <br>
+        <div class="points-container">
+            <i class='bx bx-gift'></i>
+            <div class="vomo-points">
+                <span>VOMOPoints</span>
+                <span><?php echo $vomoPoints; ?></span>
+            </div>
+        </div>
+    </div>
+
     <section class="home" id="home">
         <div class="header">
             <div class="greeting">
-                <h1>Good Morning,</h1>
+                <h1>All Vouchers</h1>
             </div>
             <div class="points-container">
                 <i class='bx bx-gift'></i>
@@ -209,7 +295,6 @@ if (isset($_SESSION['username'])) {
                 </div>
             </div>
         </div>
-        <p>@<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'Guest'; ?></p>
     </section>
 
     <div class="voucher-card-container">
@@ -230,13 +315,13 @@ if (isset($_SESSION['username'])) {
                     <div class="card-content">
                         <h3><?php echo $title; ?></h3>
                         <p>Points: <?php echo $points; ?></p>
-                        <a href="offers.php?offerId=<?php echo $row['offerId']; ?>" class="btn">More</a>
+                        <a href="vol_voucherOverview.php?offerId=<?php echo $row['offerId']; ?>" class="btn">More</a>
                     </div>
                 </div>
                 <?php
             }
         } else {
-            echo "No vouchers found."; 
+            echo "No vouchers found.";
         }
         ?>
     </div>
@@ -245,4 +330,5 @@ if (isset($_SESSION['username'])) {
 
     <script src="script.js"></script>
 </body>
+
 </html>

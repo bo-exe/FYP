@@ -8,116 +8,17 @@
     <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
     <link rel="icon" type="image/x-icon" href="images/logo.jpg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <style>
-        body {
-            font-family: 'Lato', sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        .navbar {
-            margin-bottom: 0; /* Remove any existing bottom margin */
-        }
-        .event-details-container {
-<<<<<<< HEAD
-            max-width: 800px;
-            margin: 20px auto; /* Add some top margin */
-=======
->>>>>>> fdcb050c6dc5f25547e0bcea7d11d98d7eb8b72c
-            padding: 20px;
-            max-width: 1200px;
-            margin: 100px auto 0 auto; /* Add margin-top to create space below the navbar */
-        }
-        .event-header {
-            text-align: left;
-            margin-bottom: 20px;
-        }
-        .event-content {
-            display: flex;
-            gap: 20px;
-        }
-        .event-image {
-            flex: 1;
-            max-width: 40%;
-        }
-        .event-image img {
-            width: 100%;
-            border-radius: 5px;
-        }
-        .event-info {
-            flex: 2;
-            max-width: 60%;
-        }
-        .event-info p {
-            margin-bottom: 10px;
-        }
-        .text-center {
-            text-align: center;
-        }
-        .btn-primary {
-            background-color: #007bff;
-            border: none;
-            padding: 10px 20px;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .btn-primary:hover {
-            background-color: #0056b3;
-        }
-<<<<<<< HEAD
-        .page-header {
-            text-align: center;
-            margin: 20px 0;
-        }
-        .event-title {
-            text-align: center;
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin: 20px 0;
-=======
-        footer {
-            margin-top: 100px; /* Adjust this value to create space above the footer */
->>>>>>> fdcb050c6dc5f25547e0bcea7d11d98d7eb8b72c
-        }
-    </style>
 </head>
 <body>
 <?php include "vol_navbar.php"; ?>
 
-<<<<<<< HEAD
-    <div class="page-header">
-        <h1>Event Details</h1>
-    </div>
-
-    <?php
-    include "dbFunctions.php";
-
-    // Get the eventID from the URL parameter
-    $eventID = isset($_GET['eventID']) ? intval($_GET['eventID']) : 0;
-
-    // Query to fetch event with the specified eventID
-    $query = "SELECT * FROM events WHERE eventID = $eventID";
-    $result = mysqli_query($link, $query);
-
-    if ($result && mysqli_num_rows($result) > 0) {
-        $event = mysqli_fetch_assoc($result);
-        ?>
-        <div class="event-title">
-            <?php echo htmlspecialchars($event['title']); ?>
-        </div>
-        <div class="event-details-container">
-            <div>
-                <img src="https://placehold.co/600" alt="<?php echo htmlspecialchars($event['title']); ?>">
-            </div>
-            <div class="event-details">
-=======
 <div class="event-details-container">
     <?php
     include "dbFunctions.php";
 
-    // Get the eventID from the URL parameter
+    // Get the eventID and volunteerID from the URL parameters
     $eventID = isset($_GET['eventID']) ? intval($_GET['eventID']) : 0;
+    $volunteerID = isset($_GET['volunteerID']) ? intval($_GET['volunteerID']) : 0;
 
     // Query to fetch event with the specified eventID
     $query = "SELECT * FROM events WHERE eventID = $eventID";
@@ -126,23 +27,17 @@
     if ($result && mysqli_num_rows($result) > 0) {
         $event = mysqli_fetch_assoc($result);
         ?>
-        <div class="event-header">
+        <div class="event-details">
             <h1><?php echo htmlspecialchars($event['title']); ?></h1>
-        </div>
-        <div class="event-content">
-            <div class="event-image">
-                <img src="https://placehold.co/600" alt="<?php echo htmlspecialchars($event['title']); ?>">
-            </div>
-            <div class="event-info">
-                <p><strong></strong> <?php echo htmlspecialchars($event['descs']); ?></p>
->>>>>>> fdcb050c6dc5f25547e0bcea7d11d98d7eb8b72c
-                <p><strong>Date and Time Start:</strong> <?php echo htmlspecialchars($event['dateTimeStart']); ?></p>
-                <p><strong>Date and Time End:</strong> <?php echo htmlspecialchars($event['dateTimeEnd']); ?></p>
-                <p><strong>Location:</strong> <?php echo htmlspecialchars($event['locations']); ?></p>
-                <p><strong>Points:</strong> <?php echo htmlspecialchars($event['points']); ?></p>
-                <div class="text-center mt-4">
-                    <a href="vol_signUpActivities.php?eventID=<?php echo $eventID; ?>"><button class="btn btn-primary">Apply Now</button></a>
-                </div>
+            <p><strong>Date and Time Start:</strong> <?php echo htmlspecialchars($event['dateTimeStart']); ?></p>
+            <p><strong>Date and Time End:</strong> <?php echo htmlspecialchars($event['dateTimeEnd']); ?></p>
+            <p><strong>Location:</strong> <?php echo htmlspecialchars($event['locations']); ?></p>
+            <p><strong>Description:</strong> <?php echo htmlspecialchars($event['descs']); ?></p>
+            <p><strong>Points:</strong> <?php echo htmlspecialchars($event['points']); ?></p>
+            <p><strong>Image:</strong></p>
+            <img src="https://placehold.co/600" alt="<?php echo htmlspecialchars($event['title']); ?>" style="max-width:100%;">
+            <div class="text-center mt-4">
+                <a href="vol_signUpActivities.php?eventID=<?php echo $eventID; ?>&volunteerID=<?php echo $volunteerID; ?>"><button class="btn btn-primary">Apply Now</button></a>
             </div>
         </div>
         <?php
@@ -150,16 +45,8 @@
         echo "<p>Event not found.</p>";
     }
     ?>
-<<<<<<< HEAD
-=======
 </div>
->>>>>>> fdcb050c6dc5f25547e0bcea7d11d98d7eb8b72c
 
 <?php include "footer.php"; ?>
 </body>
 </html>
-
-<<<<<<< HEAD
-=======
-
->>>>>>> fdcb050c6dc5f25547e0bcea7d11d98d7eb8b72c

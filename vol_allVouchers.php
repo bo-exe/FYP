@@ -26,7 +26,6 @@ if (isset($_SESSION['username'])) {
 } else {
     $vomoPoints = 0;
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -40,227 +39,116 @@ if (isset($_SESSION['username'])) {
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
     <style>
-        /* Navbar styling */
-        nav {
-            position: fixed;
-            top: 0;
+        /* Common styles */
+        .offer-card-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .offer-card {
+            width: 325px;
+            background-color: #ECECE7;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+            margin: 20px;
+            height: 300px;
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+        }
+
+        .offer-card img {
             width: 100%;
-            z-index: 1000;
+            height: 165px;
+            object-fit: cover;
         }
 
-        /* Homepage */
-        .home {
-            margin-top: 100px;
+        .offer-card-content {
+            padding: 1px;
         }
 
-        .home p,
-        h3 {
-            margin-right: 800px;
-            text-align: left;
+        .offer-card-content h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            margin-top: 10px;
         }
 
-        .home h1 {
-            margin-right: 800px;
-            text-align: left;
-            text-shadow: 0 .1rem .1rem #333;
+        .offer-card-content p {
+            color: #333333;
+            font-size: 15px;
+            line-height: 1.3;
+            margin-left: 10px;
         }
 
+
+        /* Styles specific to vol_allVouchers.php */
         .voucher-card-container {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            margin-top: 100px;
+            margin-top: 20px;
         }
 
         .voucher-card {
-            width: 20%;
+            width: 325px;
             background-color: #ECECE7;
-            border-radius: 8px;
+            border-radius: 10px;
             overflow: hidden;
             box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
             margin: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            height: 300px;
+            text-decoration: none;
+            color: inherit;
+            position: relative;
         }
 
         .voucher-card img {
             width: 100%;
             height: 165px;
+            object-fit: cover;
         }
 
         .card-content {
-            padding: 16px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            padding: 1px;
         }
 
         .card-content h3 {
             font-size: 28px;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            margin-top: 10px;
         }
 
         .card-content p {
-            color: #333;
+            color: #333333;
             font-size: 15px;
             line-height: 1.3;
+            margin-left: 10px;
         }
 
         .card-content .btn {
-            padding: 0.3rem 0.7rem;
-            background: #FFD036;
-            border-radius: .6rem;
-            box-shadow: 0 .2rem .5rem #333;
-            font-size: 0.8rem;
-            color: #333;
-            letter-spacing: .1rem;
-            font-weight: 600;
-            border: .2rem solid transparent;
-            margin-top: 16px;
-            text-decoration: none;
-            text-align: center;
-        }
-
-        .card-content .btn:hover {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-            background: #FFD036;
-            color: #333;
-            border: .2rem solid transparent;
-        }
-
-        .header {
-            display: flex;
-            align-items: center;
-        }
-
-        .greeting {
-            flex-grow: 1;
-        }
-
-        .points-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            color: #333;
-            background-color: #ECECE7;
-            border-radius: .6rem;
-            box-shadow: 0 .2rem .5rem #333;
-            letter-spacing: .2rem;
-            font-weight: 800;
-            padding: 10px;
-        }
-
-        .points-container i {
-            margin-right: 5px;
-        }
-
-        .points-container .vomo-points {
-            display: flex;
-            align-items: center;
-        }
-
-        .points-container .vomo-points span:first-child {
-            margin-right: 100px;
-        }
-
-        .yellow-container {
+            display: inline-block;
+            padding: 8px 16px;
             background-color: #FFD036;
-            color: #333;
-            text-align: left;
-            padding: 15px;
-            box-sizing: border-box;
-            margin-bottom: 20px;
-            display: none;
-        }
-
-        .yellow-container h1 {
-            margin: 0;
-            padding: 0;
-            font-size: 24px;
+            text-decoration: none;
+            border-radius: 30px;
+            margin-top: 16px;
+            color: #FFF5F5;
             font-weight: bold;
-            padding-left: 20px;
-        }
-
-        .yellow-container .points-container {
-            display: none;
+            margin-left: auto; /* Adjusted to align the button to the right */
+            margin-right: 10px; /* Added margin-right for spacing */
+            width: fit-content; /* Ensures button width fits its content */
         }
 
         @media screen and (max-width: 768px) {
-            body {
-                padding-bottom: 20px; 
-                margin-top: 50px;
-            }
-
-            .stores-card-container {
-                padding-top: -100px;
-                padding-bottom: 90px;
-            }
-
-            .yellow-container {
-                display: block;
+            .offer-card {
                 width: 100%;
-                text-align: center;
-                padding: 10px 0; 
             }
 
-            .yellow-container h1{
-                text-align: left;
-                padding-left: 20px;
-            }
-
-            .home .points-container {
-                display: none;
-            }
-
-            .points-container {
-                display: flex;
-                align-items: center;
-                justify-content: left;
-                font-size: 14px;
-                color: #333;
-                background-color: #ECECE7;
-                border-radius: .6rem;
-                box-shadow: 0 .2rem .5rem #333;
-                letter-spacing: .1rem;
-                font-weight: 800;
-                padding: 10px;
-                max-width: 300px; 
-                white-space: nowrap; 
-                overflow: hidden; 
-                text-overflow: ellipsis; 
-                margin-left: 20px;
-            }
-
-            .points-container i {
-                margin-right: 5px;
-            }
-
-            .points-container .vomo-points {
-                display: flex;
-                align-items: center;
-            }
-
-            .points-container .vomo-points span:first-child {
-                margin-right: 10px; 
-            }
-
-            .yellow-container .points-container {
-                display: flex;
-                align-items: center;
-                justify-content: left;
-                font-size: 14px;
-                color: #333;
-                background-color: #ECECE7;
-                border-radius: .6rem;
-                box-shadow: 0 .2rem .5rem #333;
-                letter-spacing: .2rem;
-                font-weight: 800;
-                padding: 10px;
+            .offer-card img {
+                height: 200px;
             }
         }
     </style>
@@ -282,21 +170,6 @@ if (isset($_SESSION['username'])) {
         </div>
     </div>
 
-    <section class="home" id="home">
-        <div class="header">
-            <div class="greeting">
-                <h1>All Vouchers</h1>
-            </div>
-            <div class="points-container">
-                <i class='bx bx-gift'></i>
-                <div class="vomo-points">
-                    <span>VOMOPoints</span>
-                    <span><?php echo $vomoPoints; ?></span>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <div class="voucher-card-container">
         <?php
         $sql = "SELECT * FROM offers";
@@ -309,12 +182,14 @@ if (isset($_SESSION['username'])) {
                 $image = base64_encode($row['images']);
                 ?>
                 <div class="voucher-card">
-                    <div class="image-container">
-                        <img src="data:image/jpeg;base64,<?php echo $image; ?>" alt="<?php echo $title; ?>">
-                    </div>
+                    <a href="vol_voucherOverview.php?offerId=<?php echo $row['offerId']; ?>" style="text-decoration: none; color: inherit;">
+                        <img src="data:image/jpeg;base64,<?php echo $image; ?>" alt="<?php echo $title; ?>" class="card-img-top">
+                        <div class="card-content">
+                            <h3 class="card-title"><?php echo $title; ?></h3>
+                            <p class="card-text">Points: <?php echo $points; ?></p>
+                        </div>
+                    </a>
                     <div class="card-content">
-                        <h3><?php echo $title; ?></h3>
-                        <p>Points: <?php echo $points; ?></p>
                         <a href="vol_voucherOverview.php?offerId=<?php echo $row['offerId']; ?>" class="btn">More</a>
                     </div>
                 </div>

@@ -28,8 +28,8 @@ if (mysqli_num_rows($resultCheck) == 1) {
 
     // Redirect based on user role
     switch ($_SESSION['role']) {
-        case 'volunteer':
-            header("Location: index.php");
+        case 'cashierAdmin':
+            header("Location: admin_cashierHome.php");
             exit();
         case 'retailAdmin':
             header("Location: admin_retailHome.php");
@@ -39,9 +39,6 @@ if (mysqli_num_rows($resultCheck) == 1) {
             exit();
         case 'volunteerAdmin':
             header("Location: admin_volunteerHome.php");
-            exit();
-        default:
-            header("Location: index.php");
             exit();
     }
 }

@@ -1,6 +1,6 @@
 <?php
 include "dbFunctions.php";
-include "admin_retailNavbar.php";
+include "admin_cashierNavbar.php";
 include "ft.php";
 
 session_start();
@@ -90,35 +90,6 @@ if (isset($_GET['offerId'])) {
             border-radius: 5px;
             margin-bottom: 10px;
         }
-
-        .del-btn, .edit-btn {
-            display: inline-block;
-            padding: 8px 20px;
-            border-radius: 30px;
-            margin-top: 16px;
-            color: #FFF5F5;
-            font-weight: bold;
-            text-decoration: none;
-            text-align: center;
-            margin-left: 10px; /* Adjust margin as needed */
-        }
-
-        .del-btn {
-            background-color: #EF1E1E;
-        }
-
-        .del-btn:hover {
-            background-color: #d81b1b;
-        }
-
-        .edit-btn {
-            background-color: #FFD036;
-        }
-
-        .edit-btn:hover {
-            background-color: #e6b800;
-        }
-
         .expired {
             color: #EF1E1E;
             font-weight: bold;
@@ -126,9 +97,8 @@ if (isset($_GET['offerId'])) {
         }
     </style>
 </head>
-
-<body>
 <h1>Welcome, <?php echo htmlspecialchars($username); ?>!</h1>
+<body>
 <div class="container">
     <?php if (!empty($offerId)) { ?>
         <div class="card">
@@ -145,13 +115,11 @@ if (isset($_GET['offerId'])) {
             <?php if ($expired) { ?>
                 <p class="expired">This offer has expired.</p>
             <?php } ?>
-            <a href="admin_retailDoDelete.php?offerId=<?php echo htmlspecialchars($offerId); ?>" class="del-btn">Delete</a>
-            <a href="admin_retailEdit.php?offerId=<?php echo htmlspecialchars($offerId); ?>" class="edit-btn">Edit</a>
         </div>
     <?php } else { ?>
         <div style="text-align: center;">
             <p>Invalid offer ID. Please try again.</p>
-            <p><a href="admin_retailManage.php">Back to Offers</a></p>
+            <p><a href="admin_cashierManage.php">Back to Offers</a></p>
         </div>
     <?php } ?>
 </div>

@@ -1,3 +1,23 @@
+<?php
+include "dbFunctions.php";
+session_start();
+
+if (!isset($_SESSION['username'])) {
+    // Redirect to login page if not logged in
+    header('Location: login.php');
+    exit;
+}
+
+$username = $_SESSION['username'];
+
+$query = "SELECT * FROM offers";
+$result = mysqli_query($link, $query) or die(mysqli_error($link));
+
+$arrContent = array();
+while ($row = mysqli_fetch_array($result)) {
+    $arrContent[] = $row;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,6 +31,7 @@
 <br>
 <?php include "admin_retailNavbar.php"; ?>
 <?php include "ft.php"; ?>
+<h1>Welcome, <?php echo htmlspecialchars($username); ?>!</h1>
 <br></br>
 
     <div class="retailbuttons-container">

@@ -94,36 +94,6 @@ if (isset($_GET['offerId'])) {
             margin-bottom: 10px;
         }
 
-        .del-btn,
-        .edit-btn {
-            display: inline-block;
-            padding: 8px 20px;
-            border-radius: 30px;
-            margin-top: 16px;
-            color: #FFF5F5;
-            font-weight: bold;
-            text-decoration: none;
-            text-align: center;
-            margin-left: 10px;
-            /* Adjust margin as needed */
-        }
-
-        .del-btn {
-            background-color: #EF1E1E;
-        }
-
-        .del-btn:hover {
-            background-color: #d81b1b;
-        }
-
-        .edit-btn {
-            background-color: #FFD036;
-        }
-
-        .edit-btn:hover {
-            background-color: #e6b800;
-        }
-
         .expired {
             color: #EF1E1E;
             font-weight: bold;

@@ -15,6 +15,7 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
+            margin-bottom: 30px;
         }
 
         .btn {
@@ -47,7 +48,7 @@
     <br>
     <div class="container">
     <img src="images/logo.jpg" alt="Description of the image" width="300" height="200">
-        <form method="post" action="doFeedback_success.php">
+        <form method="post" action="vol_doFeedback.php">
             <h2 class="text-center mb-4">Feeback Form</h2>
             <div class="form-group">
                 <label for="date">Date of Issue</label>

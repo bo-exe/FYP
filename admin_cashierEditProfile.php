@@ -120,7 +120,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </style>
 
 <body>
-    <?php include "admin_retailNavBar.php"; ?>
+    <?php include "admin_cashierNavBar.php"; ?>
     <?php include "ft.php"; ?>
     <div class="profile-container">
         <img src="images/admin_logo.jpg" alt="Admin Logo" class="profile-logo">

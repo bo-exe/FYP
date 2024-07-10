@@ -2,8 +2,9 @@
 session_start();
 include "dbFunctions.php";
 
-if (isset($_GET['volunteerId'])) {
+if (isset($_GET['volunteerId']) && isset($_GET['requestNumber'])) {
     $volunteerId = $_GET['volunteerId'];
+    $requestNumber = $_GET['requestNumber'];
 
     // Fetch volunteer details
     $sql = "SELECT username, email, password FROM volunteers WHERE volunteerId = ?";
@@ -48,7 +49,7 @@ if (isset($_GET['volunteerId'])) {
     <title>Approve Volunteer</title>
 </head>
 <body>
-    <h1>Approve Volunteer</h1>
+    <h1>Volunteer Request #<?php echo htmlspecialchars($requestNumber); ?></h1>
     <?php if ($volunteer): ?>
         <p>Username: <?php echo htmlspecialchars($volunteer['username']); ?></p>
         <p>Email: <?php echo htmlspecialchars($volunteer['email']); ?></p>

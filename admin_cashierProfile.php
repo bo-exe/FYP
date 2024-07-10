@@ -150,7 +150,7 @@ if (mysqli_num_rows($result) == 1) {
     </style>
 </head>
 <body>
-    <?php include "admin_retailNavBar.php"; ?>
+    <?php include "admin_cashierNavBar.php"; ?>
     <div class="profile-container">
         <img src="images/admin_logo.jpg" alt="Admin Logo" class="profile-logo">
         <h1 class="profile-heading">User Profile</h1>

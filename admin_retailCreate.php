@@ -1,9 +1,8 @@
 <?php
-include "dbFunctions.php";
-include "ft.php";
+include "dbFunctions.php"; // Adjust this to your actual database connection script
+include "ft.php"; // Assuming this is your footer include
 session_start();
 
-// Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate and sanitize form data
     $title = mysqli_real_escape_string($link, $_POST['title']);
@@ -12,10 +11,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $locations = mysqli_real_escape_string($link, $_POST['locations']);
     $tandc = mysqli_real_escape_string($link, $_POST['tandc']);
     $instructions = mysqli_real_escape_string($link, $_POST['instructions']);
-
     $points = intval($_POST['points']);
     $amount = floatval($_POST['amount']);
-    
+
     // Handle image upload
     if (isset($_FILES['images']) && $_FILES['images']['error'] == UPLOAD_ERR_OK) {
         $imageTmpPath = $_FILES['images']['tmp_name'];
@@ -26,39 +24,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $imageData = addslashes(file_get_contents($imageTmpPath));  // Convert image to BLOB
         } else {
             $errorMessage = "Unsupported image format. Please upload JPEG, PNG, or GIF.";
-            header("Location: addOffer.php?error=" . urlencode($errorMessage));
+            header("Location: admin_retailCreate.php?error=" . urlencode($errorMessage));
             exit();
         }
     } else {
         $errorMessage = "No image uploaded.";
-        header("Location: addOffer.php?error=" . urlencode($errorMessage));
+        header("Location: admin_retailCreate.php?error=" . urlencode($errorMessage));
         exit();
     }
 
-    // Get the highest existing offerId from the database
-    $query = "SELECT MAX(offerId) AS maxOfferId FROM offers";
-    $result = mysqli_query($link, $query);
-    $row = mysqli_fetch_assoc($result);
-    $maxOfferId = $row['maxOfferId'];
-
-    // Increment the highest offerId by 1 to get the new offerId
-    $newOfferId = $maxOfferId + 1;
+    // Retrieve adminID from session
+    if (isset($_SESSION['adminID'])) {
+        $adminID = $_SESSION['adminID'];
+    } else {
+        $errorMessage = "Admin session not found.";
+        header("Location: admin_retailCreate.php?error=" . urlencode($errorMessage));
+        exit();
+    }
 
     // Insert the new offer into the database
-
-    $insertQuery = "INSERT INTO offers (offerId, title, dateTimeStart, dateTimeEnd, locations, tandc, instructions, points, amount, images) 
-                    VALUES ('$newOfferId', '$title', '$dateTimeStart', '$dateTimeEnd', '$locations', '$tandc','$instructions', '$points', '$amount', '$imageData')";
+    $insertQuery = "INSERT INTO offers (title, dateTimeStart, dateTimeEnd, locations, tandc, instructions, points, amount, images, adminID) 
+                    VALUES ('$title', '$dateTimeStart', '$dateTimeEnd', '$locations', '$tandc', '$instructions', '$points', '$amount', '$imageData', '$adminID')";
+    
     if (mysqli_query($link, $insertQuery)) {
         $message = "Offer added successfully.";
+        header("Location: admin_retailDoCreate.php?message=" . urlencode($message));
+        exit();
     } else {
         $errorMessage = "Error adding offer: " . mysqli_error($link);
+        header("Location: admin_retailDoCreate.php?error=" . urlencode($errorMessage));
+        exit();
     }
 }
-
 ?>
+
+
 <!DOCTYPE html>
 <html>
-
+<link rel="icon" type="image/x-icon" href="images/admin_logo.jpg">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Add Offer</title>

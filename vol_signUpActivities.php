@@ -124,7 +124,7 @@
     </style>
 </head>
 <body>
-<?php include "navbar.php"; ?>
+<?php include "vol_navbar.php"; ?>
 <div class="main-content">
     <?php
     include "dbFunctions.php";

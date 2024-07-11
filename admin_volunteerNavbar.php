@@ -115,7 +115,7 @@
         </div>
         <ul>
             <li><a href="admin_volunteerHome.php"><span class="nav-text">HOME</span><i class="bi bi-house nav-icon"></i></a></li>
-            <li class="nav-scanner"><a href="admin_allGigs.php"><span class="nav-text">MANAGE</span><i class="fi fi-br-list-check"></i></a></li>
+            <li class="nav-scanner"><a href="admin_allGigs.php"><span class="nav-text">MANAGE</span><i class="bi bi-person-lines-fill"></i></a></li>
             <li><a href="admin_volunteerProfile.php"><span class="nav-text">PROFILE</span><i class="bi bi-person nav-icon"></i></a></li>
         </ul>
     </nav>

@@ -35,8 +35,8 @@ if (isset($_SESSION['userId'])) {
             // If the username and email do not exist, proceed to insert new volunteer
             $hashed_password = password_hash($entered_password, PASSWORD_DEFAULT);
 
-            $insert_query = "INSERT INTO volunteers (username, password, name, email, role, points, approval_status, dob, gender)
-                             VALUES ('$entered_username', '$hashed_password', '$entered_name', '$entered_email', 'volunteer', 0, 'pending', '$entered_dob', '$entered_gender')";
+            $insert_query = "INSERT INTO volunteers (username, password, name, email, role, points, dob, gender)
+                             VALUES ('$entered_username', '$hashed_password', '$entered_name', '$entered_email', 'volunteer', 0, '$entered_dob', '$entered_gender')";
 
             if (mysqli_query($link, $insert_query)) {
                 // Get the ID of the newly inserted record

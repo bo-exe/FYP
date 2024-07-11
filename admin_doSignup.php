@@ -35,7 +35,7 @@ if (isset($_SESSION['adminID'])) {
         if (mysqli_num_rows($result) == 0) {
             // If the username and email do not exist, proceed to insert new admin
             $insert_query = "INSERT INTO admins (company, username, password, name, number, email, role, approval_status)
-                             VALUES ('$company', '$username', '$password', '$name', '$number', '$email', '$role', 'Pending')";
+                             VALUES ('$company', '$username', '$password', '$name', '$number', '$email', '$role', 'pending')";
 
             if (mysqli_query($conn, $insert_query)) {
                 // Get the ID of the newly inserted record

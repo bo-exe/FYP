@@ -2,14 +2,14 @@
 session_start();
 include "dbFunctions.php";
 
-if (isset($_GET['volunteerId']) && isset($_GET['requestNumber'])) {
-    $volunteerId = $_GET['volunteerId'];
+if (isset($_GET['adminID']) && isset($_GET['requestNumber'])) {
+    $adminID = $_GET['adminID'];
     $requestNumber = $_GET['requestNumber'];
 
     // Fetch volunteer details
-    $sql = "SELECT username, email, password FROM volunteers WHERE volunteerId = ?";
+    $sql = "SELECT username, email, password FROM admins WHERE adminID = ?";
     $stmt = mysqli_prepare($link, $sql);
-    mysqli_stmt_bind_param($stmt, "s", $volunteerId);
+    mysqli_stmt_bind_param($stmt, "s", $adminID);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     $volunteer = mysqli_fetch_assoc($result);
@@ -18,20 +18,20 @@ if (isset($_GET['volunteerId']) && isset($_GET['requestNumber'])) {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (isset($_POST['approve'])) {
             // Approve volunteer
-            $sql = "UPDATE volunteers SET approval_status = 1 WHERE volunteerId = ?";
+            $sql = "UPDATE admins SET approval_status = 1 WHERE adminID = ?";
             $stmt = mysqli_prepare($link, $sql);
-            mysqli_stmt_bind_param($stmt, "s", $volunteerId);
+            mysqli_stmt_bind_param($stmt, "s", $adminID);
             mysqli_stmt_execute($stmt);
             mysqli_stmt_close($stmt);
             echo "<p>Volunteer approved successfully.</p>";
         } elseif (isset($_POST['reject'])) {
-            // Reject (delete) volunteer
-            $sql = "DELETE FROM volunteers WHERE volunteerId = ?";
+            // Reject (delete) request
+            $sql = "DELETE FROM admins WHERE adminID = ?";
             $stmt = mysqli_prepare($link, $sql);
-            mysqli_stmt_bind_param($stmt, "s", $volunteerId);
+            mysqli_stmt_bind_param($stmt, "s", $adminID);
             mysqli_stmt_execute($stmt);
             mysqli_stmt_close($stmt);
-            echo "<p>Volunteer rejected and deleted successfully.</p>";
+            echo "<p>Request rejected and deleted successfully.</p>";
         }
         mysqli_close($link);
         exit();
@@ -46,10 +46,10 @@ if (isset($_GET['volunteerId']) && isset($_GET['requestNumber'])) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Approve Volunteer</title>
+    <title>Approve Volunteer Admin Request</title>
 </head>
 <body>
-    <h1>Volunteer Request #<?php echo htmlspecialchars($requestNumber); ?></h1>
+    <h1>Volunteer Admin Request #<?php echo htmlspecialchars($requestNumber); ?></h1>
     <?php if ($volunteer): ?>
         <p>Username: <?php echo htmlspecialchars($volunteer['username']); ?></p>
         <p>Email: <?php echo htmlspecialchars($volunteer['email']); ?></p>

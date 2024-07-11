@@ -19,7 +19,7 @@ if (isset($_SESSION['adminID'])) {
         // Retrieve form data
         $company = $_POST['company'];
         $username = $_POST['username'];
-        $entered_password = $_POST['password'];
+        $password = $_POST['password'];
         $name = $_POST['name'];
         $number = $_POST['number'];
         $email = $_POST['email'];

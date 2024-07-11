@@ -9,7 +9,7 @@ if (!isset($_SESSION['adminID'])) {
 }
 include "dbFunctions.php";
 
-// Fetch user data from database based on session adminID
+// Fetch user data from database based on session userId
 $adminID = $_SESSION['adminID'];
 $query = "SELECT * FROM admins WHERE adminID = ?";
 $stmt = mysqli_prepare($link, $query);
@@ -21,10 +21,9 @@ if (mysqli_num_rows($result) == 1) {
     $row = mysqli_fetch_assoc($result);
     $username = $row['username'];
     $email = $row['email'];
-    $number = $row['number'];
-    // Fetch profile picture as blob data
-    $profile_pic_blob = $row['profile_pic'];
-    // No need to fetch password here if you're not displaying it
+    $password = $row['password'];
+    $profile_pic = $row['profile_pic'];
+    // Add more fields as needed
 } else {
     // Handle error if user data not found
     echo "Error: User data not found.";
@@ -36,16 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Sanitize and validate input data
     $username = mysqli_real_escape_string($link, $_POST['username']);
     $email = mysqli_real_escape_string($link, $_POST['email']);
-    $number = mysqli_real_escape_string($link, $_POST['number']);
-
-    // Check if a new password is submitted
-    if (!empty($_POST['password'])) {
-        // Sanitize and hash the password
-        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-    } else {
-        // If password field is empty, keep the current password
-        $password = $row['password'];
-    }
+    // Validate and update other fields as needed
 
     // Check if a profile picture is uploaded
     if (isset($_FILES['profile_pic']) && $_FILES['profile_pic']['error'] == 0) {
@@ -66,20 +56,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         }
 
-        // Read the uploaded file into a variable
-        $profile_pic_blob = file_get_contents($file_tmp_name);
+        // Define the upload path and move the uploaded file
+        $new_file_name = $adminID . "." . $file_ext;
+        $upload_path = "images/" . $new_file_name;
+        if (move_uploaded_file($file_tmp_name, $upload_path)) {
+            // File upload successful, update the profile picture path
+            $profile_pic = $new_file_name;
+            echo "File uploaded successfully to " . $upload_path; // Debugging statement
+        } else {
+            echo "Error: There was a problem uploading the file.";
+            exit();
+        }
     }
 
     // Update user data in the database
-    $query = "UPDATE admins SET username = ?, email = ?, profile_pic = ?, password = ?, number = ? WHERE adminID = ?";
+    $query = "UPDATE admins SET username = ?, email = ?, profile_pic = ? WHERE adminID = ?";
     $stmt = mysqli_prepare($link, $query);
-    mysqli_stmt_bind_param($stmt, "ssbssi", $username, $email, $profile_pic_blob, $password, $number, $adminID);
+    mysqli_stmt_bind_param($stmt, "sssi", $username, $email, $profile_pic, $adminID);
     if (mysqli_stmt_execute($stmt)) {
         // Update session variables if necessary
         $_SESSION['username'] = $username; // Update session with new username if changed
 
         // Redirect to profile page with updated information
-        header("Location: admin_retailProfile.php");
+        header("Location: admin_cashierProfile.php");
         exit();
     } else {
         // Handle update error
@@ -90,7 +89,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -99,73 +97,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="volunteeradminstyle.css">
 </head>
-<style>
-    .btn-save-profile {
-        display: inline-block;
-        padding: 8px 20px;
-        background-color: #FFD036;
-        text-decoration: none;
-        border-radius: 30px;
-        margin-top: 16px;
-        margin-left: 5px;
-        margin-bottom: 10px;
-        color: #FFF5F5;
-        font-weight: bold;
-    }
-
-    .btn-save-profile:hover {
-        background-color: #ffcd00;
-        color: #d9d9d9;
-    }
-</style>
-
 <body>
-    <?php include "admin_cashierNavBar.php"; ?>
-    <?php include "ft.php"; ?>
+<?php include "admin_cashierNavBar.php"; ?>
+<?php include "ft.php"; ?>
     <div class="profile-container">
         <img src="images/admin_logo.jpg" alt="Admin Logo" class="profile-logo">
         <h1 class="profile-heading">Edit Profile</h1>
-
-        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>"
-            enctype="multipart/form-data">
+        
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data">
             <div class="profile-details">
-                <!-- Display profile picture if exists -->
-                <?php if (!empty($profile_pic_blob)) : ?>
-                <img src="data:image/jpeg;base64,<?php echo base64_encode($profile_pic_blob); ?>" alt="Profile Picture"
-                    class="profile-picture">
-                <?php else : ?>
-                <img src="images/default_profile_pic.jpg" alt="Default Profile Picture" class="profile-picture">
-                <?php endif; ?>
+                <img src="images/<?php echo htmlspecialchars($profile_pic); ?>" alt="Profile Picture" class="profile-picture">
                 <div class="mb-3">
                     <label for="profile_pic" class="form-label">Profile Picture</label>
                     <input type="file" class="form-control" id="profile_pic" name="profile_pic">
                 </div>
                 <div class="mb-3">
-                    <label for="username" class="form-label">Username:</label>
-                    <input type="text" class="form-control" id="username" name="username"
-                        value="<?php echo htmlspecialchars($username); ?>" required>
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" value="<?php echo htmlspecialchars($username); ?>" required>
                 </div>
                 <div class="mb-3">
-                    <label for="email" class="form-label">Email:</label>
-                    <input type="email" class="form-control" id="email" name="email"
-                        value="<?php echo htmlspecialchars($email); ?>" required>
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" required>
                 </div>
-                <div class="mb-3">
-                    <label for="number" class="form-label">Company Number:</label>
-                    <input type="text" class="form-control" id="number" name="number"
-                        value="<?php echo htmlspecialchars($number); ?>" required>
-                </div>
-                <label for="password" class="form-label">Password :</label>
-                <div class="password-container">
-                    <input type="text" id="password" value="<?php echo htmlspecialchars($password); ?>"required>
-                    <span class="toggle-password" onclick="togglePassword()">
-                        <i class="fas fa-eye"></i>
-                    </span>
-                </div>
-
+                <!-- Add more fields as needed for other user information -->
+                
                 <!-- Save button -->
                 <div class="text-center">
-                    <button type="submit" class="btn-save-profile">Save Profile</button>
+                    <button type="submit" class="btn btn-primary btn-save-profile">Save Profile</button>
                 </div>
             </div>
         </form>
@@ -188,5 +146,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     </script>
 </body>
-
 </html>

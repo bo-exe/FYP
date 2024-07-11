@@ -16,8 +16,9 @@
     <?php
     include "dbFunctions.php";
 
-    // Get the eventID from the URL parameter
+    // Get the eventID and volunteerID from the URL parameters
     $eventID = isset($_GET['eventID']) ? intval($_GET['eventID']) : 0;
+    $volunteerID = isset($_GET['volunteerID']) ? intval($_GET['volunteerID']) : 0;
 
     // Query to fetch event with the specified eventID
     $query = "SELECT * FROM events WHERE eventID = $eventID";
@@ -36,7 +37,7 @@
             <p><strong>Image:</strong></p>
             <img src="https://placehold.co/600" alt="<?php echo htmlspecialchars($event['title']); ?>" style="max-width:100%;">
             <div class="text-center mt-4">
-                <a href="vol_signUpActivities.php?eventID=<?php echo $eventID; ?>"><button class="btn btn-primary">Apply Now</button></a>
+                <a href="vol_signUpActivities.php?eventID=<?php echo $eventID; ?>&volunteerID=<?php echo $volunteerID; ?>"><button class="btn btn-primary">Apply Now</button></a>
             </div>
         </div>
         <?php

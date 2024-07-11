@@ -1,6 +1,15 @@
 <?php
-session_start();
-include "dbFunctions.php";
+session_start(); // Start the session
+
+
+if (!isset($_SESSION['volunteerId']) || empty($_SESSION['volunteerId'])) {
+    echo "User not logged in.";
+    exit();
+}
+
+$volunteerId = $_SESSION['volunteerId'];
+
+include "dbFunctions.php"; // Include the database connection file
 
 $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
 
@@ -203,7 +212,6 @@ if (isset($_SESSION['username'])) {
     <div class="container">
         <div class="row justify-content-center">
             <?php
-            include "dbFunctions.php";
             
             // Query to fetch all events
             $query = "SELECT * FROM events";
@@ -224,7 +232,8 @@ if (isset($_SESSION['username'])) {
                                     <span>Obtainable VOMO Points:</span>
                                     <span><?php echo htmlspecialchars($event['points']); ?></span>
                                 </div>
-                                <a href="vol_moreInfoActivities.php?eventID=<?php echo $event['eventID']; ?>"><button>More</button></a>
+                               
+                                <a href="vol_moreInfoActivities.php?eventID=<?php echo $event['eventID']; ?>&volunteerID=<?php echo $volunteerId; ?>"><button>More</button></a>
                             </div>
                         </div>
                     </div>
@@ -247,9 +256,6 @@ if (isset($_SESSION['username'])) {
     <script src="script.js"></script>
 </body>
 </html>
-
-
-
 
 
 

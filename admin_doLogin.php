@@ -35,7 +35,7 @@ if (mysqli_num_rows($resultCheck) == 1) {
             header("Location: admin_retailHome.php");
             exit();
         case 'vomoAdmin':
-            header("Location: admin_vomoHome.php");
+            header("Location: admin_teamHome.php");
             exit();
         case 'volunteerAdmin':
             header("Location: admin_volunteerHome.php");

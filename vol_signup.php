@@ -25,17 +25,21 @@ if (isset($_SESSION['user_id'])) {
         html {
             height: 100%;
             font-family: 'Lato', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .signup-container {
-            background-color: #FFD036;
             max-width: 400px;
-            margin: 0 auto;
+            width: 100%;
             padding: 20px;
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-top: 100px;
+            margin-top: 50px; /* Reduced margin-top to move the container up */
         }
 
         .signup-container img {
@@ -43,6 +47,8 @@ if (isset($_SESSION['user_id'])) {
             margin: 0 auto;
             margin-bottom: 20px;
             border-radius: 8px;
+            width: 150px;
+            height: 100px;
         }
 
         .text-center {
@@ -90,7 +96,7 @@ if (isset($_SESSION['user_id'])) {
 <body>
     <div class="signup-container">
         <form method="post" action="vol_doSignup.php">
-            <img src="images/logo.jpg" alt="Logo" width="300" height="200">
+            <img src="images/logo.jpg" alt="Logo">
             <h2 class="text-center mb-4">Become a volunteer with us.</h2>
 
             <div class="form-group">
@@ -119,9 +125,11 @@ if (isset($_SESSION['user_id'])) {
             </div>
 
             <div class="form-group">
-                <label>Gender</label><br>
-                <label><input type="radio" name="gender" value="male" required> Male</label>
-                <label><input type="radio" name="gender" value="female"> Female</label>
+                <label for="gender">Gender</label>
+                <select class="form-control" id="gender" name="gender" required>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
             </div>
 
             <div class="text-center">
@@ -132,7 +140,6 @@ if (isset($_SESSION['user_id'])) {
             </div>
         </form>
     </div>
-
 </body>
 
 </html>

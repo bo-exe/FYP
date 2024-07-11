@@ -124,8 +124,10 @@ $stmt->close();
 </head>
 
 <body>
-    <?php include "admin_retailNavBar.php"; ?>
+    <?php include "admin_cashierNavBar.php"; ?>
     <?php include "ft.php"; ?>
+    <br></br><br></br>
+
     <h1>Welcome, <?php echo htmlspecialchars($username); ?>!</h1>
     <h1>Organisation Vouchers</h1>
     <div class="offer-card-container">
@@ -145,7 +147,7 @@ $stmt->close();
             }
             ?>
             <div class="offer-card">
-                <a href="admin_retailVoucher.php?offerId=<?php echo $offerId; ?>"
+                <a href="admin_cashierVoucher.php?offerId=<?php echo $offerId; ?>"
                     style="text-decoration: none; color: inherit;">
                     <img src="<?php echo $imageSrc; ?>" alt="<?php echo $title; ?>" class="card-img-top">
                     <div class="offer-card-content">

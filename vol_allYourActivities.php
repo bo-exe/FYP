@@ -60,10 +60,20 @@ $link->close();
             border-radius: 5px;
             margin-bottom: 10px;
         }
+        .calendar-page-content {
+            max-width: 1200px;
+            margin: auto;
+        }
+        .fc .fc-daygrid-day.fc-day-today {
+            background-color: #FFD036;
+            
+        }
     </style>
 </head>
-<body>
-    <div class="calendar-container">
+<body class="calendar-page">
+    <?php include "vol_navbar.php"?>
+   <section class="calendar-page-content">
+   <div class="calendar-container">
         <div id="calendar"></div>
     </div>
 
@@ -78,6 +88,7 @@ $link->close();
             </div>
         <?php } ?>
     </div>
+   </section>
 
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js"></script>
     <script>
@@ -95,5 +106,6 @@ $link->close();
             calendar.render();
         });
     </script>
+    <?php include "footer.php"; ?>
 </body>
 </html>

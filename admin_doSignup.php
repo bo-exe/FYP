@@ -19,7 +19,7 @@ if (isset($_SESSION['adminID'])) {
         // Retrieve form data
         $company = $_POST['company'];
         $username = $_POST['username'];
-        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        $entered_password = $_POST['password'];
         $name = $_POST['name'];
         $number = $_POST['number'];
         $email = $_POST['email'];
@@ -30,16 +30,16 @@ if (isset($_SESSION['adminID'])) {
 
         // Check if the username or email already exists
         $query = "SELECT * FROM admins WHERE username='$username' OR email='$email'";
-        $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+        $result = mysqli_query($link, $query) or die(mysqli_error($link));
 
         if (mysqli_num_rows($result) == 0) {
             // If the username and email do not exist, proceed to insert new admin
             $insert_query = "INSERT INTO admins (company, username, password, name, number, email, role, approval_status)
                              VALUES ('$company', '$username', '$password', '$name', '$number', '$email', '$role', 'pending')";
 
-            if (mysqli_query($conn, $insert_query)) {
+            if (mysqli_query($link, $insert_query)) {
                 // Get the ID of the newly inserted record
-                $new_admin_id = mysqli_insert_id($conn);
+                $new_admin_id = mysqli_insert_id($link);
 
                 // Store user ID and username into session
                 $_SESSION['adminID'] = $new_admin_id;
@@ -50,7 +50,7 @@ if (isset($_SESSION['adminID'])) {
                 header("Location: admin_login.php");
                 exit();
             } else {
-                $msg = "Error: " . mysqli_error($conn);
+                $msg = "Error: " . mysqli_error($link);
             }
         } else {
             $msg = "Sorry, the username or email is already taken.";

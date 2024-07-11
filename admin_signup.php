@@ -1,6 +1,14 @@
 <?php
-include "ft.php";
+session_start();
+
+// Check whether session variable 'user_id' is set (i.e., check whether the user is already logged in)
+if (isset($_SESSION['user_id'])) {
+    // Redirect to homepage if already logged in
+    header("Location: http://localhost/fyp/admin_login");
+    exit();
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -69,7 +77,7 @@ h2 {
     <br>
     <br>
     <div class="signup-container">
-        <img src="images/admin_logo.jpg" alt="Description of the image" width="300" height="200">
+        <img src="images/admin_logo.jpg" alt="adminlogo" width="300" height="200">
         <form action="admin_doSignup.php" method="POST" enctype="multipart/form-data">
             <h2 class="text-center mb-4">Sign Up</h2>
             <div class="form-group">

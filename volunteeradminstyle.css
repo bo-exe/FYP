@@ -1,31 +1,57 @@
 /* General */
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Lato';
-    
 }
+
 body {
     background-color: #ECECE7;
     font-family: 'Lato';
+    margin-top: 50px; /* To adjust for the fixed navbar */
 }
 
-/* Volunteer Admin Homepage */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.col-md-6,
+.col-md-12 {
+    flex: 1;
+    min-width: 300px; /* Ensure minimum width to avoid card cut out */
+}
+
 .volunteeradmin-card {
     background-color: #FFD036;
     border-radius: 15px;
     overflow: hidden;
     margin-top: 10px;
     margin-bottom: 10px;
-    width: 25%;
+    width: 100%; /* Ensure the card takes full width of its column */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.volunteeradmin-cardbody img {
+    max-width: 100%;
+    height: auto;
 }
 
 .volunteeradmin-cardfooter {
     background-color: #FFF197;
     padding: 10px;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
+    width: 100%;
 }
 
 .volunteeradmin-card:hover {
@@ -38,6 +64,7 @@ body {
 .volunteeradmin-card a {
     text-decoration: none;
     color: #000;
+    width: 100%;
 }
 
 /* Styles for admin_addgig.php */
@@ -220,43 +247,38 @@ form {
 /* Styles for admin_editGig.php */
 .editgig-container {
     max-width: 600px;
-    margin: 0 auto;
+    margin: 20px auto;
     padding: 20px;
-    border: 1px solid #ccc;
+    background-color: #fff;
     border-radius: 5px;
-    background-color: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.editgig-container h2 {
     text-align: center;
+    color: #333;
 }
 
-.editgig-container h1 {
-    margin-bottom: 20px;
-}
-
-.form-group {
-    margin-bottom: 20px;
+.editgig-container form {
+    margin-top: 20px;
 }
 
 .editgig-container label {
     display: block;
-    font-weight: bold;
     margin-bottom: 5px;
+    color: #333;
 }
 
-.editgig-container textarea,
-.editgig-container input[type="datetime-local"],
 .editgig-container input[type="text"],
-.editgig-container input[type="number"] {
+.editgig-container input[type="datetime-local"],
+.editgig-container input[type="number"],
+.editgig-container input[type="file"] {
     width: 100%;
-    padding: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 5px;
     box-sizing: border-box;
-    font-size: 16px;
-}
-
-.editgig-container textarea {
-    height: 100px;
-    resize: vertical;
 }
 
 .editgig-container input[type="submit"] {
@@ -272,159 +294,50 @@ form {
     background-color: #E7BC32;
 }
 
-/* Styles for admin_gigoverview.php */
-.gigoverview-event-card-container {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top: 20px;
-}
-
-.gigoverview-event-card-container .event-card {
-    width: 325px;
-    background-color: #ECECE7;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-    margin: 20px;
-    height: auto;
-    text-decoration: none;
-    color: inherit;
-    position: relative;
-}
-
-.gigoverview-event-card-container .event-card img {
-    width: 100%;
-    height: 165px;
-    object-fit: cover;
-}
-
-.gigoverview-event-card-container .event-card-content {
-    padding: 15px;
-}
-
-.gigoverview-event-card-container .event-card-content h2 {
-    font-size: 28px;
-    margin-bottom: 10px;
-    margin-top: 10px;
+/* Footer */
+.footer {
+    background-color: #FFD036;
+    color: #fff;
+    padding: 20px 0;
     text-align: center;
 }
 
-.gigoverview-event-card-container .event-card-content p {
-    color: #333333;
-    font-size: 15px;
-    line-height: 1.3;
-    margin-bottom: 10px;
-}
-
-.gigoverview-event-card-container .event-card-content .del-btn {
-    display: inline-block;
-    padding: 8px 16px;
-    background-color: #EF1E1E;
-    text-decoration: none;
-    border-radius: 30px;
-    margin-top: 16px;
-    color: #FFF5F5;
-    font-weight: bold;
-    margin-left: 10px;
-    margin-bottom: 10px;
-}
-
-.gigoverview-event-card-container .event-card-content .edit-btn {
-    display: inline-block;
-    padding: 8px 16px;
-    background-color: #FFD036;
-    text-decoration: none;
-    border-radius: 30px;
-    margin-top: 16px;
-    margin-left: 110px;
-    margin-bottom: 10px;
-    color: #FFF5F5;
-    font-weight: bold;
-}
-
-/* Styles for volunteereditprofile.php and admin_volunteerprofile.php */
-.profile-container {
-    max-width: 500px;
-    margin: 100px auto;
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 28px;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
-}
-
-.profile-heading {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.profile-details {
-    margin-bottom: 20px;
-}
-
-.btn-save-profile, .btn-edit-profile {
-    display: inline-block;
-    padding: 8px 20px;
-    background-color: #FFD036;
-    color: black;
-    border: none;
-    border-radius: 28px;
-    text-decoration: none;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.btn-save-profile:hover, .btn-edit-profile:hover {
-    background-color: #ffcd00;
-    color: white;
-}
-
-.password-container {
-    position: relative;
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
     display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 
-.password-container input {
-    width: 100%;
-    padding-right: 40px;
+.footer-content img {
+    width: 100px;
 }
 
-.password-container .toggle-password {
-    position: absolute;
-    right: 10px;
-    cursor: pointer;
+.footer-content h4 {
+    margin-bottom: 10px;
 }
 
-.profile-picture {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-    display: block;
-    margin: 0 auto 20px auto;
-    border: 1px solid #818080;
+.footer-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
-.profile-logo {
-    display: block;
-    margin: 0 auto 20px auto;
+.footer-content ul li {
+    margin-bottom: 5px;
 }
 
-/* Styles for admin_volunteerreq.php */
-.req-card {
-    border: 1px solid #ccc;
-    padding: 20px;
-    margin: 10px;
-    border-radius: 5px;
-    box-shadow: 2px 2px 12px #aaa;
-}
-
-.req-card a {
+.footer-content ul li a {
+    color: #fff;
     text-decoration: none;
-    color: blue;
 }
 
-/* Navbar styling */
+.footer-content ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Navbar */
 .navbar-volunteeradmin {
     width: 100%;
     background-color: #FFD036; 
@@ -435,6 +348,7 @@ form {
     justify-content: space-between; 
     align-items: center;
     padding: 0 20px; 
+    z-index: 1000; /* Ensure the navbar stays on top */
 }
 
 .navbar-volunteeradmin-logo {
@@ -467,11 +381,6 @@ form {
 .navbar-volunteeradmin ul li a:hover {
     background-color: #FFC107; 
     color: #555;
-}
-
-.content {
-    margin-top: 50px;
-    padding: 20px;
 }
 
 @media (max-width: 768px) {

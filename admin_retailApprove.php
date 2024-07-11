@@ -7,7 +7,7 @@ if (isset($_GET['adminID']) && isset($_GET['requestNumber'])) {
     $requestNumber = $_GET['requestNumber'];
 
     // Fetch retailer details
-    $sql = "SELECT username, email, password FROM admins WHERE adminID = ?";
+    $sql = "SELECT company, username, password, name, number, email, role FROM admins WHERE adminID = ?";
     $stmt = mysqli_prepare($link, $sql);
     mysqli_stmt_bind_param($stmt, "s", $adminID);
     mysqli_stmt_execute($stmt);

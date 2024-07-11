@@ -3,7 +3,7 @@ session_start();
 include "dbFunctions.php";
 
 // Fetch retailers with approval_status = 0
-$queryCheck = "SELECT * FROM admins WHERE approval_status = 0 AND role = 'retailAdmin'";
+$queryCheck = "SELECT * FROM admins WHERE approval_status = 0 AND (role = 'retailAdmin' OR role = 'cashierAdmin')";
 $resultCheck = mysqli_query($link, $queryCheck) or die(mysqli_error($link));
 ?>
 

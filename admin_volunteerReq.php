@@ -2,7 +2,7 @@
 session_start();
 include "dbFunctions.php";
 
-// Fetch volunteers with approval_status = 0
+// Fetch volunteer with approval_status = 0
 $queryCheck = "SELECT * FROM admins WHERE approval_status = 0 AND role = 'volunteerAdmin'";
 $resultCheck = mysqli_query($link, $queryCheck) or die(mysqli_error($link));
 ?>
@@ -22,8 +22,10 @@ $resultCheck = mysqli_query($link, $queryCheck) or die(mysqli_error($link));
         while($row = mysqli_fetch_assoc($resultCheck)) {
             echo "<div class='req-card'>";
             echo "<h2>Volunteer Admin Request #" . $requestNumber . "</h2>"; // Heading with request number
-            echo "<h3>" . htmlspecialchars($row["name"]) . "</h3>";
+            echo "<h3>" . htmlspecialchars($row["company"]) . "</h3>";
             echo "<p>Username: " . htmlspecialchars($row["username"]) . "</p>";
+            echo "<p>Name: " . htmlspecialchars($row["name"]) . "</p>";
+            echo "<p>Number: " . htmlspecialchars($row["number"]) . "</p>";
             echo "<p>Email: " . htmlspecialchars($row["email"]) . "</p>";
             echo "<p>Role: " . htmlspecialchars($row["role"]) . "</p>";
             echo "<a href='admin_volunteerApprove.php?adminID=" . urlencode($row["adminID"]) . "&requestNumber=" . $requestNumber . "'>Review Request</a>";

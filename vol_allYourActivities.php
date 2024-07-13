@@ -8,13 +8,13 @@ $volunteerID = $_SESSION['volunteerId'];
 
 // Fetch events for the current volunteer
 $query = "
-    SELECT e.eventID, e.title, e.dateTimeStart, e.dateTimeEnd, e.locations, e.descs, e.points, e.images
+    SELECT e.eventID, e.title, e.dateTimeStart, e.dateTimeEnd, e.locations, e.descs, e.points
     FROM events e
     JOIN event_volunteers ev ON e.eventID = ev.eventID
     WHERE ev.volunteerID = ?
     ORDER BY e.dateTimeStart ASC
 ";
-$stmt = $link->prepare($query); // Use $link instead of $conn
+$stmt = $link->prepare($query);
 $stmt->bind_param("i", $volunteerID);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -22,15 +22,21 @@ $result = $stmt->get_result();
 $events = [];
 while ($row = $result->fetch_assoc()) {
     $events[] = [
+        'id' => $row['eventID'],
         'title' => $row['title'],
         'start' => $row['dateTimeStart'],
         'end' => $row['dateTimeEnd'],
-        // Additional fields can be added here if needed
+        'description' => $row['descs'],
+        'location' => $row['locations'],
+        'points' => $row['points']
     ];
 }
 
 $stmt->close();
 $link->close();
+
+// Encode events to JSON
+$json_events = json_encode($events);
 ?>
 
 <!DOCTYPE html>
@@ -39,6 +45,7 @@ $link->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Your Activities</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/main.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -59,46 +66,40 @@ $link->close();
             border: 1px solid #ccc;
             border-radius: 5px;
             margin-bottom: 10px;
+            cursor: pointer;
         }
-        .calendar-page-content {
-            max-width: 1200px;
-            margin: auto;
-        }
-        .fc .fc-daygrid-day.fc-day-today {
-            background-color: #FFD036;
-            
+        .activity-item:hover {
+            background-color: #f0f0f0;
         }
     </style>
 </head>
-<body class="calendar-page">
-    <?php include "vol_navbar.php"?>
-   <section class="calendar-page-content">
-   <div class="calendar-container">
+<body>
+    <div class="calendar-container">
         <div id="calendar"></div>
     </div>
 
     <div class="activity-list">
         <h3>Activities</h3>
         <?php foreach ($events as $event) { ?>
-            <div class="activity-item">
+            <div class="activity-item" onclick="location.href='vol_cancelActivity.php?eventID=<?php echo $event['id']; ?>'">
                 <div>
                     <strong><?php echo $event['title']; ?></strong><br>
-                    <?php echo date('m/d/Y g:i A', strtotime($event['start'])); ?> - <?php echo date('g:i A', strtotime($event['end'])); ?>
+                    <?php echo date('l, d M Y g:i A', strtotime($event['start'])); ?> - <?php echo date('g:i A', strtotime($event['end'])); ?>
                 </div>
             </div>
         <?php } ?>
     </div>
-   </section>
 
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
+            var events = <?php echo $json_events; ?>;
 
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 timeZone: 'UTC',
                 initialView: 'dayGridMonth',
-                events: <?php echo json_encode($events); ?>,
+                events: events,
                 editable: true,
                 selectable: true
             });
@@ -106,6 +107,5 @@ $link->close();
             calendar.render();
         });
     </script>
-    <?php include "footer.php"; ?>
 </body>
 </html>

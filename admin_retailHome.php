@@ -37,7 +37,6 @@ $stmt->close();
 <br>
 <?php include "admin_retailNavbar.php"; ?>
 <?php include "ft.php"; ?>
-<h1>Welcome, <?php echo htmlspecialchars($username); ?>!</h1>
 <br></br>
 <h1>Welcome, <?php echo htmlspecialchars($username); ?>!</h1>
     <div class="retailbuttons-container">

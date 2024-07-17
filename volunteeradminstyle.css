@@ -34,8 +34,7 @@ body {
     background-color: #FFD036;
     border-radius: 15px;
     overflow: hidden;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin: 10px 0; /* Adjusted margin */
     width: 100%; /* Ensure the card takes full width of its column */
     display: flex;
     flex-direction: column;
@@ -412,9 +411,6 @@ form {
     display: block;
     margin: 0 auto 20px auto;
 }
-
-
-
 
 /* Navbar */
 .navbar-volunteeradmin {

@@ -119,9 +119,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <label for="email" class="form-label">Email</label>
                     <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" required>
                 </div>
-                <!-- Add more fields as needed for other user information -->
-                
-                <!-- Save button -->
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="password" name="password">
+                        <span class="input-group-text toggle-password" onclick="togglePassword()">
+                            <i class="fas fa-eye"></i>
+                        </span>
+                    </div>
+                </div>             
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary btn-save-profile">Save Profile</button>
                 </div>

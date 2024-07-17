@@ -55,13 +55,13 @@ $stmt->close();
         <button class="retailbutton" id="button2">
             <a href="admin_volunteerReq.php">
                 <img src="images/signup.png" alt="Icon 2">
-                <br>VOLUNTEER ORGANISATION SIGN UPs
+                <br>VOLUNTEER ORGANISATION SIGN UPS
             </a>
         </button>
         <button class="retailbutton" id="button2">
             <a href="admin_retailReq.php">
                 <img src="images/signup.png" alt="Icon 2">
-                <br>RETAIL ORGANISATION SIGN UPs
+                <br>RETAIL ORGANISATION SIGN UPS
             </a>
         </button>
 </div>

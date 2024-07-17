@@ -41,11 +41,20 @@ body {
     flex-direction: column;
     align-items: center;
     text-align: center;
+    height: 300px; /* Fixed height for all cards */
+}
+
+.volunteeradmin-cardbody {
+    flex: 1; /* Take up available space */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .volunteeradmin-cardbody img {
     max-width: 100%;
     height: auto;
+    max-height: 150px; /* To ensure the image does not overflow */
 }
 
 .volunteeradmin-cardfooter {

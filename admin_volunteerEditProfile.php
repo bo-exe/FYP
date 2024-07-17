@@ -35,6 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Sanitize and validate input data
     $username = mysqli_real_escape_string($link, $_POST['username']);
     $email = mysqli_real_escape_string($link, $_POST['email']);
+    $password = mysqli_real_escape_string($link, $_POST['password']);
     // Validate and update other fields as needed
 
     // Check if a profile picture is uploaded
@@ -121,8 +122,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
-                    <div class="input-group">
-                        <input type="password" class="form-control" id="password" name="password" <?php echo htmlspecialchars($password); ?>" required>>
+                    <div class="password-container">
+                        <input type="password" class="form-control" id="password" name="password" value="<?php echo htmlspecialchars($password); ?>" required>
                         <span class="toggle-password" onclick="togglePassword()">
                             <i class="fas fa-eye"></i>
                         </span>

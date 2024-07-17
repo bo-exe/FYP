@@ -39,16 +39,11 @@ if (isset($_SESSION['userId'])) {
                              VALUES ('$entered_username', '$hashed_password', '$entered_name', '$entered_email', 'volunteer', 0, '$entered_dob', '$entered_gender')";
 
             if (mysqli_query($link, $insert_query)) {
-                // Get the ID of the newly inserted record
-                $new_user_id = mysqli_insert_id($link);
+                // Store a success message
+                $msg = "Registration successful! Please login.";
 
-                // Store user ID and username into session
-                $_SESSION['userId'] = $new_user_id;
-                $_SESSION['username'] = $entered_username;
-                $_SESSION['email'] = $entered_email;
-
-                // Redirect to homepage
-                header("Location: index.php");
+                // Redirect to login page
+                header("Location: vol_login.php");
                 exit();
             } else {
                 $msg = "Error: " . mysqli_error($link);
@@ -73,5 +68,4 @@ if (isset($_SESSION['userId'])) {
     <?php echo $msg; ?>
 </body>
 </html>
-
 

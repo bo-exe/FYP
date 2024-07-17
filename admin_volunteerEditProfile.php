@@ -77,6 +77,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Update session variables if necessary
         $_SESSION['username'] = $username; // Update session with new username if changed
 
+        // Check if password field is not empty and update the password
+        if (!empty($_POST['password'])) {
+            $password = password_hash(mysqli_real_escape_string($link, $_POST['password']), PASSWORD_BCRYPT);
+            $query = "UPDATE admins SET password = ? WHERE adminID = ?";
+            $stmt = mysqli_prepare($link, $query);
+            mysqli_stmt_bind_param($stmt, "si", $password, $adminID);
+            mysqli_stmt_execute($stmt);
+        }
+        
         // Redirect to profile page with updated information
         header("Location: admin_volunteerProfile.php");
         exit();
@@ -122,8 +131,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
                     <div class="input-group">
-                        <input type="password" class="form-control" id="password" name="password">
-                        <span class="input-group-text toggle-password" onclick="togglePassword()">
+                        <input type="password" class="form-control" id="password" name="password" <?php echo htmlspecialchars($password); ?>" required>>
+                        <span class="toggle-password" onclick="togglePassword()">
                             <i class="fas fa-eye"></i>
                         </span>
                     </div>

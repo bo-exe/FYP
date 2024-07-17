@@ -70,22 +70,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Update user data in the database
-    $query = "UPDATE admins SET username = ?, email = ?, profile_pic = ? WHERE adminID = ?";
+    $query = "UPDATE admins SET username = ?, email = ?, profile_pic = ?, password = ? WHERE adminID = ?";
     $stmt = mysqli_prepare($link, $query);
-    mysqli_stmt_bind_param($stmt, "sssi", $username, $email, $profile_pic, $adminID);
+    mysqli_stmt_bind_param($stmt, "ssssi", $username, $email, $profile_pic, $password, $adminID);
     if (mysqli_stmt_execute($stmt)) {
         // Update session variables if necessary
         $_SESSION['username'] = $username; // Update session with new username if changed
 
-        // Check if password field is not empty and update the password
-        if (!empty($_POST['password'])) {
-            $password = password_hash(mysqli_real_escape_string($link, $_POST['password']), PASSWORD_BCRYPT);
-            $query = "UPDATE admins SET password = ? WHERE adminID = ?";
-            $stmt = mysqli_prepare($link, $query);
-            mysqli_stmt_bind_param($stmt, "si", $password, $adminID);
-            mysqli_stmt_execute($stmt);
-        }
-        
         // Redirect to profile page with updated information
         header("Location: admin_volunteerProfile.php");
         exit();

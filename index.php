@@ -82,6 +82,7 @@ if (isset($_SESSION['username'])) {
 
         .slider img {
             width: 100%;
+            height: 300px;
             flex: 0 0 100%; 
             transition: transform 0.5s ease;
         }
@@ -384,8 +385,8 @@ if (isset($_SESSION['username'])) {
     <div class="slider-wrapper">
         <div class="slider" id="activity-slider">
             <img src="images/volunteer-booth.jpg" alt="activity 1">
-            <img src="images/education.jpg" alt="activity 2">
-            <img src="images/clean.jpg" alt="activity 3">
+            <img src="images/ymca.jpg" alt="activity 2">
+            <img src="images/work1.jpg" alt="activity 3">
         </div>
         <div class="slider-nav" id="activity-slider-nav">
             <span class="dot" onclick="currentSlide(1, 'activity-slider')"></span>
@@ -393,7 +394,7 @@ if (isset($_SESSION['username'])) {
             <span class="dot" onclick="currentSlide(3, 'activity-slider')"></span>
         </div>
     </div>
-    <a href="all_activities.php" class="about-btn">See More</a>
+    <a href="vol_reccActivities.php" class="about-btn">See More</a>
     </section>
 
     <section class="container">
@@ -401,7 +402,7 @@ if (isset($_SESSION['username'])) {
     <div class="slider-wrapper">
         <div class="slider" id="store-slider">
             <img src="images/ikea.jpg" alt="store 1">
-            <img src="images/Giant.jpg" alt="store 2">
+            <img src="images/giant.jpg" alt="store 2">
             <img src="images/thebodyshop.jpg" alt="store 3">
         </div>
         <div class="slider-nav" id="store-slider-nav">
@@ -410,7 +411,7 @@ if (isset($_SESSION['username'])) {
             <span class="dot" onclick="currentSlide(3, 'store-slider')"></span>
         </div>
     </div>
-    <a href="all_stores.php" class="about-btn">See More</a>
+    <a href="vol_allStores.php" class="about-btn">See More</a>
 </section>
 
     <?php include "footer.php"; ?>

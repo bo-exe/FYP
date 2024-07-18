@@ -1,0 +1,418 @@
+/* General */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Lato';
+    
+}
+body {
+    background-color: #ECECE7;
+    font-family: 'Lato';
+}
+
+/* Navbar styling */
+nav {
+    position: fixed; 
+    top: 0;
+    width: 100%;
+    z-index: 1000; 
+}
+
+#profile {
+    font-size: 24px;
+    color: #fff;
+}
+
+.navbar-admin ul li:last-child {
+    margin-left: auto;
+}
+
+.content {
+    margin-top: 50px; 
+    padding: 20px;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        top: auto;
+        bottom: 0;
+    }
+    .content {
+        margin-top: 0;
+        margin-bottom: 50px;
+    }
+}
+
+/* Login Page */
+.login-container {
+    background-color: #FFD036;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);    
+    max-width: 400px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+}
+
+h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    text-align: center;
+    color: #333;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+
+button {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: none;
+    border-radius:25px;
+    background-color: #FFD036;
+    color: #FFD036;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #deb530;
+}
+
+button:active {
+    background-color: #FFD036;
+}
+
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+button:focus {
+    outline: none;
+    box-shadow: 0 0 5px #FFD036;
+}
+
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 600px) {
+    .login-container {
+        width: 90%;
+        padding: 15px;
+    }
+}
+
+/* Checkbox and label styling */
+.form-check {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.form-check-input {
+    margin-right: 10px;
+}
+
+.form-text {
+    font-size: 14px;
+    color: #666;
+}
+
+.form-text a {
+    color: #FFD036;
+    text-decoration: none;
+}
+
+.form-text a:hover {
+    text-decoration: underline;
+}
+
+/* QR Page */
+#html5-qrcode-anchor-scan-type-change {
+    text-decoration: none;
+    color: #1d9bf0;
+}
+ 
+video {
+    width: 100%;
+    border: 1px solid #b2b2b2;
+    border-radius: 0.25em;
+}
+
+#qr-scanner {
+    padding: 20px;
+    border: 1.5px solid #b2b2b2;
+    border-radius: 8px;
+}
+
+#qr-scanner img[alt="Info icon"] {
+    display: none;
+}
+ 
+#qr-scanner img[alt="Camera based scan"] {
+    width: 100px;
+    height: 100px;
+}
+
+.qr-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+ 
+.qr-container h1 {
+    color: #ffffff;
+}
+
+.qr-section {
+    background-color: #ffffff;
+    padding: 50px 30px;
+    border: 1.5px solid #b2b2b2;
+    border-radius: 0.25em;
+    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.25);
+}
+
+/* sign up page */ 
+body {
+    font-family: 'Lato', sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Signup Container */
+.signup-container {
+    max-width: 400px;
+    width: 100%;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.btn {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #333;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #555;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.form-text {
+    font-size: 14px;
+    color: #666;
+    margin-top: 10px;
+}
+
+
+/* Retail Admin Homepage */
+.retailbuttons-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px;
+}
+
+.retailbuttons-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px;
+}
+
+.retailbutton {
+    background-color: #FFD036;
+    border: none;
+    border-radius: 10px;
+    padding: 15px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+    width: 150px; 
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.retailbutton a {
+    text-decoration: none;
+    color: #000;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.retailbutton a:hover {
+    color: #000; 
+}
+
+.retailbutton img {
+    width: 50px;
+    height: 50px; 
+    margin-bottom: 10px;
+}
+
+.retailbutton:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Retail Admin Manage Offers */
+.offer-card-container{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 100px;
+}
+.offer-card{
+    width:325px;
+    background-color: #ECECE7;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    margin: 20px;
+}
+
+/* Volunteer Profile */
+.profile-container {
+    max-width: 500px;
+    margin: 100px auto;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 28px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+}
+
+.profile-heading {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-details {
+    margin-bottom: 20px;
+}
+
+.btn-save-profile, .btn-edit-profile {
+    display: inline-block;
+    padding: 8px 20px;
+    background-color: #FFD036;
+    color: black;
+    border: none;
+    border-radius: 28px;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-save-profile:hover, .btn-edit-profile:hover {
+    background-color: #ffcd00;
+    color: white;
+}
+
+.password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-container input {
+    width: 100%;
+    padding-right: 40px;
+}
+
+.password-container .toggle-password {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+}
+
+.profile-picture {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto 20px auto;
+    border: 1px solid #818080;
+}
+
+.profile-logo {
+    display: block;
+    margin: 0 auto 20px auto;
+}

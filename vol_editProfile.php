@@ -121,7 +121,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     .btn-save-profile:hover {
-        background-color: #ffcd00;
+        background-color: #e6bb2e
         color: #d9d9d9;
     }
 </style>

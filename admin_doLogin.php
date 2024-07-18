@@ -86,9 +86,8 @@ else {
             transition: background-color 0.3s ease; /* Smooth transition */
         }
         .btn-custom:hover {
-            background-color: #23272B; /* Darker shade for hover effect */
-            border-color: #23272B;
-            color: #FFFFFF; /* White text color */
+            background-color: #e6bb2e;
+            color: #FFFFFF;
         }
     </style>
 </head>

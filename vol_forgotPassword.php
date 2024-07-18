@@ -32,7 +32,7 @@
         }
 
         .btn:hover {
-            background: #FFD036;
+            background-color: #e6bb2e
             color: #333; 
             border: .2rem solid transparent;
         }

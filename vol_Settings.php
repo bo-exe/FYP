@@ -69,7 +69,7 @@
         }
 
         .btn:hover {
-            background: #deb530;
+            background-color: #e6bb2e
             color: #333; 
             border: .2rem solid transparent;
         }
@@ -100,7 +100,7 @@
         }
 
         .back-button:hover {
-            background-color: #deb530;
+            background-color: #e6bb2e
         }
 
         @media screen and (max-width: 768px) {

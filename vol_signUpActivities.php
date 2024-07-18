@@ -91,7 +91,7 @@
         }
 
         .signup-button:hover {
-            background-color: #0056b3;
+            background-color: #e6bb2e
         }
         .popup-overlay {
     display: none;

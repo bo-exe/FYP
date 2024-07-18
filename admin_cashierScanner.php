@@ -94,7 +94,7 @@ while ($row = mysqli_fetch_array($result)) {
     }
 
     .qr-container .btn:hover {
-        background-color: #0056b3;
+        background-color: #e6bb2e;
     }
 
     /* Responsive adjustments */

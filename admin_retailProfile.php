@@ -54,7 +54,7 @@ if (mysqli_num_rows($result) == 1) {
 }
 
 .btn-edit-profile:hover {
-    background-color: #e0a800; /* Darker yellow on hover */
+    background-color: #e6bb2e
 }
 
 /* New styles for .btn-logout */

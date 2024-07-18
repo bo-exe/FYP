@@ -4,7 +4,7 @@ include "vol_navbar.php";
 include "ft.php";
 
 session_start();
-$volunteerId = $_SESSION['volunteerId']; // Assuming you store the logged-in user's ID in the session
+$volunteerId = $_SESSION['volunteerId']; 
 
 if (isset($_GET['offerId'])) {
     $offerId = $_GET['offerId'];
@@ -68,7 +68,6 @@ if (isset($_GET['offerId'])) {
     }
 
 } else {
-    // Offer ID not provided
     echo "Offer ID not provided.";
 }
 ?>
@@ -116,10 +115,8 @@ if (isset($_GET['offerId'])) {
 
         .stores-card-content {
             position: relative;
-            /* Change to relative positioning */
             text-align: center;
             padding-bottom: 30px;
-            /* Add some padding to create space for error message */
         }
 
         .error-message {
@@ -128,12 +125,9 @@ if (isset($_GET['offerId'])) {
             text-align: center;
             margin-top: 10px;
             position: absolute;
-            /* Position the error message absolutely */
             bottom: 0;
-            /* Align at the bottom */
             left: 0;
             width: 100%;
-            /* Full width */
         }
 
 
@@ -141,16 +135,13 @@ if (isset($_GET['offerId'])) {
             display: inline-block;
             padding: 8px 16px;
             background-color: #FFE17D;
-            /* Changed color for redeemed button */
             text-decoration: none;
             border-radius: 30px;
             color: #333;
-            /* Set text color */
             font-weight: bold;
             text-align: center;
             transition: background-color 0.3s ease;
             pointer-events: none;
-            /* Disable clicking on the button */
         }
 
         .redeemed-btn:hover {
@@ -158,11 +149,8 @@ if (isset($_GET['offerId'])) {
 
         .redeem-btn {
             display: block;
-            /* Change display to block for full-width responsiveness */
             width: 100%;
-            /* Make button full width */
             padding: 12px;
-            /* Adjust padding for better touch target */
             background-color: #FFD036;
             text-decoration: none;
             border-radius: 30px;
@@ -177,6 +165,28 @@ if (isset($_GET['offerId'])) {
             background-color: #e6bb2e
         }
 
+        .yellow-container {
+            background-color: #FFD036;
+            color: #333;
+            text-align: left;
+            padding: 15px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .yellow-container h1 {
+            margin: 0;
+            padding: 0;
+            font-size: 24px;
+            font-weight: bold;
+            padding-left: 20px;
+        }
+
+        .yellow-container .points-container {
+            display: none;
+        }
+
         @media screen and (max-width: 768px) {
             .container {
                 padding-top: 20px;
@@ -189,11 +199,20 @@ if (isset($_GET['offerId'])) {
 
             .redeem-btn {
                 width: auto;
-                /* Set back to auto width for larger screens */
                 display: inline-block;
-                /* Reset to inline-block for smaller padding and centered */
                 padding: 8px 16px;
-                /* Adjust padding for smaller screens */
+            }
+
+            .yellow-container {
+                display: block;
+                width: 100%;
+                text-align: center;
+                padding: 10px 0; 
+            }
+
+            .yellow-container h1{
+                text-align: left;
+                padding-left: 20px;
             }
         }
     </style>

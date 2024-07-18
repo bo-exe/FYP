@@ -116,7 +116,7 @@
         <ul>
             <li><a href="index.php"><span class="nav-text">HOME</span><i class="bi bi-house nav-icon"></i></a></li>
             <li><a href="vol_reccActivities.php"><span class="nav-text">ACTIVITIES</span><i class="bi bi-calendar nav-icon"></i></a></li>
-            <li class="nav-scanner"><a href="vol_allVouchers.php"><span class="nav-text">SCANNER</span><i class="bi bi-upc-scan nav-icon"></i></a></li>
+            <li class="nav-scanner"><a href="vol_scanQR.php"><span class="nav-text">SCANNER</span><i class="bi bi-upc-scan nav-icon"></i></a></li>
             <li><a href="vol_allVouchers.php"><span class="nav-text">REDEEM</span><i class="bi bi-gift nav-icon"></i></a></li>
             <li class="nav-stores"><a href="vol_allStores.php"><span class="nav-text">STORES</span><i class="bi bi-shop nav-icon"></i></a></li>
             <li><a href="vol_Profile.php"><span class="nav-text">PROFILE</span><i class="bi bi-person nav-icon"></i></a></li>

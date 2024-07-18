@@ -414,7 +414,7 @@ if (isset($_SESSION['username'])) {
     <a href="vol_allStores.php" class="about-btn">See More</a>
 </section>
 
-    <?php include "footer.php"; ?>
+<?php include "vol_footer.php"; ?>
 
     <script>
         let slideIndex = 1;

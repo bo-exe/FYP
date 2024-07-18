@@ -244,7 +244,7 @@ if (isset($_GET['offerId'])) {
         <?php } ?>
     </div>
 
-    <?php include "footer.php"; ?>
+    <?php include "vol_footer.php"; ?>
 </body>
 
 </html>

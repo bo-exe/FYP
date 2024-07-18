@@ -211,12 +211,11 @@ if (isset($_GET['storeId'])) {
         @media screen and (max-width: 768px) {
             body {
                 padding-bottom: 20px; 
-                margin-top: 50px;
             }
 
             .stores-card-container {
-                padding-top: -100px;
-                padding-bottom: 90px;
+                margin-bottom: 300px;
+                margin-top: -150px;
             }
 
             .yellow-container {
@@ -331,7 +330,7 @@ if (isset($_GET['storeId'])) {
         </div>
     </section>
 
-    <?php include "footer.php"; ?>
+    <?php include "vol_footer.php"; ?>
 
     <script src="script.js"></script>
 </body>

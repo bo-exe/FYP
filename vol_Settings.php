@@ -49,11 +49,16 @@
             color: #666;
         }
 
+        .setting-item span a {
+            color: #666;
+            text-decoration: none;
+        }
+
         .btn-container {
             text-align: center;
         }
 
-        .btn {
+        .btn-container .btn {
             padding: 0.3rem 0.7rem;
             background: #FFD036;
             border-radius: .6rem;
@@ -68,10 +73,19 @@
             text-align: center;
         }
 
-        .btn:hover {
-            background: #deb530;
-            color: #333; 
+        .btn-container .btn:hover {
+            padding: 0.3rem 0.7rem;
+            background: #FFD036;
+            border-radius: .6rem;
+            box-shadow: 0 .2rem .5rem #333;
+            font-size: 0.8rem;
+            color: #333;
+            letter-spacing: .1rem;
+            font-weight: 600;
             border: .2rem solid transparent;
+            margin-top: 16px;
+            text-decoration: none;
+            text-align: center;
         }
 
         .btn:active {
@@ -163,7 +177,7 @@
             <div class="setting-item">
                 <i class="bx bx-like"></i>
                 <label>Like our App? Rate Us:</label>
-                <span><a href="#">Rate Now</a></span>
+                <span><a href="vol_feedback.php">Rate Now</a></span>
             </div>
         </section>
 
@@ -173,6 +187,6 @@
             </form>
         </div>
     </div>
-    <?php include "footer.php"; ?>  
+    <?php include "vol_footer.php"; ?>
 </body>
 </html>

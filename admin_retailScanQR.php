@@ -73,7 +73,7 @@ body {
 }
 
 .qr-container .btn:hover {
-    background-color: #e6bb2e;
+    background-color: #0056b3;
 }
 
 /* Responsive adjustments */

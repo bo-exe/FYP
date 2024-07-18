@@ -90,7 +90,7 @@ if (isset($_SESSION['username'])) {
         }
 
         .btn-edit-profile:hover {
-            background-color: #e6bb2e
+            background: #deb530;
         }
 
         .list-group {
@@ -226,7 +226,7 @@ if (isset($_SESSION['username'])) {
         }
 
         .about-btn:hover {
-            background-color: #e6bb2e
+            background: #deb530;
             color: #333;
             text-decoration: none;
         }

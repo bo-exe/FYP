@@ -63,7 +63,7 @@ if (isset($_SESSION['username'])) {
     }
 
     .about-btn:hover {
-        background-color: #e6bb2e
+        background: #deb530;
         color: #333;
     }
 
@@ -128,7 +128,7 @@ if (isset($_SESSION['username'])) {
     }
 
     .card-content button:hover {
-        background-color: #e6bb2e
+        background: #FFD036; /* Keep background color the same on hover */
         color: #000; /* Ensure text color stays black on hover */
         box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
     }

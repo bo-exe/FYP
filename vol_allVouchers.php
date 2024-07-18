@@ -36,8 +36,55 @@ if (isset($_SESSION['username'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Vouchers</title>
     <link rel="icon" type="image/x-icon" href="images/logo.jpg">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
     <style>
+        /* Common styles */
+        .offer-card-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .offer-card {
+            width: 325px;
+            background-color: #ECECE7;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+            margin: 20px;
+            height: 300px;
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+        }
+
+        .offer-card img {
+            width: 100%;
+            height: 165px;
+            object-fit: cover;
+        }
+
+        .offer-card-content {
+            padding: 1px;
+        }
+
+        .offer-card-content h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            margin-top: 10px;
+        }
+
+        .offer-card-content p {
+            color: #333333;
+            font-size: 15px;
+            line-height: 1.3;
+            margin-left: 10px;
+        }
+
+
+        /* Styles specific to vol_allVouchers.php */
         .voucher-card-container {
             display: flex;
             justify-content: center;
@@ -88,15 +135,11 @@ if (isset($_SESSION['username'])) {
             text-decoration: none;
             border-radius: 30px;
             margin-top: 16px;
+            color: #FFF5F5;
             font-weight: bold;
-            margin-left: auto;
-            margin-right: 10px;
-            width: fit-content;
-            color: #333333;
-        }
-
-        .card-content .btn:hover {
-            background-color: #e6bb2e;
+            margin-left: auto; /* Adjusted to align the button to the right */
+            margin-right: 10px; /* Added margin-right for spacing */
+            width: fit-content; /* Ensures button width fits its content */
         }
 
         @media screen and (max-width: 768px) {
@@ -139,10 +182,8 @@ if (isset($_SESSION['username'])) {
                 $image = base64_encode($row['images']);
                 ?>
                 <div class="voucher-card">
-                    <a href="vol_voucherOverview.php?offerId=<?php echo $row['offerId']; ?>"
-                        style="text-decoration: none; color: inherit;">
-                        <img src="data:image/jpeg;base64,<?php echo $image; ?>" alt="<?php echo $title; ?>"
-                            class="card-img-top">
+                    <a href="vol_voucherOverview.php?offerId=<?php echo $row['offerId']; ?>" style="text-decoration: none; color: inherit;">
+                        <img src="data:image/jpeg;base64,<?php echo $image; ?>" alt="<?php echo $title; ?>" class="card-img-top">
                         <div class="card-content">
                             <h3 class="card-title"><?php echo $title; ?></h3>
                             <p class="card-text">Points: <?php echo $points; ?></p>

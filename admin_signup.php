@@ -51,7 +51,6 @@ h2 {
 
 .btn:hover {
     opacity: 0.8;
-    background-color: #e6bb2e
 }
 
 .login-container, .signup-container {

@@ -108,7 +108,7 @@ if (isset($_GET['offerId'])) {
             margin-left: 10px;
         }
         .edit-btn:hover {
-            background-color: #e6bb2e
+            background-color: #E7BC32;
         }
     </style>
 </head>

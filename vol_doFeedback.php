@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         .btn:hover {
-            background-color: #e6bb2e;
+            background: #FFD036;
             color: #333; 
             border: .2rem solid transparent;
         }

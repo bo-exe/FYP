@@ -28,7 +28,11 @@ if (isset($_SESSION['username'])) {
     $vomoPoints = 0;
 }
 
-$query = "SELECT * FROM stores";
+     $query = "
+    SELECT s.storeId, s.title, s.image, COUNT(o.offerId) AS quantity 
+    FROM stores s 
+    LEFT JOIN offers o ON TRIM(s.title) COLLATE utf8mb4_unicode_ci = TRIM(o.company) COLLATE utf8mb4_unicode_ci 
+    GROUP BY s.storeId, s.title, s.image";
 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 
 $arrContent = array();
@@ -200,20 +204,19 @@ while ($row = mysqli_fetch_array($result)) {
 
         @media screen and (max-width: 768px) {
             body {
-                padding-bottom: 20px; 
-                margin-top: 50px;
+                padding-bottom: 20px;
             }
 
             .stores-card-container {
-                padding-top: -100px;
-                padding-bottom: 90px;
+                margin-bottom: 300px;
+                margin-top: -150px;
             }
 
             .yellow-container {
                 display: block;
                 width: 100%;
                 text-align: center;
-                padding: 10px 0; 
+                padding: 10px 0;
             }
 
             .yellow-container h1, .yellow-container p {
@@ -237,10 +240,10 @@ while ($row = mysqli_fetch_array($result)) {
                 letter-spacing: .1rem;
                 font-weight: 800;
                 padding: 10px;
-                max-width: 300px; 
-                white-space: nowrap; 
-                overflow: hidden; 
-                text-overflow: ellipsis; 
+                max-width: 300px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
                 margin-left: 20px;
             }
 
@@ -254,7 +257,7 @@ while ($row = mysqli_fetch_array($result)) {
             }
 
             .points-container .vomo-points span:first-child {
-                margin-right: 10px; 
+                margin-right: 10px;
             }
 
             .yellow-container .points-container {

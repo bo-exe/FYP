@@ -1,30 +1,56 @@
 <?php
 session_start();
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Check if user is logged in
+if (!isset($_SESSION['volunteerId'])) {
+    // Redirect to the login page if user is not logged in
+    header("Location: vol_login.php");
+    exit();
+}
+
 include "dbFunctions.php";
 
+// Connect to the database
 $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
-
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-if (isset($_SESSION['username'])) {
-    $username = $_SESSION['username'];
-    $sql = "SELECT points FROM volunteers WHERE username = '$username'";
-    $result = $conn->query($sql);
+// Fetch user data from database based on session volunteerId
+$userId = $_SESSION['volunteerId'];
+$query = "SELECT * FROM volunteers WHERE volunteerId = ?";
+$stmt = mysqli_prepare($conn, $query);
+mysqli_stmt_bind_param($stmt, "i", $userId);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
 
-    if ($result) {
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            $vomoPoints = $row['points'];
-        } else {
-            $vomoPoints = 0;
-        }
-    } else {
-        $vomoPoints = 0; 
-    }
+if (mysqli_num_rows($result) == 1) {
+    $row = mysqli_fetch_assoc($result);
+    $username = $row['username'];
+    $email = $row['email'];
+    $password = $row['password'];
+    $profile_pic = $row['profile_pic'];
 } else {
-    $vomoPoints = 0;
+    // Handle error if user data not found
+    echo "Error: User data not found.";
+    exit();
+}
+
+// Fetch VOMOPoints
+$vomoPoints = 0;
+if (isset($username)) {
+    $sql = "SELECT points FROM volunteers WHERE username = ?";
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, "s", $username);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+
+    if ($result && mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $vomoPoints = $row['points'];
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -38,285 +64,7 @@ if (isset($_SESSION['username'])) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
-        .profile-container {
-            background-color: #FFF;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 1200px;
-            margin: auto;
-        }
-
-        .profile-details {
-            flex: 1;
-        }
-
-        .profile-details img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            margin-bottom: 20px;
-        }
-
-        .profile-details p {
-            margin: 10px 0;
-        }
-
-        .password-container {
-            display: flex;
-            align-items: center;
-        }
-
-        .password-container input {
-            border: none;
-            background: none;
-            font-size: 1rem;
-            margin-right: 10px;
-        }
-
-        .toggle-password {
-            cursor: pointer;
-        }
-
-        .btn-edit-profile {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            background: #FFD036;
-            border-radius: .3rem;
-            text-decoration: none;
-            color: #333;
-            font-weight: 600;
-        }
-
-        .btn-edit-profile:hover {
-            background: #deb530;
-        }
-
-        .list-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px; /* Adjust as needed */
-            margin-top: 20px;
-        }
-
-        .list-group a {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            width: 150px; /* Adjust width as needed */
-            padding: 10px;
-            background: #f0f0f0;
-            color: #333;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-
-        .list-group a .icon-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 50px; /* Adjust as needed */
-            height: 50px; /* Adjust as needed */
-            background-color: #ddd; /* Adjust as needed */
-            border-radius: 50%;
-            margin-bottom: 5px;
-        }
-
-        .list-group a .icon-container i {
-            font-size: 24px; /* Adjust icon size as needed */
-            color: #333; /* Adjust icon color */
-        }
-
-        .list-group a span {
-            font-size: 14px; /* Adjust text size */
-        }
-
-        .list-group a:hover {
-            background: #e0e0e0;
-        }
-
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            margin-top: 50px;
-        }
-
-        .profile-section {
-            flex: 1;
-            min-width: 300px;
-            margin-bottom: 20px;
-        }
-
-        .slider-container {
-            flex: 2;
-        }
-
-        .slider-wrapper {
-            position: relative;
-            max-width: 48rem;
-            margin: 20px auto;
-        }
-
-        .slider {
-            display: flex;
-            overflow: hidden;
-            position: relative;
-            z-index: 1;
-        }
-
-        .slider img {
-            width: 100%;
-            flex: 0 0 100%;
-            transition: transform 0.5s ease;
-        }
-
-        .slider-nav {
-            display: flex;
-            justify-content: center;
-            position: absolute;
-            bottom: 1.25rem;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 2;
-        }
-
-        .slider-nav .dot {
-            height: 10px;
-            width: 10px;
-            background-color: #fff;
-            opacity: 0.75;
-            border: 2px solid #fff;
-            border-radius: 50%;
-            margin: 0 5px;
-            cursor: pointer;
-            transition: opacity 0.3s;
-        }
-
-        .slider-nav .dot.active {
-            opacity: 1;
-            background-color: #FFD036;
-        }
-
-        .slider::-webkit-scrollbar {
-            display: none;
-        }
-
-        .slider {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        .about-btn {
-            display: inline-block;
-            padding: 0.3rem 0.7rem;
-            background: #FFD036;
-            border-radius: .6rem;
-            box-shadow: 0 .1rem .25rem #333;
-            font-size: 0.8rem;
-            color: #333;
-            letter-spacing: .1rem;
-            font-weight: 600;
-            border: .2rem solid transparent;
-            transition: .5s ease;
-            margin-top: 30px;
-            text-decoration: none;
-        }
-
-        .about-btn:hover {
-            background: #deb530;
-            color: #333;
-            text-decoration: none;
-        }
-
-        .header {
-            display: flex;
-            align-items: center;
-        }
-
-        .greeting {
-            flex-grow: 1;
-        }
-
-        .points-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            color: #333;
-            background-color: #ECECE7;
-            border-radius: .6rem;
-            box-shadow: 0 .2rem .5rem #333;
-            letter-spacing: .2rem;
-            font-weight: 800;
-            padding: 10px;
-        }
-
-        .points-container i {
-            margin-right: 5px;
-        }
-
-        .points-container .vomo-points {
-            display: flex;
-            align-items: center;
-        }
-
-        .points-container .vomo-points span:first-child {
-            margin-right: 100px;
-        }
-
-        @media (max-width: 768px) {
-            .header {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .points-container {
-                margin-top: 20px;
-            }
-
-            .profile-container {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .profile-details img.profile-logo,
-            .profile-details img.profile-picture {
-                width: 100px;
-                height: 100px;
-            }
-
-            .profile-details p {
-                text-align: center;
-            }
-
-            .password-container {
-                justify-content: center;
-            }
-
-            .list-group {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .list-group a {
-                flex: 0 0 50%;
-                max-width: 50%;
-                text-align: center;
-                margin-bottom: 10px;
-            }
-
-            .slider-container {
-                width: 100%;
-            }
-
-            .slider-wrapper {
-                max-width: 100%;
-            }
-        }
+        /* Your CSS styles */
     </style>
 </head>
 <body>
@@ -395,7 +143,7 @@ if (isset($_SESSION['username'])) {
                 <h2>Your Vouchers</h2>
                 <div class="slider" id="store-slider">
                     <img src="images/ikea.jpg" alt="store 1">
-                    <img src="images/Giant.jpg" alt="store 2">
+                    <img src="images/giant.jpg" alt="store 2">
                     <img src="images/thebodyshop.jpg" alt="store 3">
                 </div>
                 <div class="slider-nav" id="store-slider-nav">

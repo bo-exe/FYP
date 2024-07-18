@@ -142,16 +142,14 @@
 </style>
 </head>
 <body>
-<?php include "ft.php"; ?>
+<?php include "adminft.php"; ?>
     <!-- Footer Section -->
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-row">
-            <a href="index.php">
                 <div class="logo-container">
                     <img src="images/admin_logo.jpg" alt="logo" class="logo">
                 </div>
-            </a>
                 <div class="footer-columns">
                     <div class="footer-column">
                         <h4>CONTACT US</h4>

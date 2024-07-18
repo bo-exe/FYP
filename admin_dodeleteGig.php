@@ -13,27 +13,17 @@ if (isset($_GET['eventID'])) {
     $result = mysqli_stmt_execute($stmt);
 
     if ($result) {
-        $msg = "Gig successfully deleted";
+        $message = "Gig deleted successfully.";
+        header("Location: admin_allgigs.php?message=" . urlencode($message));
+        exit();
     } else {
-        $msg = "Gig has not been deleted. Error: " . mysqli_error($link);
+        $errormessage = "Gig deletion unsuccessful.";
+        header("Location: admin_allgigs.php?message=" . urlencode($errormessage));
+        exit();
     }
 } else {
     // Handle gracefully if EventID is not available
-    $msg = "Event ID not provided. Gig has not been deleted.";
+    $errormessage2 = "Event ID not provided. Gig deletion unsuccessful.";
+        header("Location: admin_allgigs.php?message=" . urlencode($errormessage2));
+        exit();
 }
-?>
-
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Delete Gig</title>
-</head>
-
-<body>
-    <div style="text-align: center;">
-        <?php echo $msg; ?>
-        <p><a href="admin_allGigs.php">Back to Gigs.</a></p>
-    </div>
-</body>
-
-</html>

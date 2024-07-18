@@ -47,15 +47,21 @@ $stmt->close();
             </a>
         </button>
         <button class="retailbutton" id="button1">
-            <a href="admin_teamManageGigs.php">
+            <a href="admin_allGigs.php">
                 <img src="images/exercise.png" alt="Icon 1">
                 <br>MANAGE CURRENT GIGS
             </a>
         </button>
         <button class="retailbutton" id="button2">
-            <a href="admin_teamManageSignUp.php">
+            <a href="admin_volunteerReq.php">
                 <img src="images/signup.png" alt="Icon 2">
-                <br>MANAGE SIGN UP REQUESTS
+                <br>VOLUNTEER ORGANISATION SIGN UPS
+            </a>
+        </button>
+        <button class="retailbutton" id="button2">
+            <a href="admin_retailReq.php">
+                <img src="images/signup.png" alt="Icon 2">
+                <br>RETAIL ORGANISATION SIGN UPS
             </a>
         </button>
 </div>

@@ -31,7 +31,6 @@ if (isset($_GET['offerId'])) {
         $imageData = $row['images'];
         $image = 'data:image/jpeg;base64,' . base64_encode($imageData);
 
-        // Fetch user's current points
         $userQuery = "SELECT points FROM volunteers WHERE volunteerId=?";
         $userStmt = mysqli_prepare($link, $userQuery);
         mysqli_stmt_bind_param($userStmt, "i", $volunteerId);
@@ -40,19 +39,16 @@ if (isset($_GET['offerId'])) {
         $userRow = mysqli_fetch_array($userResult);
         $userPoints = $userRow['points'];
 
-        // Handle voucher redemption
         $voucherRedeemed = false;
         $errorMessage = '';
         if (isset($_POST['redeem'])) {
             if ($userPoints >= $pointsRequired && $amount > 0) {
-                // Deduct points from the user
                 $newPoints = $userPoints - $pointsRequired;
                 $updatePointsQuery = "UPDATE volunteers SET points=? WHERE volunteerId=?";
                 $updatePointsStmt = mysqli_prepare($link, $updatePointsQuery);
                 mysqli_stmt_bind_param($updatePointsStmt, "ii", $newPoints, $volunteerId);
                 mysqli_stmt_execute($updatePointsStmt);
 
-                // Update the redeemed_vouchers count in the offers table
                 $newRedeemedVouchers = $redeemedVouchers + 1;
                 $updateRedeemedQuery = "UPDATE offers SET redeemed_vouchers=? WHERE offerId=?";
                 $updateRedeemedStmt = mysqli_prepare($link, $updateRedeemedQuery);

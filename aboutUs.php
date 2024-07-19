@@ -59,7 +59,7 @@
     </style>
 </head>
 <body>
-    <?php include "navbar.php"; ?>
+    <?php include "vol_navbar.php"; ?>
     <?php include "ft.php"; ?>
     <div class="container">
         <div class="about-text">
@@ -91,7 +91,7 @@
         </div>
     </div>
 
-    <?php include "footer.php"; ?>
+    <?php include "vol_footer.php"; ?>
 
     <script src="script.js"></script>
 </body>

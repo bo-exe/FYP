@@ -59,7 +59,7 @@ $stmt->close();
             </a>
         </button>
         <button class="retailbutton" id="button2">
-            <a href="admin_retailReq.php">
+            <a href="admin_teamRetailReq.php">
                 <img src="images/signup.png" alt="Icon 2">
                 <br>RETAIL ORGANISATION SIGN UPS
             </a>

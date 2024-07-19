@@ -35,6 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Sanitize and validate input data
     $username = mysqli_real_escape_string($link, $_POST['username']);
     $email = mysqli_real_escape_string($link, $_POST['email']);
+    $password = mysqli_real_escape_string($link, $_POST['password']);
     // Validate and update other fields as needed
 
     // Check if a profile picture is uploaded
@@ -70,9 +71,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Update user data in the database
-    $query = "UPDATE admins SET username = ?, email = ?, profile_pic = ? WHERE adminID = ?";
+    $query = "UPDATE admins SET username = ?, email = ?, profile_pic = ?, password = ? WHERE adminID = ?";
     $stmt = mysqli_prepare($link, $query);
-    mysqli_stmt_bind_param($stmt, "sssi", $username, $email, $profile_pic, $adminID);
+    mysqli_stmt_bind_param($stmt, "ssssi", $username, $email, $profile_pic, $password, $adminID);
     if (mysqli_stmt_execute($stmt)) {
         // Update session variables if necessary
         $_SESSION['username'] = $username; // Update session with new username if changed
@@ -119,9 +120,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <label for="email" class="form-label">Email</label>
                     <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" required>
                 </div>
-                <!-- Add more fields as needed for other user information -->
-                
-                <!-- Save button -->
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <div class="password-container">
+                        <input type="password" class="form-control" id="password" name="password" value="<?php echo htmlspecialchars($password); ?>" required>
+                        <span class="toggle-password" onclick="togglePassword()">
+                            <i class="fas fa-eye"></i>
+                        </span>
+                    </div>
+                </div>             
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary btn-save-profile">Save Profile</button>
                 </div>

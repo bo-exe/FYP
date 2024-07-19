@@ -68,12 +68,7 @@ if (isset($username)) {
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <style>
-        .profile-container .img {
-            width: 100%;
-            height: 100%;
-        }
-        
+    <style>  
         .profile-container {
             background-color: #FFF;
             padding: 20px;
@@ -91,7 +86,7 @@ if (isset($username)) {
         .profile-details img {
             width: 150px;
             height: 150px;
-            border-radius: 50%;
+            /* border-radius: 50%; */
             margin-bottom: 20px;
         }
 
@@ -384,7 +379,7 @@ if (isset($username)) {
                         </div>
                         <span>History</span>
                     </a>
-                    <a href="#" class="list-group-item list-group-item-action">
+                    <a href="vol_savedActivities.php" class="list-group-item list-group-item-action">
                         <div class="icon-container">
                             <i class="fas fa-save"></i>
                         </div>
@@ -398,7 +393,7 @@ if (isset($username)) {
                     </a>
                 </div>
             </div>
-    </div>
+        </div>
 
         <div class="slider-container">
             <section class="slider-wrapper">

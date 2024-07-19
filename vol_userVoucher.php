@@ -34,7 +34,7 @@ if (isset($_SESSION['username'])) {
             o.points,
             o.images
         FROM 
-            redeemed_voucher rv
+            redeemed_vouchers rv
         JOIN 
             offers o ON rv.offerId = o.offerId
         JOIN 
@@ -49,15 +49,13 @@ if (isset($_SESSION['username'])) {
     $redeemedVouchers = null;
 }
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Vouchers</title>
+    <title>Your Vouchers</title>
     <link rel="icon" type="image/x-icon" href="images/logo.jpg">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
     <style>
@@ -289,7 +287,6 @@ if (isset($_SESSION['username'])) {
 
     <div class="yellow-container">
         <h1>Your Vouchers</h1>
-        <br>
         <div class="points-container">
             <i class='bx bx-gift'></i>
             <div class="vomo-points">
@@ -328,21 +325,17 @@ if (isset($_SESSION['username'])) {
                     <div class="card-content">
                         <h3 class="card-title"><?php echo $title; ?></h3>
                         <p class="card-text">Points: <?php echo $points; ?></p>
-                        <p class="card-text">Redeemed on: <?php echo $redeemedDate; ?></p>
+                        <p class="card-text">Redeemed Date: <?php echo $redeemedDate; ?></p>
                     </div>
                 </div>
                 <?php
             }
         } else {
-            echo "No redeemed vouchers found.";
+            echo '<p>No vouchers redeemed yet.</p>';
         }
         ?>
     </div>
 
-
-    <?php include "vol_footer.php"; ?>
-
-    <script src="script.js"></script>
 </body>
 
 </html>

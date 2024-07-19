@@ -59,8 +59,17 @@ if (isset($_GET['offerId'])) {
                 mysqli_stmt_bind_param($updateRedeemedStmt, "ii", $newRedeemedVouchers, $offerId);
                 mysqli_stmt_execute($updateRedeemedStmt);
 
+                $insertRedeemedQuery = "INSERT INTO redeemed_vouchers (volunteerId, offerId) VALUES (?, ?)";
+                $insertRedeemedStmt = mysqli_prepare($link, $insertRedeemedQuery);
+                mysqli_stmt_bind_param($insertRedeemedStmt, "ii", $volunteerId, $offerId);
+                mysqli_stmt_execute($insertRedeemedStmt);
+
                 $voucherRedeemed = true;
-                echo "Voucher redeemed successfully!";
+                echo "<script type='text/javascript'>
+                        window.onload = function() {
+                            document.getElementById('popup').style.display = 'block';
+                        };
+                      </script>";
             } else {
                 $errorMessage = "You do not have enough points or the voucher is no longer available.";
             }
@@ -88,7 +97,7 @@ if (isset($_GET['offerId'])) {
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding-top: 50px;
+            padding-top: 100px;
             padding-bottom: 55px;
             position: relative;
         }
@@ -131,7 +140,6 @@ if (isset($_GET['offerId'])) {
             width: 100%;
         }
 
-
         .redeemed-btn {
             display: inline-block;
             padding: 8px 16px;
@@ -146,7 +154,8 @@ if (isset($_GET['offerId'])) {
         }
 
         .redeemed-btn:hover {
-            background-color: #e6bb2e        }
+            background-color: #e6bb2e;
+        }
 
         .redeem-btn {
             display: block;
@@ -162,7 +171,7 @@ if (isset($_GET['offerId'])) {
         }
 
         .redeem-btn:hover {
-            background-color: #e6bb2e
+            background-color: #e6bb2e;
         }
 
         /* Yellow Container */
@@ -212,6 +221,28 @@ if (isset($_GET['offerId'])) {
                 padding-left: 20px;
             }
         }
+
+        /* Popup Style */
+        #popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        #popup a {
+            display: block;
+            margin-top: 10px;
+            text-decoration: none;
+            color: #FFD036;
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -258,6 +289,12 @@ if (isset($_GET['offerId'])) {
                 <p><a href="vol_allVouchers.php">Back to Offers</a></p>
             </div>
         <?php } ?>
+    </div>
+
+    <!-- Popup for successful redemption -->
+    <div id="popup">
+        <p>Voucher Redeemed Successfully!</p>
+        <a href="vol_userVoucher.php">Click here to see your vouchers!</a>
     </div>
 
     <?php include "vol_footer.php"; ?>

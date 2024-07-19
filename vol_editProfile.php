@@ -9,18 +9,23 @@ if (!isset($_SESSION['volunteerId'])) {
 }
 include "dbFunctions.php";
 
-$adminID = $_SESSION['volunteerId'];
+$volunteerId = $_SESSION['volunteerId'];
 $query = "SELECT * FROM volunteers WHERE volunteerId = ?";
 $stmt = mysqli_prepare($link, $query);
-mysqli_stmt_bind_param($stmt, "i", $adminID);
+mysqli_stmt_bind_param($stmt, "i", $volunteerId);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 
 if (mysqli_num_rows($result) == 1) {
     $row = mysqli_fetch_assoc($result);
+    $name = $row['name'];
     $username = $row['username'];
     $email = $row['email'];
-    $number = $row['number'];
+    $password = $row['password'];
+    $role = $row['role'];
+    $points = $row['points'];
+    $dob = $row['dob'];
+    $gender = $row['gender'];
     $profile_pic = $row['profile_pic'];
     // No need to fetch password here if you're not displaying it
 } else {
@@ -32,9 +37,11 @@ if (mysqli_num_rows($result) == 1) {
 // Handle form submission for updating user profile
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Sanitize and validate input data
+    $name = mysqli_real_escape_string($link, $_POST['name']);
     $username = mysqli_real_escape_string($link, $_POST['username']);
     $email = mysqli_real_escape_string($link, $_POST['email']);
-    $number = mysqli_real_escape_string($link, $_POST['number']);
+    $dob = mysqli_real_escape_string($link, $_POST['dob']);
+    $gender = mysqli_real_escape_string($link, $_POST['gender']);
 
     // Check if a new password is submitted
     if (!empty($_POST['password'])) {
@@ -78,9 +85,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Update user data in the database
-    $query = "UPDATE volunteers SET username = ?, email = ?, profile_pic = ?, password = ?, number = ? WHERE volunteerId = ?";
+    $query = "UPDATE volunteers SET name = ?, username = ?, email = ?, profile_pic = ?, password = ?, dob = ?, gender = ? WHERE volunteerId = ?";
     $stmt = mysqli_prepare($link, $query);
-    mysqli_stmt_bind_param($stmt, "sssssi", $username, $email, $profile_pic, $password, $number, $volunteerId);
+    mysqli_stmt_bind_param($stmt, "sssssssi", $name, $username, $email, $profile_pic, $password, $dob, $gender, $volunteerId);
     if (mysqli_stmt_execute($stmt)) {
         // Update session variables if necessary
         $_SESSION['username'] = $username; // Update session with new username if changed
@@ -95,7 +102,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -107,6 +113,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <style>
+    .profile-container .img {
+            width: 50%;
+            height: 50%;
+    }
+
     .btn-save-profile {
         display: inline-block;
         padding: 8px 20px;
@@ -132,45 +143,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="profile-container">
         <img src="images/logo.jpg" alt="Vol Logo" class="profile-logo">
         <h1 class="profile-heading">Edit Profile</h1>
-
-        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>"
-            enctype="multipart/form-data">
-            <div class="profile-details">
-                <img src="images/<?php echo htmlspecialchars($profile_pic); ?>" alt="Profile Picture"
-                    class="profile-picture">
-                <div class="mb-3">
-                    <label for="profile_pic" class="form-label">Profile Picture</label>
-                    <input type="file" class="form-control" id="profile_pic" name="profile_pic">
-                </div>
-                <div class="mb-3">
-                    <label for="username" class="form-label">Username:</label>
-                    <input type="text" class="form-control" id="username" name="username"
-                        value="<?php echo htmlspecialchars($username); ?>" required>
-                </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email:</label>
-                    <input type="email" class="form-control" id="email" name="email"
-                        value="<?php echo htmlspecialchars($email); ?>" required>
-                </div>
-                <div class="mb-3">
-                    <label for="number" class="form-label">Company Number:</label>
-                    <input type="text" class="form-control" id="number" name="number"
-                        value="<?php echo htmlspecialchars($number); ?>" required>
-                </div>
-                <label for="password" class="form-label">Password :</label>
-                <div class="password-container">
-                    <input type="text" id="password" value="<?php echo htmlspecialchars($password); ?>"required>
-                    <span class="toggle-password" onclick="togglePassword()">
-                        <i class="fas fa-eye"></i>
-                    </span>
-                </div>
-
-                <!-- Save button -->
-                <div class="text-center">
-                    <button type="submit" class="btn-save-profile">Save Profile</button>
-                </div>
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data">
+        <div class="profile-details">
+            <img src="images/<?php echo htmlspecialchars($profile_pic); ?>" alt="Profile Picture" class="profile-picture">
+            <div class="mb-3">
+                <label for="profile_pic" class="form-label">Profile Picture</label>
+                <input type="file" class="form-control" id="profile_pic" name="profile_pic">
             </div>
-        </form>
+            <div class="mb-3">
+                <label for="name" class="form-label">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" value="<?php echo htmlspecialchars($name); ?>" required>
+            </div>
+            <div class="mb-3">
+                <label for="username" class="form-label">Username:</label>
+                <input type="text" class="form-control" id="username" name="username" value="<?php echo htmlspecialchars($username); ?>" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" required>
+            </div>
+            <div class="mb-3">
+                <label for="dob" class="form-label">Date of Birth:</label>
+                <input type="date" class="form-control" id="dob" name="dob" value="<?php echo htmlspecialchars($dob); ?>" required>
+            </div>
+            <div class="mb-3">
+                <label for="gender" class="form-label">Gender:</label>
+                <select class="form-select" id="gender" name="gender" required>
+                    <option value="Male" <?php if ($gender == 'Male') echo 'selected'; ?>>Male</option>
+                    <option value="Female" <?php if ($gender == 'Female') echo 'selected'; ?>>Female</option>
+                    <option value="Other" <?php if ($gender == 'Other') echo 'selected'; ?>>Other</option>
+                </select>
+            </div>
+            <label for="password" class="form-label">Password :</label>
+            <div class="password-container">
+                <input type="password" id="password" name="password" value="<?php echo htmlspecialchars($password); ?>" required>
+                <span class="toggle-password" onclick="togglePassword()">
+                    <i class="fas fa-eye"></i>
+                </span>
+            </div>
+
+            <!-- Save button -->
+            <div class="text-center">
+                <button type="submit" class="btn-save-profile">Save Profile</button>
+            </div>
+        </div>
+    </form>
     </div>
 
     <script>

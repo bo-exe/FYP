@@ -23,9 +23,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     mysqli_stmt_execute($stmt);
 
     if (mysqli_stmt_affected_rows($stmt) > 0) {
-        echo "Gig updated successfully.";
+        $message = "Gig edited successfully.";
+        header("Location: admin_allgigs.php?message=" . urlencode($message));
+        exit();
     } else {
-        echo "Error updating Gig: " . mysqli_error($link);
+        $errormessage = "Gig edit unsuccessful.";
+        header("Location: admin_allgigs.php?message=" . urlencode($errormessage));
+        exit();
     }
 }
 ?>

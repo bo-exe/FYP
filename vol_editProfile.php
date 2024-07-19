@@ -4,7 +4,7 @@ session_start();
 // Check if user is logged in
 if (!isset($_SESSION['volunteerId'])) {
     // Redirect to login page if not logged in
-    header("Location: login.php");
+    header("Location: vol_login.php");
     exit();
 }
 include "dbFunctions.php";
@@ -78,15 +78,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Update user data in the database
-    $query = "UPDATE admins SET username = ?, email = ?, profile_pic = ?, password = ?, number = ? WHERE adminID = ?";
+    $query = "UPDATE volunteers SET username = ?, email = ?, profile_pic = ?, password = ?, number = ? WHERE volunteerId = ?";
     $stmt = mysqli_prepare($link, $query);
-    mysqli_stmt_bind_param($stmt, "sssssi", $username, $email, $profile_pic, $password, $number, $adminID);
+    mysqli_stmt_bind_param($stmt, "sssssi", $username, $email, $profile_pic, $password, $number, $volunteerId);
     if (mysqli_stmt_execute($stmt)) {
         // Update session variables if necessary
         $_SESSION['username'] = $username; // Update session with new username if changed
 
         // Redirect to profile page with updated information
-        header("Location: admin_retailProfile.php");
+        header("Location: vol_Profile.php");
         exit();
     } else {
         // Handle update error
@@ -127,10 +127,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </style>
 
 <body>
-    <?php include "admin_retailNavBar.php"; ?>
+    <?php include "vol_navBar.php"; ?>
     <?php include "ft.php"; ?>
     <div class="profile-container">
-        <img src="images/admin_logo.jpg" alt="Admin Logo" class="profile-logo">
+        <img src="images/logo.jpg" alt="Vol Logo" class="profile-logo">
         <h1 class="profile-heading">Edit Profile</h1>
 
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>"

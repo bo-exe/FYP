@@ -34,18 +34,26 @@ body {
     background-color: #FFD036;
     border-radius: 15px;
     overflow: hidden;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin: 10px 0; /* Adjusted margin */
     width: 100%; /* Ensure the card takes full width of its column */
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
+    height: 300px; /* Fixed height for all cards */
+}
+
+.volunteeradmin-cardbody {
+    flex: 1; /* Take up available space */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .volunteeradmin-cardbody img {
     max-width: 100%;
     height: auto;
+    max-height: 150px; /* To ensure the image does not overflow */
 }
 
 .volunteeradmin-cardfooter {
@@ -403,9 +411,6 @@ form {
     display: block;
     margin: 0 auto 20px auto;
 }
-
-
-
 
 /* Navbar */
 .navbar-volunteeradmin {

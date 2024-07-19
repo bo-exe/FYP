@@ -36,10 +36,10 @@ if (isset($_SESSION['user_id'])) {
             max-width: 400px;
             width: 100%;
             padding: 20px;
-            background-color: #fff;
+            background-color: #FFD036; /* Same yellow color as the button */
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-top: 50px; /* Reduced margin-top to move the container up */
+            margin-top: 50px;
         }
 
         .signup-container img {
@@ -60,9 +60,9 @@ if (isset($_SESSION['user_id'])) {
         }
 
         .btn-register {
-            background-color: #FFD036;
+            background-color: #343a40; /* Dark color for the button */
             border: none;
-            color: black;
+            color: white;
             padding: 10px 20px;
             cursor: pointer;
             border-radius: 5px;
@@ -72,8 +72,7 @@ if (isset($_SESSION['user_id'])) {
         }
 
         .btn-register:hover {
-            background-color: #e0b400;
-            /* Hover color set to a slightly darker shade */
+            background-color: #23272b; /* Hover color set to a slightly darker shade */
         }
 
         .form-text {

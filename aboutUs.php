@@ -91,7 +91,7 @@
         </div>
     </div>
 
-    <?php include "footer.php"; ?>
+    <?php include "vol_footer.php"; ?>
 
     <script src="script.js"></script>
 </body>

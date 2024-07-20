@@ -8,7 +8,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-mysqli_autocommit($conn, TRUE); // Ensure auto-commit is enabled
+mysqli_autocommit($conn, TRUE);
 
 if (isset($_SESSION['username'])) {
     $username = $_SESSION['username'];
@@ -25,7 +25,7 @@ if (isset($_SESSION['username'])) {
             $vomoPoints = 0;
         }
     } else {
-        error_log("SQL error: " . $conn->error); // Log SQL errors
+        error_log("SQL error: " . $conn->error); 
         $vomoPoints = 0;
     }
 
@@ -50,14 +50,14 @@ if (isset($_SESSION['username'])) {
 
     $redeemedVouchers = $conn->query($sql);
     if (!$redeemedVouchers) {
-        error_log("SQL error: " . $conn->error); // Log SQL errors
+        error_log("SQL error: " . $conn->error);
     }
 } else {
     $vomoPoints = 0;
     $redeemedVouchers = null;
 }
 
-$conn->close(); // Close the connection properly
+$conn->close(); 
 ?>
 
 <!DOCTYPE html>
@@ -153,6 +153,7 @@ $conn->close(); // Close the connection properly
         .points-container .vomo-points span:first-child {
             margin-right: 100px;
         }
+
         /* Yellow Container */
         .yellow-container {
             background-color: #FFD036;
@@ -160,8 +161,9 @@ $conn->close(); // Close the connection properly
             text-align: left;
             padding: 15px;
             box-sizing: border-box;
-            margin-bottom: 20px;
-            display: none;
+            margin: 0 auto; 
+            width: 100%; 
+            display: block; 
         }
         .yellow-container h1 {
             margin: 0;
@@ -189,13 +191,13 @@ $conn->close(); // Close the connection properly
         .card-content .btn:hover {
             background-color: #e6bb2e;
         }
+
         @media screen and (max-width: 768px) {
             body {
                 padding-bottom: 20px;
             }
             .voucher-card-container {
-                margin-bottom: 300px;
-                margin-top: -150px;
+                margin-bottom: 150px;
             }
             .offer-card {
                 width: 100%;
@@ -203,60 +205,69 @@ $conn->close(); // Close the connection properly
             .offer-card img {
                 height: 200px;
             }
+
             .yellow-container {
                 display: block;
                 width: 100%;
                 text-align: center;
-                padding: 10px 0; 
+                padding: 10px 0;
             }
-            .yellow-container h1{
+
+            .yellow-container h1, .yellow-container p {
                 text-align: left;
                 padding-left: 20px;
             }
-            .home .points-container {
-                display: none;
-            }
-            .points-container {
-                display: flex;
-                align-items: center;
-                justify-content: left;
-                font-size: 14px;
-                color: #333;
-                background-color: #ECECE7;
-                border-radius: .6rem;
-                box-shadow: 0 .2rem .5rem #333;
-                letter-spacing: .1rem;
-                font-weight: 800;
-                padding: 10px;
-                max-width: 300px;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                margin-left: 20px;
-            }
-            .points-container i {
-                margin-right: 5px;
-            }
-            .points-container .vomo-points {
-                display: flex;
-                align-items: center;
-            }
-            .points-container .vomo-points span:first-child {
-                margin-right: 10px;
-            }
-            .yellow-container .points-container {
-                display: flex;
-                align-items: center;
-                justify-content: left;
-                font-size: 14px;
-                color: #333;
-                background-color: #ECECE7;
-                border-radius: .6rem;
-                box-shadow: 0 .2rem .5rem #333;
-                letter-spacing: .2rem;
-                font-weight: 800;
-                padding: 10px;
-            }
+
+        
+                .home {
+                    display: none;
+                }
+
+                .points-container {
+                    display: flex;
+                    align-items: center;
+                    justify-content: left;
+                    font-size: 14px;
+                    color: #333;
+                    background-color: #ECECE7;
+                    border-radius: 0.6rem;
+                    box-shadow: 0 0.2rem 0.5rem #333;
+                    letter-spacing: 0.1rem;
+                    font-weight: 800;
+                    padding: 10px;
+                    max-width: 300px;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    margin-left: 20px;
+                }
+
+                .points-container i {
+                    margin-right: 5px;
+                }
+
+                .points-container .vomo-points {
+                    display: flex;
+                    align-items: center;
+                }
+
+                .points-container .vomo-points span:first-child {
+                    margin-right: 10px;
+                }
+
+                .yellow-container .points-container {
+                    display: flex;
+                    align-items: center;
+                    justify-content: left;
+                    font-size: 14px;
+                    color: #333;
+                    background-color: #ECECE7;
+                    border-radius: 0.6rem;
+                    box-shadow: 0 0.2rem 0.5rem #333;
+                    letter-spacing: 0.2rem;
+                    font-weight: 800;
+                    padding: 10px;
+                }
         }
     </style>
 </head>
@@ -266,6 +277,7 @@ $conn->close(); // Close the connection properly
 
     <div class="yellow-container">
         <h1>Your Vouchers</h1>
+        <br>
         <div class="points-container">
             <i class='bx bx-gift'></i>
             <div class="vomo-points">

@@ -209,7 +209,6 @@ while ($row = mysqli_fetch_array($result)) {
 
             .stores-card-container {
                 margin-bottom: 150px;
-                margin-top: -150px;
             }
 
             .yellow-container {
@@ -224,55 +223,56 @@ while ($row = mysqli_fetch_array($result)) {
                 padding-left: 20px;
             }
 
-            .home .points-container {
-                display: none;
-            }
+        
+                .home {
+                    display: none;
+                }
 
-            .points-container {
-                display: flex;
-                align-items: center;
-                justify-content: left;
-                font-size: 14px;
-                color: #333;
-                background-color: #ECECE7;
-                border-radius: .6rem;
-                box-shadow: 0 .2rem .5rem #333;
-                letter-spacing: .1rem;
-                font-weight: 800;
-                padding: 10px;
-                max-width: 300px;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                margin-left: 20px;
-            }
+                .points-container {
+                    display: flex;
+                    align-items: center;
+                    justify-content: left;
+                    font-size: 14px;
+                    color: #333;
+                    background-color: #ECECE7;
+                    border-radius: 0.6rem;
+                    box-shadow: 0 0.2rem 0.5rem #333;
+                    letter-spacing: 0.1rem;
+                    font-weight: 800;
+                    padding: 10px;
+                    max-width: 300px;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    margin-left: 20px;
+                }
 
-            .points-container i {
-                margin-right: 5px;
-            }
+                .points-container i {
+                    margin-right: 5px;
+                }
 
-            .points-container .vomo-points {
-                display: flex;
-                align-items: center;
-            }
+                .points-container .vomo-points {
+                    display: flex;
+                    align-items: center;
+                }
 
-            .points-container .vomo-points span:first-child {
-                margin-right: 10px;
-            }
+                .points-container .vomo-points span:first-child {
+                    margin-right: 10px;
+                }
 
-            .yellow-container .points-container {
-                display: flex;
-                align-items: center;
-                justify-content: left;
-                font-size: 14px;
-                color: #333;
-                background-color: #ECECE7;
-                border-radius: .6rem;
-                box-shadow: 0 .2rem .5rem #333;
-                letter-spacing: .2rem;
-                font-weight: 800;
-                padding: 10px;
-            }
+                .yellow-container .points-container {
+                    display: flex;
+                    align-items: center;
+                    justify-content: left;
+                    font-size: 14px;
+                    color: #333;
+                    background-color: #ECECE7;
+                    border-radius: 0.6rem;
+                    box-shadow: 0 0.2rem 0.5rem #333;
+                    letter-spacing: 0.2rem;
+                    font-weight: 800;
+                    padding: 10px;
+                }
         }
     </style>
 </head>

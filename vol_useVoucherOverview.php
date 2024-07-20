@@ -300,7 +300,6 @@ if (isset($_GET['offerId'])) {
         <?php } ?>
     </div>
 
-    <!-- Popup for successful redemption or expiration -->
     <div id="popup">
         <p id="popup-message"></p>
         <a id="popup-link" href="index.php">Click here to return back to home page!</a>

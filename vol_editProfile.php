@@ -113,9 +113,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <style>
-    .profile-container .img {
-            width: 50%;
-            height: 50%;
+    .profile-container img {
+            width: 150px;
+            height: 150px;
+            /* border-radius: 50%; */
+            margin-bottom: 20px;
     }
 
     .btn-save-profile {

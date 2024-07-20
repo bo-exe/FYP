@@ -8,6 +8,8 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+mysqli_autocommit($conn, TRUE); // Ensure auto-commit is enabled
+
 if (isset($_SESSION['username'])) {
     $username = $_SESSION['username'];
 
@@ -23,16 +25,19 @@ if (isset($_SESSION['username'])) {
             $vomoPoints = 0;
         }
     } else {
+        error_log("SQL error: " . $conn->error); // Log SQL errors
         $vomoPoints = 0;
     }
 
-    // Fetch redeemed vouchers
+    // Fetch redeemed vouchers with end date
     $sql = "
         SELECT 
             rv.redeemed_date,
             o.title,
             o.points,
-            o.images
+            o.images,
+            o.dateTimeEnd,
+            rv.offerId
         FROM 
             redeemed_vouchers rv
         JOIN 
@@ -44,14 +49,19 @@ if (isset($_SESSION['username'])) {
     ";
 
     $redeemedVouchers = $conn->query($sql);
+    if (!$redeemedVouchers) {
+        error_log("SQL error: " . $conn->error); // Log SQL errors
+    }
 } else {
     $vomoPoints = 0;
     $redeemedVouchers = null;
 }
+
+$conn->close(); // Close the connection properly
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -71,20 +81,17 @@ if (isset($_SESSION['username'])) {
         .home {
             margin-top: 100px;
         }
-
         .home h1 {
             margin-right: 800px;
             text-align: left;
             text-shadow: 0 .1rem 0.05rem #333;
         }
-
         .voucher-card-container {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
             margin-top: 20px;
         }
-
         .voucher-card {
             width: 325px;
             background-color: #ECECE7;
@@ -92,62 +99,37 @@ if (isset($_SESSION['username'])) {
             overflow: hidden;
             box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
             margin: 20px;
-            height: 300px;
+            height: 325px;
             text-decoration: none;
             color: inherit;
             position: relative;
         }
-
         .voucher-card img {
             width: 100%;
-            height: 165px;
+            height: 125px;
             object-fit: cover;
         }
-
         .card-content {
             padding: 1px;
         }
-
         .card-content h3 {
             font-size: 28px;
             margin-bottom: 10px;
             margin-top: 10px;
         }
-
         .card-content p {
             color: #333333;
             font-size: 15px;
             line-height: 1.3;
             margin-left: 10px;
         }
-
-        .card-content .btn {
-            display: inline-block;
-            padding: 8px 16px;
-            background-color: #FFD036;
-            text-decoration: none;
-            border-radius: 30px;
-            margin-top: 16px;
-            font-weight: bold;
-            margin-left: auto;
-            margin-right: 10px;
-            width: fit-content;
-            color: #333333;
-        }
-
-        .card-content .btn:hover {
-            background-color: #e6bb2e;
-        }
-
         .header {
             display: flex;
             align-items: center;
         }
-
         .greeting {
             flex-grow: 1;
         }
-
         .points-container {
             display: flex;
             align-items: center;
@@ -161,20 +143,16 @@ if (isset($_SESSION['username'])) {
             font-weight: 800;
             padding: 10px;
         }
-
         .points-container i {
             margin-right: 5px;
         }
-
         .points-container .vomo-points {
             display: flex;
             align-items: center;
         }
-
         .points-container .vomo-points span:first-child {
             margin-right: 100px;
         }
-
         /* Yellow Container */
         .yellow-container {
             background-color: #FFD036;
@@ -185,7 +163,6 @@ if (isset($_SESSION['username'])) {
             margin-bottom: 20px;
             display: none;
         }
-
         .yellow-container h1 {
             margin: 0;
             padding: 0;
@@ -193,45 +170,52 @@ if (isset($_SESSION['username'])) {
             font-weight: bold;
             padding-left: 20px;
         }
-
         .yellow-container .points-container {
             display: none;
         }
-
+        .card-content .btn {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #FFD036;
+            text-decoration: none;
+            border-radius: 30px;
+            margin-top: 16px;
+            font-weight: bold;
+            margin-left: auto;
+            margin-right: 10px;
+            width: fit-content;
+            color: #333333;
+        }
+        .card-content .btn:hover {
+            background-color: #e6bb2e;
+        }
         @media screen and (max-width: 768px) {
             body {
                 padding-bottom: 20px;
             }
-
             .voucher-card-container {
                 margin-bottom: 300px;
                 margin-top: -150px;
             }
-
             .offer-card {
                 width: 100%;
             }
-
             .offer-card img {
                 height: 200px;
             }
-
             .yellow-container {
                 display: block;
                 width: 100%;
                 text-align: center;
                 padding: 10px 0; 
             }
-
             .yellow-container h1{
                 text-align: left;
                 padding-left: 20px;
             }
-
             .home .points-container {
                 display: none;
             }
-
             .points-container {
                 display: flex;
                 align-items: center;
@@ -250,20 +234,16 @@ if (isset($_SESSION['username'])) {
                 text-overflow: ellipsis;
                 margin-left: 20px;
             }
-
             .points-container i {
                 margin-right: 5px;
             }
-
             .points-container .vomo-points {
                 display: flex;
                 align-items: center;
             }
-
             .points-container .vomo-points span:first-child {
                 margin-right: 10px;
             }
-
             .yellow-container .points-container {
                 display: flex;
                 align-items: center;
@@ -280,7 +260,6 @@ if (isset($_SESSION['username'])) {
         }
     </style>
 </head>
-
 <body>
     <?php include "vol_navbar.php"; ?>
     <?php include "ft.php"; ?>
@@ -312,30 +291,36 @@ if (isset($_SESSION['username'])) {
     </section>
 
     <div class="voucher-card-container">
-        <?php
-        if ($redeemedVouchers && $redeemedVouchers->num_rows > 0) {
-            while ($row = $redeemedVouchers->fetch_assoc()) {
-                $title = $row['title'];
-                $points = $row['points'];
-                $image = base64_encode($row['images']);
-                $redeemedDate = $row['redeemed_date'];
-                ?>
-                <div class="voucher-card">
-                    <img src="data:image/jpeg;base64,<?php echo $image; ?>" alt="<?php echo $title; ?>" class="card-img-top">
-                    <div class="card-content">
-                        <h3 class="card-title"><?php echo $title; ?></h3>
-                        <p class="card-text">Points: <?php echo $points; ?></p>
-                        <p class="card-text">Redeemed Date: <?php echo $redeemedDate; ?></p>
-                    </div>
+    <?php
+    if ($redeemedVouchers && $redeemedVouchers->num_rows > 0) {
+        while ($row = $redeemedVouchers->fetch_assoc()) {
+            $title = $row['title'];
+            $points = $row['points'];
+            $image = base64_encode($row['images']);
+            $redeemedDate = $row['redeemed_date'];
+            $offerId = $row['offerId'];
+            $dateTimeEnd = new DateTime($row['dateTimeEnd']);
+            $formattedDateTimeEnd = $dateTimeEnd->format('F j, Y'); // Format date to 'Month Day, Year'
+            ?>
+            <div class="voucher-card">
+                <img src="data:image/jpeg;base64,<?php echo $image; ?>" alt="<?php echo htmlspecialchars($title); ?>" class="card-img-top">
+                <div class="card-content">
+                    <h3 class="card-title"><?php echo htmlspecialchars($title); ?></h3>
+                    <p class="card-text">Points: <?php echo htmlspecialchars($points); ?></p>
+                    <p class="card-text">Redeemed Date: <?php echo htmlspecialchars($redeemedDate); ?></p>
+                    <p class="card-text">Expires On: <?php echo htmlspecialchars($formattedDateTimeEnd); ?></p>
+                    <a href="vol_useVoucherOverview.php?offerId=<?php echo htmlspecialchars($offerId); ?>" class="btn">Use</a>
                 </div>
-                <?php
-            }
-        } else {
-            echo '<p>No vouchers redeemed yet.</p>';
+            </div>
+            <?php
         }
-        ?>
-    </div>
+    } else {
+        echo '<p>No vouchers redeemed yet.</p>';
+    }
+    ?>
+
+    <?php include "vol_footer.php"; ?>
+</div>
 
 </body>
-
 </html>

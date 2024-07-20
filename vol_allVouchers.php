@@ -71,7 +71,7 @@ if (isset($_SESSION['username'])) {
             overflow: hidden;
             box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
             margin: 20px;
-            height: 300px;
+            height: 275px;
             text-decoration: none;
             color: inherit;
             position: relative;
@@ -79,7 +79,7 @@ if (isset($_SESSION['username'])) {
 
         .voucher-card img {
             width: 100%;
-            height: 165px;
+            height: 125px;
             object-fit: cover;
         }
 
@@ -180,11 +180,13 @@ if (isset($_SESSION['username'])) {
         @media screen and (max-width: 768px) {
             body {
                 padding-bottom: 20px;
+                margin: 100px;
             }
 
             .voucher-card-container {
                 margin-bottom: 300px;
                 margin-top: -150px;
+                padding:100px;
             }
 
             .offer-card {

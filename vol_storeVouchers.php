@@ -91,20 +91,22 @@ if (isset($_GET['storeId'])) {
         }
 
         .voucher-card {
-            width: 20%;
+            width: 325px;
             background-color: #ECECE7;
-            border-radius: 8px;
+            border-radius: 10px;
             overflow: hidden;
             box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
             margin: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            height: 350px;
+            text-decoration: none;
+            color: inherit;
+            position: relative;
         }
 
         .voucher-card img {
             width: 100%;
-            height: 165px;
+            height: 125px;
+            object-fit: cover;
         }
 
         .card-content {
@@ -127,27 +129,20 @@ if (isset($_GET['storeId'])) {
         }
 
         .card-content .btn {
-            padding: 0.3rem 0.7rem;
-            background: #FFD036;
-            border-radius: .6rem;
-            box-shadow: 0 .2rem .5rem #333;
-            font-size: 0.8rem;
-            color: #333;
-            letter-spacing: .1rem;
-            font-weight: 600;
-            border: .2rem solid transparent;
-            margin-top: 16px;
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #FFD036;
             text-decoration: none;
-            text-align: center;
+            border-radius: 30px;
+            margin-top: 16px;
+            font-weight: bold;
+            margin-right: 10px;
+            width: fit-content;
+            color: #333333;
         }
 
         .card-content .btn:hover {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-            background: #FFD036;
-            color: #333;
-            border: .2rem solid transparent;
+            background-color: #e6bb2e;
         }
 
         .header {

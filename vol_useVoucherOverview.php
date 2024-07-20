@@ -50,14 +50,6 @@ if (isset($_GET['offerId'])) {
         if (isset($_POST['redeem'])) {
             if ($voucherExpired) {
                 $errorMessage = "This voucher has expired.";
-                echo "<script type='text/javascript'>
-                        window.onload = function() {
-                            document.getElementById('popup').style.display = 'block';
-                            document.getElementById('popup-message').innerText = 'Voucher has expired!';
-                            document.getElementById('popup-link').innerText = 'Click here to return back to home page!';
-                            document.getElementById('popup-link').href = 'vol_home.php';
-                        };
-                    </script>";
             } elseif ($userPoints >= $pointsRequired && $amount > 0) {
                 // Deduct points from the user
                 $newPoints = $userPoints - $pointsRequired;
@@ -73,8 +65,7 @@ if (isset($_GET['offerId'])) {
                 mysqli_stmt_bind_param($updateRedeemedStmt, "ii", $newRedeemedVouchers, $offerId);
                 mysqli_stmt_execute($updateRedeemedStmt);
 
-                // Insert redeemed voucher record with current timestamp
-                $insertRedeemedQuery = "INSERT INTO redeemed_vouchers (volunteerId, offerId, redeemed_date) VALUES (?, ?, NOW())";
+                $insertRedeemedQuery = "INSERT INTO redeemed_vouchers (volunteerId, offerId) VALUES (?, ?)";
                 $insertRedeemedStmt = mysqli_prepare($link, $insertRedeemedQuery);
                 mysqli_stmt_bind_param($insertRedeemedStmt, "ii", $volunteerId, $offerId);
                 mysqli_stmt_execute($insertRedeemedStmt);
@@ -87,13 +78,12 @@ if (isset($_GET['offerId'])) {
                             document.getElementById('popup-link').innerText = 'Click here to see your vouchers!';
                             document.getElementById('popup-link').href = 'vol_userVoucher.php';
                         };
-                    </script>";
+                      </script>";
             } else {
                 $errorMessage = "You do not have enough points or the voucher is no longer available.";
             }
         }
     }
-
 } else {
     // Offer ID not provided
     echo "Offer ID not provided.";
@@ -286,11 +276,13 @@ if (isset($_GET['offerId'])) {
                 <p><b>Available Amount:</b> <?php echo htmlspecialchars($amount); ?></p>
 
                 <div class="stores-card-content">
-                    <?php if ($amount <= 0 || $voucherRedeemed || $voucherExpired) { ?>
-                        <button class="redeemed-btn" disabled><?php echo $voucherExpired ? 'Expired' : 'Redeemed'; ?></button>
+                    <?php if ($voucherExpired) { ?>
+                        <button class="redeemed-btn" disabled>Expired</button>
+                    <?php } elseif ($amount <= 0 || $voucherRedeemed) { ?>
+                        <button class="redeemed-btn" disabled>Used</button>
                     <?php } else { ?>
                         <form method="post">
-                            <button type="submit" name="redeem" class="redeem-btn">Redeem Now</button>
+                            <button type="submit" name="redeem" class="redeem-btn">Use</button>
                         </form>
                     <?php } ?>
                     <?php if (!empty($errorMessage)) { ?>
@@ -308,6 +300,7 @@ if (isset($_GET['offerId'])) {
         <?php } ?>
     </div>
 
+    <!-- Popup for successful redemption or expiration -->
     <div id="popup">
         <p id="popup-message"></p>
         <a id="popup-link" href="index.php">Click here to return back to home page!</a>

@@ -400,13 +400,6 @@ if (isset($username)) {
                 <h2>Your Activities</h2>
                 <div class="slider" id="activity-slider">
                     <img src="images/volunteer-booth.jpg" alt="activity 1">
-                    <img src="images/education.jpg" alt="activity 2">
-                    <img src="images/clean.jpg" alt="activity 3">
-                </div>
-                <div class="slider-nav" id="activity-slider-nav">
-                    <span class="dot" onclick="currentSlide(1, 'activity-slider')"></span>
-                    <span class="dot" onclick="currentSlide(2, 'activity-slider')"></span>
-                    <span class="dot" onclick="currentSlide(3, 'activity-slider')"></span>
                 </div>
                 <a href="vol_userActivities.php" class="about-btn">See More</a>
             </section>
@@ -414,14 +407,7 @@ if (isset($username)) {
             <section class="slider-wrapper">
                 <h2>Your Vouchers</h2>
                 <div class="slider" id="store-slider">
-                    <img src="images/ikea.jpg" alt="store 1">
-                    <img src="images/giant.jpg" alt="store 2">
-                    <img src="images/thebodyshop.jpg" alt="store 3">
-                </div>
-                <div class="slider-nav" id="store-slider-nav">
-                    <span class="dot" onclick="currentSlide(1, 'store-slider')"></span>
-                    <span class="dot" onclick="currentSlide(2, 'store-slider')"></span>
-                    <span class="dot" onclick="currentSlide(3, 'store-slider')"></span>
+                    <img src="images/body-shop-voucher.jpg" alt="store 1">
                 </div>
                 <a href="vol_userVoucher.php" class="about-btn">See More</a>
             </section>
@@ -432,30 +418,6 @@ if (isset($username)) {
 <?php include "vol_footer.php"; ?>
 
     <script>
-        let slideIndex = 1;
-        showSlides(slideIndex, 'activity-slider');
-        showSlides(slideIndex, 'store-slider');
-
-        function currentSlide(n, sliderId) {
-            showSlides(slideIndex = n, sliderId);
-        }
-
-        function showSlides(n, sliderId) {
-            let i;
-            let slides = document.querySelectorAll(`#${sliderId} img`);
-            let dots = document.querySelectorAll(`#${sliderId}-nav .dot`);
-            if (n > slides.length) {slideIndex = 1}
-            if (n < 1) {slideIndex = slides.length}
-            for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";  
-            }
-            for (i = 0; i < dots.length; i++) {
-                dots[i].className = dots[i].className.replace(" active", "");
-            }
-            slides[slideIndex-1].style.display = "block";  
-            dots[slideIndex-1].className += " active";
-        }
-
         function togglePassword() {
             var passwordField = document.getElementById("password");
             var passwordFieldType = passwordField.getAttribute("type");

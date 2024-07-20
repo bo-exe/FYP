@@ -184,8 +184,8 @@ if (isset($_SESSION['username'])) {
             }
 
             .voucher-card-container {
-                margin-bottom: 300px;
-                margin-top: -150px;
+                margin-bottom: 150px;
+                margin-top: -250px;
                 padding:100px;
             }
 
@@ -202,6 +202,7 @@ if (isset($_SESSION['username'])) {
                 width: 100%;
                 text-align: center;
                 padding: 10px 0; 
+                object-fit: cover;
             }
 
             .yellow-container h1{

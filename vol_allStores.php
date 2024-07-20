@@ -208,7 +208,7 @@ while ($row = mysqli_fetch_array($result)) {
             }
 
             .stores-card-container {
-                margin-bottom: 300px;
+                margin-bottom: 150px;
                 margin-top: -150px;
             }
 

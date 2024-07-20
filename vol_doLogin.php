@@ -9,46 +9,56 @@ $entered_password = $_POST['password'];
 
 $msg = "";
 
-$queryCheck = "SELECT volunteerId, username, role FROM volunteers WHERE username='$entered_username' AND password='$entered_password'";
-$resultCheck = mysqli_query($link, $queryCheck) or die(mysqli_error($link));
+// Use prepared statements to prevent SQL injection
+$queryCheck = "SELECT volunteerId, username, role, password FROM volunteers WHERE username = ?";
+$stmt = mysqli_prepare($link, $queryCheck);
+mysqli_stmt_bind_param($stmt, 's', $entered_username);
+mysqli_stmt_execute($stmt);
+$resultCheck = mysqli_stmt_get_result($stmt);
 
 if (mysqli_num_rows($resultCheck) == 1) {
     $row = mysqli_fetch_array($resultCheck);
-    // column name fixed
-    $_SESSION['volunteerId'] = $row['volunteerId'];
-    $_SESSION['username'] = $row['username'];
-    $_SESSION['role'] = $row['role'];
 
-    // Set the 'rememberUsername' cookie if the "Remember Me" checkbox is checked
-    if (isset($_POST['remember'])) {
-        setcookie('rememberUsername', $entered_username, time() + (60 * 60 * 24 * 7)); // Cookie expires in 7 days
+    // Verify the password
+    if (password_verify($entered_password, $row['password'])) {
+        $_SESSION['volunteerId'] = $row['volunteerId'];
+        $_SESSION['username'] = $row['username'];
+        $_SESSION['role'] = $row['role'];
+
+        // Set the 'rememberUsername' cookie if the "Remember Me" checkbox is checked
+        if (isset($_POST['remember'])) {
+            setcookie('rememberUsername', $entered_username, time() + (60 * 60 * 24 * 7)); // Cookie expires in 7 days
+        } else {
+            // Clear the 'rememberUsername' cookie if the "Remember Me" checkbox is not checked
+            setcookie('rememberUsername', '', time() - 3600);
+        }
+
+        // Redirect based on user role
+        switch ($_SESSION['role']) {
+            case 'volunteer':
+                header("Location: index.php");
+                break;
+            case 'retailAdmin':
+                header("Location: admin_retailHome.php");
+                break;
+            case 'vomoAdmin':
+                header("Location: admin_vomoHome.php");
+                break;
+            case 'volunteerAdmin':
+                header("Location: admin_volunteerHome.php");
+                break;    
+            default:
+                header("Location: index.php");
+                break;
+        }
+        exit(); // Ensure no further code is executed after redirection
     } else {
-        // Clear the 'rememberUsername' cookie if the "Remember Me" checkbox is not checked
-        setcookie('rememberUsername', '', time() - 3600);
+        $msg = "<p>Sorry, you must enter a valid username and password to log in</p>";
+        $msg .= "<p><a href='vol_login.php'>Go back to login page</a></p>";
     }
-
-    // Redirect based on user role
-    switch ($_SESSION['role']) {
-        case 'volunteer':
-            header("Location: index.php");
-            break;
-        case 'retailAdmin':
-            header("Location: admin_retailHome.php");
-            break;
-        case 'vomoAdmin':
-            header("Location: admin_vomoHome.php");
-            break;
-        case 'volunteerAdmin':
-            header("Location: admin_volunteerHome.php");
-            break;    
-        default:
-            header("Location: index.php");
-            break;
-    }
-    exit(); // Ensure no further code is executed after redirection
 } else {
     $msg = "<p>Sorry, you must enter a valid username and password to log in</p>";
-    $msg .= "<p><a href='login.php'>Go back to login page</a></p>";
+    $msg .= "<p><a href='vol_login.php'>Go back to login page</a></p>";
 }
 ?>
 
@@ -70,9 +80,9 @@ if (mysqli_num_rows($resultCheck) == 1) {
     </style>
 </head>
 <body>
-    <?php include "navbar.php"; ?>
+    <?php include "vol_navbar.php"; ?>
         
-    <div style="text-align: center;">
+    <div style="text-align: center; margin-top:100px">
         <?php echo $msg; ?>
     </div>
 </body>

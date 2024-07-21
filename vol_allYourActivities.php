@@ -3,7 +3,9 @@
 include 'dbFunctions.php';
 
 // Assume you have a session to get the current volunteer's ID
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 $volunteerID = $_SESSION['volunteerId'];
 
 // Fetch events for the current volunteer
@@ -50,7 +52,7 @@ $json_events = json_encode($events);
         body {
             font-family: Arial, sans-serif;
         }
-        .calendar-container {
+        .calendar-container, .activity-list {
             max-width: 900px;
             margin: auto;
             padding: 20px;
@@ -74,6 +76,7 @@ $json_events = json_encode($events);
     </style>
 </head>
 <body>
+    <?php // include "vol_navbar.php"; ?>
     <div class="calendar-container">
         <div id="calendar"></div>
     </div>

@@ -20,6 +20,7 @@ $result = $stmt->get_result();
 $arrContent = array();
 while ($row = $result->fetch_assoc()) {
     $arrContent[] = $row;
+}
 
 $stmt->close();
 ?>

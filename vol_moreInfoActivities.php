@@ -40,15 +40,15 @@ $result = mysqli_query($link, $query);
 
 if ($result && mysqli_num_rows($result) > 0) {
     $event = mysqli_fetch_assoc($result);
-    // Fetch the image URL from the 'images' column
-    $image_src = htmlspecialchars($event['images']); 
+    // Fetch the image data from the 'images' column
+    $image_data = base64_encode($event['images']); 
     ?>
     <table style="width: 100%; padding: 20px;">
         <tr>
             <td style="width: 40%; padding: 20px; vertical-align: top;">
                 <h1 style="text-align: center;"><?php echo htmlspecialchars($event['title']); ?></h1>
-                <!-- Use the image source from the 'images' column -->
-                <img src="<?php echo $image_src; ?>" class="card-img-top" alt="<?php echo htmlspecialchars($event['title']); ?>-image" style="width: 100%; max-width: 100%; height: auto;">
+                <!-- Use the base64-encoded image data -->
+                <img src="data:image/jpeg;base64,<?php echo $image_data; ?>" class="card-img-top" alt="<?php echo htmlspecialchars($event['title']); ?>-image" style="width: 100%; max-width: 100%; height: auto;">
             </td>
             <td style="width: 60%; padding: 20px; vertical-align: middle;">
                 <div style="display: flex; flex-direction: column; justify-content: center; height: 100%;">
@@ -74,9 +74,6 @@ if ($result && mysqli_num_rows($result) > 0) {
 }
 ?>
 
-<?php include "footer.php"; ?>
+<?php include "vol_footer.php"; ?>
 </body>
 </html>
-
-
-

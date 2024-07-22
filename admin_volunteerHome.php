@@ -47,7 +47,7 @@ $stmt->close();
             </a>
         </button>
         <button class="volunteeradbutton" id="button2">
-            <a href="admin_addGig.php">
+            <a href="admin_volCreate.php">
                 <img src="images/wand.jpg" alt="Icon 2">
                 <br>CREATE NEW GIGS
             </a>

@@ -68,18 +68,18 @@ if (isset($_SESSION['username'])) {
     }
 
     .points-container {
-            display: flex;
-            align-items: center;
-            justify-content: left;
-            font-size: 14px;
-            color: #333;
-            background-color: #ECECE7;
-            border-radius: .6rem;
-            box-shadow: 0 .2rem .5rem #333;
-            letter-spacing: .2rem;
-            font-weight: 800;
-            padding: 10px;
-        }
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    font-size: 14px;
+    color: #333;
+    background-color: #ECECE7;
+    border-radius: .6rem;
+    box-shadow: 0 .2rem .5rem #333;
+    letter-spacing: .2rem;
+    font-weight: 800;
+    padding: 10px;
+}
 
         .points-container i {
             margin-right: 5px;

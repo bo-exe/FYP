@@ -8,7 +8,6 @@ function w3_close() {
     document.getElementById("mySidebar").style.display = "none";
 }
 
-
 // QR
 function domReady(fn) {
     if (
@@ -20,19 +19,21 @@ function domReady(fn) {
         document.addEventListener("DOMContentLoaded", fn);
     }
 }
- 
+
 domReady(function () {
- 
     function onScanSuccess(decodedText) {
         window.location.href = decodedText;
         html5QrcodeScanner.clear(); /* QR Code Scanner closes after scanning a QR */
     }
- 
-    let htmlscanner = new Html5QrcodeScanner(
-        "qr-scanner",
-        { fps: 10, qrbos: 250 }
-    );
-    htmlscanner.render(onScanSuccess);
+
+    // Ensure the QR scanner is initialized only once
+    if (!window.htmlscanner) {
+        window.htmlscanner = new Html5QrcodeScanner(
+            "qr-scanner",
+            { fps: 10, qrbos: 250 }
+        );
+        window.htmlscanner.render(onScanSuccess);
+    }
 });
 
 //Slider Homepage
@@ -57,32 +58,3 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
-
-
-
-// var slideIndex = 1;
-// showSlides(slideIndex);
-
-// function plusSlides(n) {
-//     showSlides(slideIndex += n);
-// }
-
-// function currentSlide(n) {
-//     showSlides(slideIndex = n);
-// }
-
-// function showSlides(n) {
-//     var i;
-//     var slides = document.getElementsByClassName("mySlides");
-//     var dots = document.getElementsByClassName("dot");
-//     if (n > slides.length) {slideIndex = 1 }
-//     if (n < 1) { slideIndex = slides.length }
-//     for ( i = 0; i < slides.length; i++) {
-//         slides[i].style.display = "none";
-//     }
-//     for (i = 0; i < dots.length; i++) {
-//         dots[i].className = dots[i].className.replace(" active", "")
-//     }
-//     slides[slideIndex - 1].style.display = "block";
-//     dots[slideIndex - 1].classname += "active";
-//     }

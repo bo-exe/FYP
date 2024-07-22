@@ -186,6 +186,7 @@ body.qr-page {
 .qr-top-text, .qr-bottom-text {
     font-size: 24px;
     margin: 10px 0;
+    color: #000;
 }
 
 /* sign up page */ 

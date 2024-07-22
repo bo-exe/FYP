@@ -35,7 +35,7 @@ $stmt->close();
     <link rel="icon" type="image/x-icon" href="images/admin_logo.jpg">
 </head>
 <br>
-<?php include "admin_volunteerNavbar.php"; ?>
+<?php include "admin_retailNavbar.php"; ?>
 <?php include "ft.php"; ?>
 <br></br>
 <h1>Welcome, <?php echo htmlspecialchars($username); ?>!</h1>

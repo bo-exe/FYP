@@ -41,7 +41,7 @@ $stmt->close();
 <h1>Welcome, <?php echo htmlspecialchars($username); ?>!</h1>
     <div class="volunteeradbuttons-container">
         <button class="volunteeradbutton" id="button1">
-            <a href="admin_allGigs.php">
+            <a href="admin_volmanage.php">
                 <img src="images/coin.jpg" alt="Icon 1">
                 <br>MANAGE CURRENT GIGS
             </a>

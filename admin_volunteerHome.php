@@ -11,7 +11,7 @@ if (!isset($_SESSION['username'])) {
 $username = $_SESSION['username'];
 $adminID = $_SESSION['adminID']; // Assuming you store adminID in session
 
-$query = "SELECT * FROM admins WHERE adminID = ?";
+$query = "SELECT * FROM events WHERE adminID = ?";
 $stmt = $link->prepare($query);
 $stmt->bind_param("i", $adminID);
 $stmt->execute();
@@ -35,7 +35,7 @@ $stmt->close();
     <link rel="icon" type="image/x-icon" href="images/admin_logo.jpg">
 </head>
 <br>
-<?php include "admin_retailNavbar.php"; ?>
+<?php include "admin_volunteerNavbar.php"; ?>
 <?php include "ft.php"; ?>
 <br></br>
 <h1>Welcome, <?php echo htmlspecialchars($username); ?>!</h1>

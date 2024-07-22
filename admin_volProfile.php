@@ -56,6 +56,12 @@ if (mysqli_num_rows($result) == 1) {
             <a href="admin_volunteerEditProfile.php" class="btn-edit-profile">Edit Profile</a>
             <a href="vol_forgotPassword.php" class="btn-edit-profile">Change Password</a>
         </div>
+
+        <div class="text-center mt-3">
+            <form action="admin_logout.php" method="post">
+                <button type="submit" class="btn-logout">Logout</button>
+            </form>
+        </div>
     </div>
 </body>
 </html>

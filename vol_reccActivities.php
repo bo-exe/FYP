@@ -159,6 +159,16 @@ if (isset($_SESSION['username'])) {
     body {
         background-color: #f8f9fa;
     }
+    .card {
+        position: relative;
+    }
+    .save-activity {
+        max-width: 40px;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        cursor: pointer;
+    }
 
     /* Custom CSS for more spacing between cards */
     .mb-5 {
@@ -223,7 +233,7 @@ if (isset($_SESSION['username'])) {
                     $image_data = base64_encode($event['images']);
                     $image_src = 'data:image/jpeg;base64,' . $image_data;
                     ?>
-                    <div class="col-md-12 col-lg-10 mb-5 mb-lg-5"> <!-- Increased margin-bottom for both md and lg screens -->
+                    <div class="col-md-12 col-lg-10 mb-5 mb-lg-5 single-activity"> <!-- Increased margin-bottom for both md and lg screens -->
                         <div class="card">
                             <img src="<?php echo $image_src; ?>" class="card-img-top" alt="<?php echo htmlspecialchars($event['title']); ?>-image">
                             <div class="card-content">
@@ -235,6 +245,8 @@ if (isset($_SESSION['username'])) {
                                
                                 <a href="vol_moreInfoActivities.php?eventID=<?php echo $event['eventID']; ?>&volunteerID=<?php echo $volunteerId; ?>"><button>More</button></a>
                             </div>
+                            <img src="images/save.svg" alt="" class="save-activity" data-event-id="<?php echo $event['eventID']; ?>" data-volunteer-id="<?php echo $volunteerId; ?>">
+
                         </div>
                     </div>
                     <?php
@@ -246,6 +258,60 @@ if (isset($_SESSION['username'])) {
         </div>
     </div>
 </section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const saveIcons = document.querySelectorAll('.save-activity');
+        const volunteerID = <?php echo $volunteerId; ?>;
+
+        // Fetch the saved activities for the volunteer
+        fetch('vol_getSavedActivities.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ volunteerID })
+        })
+        .then(response => response.json())
+        .then(savedActivities => {
+            saveIcons.forEach(icon => {
+                const card = icon.closest('.card');
+                const eventID = card.querySelector('a').href.split('eventID=')[1].split('&')[0];
+
+                // Set the initial icon state based on saved activities
+                if (savedActivities.includes(eventID)) {
+                    icon.src = 'images/yellow.svg';
+                } else {
+                    icon.src = 'images/save.svg';
+                }
+
+                icon.addEventListener('click', function () {
+                    const isSaved = icon.src.includes('yellow.svg');
+
+                    fetch('vol_saveActivity.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ eventID, volunteerID, action: isSaved ? 'remove' : 'save' })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            icon.src = isSaved ? 'images/save.svg' : 'images/yellow.svg';
+                        } else {
+                            alert('Failed to update activity.');
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+                });
+            });
+        })
+        .catch(error => console.error('Error:', error));
+    });
+</script>
+
+
 
 
     <?php include "footer.php"; ?>

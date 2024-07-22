@@ -133,7 +133,7 @@ $stmt->close();
             }
             ?>
             <div class="event-card">
-                <a href="admin_gigOverview.php?eventID=<?php echo $eventID; ?>" style="text-decoration: none; color: inherit;">
+                <a href="admin_volGig.php?eventID=<?php echo $eventID; ?>" style="text-decoration: none; color: inherit;">
                     <img src="<?php echo $imageSrc; ?>" alt="<?php echo $title; ?>" class="card-img-top">
                     <div class="event-card-content">
                         <h2 class="card-title"><?php echo $title; ?></h2>

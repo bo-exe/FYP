@@ -133,7 +133,7 @@ $stmt->close();
             }
             ?>
             <div class="event-card">
-                <a href="admin_gigOverview.php?eventID=<?php echo $eventID; ?>" style="text-decoration: none; color: inherit;">
+                <a href="admin_volGig.php?eventID=<?php echo $eventID; ?>" style="text-decoration: none; color: inherit;">
                     <img src="<?php echo $imageSrc; ?>" alt="<?php echo $title; ?>" class="card-img-top">
                     <div class="event-card-content">
                         <h2 class="card-title"><?php echo $title; ?></h2>
@@ -141,8 +141,8 @@ $stmt->close();
                     </div>
                 </a>
                 <div class="event-card-content">
-                    <a href="admin_retailDelete.php?eventID=<?php echo $eventID; ?>" class="del-btn">Delete</a>
-                    <a href="admin_retailEdit.php?eventID=<?php echo $eventID; ?>" class="edit-btn">Edit</a>
+                    <a href="admin_volDelete.php?eventID=<?php echo $eventID; ?>" class="del-btn">Delete</a>
+                    <a href="admin_volEdit.php?eventID=<?php echo $eventID; ?>" class="edit-btn">Edit</a>
                 </div>
             </div>
         <?php endforeach; ?>

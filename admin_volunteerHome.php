@@ -30,7 +30,7 @@ $stmt->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Volunteer Admin Home</title>
+    <title>Home</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="icon" type="image/x-icon" href="images/admin_logo.jpg">
 </head>
@@ -39,17 +39,17 @@ $stmt->close();
 <?php include "ft.php"; ?>
 <br></br>
 <h1>Welcome, <?php echo htmlspecialchars($username); ?>!</h1>
-    <div class="volunteeradbuttons-container">
-        <button class="volunteeradbutton" id="button1">
-            <a href="admin_volmanage.php">
-                <img src="images/coin.jpg" alt="Icon 1">
+    <div class="retailbuttons-container">
+        <button class="retailbutton" id="button1">
+            <a href="admin_voluntManage.php">
+                <img src="images/exercise.png" alt="Icon 1">
                 <br>MANAGE CURRENT GIGS
             </a>
         </button>
-        <button class="volunteeradbutton" id="button2">
-            <a href="admin_addGig.php">
+        <button class="retailbutton" id="button2">
+            <a href="admin_retailCreate.php">
                 <img src="images/wand.jpg" alt="Icon 2">
-                <br>CREATE NEW GIGS
+                <br>CREATE CURRENT OFFERS
             </a>
         </button>
 </div>

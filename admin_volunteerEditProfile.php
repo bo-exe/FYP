@@ -79,7 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['username'] = $username; // Update session with new username if changed
 
         // Redirect to profile page with updated information
-        header("Location: admin_volunteerProfile.php");
+        header("Location: admin_volProfile.php");
         exit();
     } else {
         // Handle update error

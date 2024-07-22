@@ -11,7 +11,7 @@ if (!isset($_SESSION['username'])) {
 $username = $_SESSION['username'];
 $adminID = $_SESSION['adminID']; // Assuming you store adminID in session
 
-$query = "SELECT * FROM events WHERE adminID = ?";
+$query = "SELECT * FROM admins WHERE adminID = ?";
 $stmt = $link->prepare($query);
 $stmt->bind_param("i", $adminID);
 $stmt->execute();

@@ -93,7 +93,7 @@ button {
     border: none;
     border-radius:25px;
     background-color: #FFD036;
-    color: #FFD036;
+    color: #000;
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;

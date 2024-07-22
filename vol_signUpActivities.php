@@ -83,88 +83,90 @@
             padding: 8px;
             margin: 10px 0; /* Adjusted margin for better spacing */
             font-size: 1rem;
-            background-color: #FFD036;
+            background-color: #FFD036; /* Yellow background */
             color: black;
             border: none;
             cursor: pointer;
-            
+            border-radius: 4px;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .signup-button:hover {
+            background-color: #F7C600; /* Slightly darker yellow for hover */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Backdrop shadow */
+        }
+
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .popup-overlay.active {
+            display: block;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1001;
+            transition: all 0.3s ease;
+        }
+
+        .popup.active {
+            display: block;
+        }
+
+        .popup h3 {
+            margin-top: 0;
+        }
+
+        .popup p {
+            margin-bottom: 20px;
+        }
+
+        .verification-code-inputs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            justify-content: center;
+        }
+
+        .verification-code-inputs input {
+            width: 40px;
+            height: 40px;
+            font-size: 24px;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .popup button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0 auto;
+            display: block;
+        }
+
+        .popup button:hover {
             background-color: #0056b3;
         }
-        .popup-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    transition: all 0.3s ease;
-}
-
-.popup-overlay.active {
-    display: block;
-}
-
-.popup {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    padding: 20px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    z-index: 1001;
-    transition: all 0.3s ease;
-}
-
-.popup.active {
-    display: block;
-}
-
-.popup h3 {
-    margin-top: 0;
-}
-
-.popup p {
-    margin-bottom: 20px;
-}
-
-.verification-code-inputs {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 10px;
-    justify-content: center;
-}
-
-.verification-code-inputs input {
-    width: 40px;
-    height: 40px;
-    font-size: 24px;
-    text-align: center;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.popup button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin: 0 auto;
-    display: block;
-}
-
-.popup button:hover {
-    background-color: #0056b3;
-}
-
     </style>
 </head>
 <body>
@@ -225,7 +227,6 @@
     ?>
 </div>
 
-
 <div class="popup-overlay" id="popup-overlay"></div>
 <div class="popup" id="verification-popup">
     <h3>Application Successful!</h3>
@@ -233,21 +234,19 @@
         A verification code has been sent to your email. Please check your inbox and enter the verification code below to verify your email address. The code will expire in 15 minutes.
     </p>
     <form id="verification-form" action="vol_verificationCode.php" method="POST">
-    <input type="hidden" name="eventID" value="<?php echo $eventID; ?>">
-    <div class="verification-code-inputs">
-        <input type="text" name="verification_code[]" id="verification-digit-1" maxlength="1" required>
-        <input type="text" name="verification_code[]" id="verification-digit-2" maxlength="1" required>
-        <input type="text" name="verification_code[]" id="verification-digit-3" maxlength="1" required>
-        <span><strong>&dash;</strong></span>
-        <input type="text" name="verification_code[]" id="verification-digit-4" maxlength="1" required>
-        <input type="text" name="verification_code[]" id="verification-digit-5" maxlength="1" required>
-        <input type="text" name="verification_code[]" id="verification-digit-6" maxlength="1" required>
-    </div>
-    <button type="submit">Verify</button>
-</form>
-
+        <input type="hidden" name="eventID" value="<?php echo $eventID; ?>">
+        <div class="verification-code-inputs">
+            <input type="text" name="verification_code[]" id="verification-digit-1" maxlength="1" required>
+            <input type="text" name="verification_code[]" id="verification-digit-2" maxlength="1" required>
+            <input type="text" name="verification_code[]" id="verification-digit-3" maxlength="1" required>
+            <span><strong>&dash;</strong></span>
+            <input type="text" name="verification_code[]" id="verification-digit-4" maxlength="1" required>
+            <input type="text" name="verification_code[]" id="verification-digit-5" maxlength="1" required>
+            <input type="text" name="verification_code[]" id="verification-digit-6" maxlength="1" required>
+        </div>
+        <button type="submit">Verify</button>
+    </form>
 </div>
-
 
 <script>
 function showVerificationPopup() {
@@ -277,16 +276,6 @@ document.getElementById('popup-overlay').addEventListener('click', function() {
     this.classList.remove('active');
     document.getElementById('verification-popup').classList.remove('active');
 });
-
-// const inputs = document.querySelectorAll('.verification-code-inputs input');
-// inputs.forEach((input, index) => {
-//     input.addEventListener('input', () => {
-//         if (input.value.length === 1 && index < inputs.length - 1) {
-//             inputs[index + 1].focus();
-//         }
-//     });
-// });
-
 
 document.getElementById('verification-form').addEventListener('submit', function(event) {
     event.preventDefault();
@@ -319,17 +308,10 @@ document.getElementById('verification-form').addEventListener('submit', function
         alert('Failed to verify the code. Please try again.');
     });
 });
-
-
-
-
 </script>
 
 <?php include "vol_footer.php"; ?>
-
- 
 </body>
 </html>
-
 
 

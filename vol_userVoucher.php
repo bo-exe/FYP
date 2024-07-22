@@ -36,6 +36,7 @@ if (isset($_SESSION['username'])) {
             o.title,
             o.points,
             o.images,
+            o.type,
             o.dateTimeEnd,
             rv.offerId
         FROM 
@@ -99,7 +100,7 @@ $conn->close();
             overflow: hidden;
             box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
             margin: 20px;
-            height: 325px;
+            height: 350px;
             text-decoration: none;
             color: inherit;
             position: relative;
@@ -311,14 +312,16 @@ $conn->close();
             $image = base64_encode($row['images']);
             $redeemedDate = $row['redeemed_date'];
             $offerId = $row['offerId'];
+            $type = $row['type']; // Added type of voucher
             $dateTimeEnd = new DateTime($row['dateTimeEnd']);
-            $formattedDateTimeEnd = $dateTimeEnd->format('F j, Y'); // Format date to 'Month Day, Year'
+            $formattedDateTimeEnd = $dateTimeEnd->format('F j, Y'); 
             ?>
             <div class="voucher-card">
                 <img src="data:image/jpeg;base64,<?php echo $image; ?>" alt="<?php echo htmlspecialchars($title); ?>" class="card-img-top">
                 <div class="card-content">
                     <h3 class="card-title"><?php echo htmlspecialchars($title); ?></h3>
                     <p class="card-text">Points: <?php echo htmlspecialchars($points); ?></p>
+                    <p class="card-text">Type: <?php echo htmlspecialchars($type); ?></p> 
                     <p class="card-text">Redeemed Date: <?php echo htmlspecialchars($redeemedDate); ?></p>
                     <p class="card-text">Expires On: <?php echo htmlspecialchars($formattedDateTimeEnd); ?></p>
                     <a href="vol_useVoucherOverview.php?offerId=<?php echo htmlspecialchars($offerId); ?>" class="btn">Use</a>

@@ -9,14 +9,27 @@ $volunteerId = $_SESSION['volunteerId'];
 if (isset($_GET['offerId'])) {
     $offerId = $_GET['offerId'];
 
+    // Fetch offer details
     $query = "SELECT *, amount - redeemed_vouchers AS amount_after_redemption FROM offers WHERE offerId=?";
     $stmt = mysqli_prepare($link, $query);
+    if (!$stmt) {
+        die('mysqli_prepare failed for offer details: ' . mysqli_error($link));
+    }
+    
     mysqli_stmt_bind_param($stmt, "i", $offerId);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-    $row = mysqli_fetch_array($result);
+    $execute = mysqli_stmt_execute($stmt);
+    if (!$execute) {
+        die('mysqli_stmt_execute failed: ' . mysqli_stmt_error($stmt));
+    }
 
-    if (!empty($row)) {
+    $result = mysqli_stmt_get_result($stmt);
+    if (!$result) {
+        die('mysqli_stmt_get_result failed: ' . mysqli_stmt_error($stmt));
+    }
+
+    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+    
+    if ($row) {
         $offerId = $row['offerId'];
         $title = $row['title'];
         $dateTimeStart = $row['dateTimeStart'];
@@ -27,6 +40,7 @@ if (isset($_GET['offerId'])) {
         $pointsRequired = $row['points'];
         $amount = $row['amount_after_redemption'];
         $redeemedVouchers = $row['redeemed_vouchers'];
+        $type = $row['type'];
 
         $imageData = $row['images'];
         $image = 'data:image/jpeg;base64,' . base64_encode($imageData);
@@ -38,64 +52,114 @@ if (isset($_GET['offerId'])) {
         // Fetch user's current points
         $userQuery = "SELECT points FROM volunteers WHERE volunteerId=?";
         $userStmt = mysqli_prepare($link, $userQuery);
+        if (!$userStmt) {
+            die('mysqli_prepare failed for user points: ' . mysqli_error($link));
+        }
+        
         mysqli_stmt_bind_param($userStmt, "i", $volunteerId);
-        mysqli_stmt_execute($userStmt);
+        $executeUser = mysqli_stmt_execute($userStmt);
+        if (!$executeUser) {
+            die('mysqli_stmt_execute failed for user points: ' . mysqli_stmt_error($userStmt));
+        }
+
         $userResult = mysqli_stmt_get_result($userStmt);
-        $userRow = mysqli_fetch_array($userResult);
+        if (!$userResult) {
+            die('mysqli_stmt_get_result failed for user points: ' . mysqli_stmt_error($userStmt));
+        }
+
+        $userRow = mysqli_fetch_array($userResult, MYSQLI_ASSOC);
         $userPoints = $userRow['points'];
 
-        // Handle voucher redemption
-        $voucherRedeemed = false;
+        // Handle voucher usage
+        $voucherUsed = false;
         $errorMessage = '';
         if (isset($_POST['redeem'])) {
             if ($voucherExpired) {
                 $errorMessage = "This voucher has expired.";
-            } elseif ($userPoints >= $pointsRequired && $amount > 0) {
-                // Deduct points from the user
-                $newPoints = $userPoints - $pointsRequired;
-                $updatePointsQuery = "UPDATE volunteers SET points=? WHERE volunteerId=?";
-                $updatePointsStmt = mysqli_prepare($link, $updatePointsQuery);
-                mysqli_stmt_bind_param($updatePointsStmt, "ii", $newPoints, $volunteerId);
-                mysqli_stmt_execute($updatePointsStmt);
+            } elseif ($amount > 0) {
+                // Check if the voucher has already been used by this user
+                $checkQuery = "SELECT * FROM redeemed_vouchers WHERE volunteerId=? AND offerId=?";
+                $checkStmt = mysqli_prepare($link, $checkQuery);
+                if (!$checkStmt) {
+                    die('mysqli_prepare failed for voucher check: ' . mysqli_error($link));
+                }
 
-                // Update the redeemed_vouchers count in the offers table
-                $newRedeemedVouchers = $redeemedVouchers + 1;
-                $updateRedeemedQuery = "UPDATE offers SET redeemed_vouchers=? WHERE offerId=?";
-                $updateRedeemedStmt = mysqli_prepare($link, $updateRedeemedQuery);
-                mysqli_stmt_bind_param($updateRedeemedStmt, "ii", $newRedeemedVouchers, $offerId);
-                mysqli_stmt_execute($updateRedeemedStmt);
+                mysqli_stmt_bind_param($checkStmt, "ii", $volunteerId, $offerId);
+                $executeCheck = mysqli_stmt_execute($checkStmt);
+                if (!$executeCheck) {
+                    die('mysqli_stmt_execute failed for voucher check: ' . mysqli_stmt_error($checkStmt));
+                }
 
-                $insertRedeemedQuery = "INSERT INTO redeemed_vouchers (volunteerId, offerId) VALUES (?, ?)";
-                $insertRedeemedStmt = mysqli_prepare($link, $insertRedeemedQuery);
-                mysqli_stmt_bind_param($insertRedeemedStmt, "ii", $volunteerId, $offerId);
-                mysqli_stmt_execute($insertRedeemedStmt);
+                $checkResult = mysqli_stmt_get_result($checkStmt);
+                if (!$checkResult) {
+                    die('mysqli_stmt_get_result failed for voucher check: ' . mysqli_stmt_error($checkStmt));
+                }
 
-                $voucherRedeemed = true;
-                echo "<script type='text/javascript'>
-                        window.onload = function() {
-                            document.getElementById('popup').style.display = 'block';
-                            document.getElementById('popup-message').innerText = 'Voucher Redeemed Successfully!';
-                            document.getElementById('popup-link').innerText = 'Click here to see your vouchers!';
-                            document.getElementById('popup-link').href = 'vol_userVoucher.php';
-                        };
-                      </script>";
+                if (mysqli_num_rows($checkResult) > 0) {
+                    $errorMessage = "You have already used this voucher.";
+                } else {
+                    // Update the redeemed_vouchers count in the offers table
+                    $newRedeemedVouchers = $redeemedVouchers + 1;
+                    $updateRedeemedQuery = "UPDATE offers SET redeemed_vouchers=? WHERE offerId=?";
+                    $updateRedeemedStmt = mysqli_prepare($link, $updateRedeemedQuery);
+                    if (!$updateRedeemedStmt) {
+                        die('mysqli_prepare failed for update redeemed vouchers: ' . mysqli_error($link));
+                    }
+
+                    mysqli_stmt_bind_param($updateRedeemedStmt, "ii", $newRedeemedVouchers, $offerId);
+                    $executeUpdate = mysqli_stmt_execute($updateRedeemedStmt);
+                    if (!$executeUpdate) {
+                        die('mysqli_stmt_execute failed for update redeemed vouchers: ' . mysqli_stmt_error($updateRedeemedStmt));
+                    }
+
+                    // Generate voucher code or barcode
+                    if ($type == 'online') {
+                        $code = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 10);
+                    } else {
+                        $code = substr(str_shuffle('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 12);
+                    }
+
+                    $insertRedeemedQuery = "INSERT INTO redeemed_vouchers (volunteerId, offerId, code) VALUES (?, ?, ?)";
+                    $insertRedeemedStmt = mysqli_prepare($link, $insertRedeemedQuery);
+                    if (!$insertRedeemedStmt) {
+                        die('mysqli_prepare failed for insert redeemed voucher: ' . mysqli_error($link));
+                    }
+
+                    mysqli_stmt_bind_param($insertRedeemedStmt, "iis", $volunteerId, $offerId, $code);
+                    $executeInsert = mysqli_stmt_execute($insertRedeemedStmt);
+                    if (!$executeInsert) {
+                        die('mysqli_stmt_execute failed for insert redeemed voucher: ' . mysqli_stmt_error($insertRedeemedStmt));
+                    }
+
+                    $voucherUsed = true;
+                    echo "<script type='text/javascript'>
+                            window.onload = function() {
+                                document.getElementById('popup').style.display = 'block';
+                                document.getElementById('popup-title').innerText = '".htmlspecialchars($title)."';
+                                document.getElementById('popup-code').innerText = '$code';
+                                document.getElementById('popup-message').innerText = '".($type == 'online' ? 'Use code upon checkout' : 'Scan to use voucher')."';
+                                document.getElementById('popup-link').innerText = 'Click here to see your vouchers!';
+                                document.getElementById('popup-link').href = 'vol_userVoucher.php';
+                            };
+                          </script>";
+                }
             } else {
-                $errorMessage = "You do not have enough points or the voucher is no longer available.";
+                $errorMessage = "The voucher is no longer available.";
             }
         }
+    } else {
+        echo "Offer not found.";
     }
 } else {
-    // Offer ID not provided
     echo "Offer ID not provided.";
 }
 ?>
 <html>
-
 <head>
     <meta charset="UTF-8">
     <title>Voucher Information</title>
     <style>
-        body {
+                body {
             margin: 0;
             padding: 0;
         }
@@ -252,14 +316,13 @@ if (isset($_GET['offerId'])) {
         }
     </style>
 </head>
-
 <body>
     <div class="yellow-container">
         <h1>Vouchers</h1>
     </div>
-
+    
     <div class="container">
-        <?php if (!empty($offerId)) { ?>
+        <?php if (!empty($row)) { ?>
             <div class="card">
                 <img src="<?php echo $image; ?>" alt="Offer Image">
                 <h2><?php echo htmlspecialchars($title); ?></h2>
@@ -278,9 +341,9 @@ if (isset($_GET['offerId'])) {
                 <div class="stores-card-content">
                     <?php if ($voucherExpired) { ?>
                         <button class="redeemed-btn" disabled>Expired</button>
-                    <?php } elseif ($amount <= 0 || $voucherRedeemed) { ?>
-                        <button class="redeemed-btn" disabled>Used</button>
-                    <?php } else { ?>
+                    <?php } elseif ($amount <= 0 || $voucherUsed) { ?>
+                        <button class="redeemed-btn" disabled>Used
+                        <?php } else { ?>
                         <form method="post">
                             <button type="submit" name="redeem" class="redeem-btn">Use</button>
                         </form>
@@ -301,11 +364,13 @@ if (isset($_GET['offerId'])) {
     </div>
 
     <div id="popup">
+        <h2 id="popup-title"></h2>
+        <p id="popup-code" style="font-weight: bold; font-size: 18px;"></p>
         <p id="popup-message"></p>
         <a id="popup-link" href="index.php">Click here to return back to home page!</a>
     </div>
 
     <?php include "vol_footer.php"; ?>
 </body>
-
 </html>
+

@@ -39,14 +39,14 @@ $stmt->close();
 <?php include "ft.php"; ?>
 <br></br>
 <h1>Welcome, <?php echo htmlspecialchars($username); ?>!</h1>
-    <div class="volunteerbuttons-container">
-        <button class="volunteerbutton" id="button1">
+    <div class="volunteeradbuttons-container">
+        <button class="volunteeradbutton" id="button1">
             <a href="admin_allGigs.php">
                 <img src="images/coin.jpg" alt="Icon 1">
                 <br>MANAGE CURRENT GIGS
             </a>
         </button>
-        <button class="volunteerbutton" id="button2">
+        <button class="volunteeradbutton" id="button2">
             <a href="admin_addGig.php">
                 <img src="images/wand.jpg" alt="Icon 2">
                 <br>CREATE NEW GIGS

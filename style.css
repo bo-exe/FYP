@@ -280,21 +280,21 @@ label {
 }
 
 /* Volunteer Admin Homepage */
-.volunteerbuttons-container {
+.volunteeradbuttons-container {
     display: flex;
     justify-content: center;
     gap: 20px;
     margin: 20px;
 }
 
-.volunteerbuttons-container {
+.volunteeradbuttons-container {
     display: flex;
     justify-content: center;
     gap: 20px;
     margin: 20px;
 }
 
-.volunteerbutton {
+.volunteeradbutton {
     background-color: #FFD036;
     border: none;
     border-radius: 10px;
@@ -309,7 +309,7 @@ label {
     justify-content: center;
 }
 
-.volunteerbutton a {
+.volunteeradbutton a {
     text-decoration: none;
     color: #000;
     text-align: center;
@@ -318,17 +318,17 @@ label {
     align-items: center;
 }
 
-.volunteerbutton a:hover {
+.volunteeradbutton a:hover {
     color: #000; 
 }
 
-.volunteerbutton img {
+.volunteeradbutton img {
     width: 50px;
     height: 50px; 
     margin-bottom: 10px;
 }
 
-.volunteerbutton:hover {
+.volunteeradbutton:hover {
     transform: scale(1.05);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }

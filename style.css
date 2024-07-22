@@ -154,51 +154,38 @@ button:focus {
 }
 
 /* QR Page */
-#html5-qrcode-anchor-scan-type-change {
-    text-decoration: none;
-    color: #1d9bf0;
-}
- 
-video {
-    width: 100%;
-    border: 1px solid #b2b2b2;
-    border-radius: 0.25em;
-}
-
-#qr-scanner {
-    padding: 20px;
-    border: 1.5px solid #b2b2b2;
-    border-radius: 8px;
-}
-
-#qr-scanner img[alt="Info icon"] {
-    display: none;
-}
- 
-#qr-scanner img[alt="Camera based scan"] {
-    width: 100px;
-    height: 100px;
-}
-
-.qr-container {
-    width: 100%;
-    max-width: 500px;
-    margin: 5px;
+body.qr-page {
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
 }
- 
-.qr-container h1 {
-    color: #ffffff;
+
+.qr-container {
+    text-align: center;
 }
 
 .qr-section {
-    background-color: #ffffff;
-    padding: 50px 30px;
-    border: 1.5px solid #b2b2b2;
-    border-radius: 0.25em;
-    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.25);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    width: 300px;
+    height: 300px;
+    border: 3px dashed #000;
+}
+
+#qr-scanner {
+    width: 100%;
+    height: 100%;
+}
+
+.qr-top-text, .qr-bottom-text {
+    font-size: 24px;
+    margin: 10px 0;
 }
 
 /* sign up page */ 

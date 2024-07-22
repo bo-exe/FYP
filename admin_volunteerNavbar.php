@@ -106,17 +106,24 @@
                 display: inline;
             }
         }
+
+        .bi.bi-bar-chart {
+            font-size: 24px;
+        }
+        .bi.bi-gear {
+            font-size: 24px;
+        }
     </style>
 </head>
 <body>
     <nav class="navbar-main">
         <div class="logo">
-            <img src="images/logo.jpg" alt="Logo" style="width: 100px;">
+            <img src="images/admin_logo.jpg" alt="Logo" style="width: 100px;">
         </div>
         <ul>
             <li><a href="admin_volunteerHome.php"><span class="nav-text">HOME</span><i class="bi bi-house nav-icon"></i></a></li>
             <li><a href="admin_volManage.php"><span class="nav-text">MANAGE</span><i class="bi bi-ticket-perforated nav-icon"></i></i></a></li>
-            <li><a href="admin_volunteerProfile.php"><span class="nav-text">PROFILE</span><i class="bi bi-person nav-icon"></i></a></li>
+            <li><a href="admin_volProfile.php"><span class="nav-text">PROFILE</span><i class="bi bi-person nav-icon"></i></a></li>
         </ul>
     </nav>
     <script src="script.js"></script>

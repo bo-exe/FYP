@@ -11,6 +11,16 @@ if (!isset($_SESSION['username'])) {
 $username = $_SESSION['username'];
 $adminID = $_SESSION['adminID']; // Assuming you store adminID in session
 
+$query = "SELECT * FROM events WHERE adminID = ?";
+$stmt = $link->prepare($query);
+$stmt->bind_param("i", $adminID);
+$stmt->execute();
+$result = $stmt->get_result();
+
+$arrContent = array();
+while ($row = $result->fetch_assoc()) {
+    $arrContent[] = $row;
+
 $stmt->close();
 ?>
 <!DOCTYPE html>
@@ -19,7 +29,7 @@ $stmt->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Volunteer Admin Home</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="icon" type="image/x-icon" href="images/admin_logo.jpg">
 </head>

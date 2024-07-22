@@ -40,7 +40,7 @@ if (isset($_GET['eventID'])) {
         $dateTimeStart = $row['dateTimeStart'];
         $dateTimeEnd = $row['dateTimeEnd'];
         $locations = $row['locations'];
-        $descs = $row['desc'];
+        $descs = $row['descs'];
         $points = $row['points'];
         $imageData = $row['images'];
 

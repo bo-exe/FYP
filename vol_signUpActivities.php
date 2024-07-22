@@ -168,7 +168,9 @@
     </style>
 </head>
 <body>
-<?php // include "vol_navbar.php"; ?>
+<?php include "vol_navbar.php"; ?>
+<br>
+<br>
 <div class="main-content">
     <?php
     include "dbFunctions.php";
@@ -323,7 +325,7 @@ document.getElementById('verification-form').addEventListener('submit', function
 
 </script>
 
-    <?php  //include "footer.php"; ?>
+<?php include "vol_footer.php"; ?>
 
  
 </body>

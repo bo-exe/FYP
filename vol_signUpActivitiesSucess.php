@@ -212,7 +212,7 @@
         </div>
     </div>
 
-    <?php include "footer.php"; ?>
+    <?php include "vol_footer.php"; ?>
 
     <script>
         // Function to open the modal

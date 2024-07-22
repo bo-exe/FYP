@@ -168,6 +168,10 @@ body.qr-page {
     text-decoration: none;
     color: #000
 }
+
+#qr-scanner .html5-qrcode-button {
+    color: #000;
+}
  
 video {
     width: 100%;

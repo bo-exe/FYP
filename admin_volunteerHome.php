@@ -1,84 +1,64 @@
+<?php
+include "dbFunctions.php";
+session_start();
+
+if (!isset($_SESSION['username'])) {
+    // Redirect to login page if not logged in
+    header('Location: admin_login.php');
+    exit;
+}
+
+$username = $_SESSION['username'];
+$adminID = $_SESSION['adminID']; // Assuming you store adminID in session
+
+$stmt->close();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Volunteer Admin Home</title>
-    <link rel="stylesheet" type="text/css" href="volunteeradminstyle.css">
+    <title>Home</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="icon" type="image/x-icon" href="images/admin_logo.jpg">
 </head>
-<body>
-    <?php include "admin_volunteerNavbar.php"; ?>
-    <?php include "ft.php"; ?>
-    <br></br>
+<br>
+<?php include "admin_volunteerNavbar.php"; ?>
+<?php include "ft.php"; ?>
+<br></br>
+<h1>Welcome, <?php echo htmlspecialchars($username); ?>!</h1>
+    <div class="volunteerbuttons-container">
+        <button class="volunteerbutton" id="button1">
+            <a href="admin_allGigs.php">
+                <img src="images/coin.jpg" alt="Icon 1">
+                <br>MANAGE CURRENT GIGS
+            </a>
+        </button>
+        <button class="volunteerbutton" id="button2">
+            <a href="admin_addGig.php">
+                <img src="images/wand.jpg" alt="Icon 2">
+                <br>CREATE NEW GIGS
+            </a>
+        </button>
+</div>
 
-    <?php
-    session_start();
-    if (isset($_SESSION['username'])) 
-        {
-        $username = $_SESSION['username'];
-        echo "@" . htmlspecialchars($username); 
-        }
-    ?>
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="volunteeradmin-card">
-                    <a href="admin_allGigs.php">
-                        <div class="volunteeradmin-cardbody">
-                            <img src="images/exercise.png" alt="Icon 1">
-                        </div>
-                        <div class="volunteeradmin-cardfooter">
-                            Manage <br>
-                            Current Gigs
-                        </div>
-                    </a>
-                </div>
-            </div>
 
-            <div class="col-md-6">
-                <div class="volunteeradmin-card">
-                    <a href="admin_addGig.php">
-                        <div class="volunteeradmin-cardbody">
-                            <img src="images/wand.jpg" alt="Icon 2">
-                        </div>
-                        <div class="volunteeradmin-cardfooter">
-                            Create <br>
-                            New Gigs
-                        </div>
-                    </a>
-                </div>
-            </div>
-
-            <div class="col-md-12">
-                <div class="volunteeradmin-card">
-                    <a href="admin_gigMilestone.php">
-                        <div class="volunteeradmin-cardbody">
-                            <img src="images/milestones.jpg" alt="Icon 3">
-                        </div>
-                        <div class="volunteeradmin-cardfooter">
-                            Milestones Reached
-                        </div>
-                    </a>
-                </div>
-            </div>
+<!-- Footer Section -->
+<footer class="footer">
+    <div class="footer-content">
+        <div class="logo-container">
+            <img src="images/admin_logo.jpg" alt="logo" style="width:100px;">
         </div>
     </div>
-
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="logo-container">
-                <img src="images/admin_logo.jpg" alt="logo" style="width:100px;">
-            </div>
-        </div>
-        <div class="footer-content">
-            <h4>ABOUT</h4>
-            <ul>
-                <li><a href="index.html#about">About VOMO</a></li>
-            </ul>
-        </div>
-        <?php include "admin_footer.php"; ?>
-    </footer>
-    <script src="script.js"></script>
+    <div class="footer-content">
+        <h4>ABOUT</h4>
+        <ul>
+            <li><a href="index.html#about">About VOMO</a></li>
+        </ul>
+    </div>
+    <?php include "admin_footer.php"; ?>
+<script src="script.js"></script>
 </body>
+
 </html>

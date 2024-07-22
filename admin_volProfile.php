@@ -39,6 +39,24 @@ if (mysqli_num_rows($result) == 1) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="volunteeradminstyle.css">
 </head>
+<style>
+    /* New styles for .btn-logout */
+    .btn-logout {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #dc3545; /* Red */
+        border: none;
+        border-radius: 30px;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-logout:hover {
+        background-color: #c82333; /* Darker red on hover */
+    }
+</style>
 <body>
 <?php include "admin_volunteerNavBar.php"; ?>
 <?php include "ft.php"; ?>

@@ -20,14 +20,13 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-wrap: wrap; /* Ensures content wraps on smaller screens */
-            flex-direction: column; /* Arrange content in column */
+            flex-direction: column;
         }
 
         .signup-heading {
             text-align: center;
             width: 100%;
-            margin-bottom: 20px; /* Spacing below the heading */
+            margin-bottom: 20px;
         }
 
         .signup-section {
@@ -35,7 +34,7 @@
             justify-content: center;
             align-items: center;
             width: 100%;
-            flex-wrap: wrap; /* Ensures content wraps on smaller screens */
+            flex-wrap: wrap;
         }
 
         .signup-image-container {
@@ -43,12 +42,13 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-right: 50px; /* Added margin for spacing */
+            margin-right: 50px;
         }
 
         .signup-image {
-            width: 870px; /* Adjusted size for better fit */
-            max-width: 100%; /* Ensures it doesn't overflow */
+            width: 100%;
+            max-width: 870px;
+            height: auto;
         }
 
         .signup-content {
@@ -63,27 +63,27 @@
             display: flex;
             justify-content: space-between;
             width: 100%;
-            margin-bottom: 10px; /* Small spacing between the name fields */
+            margin-bottom: 10px;
         }
 
         .signup-form input,
         .signup-form button {
             width: 100%;
             padding: 10px;
-            margin: 5px 0; /* Small spacing between each input */
+            margin: 5px 0;
             font-size: 1rem;
         }
 
         .name-fields input {
-            width: 48%; /* Make sure both input fields fit side by side */
+            width: 48%;
         }
 
         .signup-button {
-            width: 50%;
-            padding: 8px;
-            margin: 10px 0; /* Adjusted margin for better spacing */
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
             font-size: 1rem;
-            background-color: #FFD036; /* Yellow background */
+            background-color: #FFD036;
             color: black;
             border: none;
             cursor: pointer;
@@ -92,8 +92,8 @@
         }
 
         .signup-button:hover {
-            background-color: #F7C600; /* Slightly darker yellow for hover */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Backdrop shadow */
+            background-color: #F7C600;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
         .popup-overlay {
@@ -123,6 +123,8 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             z-index: 1001;
             transition: all 0.3s ease;
+            width: 90%;
+            max-width: 400px;
         }
 
         .popup.active {
@@ -166,6 +168,66 @@
 
         .popup button:hover {
             background-color: #0056b3;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            .signup-section {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .signup-image-container {
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+
+            .signup-image {
+                width: 100%;
+                max-width: 600px;
+            }
+
+            .signup-button {
+                width: 100%;
+                font-size: 0.9rem;
+                padding: 8px;
+            }
+
+            .name-fields {
+                flex-direction: column;
+            }
+
+            .name-fields input {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .popup {
+                position: fixed;
+                bottom: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 100%;
+                max-width: 100%;
+                border-radius: 0;
+            }
+
+            .popup-overlay {
+                display: block; /* Ensure the overlay covers the entire viewport */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .signup-button {
+                font-size: 0.8rem;
+                padding: 8px;
+            }
+
+            .verification-code-inputs input {
+                width: 30px;
+                height: 30px;
+                font-size: 18px;
+            }
         }
     </style>
 </head>
@@ -313,5 +375,3 @@ document.getElementById('verification-form').addEventListener('submit', function
 <?php include "vol_footer.php"; ?>
 </body>
 </html>
-
-

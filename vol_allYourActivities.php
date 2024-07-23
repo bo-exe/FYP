@@ -110,5 +110,6 @@ $json_events = json_encode($events);
             calendar.render();
         });
     </script>
+    
 </body>
 </html>

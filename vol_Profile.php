@@ -372,7 +372,7 @@ if (isset($username)) {
                         </div>
                         <span>History</span>
                     </a>
-                    <a href="vol_savedActivities.php" class="list-group-item list-group-item-action">
+                    <a href="vol_savedActivity.php" class="list-group-item list-group-item-action">
                         <div class="icon-container">
                             <i class="fas fa-save"></i>
                         </div>

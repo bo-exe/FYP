@@ -103,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <div class="event-container">
         <div class="event-header">
-            <img src="<?php // echo $event['images']; ?>" alt="Event Image">
+            <img src="<?php //echo $event['images']; ?>" alt="Event Image">
         </div>
         <div class="event-details">
             <h2><?php echo $event['title']; ?></h2>

@@ -371,6 +371,27 @@ document.getElementById('verification-form').addEventListener('submit', function
         alert('Failed to verify the code. Please try again.');
     });
 });
+
+// Auto-jump functionality for verification code inputs
+document.querySelectorAll('.verification-code-inputs input').forEach((input, index, inputs) => {
+    input.addEventListener('input', (e) => {
+        if (e.target.value.length === 1) {
+            // Move to next input
+            if (index < inputs.length - 1) {
+                inputs[index + 1].focus();
+            }
+        }
+    });
+
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && e.target.value === '') {
+            // Move to previous input
+            if (index > 0) {
+                inputs[index - 1].focus();
+            }
+        }
+    });
+});
 </script>
 
 <?php include "vol_footer.php"; ?>

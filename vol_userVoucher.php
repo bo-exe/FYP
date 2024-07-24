@@ -134,7 +134,7 @@ $conn->close();
         .points-container {
             display: flex;
             align-items: center;
-            justify-content: left;
+            justify-content: left;m
             font-size: 14px;
             color: #333;
             background-color: #ECECE7;
@@ -164,7 +164,7 @@ $conn->close();
             box-sizing: border-box;
             margin: 0 auto; 
             width: 100%; 
-            display: block; 
+            display: none; 
         }
         .yellow-container h1 {
             margin: 0;

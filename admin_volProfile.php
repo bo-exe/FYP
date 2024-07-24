@@ -21,7 +21,6 @@ if (mysqli_num_rows($result) == 1) {
     $row = mysqli_fetch_assoc($result);
     $username = $row['username'];
     $email = $row['email'];
-    $password = $row['password'];
     $profile_pic = $row['profile_pic']; 
 } else {
     // Handle error if user data not found
@@ -40,6 +39,24 @@ if (mysqli_num_rows($result) == 1) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="volunteeradminstyle.css">
 </head>
+<style>
+    /* New styles for .btn-logout */
+    .btn-logout {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #dc3545; /* Red */
+        border: none;
+        border-radius: 30px;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-logout:hover {
+        background-color: #c82333; /* Darker red on hover */
+    }
+</style>
 <body>
 <?php include "admin_volunteerNavBar.php"; ?>
 <?php include "ft.php"; ?>
@@ -51,35 +68,18 @@ if (mysqli_num_rows($result) == 1) {
             <img src="images/<?php echo htmlspecialchars($profile_pic); ?>" alt="Profile Picture" class="profile-picture">
             <p><strong>Username:</strong> <?php echo htmlspecialchars($username); ?></p>
             <p><strong>Email:</strong> <?php echo htmlspecialchars($email); ?></p>
-            <p><strong>Password: </strong></p>
-            <div class="password-container">
-                <input type="password" id="password" value="<?php echo htmlspecialchars($password); ?>" readonly>
-                <span class="toggle-password" onclick="togglePassword()">
-                    <i class="fas fa-eye"></i>
-                </span>
-            </div>
         </div>
         
         <div class="text-center">
             <a href="admin_volunteerEditProfile.php" class="btn-edit-profile">Edit Profile</a>
+            <a href="vol_forgotPassword.php" class="btn-edit-profile">Change Password</a>
+        </div>
+
+        <div class="text-center mt-3">
+            <form action="admin_logout.php" method="post">
+                <button type="submit" class="btn-logout">Logout</button>
+            </form>
         </div>
     </div>
-
-    <script>
-        function togglePassword() {
-            var passwordField = document.getElementById("password");
-            var passwordFieldType = passwordField.getAttribute("type");
-            var toggleIcon = document.querySelector(".toggle-password i");
-            if (passwordFieldType == "password") {
-                passwordField.setAttribute("type", "text");
-                toggleIcon.classList.remove("fa-eye");
-                toggleIcon.classList.add("fa-eye-slash");
-            } else {
-                passwordField.setAttribute("type", "password");
-                toggleIcon.classList.remove("fa-eye-slash");
-                toggleIcon.classList.add("fa-eye");
-            }
-        }
-    </script>
 </body>
 </html>

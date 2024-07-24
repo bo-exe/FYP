@@ -20,14 +20,13 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-wrap: wrap; /* Ensures content wraps on smaller screens */
-            flex-direction: column; /* Arrange content in column */
+            flex-direction: column;
         }
 
         .signup-heading {
             text-align: center;
             width: 100%;
-            margin-bottom: 20px; /* Spacing below the heading */
+            margin-bottom: 20px;
         }
 
         .signup-section {
@@ -35,7 +34,7 @@
             justify-content: center;
             align-items: center;
             width: 100%;
-            flex-wrap: wrap; /* Ensures content wraps on smaller screens */
+            flex-wrap: wrap;
         }
 
         .signup-image-container {
@@ -43,12 +42,13 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-right: 50px; /* Added margin for spacing */
+            margin-right: 50px;
         }
 
         .signup-image {
-            width: 870px; /* Adjusted size for better fit */
-            max-width: 100%; /* Ensures it doesn't overflow */
+            width: 100%;
+            max-width: 870px;
+            height: auto;
         }
 
         .signup-content {
@@ -63,108 +63,173 @@
             display: flex;
             justify-content: space-between;
             width: 100%;
-            margin-bottom: 10px; /* Small spacing between the name fields */
+            margin-bottom: 10px;
         }
 
         .signup-form input,
         .signup-form button {
             width: 100%;
             padding: 10px;
-            margin: 5px 0; /* Small spacing between each input */
+            margin: 5px 0;
             font-size: 1rem;
         }
 
         .name-fields input {
-            width: 48%; /* Make sure both input fields fit side by side */
+            width: 48%;
         }
 
         .signup-button {
-            width: 50%;
-            padding: 8px;
-            margin: 10px 0; /* Adjusted margin for better spacing */
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
             font-size: 1rem;
             background-color: #FFD036;
             color: black;
             border: none;
             cursor: pointer;
-            
+            border-radius: 4px;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .signup-button:hover {
+            background-color: #F7C600;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .popup-overlay.active {
+            display: block;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1001;
+            transition: all 0.3s ease;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .popup.active {
+            display: block;
+        }
+
+        .popup h3 {
+            margin-top: 0;
+        }
+
+        .popup p {
+            margin-bottom: 20px;
+        }
+
+        .verification-code-inputs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            justify-content: center;
+        }
+
+        .verification-code-inputs input {
+            width: 40px;
+            height: 40px;
+            font-size: 24px;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .popup button {
+            padding: 10px 20px;
+            background-color: #FFD036;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0 auto;
+            display: block;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .popup button:hover {
             background-color: #0056b3;
         }
-        .popup-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    transition: all 0.3s ease;
-}
 
-.popup-overlay.active {
-    display: block;
-}
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            .signup-section {
+                flex-direction: column;
+                align-items: center;
+            }
 
-.popup {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    padding: 20px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    z-index: 1001;
-    transition: all 0.3s ease;
-}
+            .signup-image-container {
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
 
-.popup.active {
-    display: block;
-}
+            .signup-image {
+                width: 100%;
+                max-width: 600px;
+            }
 
-.popup h3 {
-    margin-top: 0;
-}
+            .signup-button {
+                width: 100%;
+                font-size: 0.9rem;
+                padding: 8px;
+            }
 
-.popup p {
-    margin-bottom: 20px;
-}
+            .name-fields {
+                flex-direction: column;
+            }
 
-.verification-code-inputs {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 10px;
-    justify-content: center;
-}
+            .name-fields input {
+                width: 100%;
+                margin-bottom: 10px;
+            }
 
-.verification-code-inputs input {
-    width: 40px;
-    height: 40px;
-    font-size: 24px;
-    text-align: center;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
+            .popup {
+                position: fixed;
+                bottom: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 100%;
+                max-width: 100%;
+                border-radius: 0;
+            }
 
-.popup button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin: 0 auto;
-    display: block;
-}
+            .popup-overlay {
+                display: block; /* Ensure the overlay covers the entire viewport */
+            }
+        }
 
-.popup button:hover {
-    background-color: #0056b3;
-}
+        @media (max-width: 480px) {
+            .signup-button {
+                font-size: 0.8rem;
+                padding: 8px;
+            }
 
+            .verification-code-inputs input {
+                width: 30px;
+                height: 30px;
+                font-size: 18px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -225,7 +290,6 @@
     ?>
 </div>
 
-
 <div class="popup-overlay" id="popup-overlay"></div>
 <div class="popup" id="verification-popup">
     <h3>Application Successful!</h3>
@@ -233,21 +297,19 @@
         A verification code has been sent to your email. Please check your inbox and enter the verification code below to verify your email address. The code will expire in 15 minutes.
     </p>
     <form id="verification-form" action="vol_verificationCode.php" method="POST">
-    <input type="hidden" name="eventID" value="<?php echo $eventID; ?>">
-    <div class="verification-code-inputs">
-        <input type="text" name="verification_code[]" id="verification-digit-1" maxlength="1" required>
-        <input type="text" name="verification_code[]" id="verification-digit-2" maxlength="1" required>
-        <input type="text" name="verification_code[]" id="verification-digit-3" maxlength="1" required>
-        <span><strong>&dash;</strong></span>
-        <input type="text" name="verification_code[]" id="verification-digit-4" maxlength="1" required>
-        <input type="text" name="verification_code[]" id="verification-digit-5" maxlength="1" required>
-        <input type="text" name="verification_code[]" id="verification-digit-6" maxlength="1" required>
-    </div>
-    <button type="submit">Verify</button>
-</form>
-
+        <input type="hidden" name="eventID" value="<?php echo $eventID; ?>">
+        <div class="verification-code-inputs">
+            <input type="text" name="verification_code[]" id="verification-digit-1" maxlength="1" required>
+            <input type="text" name="verification_code[]" id="verification-digit-2" maxlength="1" required>
+            <input type="text" name="verification_code[]" id="verification-digit-3" maxlength="1" required>
+            <span><strong>&dash;</strong></span>
+            <input type="text" name="verification_code[]" id="verification-digit-4" maxlength="1" required>
+            <input type="text" name="verification_code[]" id="verification-digit-5" maxlength="1" required>
+            <input type="text" name="verification_code[]" id="verification-digit-6" maxlength="1" required>
+        </div>
+        <button type="submit">Verify</button>
+    </form>
 </div>
-
 
 <script>
 function showVerificationPopup() {
@@ -277,16 +339,6 @@ document.getElementById('popup-overlay').addEventListener('click', function() {
     this.classList.remove('active');
     document.getElementById('verification-popup').classList.remove('active');
 });
-
-// const inputs = document.querySelectorAll('.verification-code-inputs input');
-// inputs.forEach((input, index) => {
-//     input.addEventListener('input', () => {
-//         if (input.value.length === 1 && index < inputs.length - 1) {
-//             inputs[index + 1].focus();
-//         }
-//     });
-// });
-
 
 document.getElementById('verification-form').addEventListener('submit', function(event) {
     event.preventDefault();
@@ -320,16 +372,28 @@ document.getElementById('verification-form').addEventListener('submit', function
     });
 });
 
+// Auto-jump functionality for verification code inputs
+document.querySelectorAll('.verification-code-inputs input').forEach((input, index, inputs) => {
+    input.addEventListener('input', (e) => {
+        if (e.target.value.length === 1) {
+            // Move to next input
+            if (index < inputs.length - 1) {
+                inputs[index + 1].focus();
+            }
+        }
+    });
 
-
-
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && e.target.value === '') {
+            // Move to previous input
+            if (index > 0) {
+                inputs[index - 1].focus();
+            }
+        }
+    });
+});
 </script>
 
 <?php include "vol_footer.php"; ?>
-
- 
 </body>
 </html>
-
-
-

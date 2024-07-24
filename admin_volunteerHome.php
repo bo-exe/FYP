@@ -41,13 +41,13 @@ $stmt->close();
 <h1>Welcome, <?php echo htmlspecialchars($username); ?>!</h1>
     <div class="retailbuttons-container">
         <button class="retailbutton" id="button1">
-            <a href="admin_voluntManage.php">
+            <a href="admin_volManage.php">
                 <img src="images/exercise.png" alt="Icon 1">
                 <br>MANAGE CURRENT GIGS
             </a>
         </button>
         <button class="retailbutton" id="button2">
-            <a href="admin_retailCreate.php">
+            <a href="admin_volCreate.php">
                 <img src="images/wand.jpg" alt="Icon 2">
                 <br>CREATE CURRENT OFFERS
             </a>

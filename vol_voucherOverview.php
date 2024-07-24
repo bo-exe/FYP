@@ -1,6 +1,5 @@
 <?php
 include "dbFunctions.php";
-include "vol_navbar.php";
 include "ft.php";
 
 session_start();
@@ -104,6 +103,7 @@ if (isset($_GET['offerId'])) {
 <head>
     <meta charset="UTF-8">
     <title>Voucher Information</title>
+    <link rel="icon" type="image/x-icon" href="images/logo.jpg">
     <style>
         body {
             margin: 0;
@@ -264,6 +264,8 @@ if (isset($_GET['offerId'])) {
 </head>
 
 <body>
+<?php include "vol_navbar.php"; ?>
+
     <div class="yellow-container">
         <h1>Vouchers</h1>
     </div>

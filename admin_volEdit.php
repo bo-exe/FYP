@@ -24,7 +24,6 @@ if (isset($_GET['eventID'])) {
         $descs = $row['descs'];
         $points = $row['points'];
         $imageData = $row['images'];
-        $imageType = $row['imageType'];
     } else {
         $msg = "Gig not found.";
     }

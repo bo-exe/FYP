@@ -336,7 +336,7 @@ if (isset($username)) {
     </style>
 </head>
 <body>
-    <?php include "vol_NavBar.php"; ?>
+    <?php include "vol_navBar.php"; ?>
     <?php include "ft.php"; ?>
 
 <div class="profile-section">
@@ -351,13 +351,6 @@ if (isset($username)) {
             <p><strong>Points:</strong> <?php echo htmlspecialchars($points); ?></p>
             <p><strong>Date of Birth:</strong> <?php echo htmlspecialchars($dob); ?></p>
             <p><strong>Gender:</strong> <?php echo htmlspecialchars($gender); ?></p>
-            <p><strong>Password: </strong></p>
-            <div class="password-container">
-                <input type="password" id="password" value="<?php echo htmlspecialchars($password); ?>" readonly>
-                <span class="toggle-password" onclick="togglePassword()">
-                    <i class="fas fa-eye"></i>
-                </span>
-            </div>
             <div class="text-center">
                 <a href="vol_editProfile.php" class="btn-edit-profile">Edit Profile</a>
                 <div class="list-group d-flex flex-wrap justify-content-center mt-4">

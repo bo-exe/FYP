@@ -1,6 +1,5 @@
 <?php
 include "dbFunctions.php";
-include "vol_navbar.php";
 include "ft.php";
 
 session_start();
@@ -15,7 +14,7 @@ if (isset($_GET['offerId'])) {
     if (!$stmt) {
         die('mysqli_prepare failed for offer details: ' . mysqli_error($link));
     }
-    
+
     mysqli_stmt_bind_param($stmt, "i", $offerId);
     $execute = mysqli_stmt_execute($stmt);
     if (!$execute) {
@@ -28,7 +27,7 @@ if (isset($_GET['offerId'])) {
     }
 
     $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-    
+
     if ($row) {
         $offerId = $row['offerId'];
         $title = $row['title'];
@@ -55,7 +54,7 @@ if (isset($_GET['offerId'])) {
         if (!$userStmt) {
             die('mysqli_prepare failed for user points: ' . mysqli_error($link));
         }
-        
+
         mysqli_stmt_bind_param($userStmt, "i", $volunteerId);
         $executeUser = mysqli_stmt_execute($userStmt);
         if (!$executeUser) {
@@ -76,7 +75,9 @@ if (isset($_GET['offerId'])) {
         if (isset($_POST['redeem'])) {
             if ($voucherExpired) {
                 $errorMessage = "This voucher has expired.";
-            } elseif ($amount > 0) {
+            } elseif ($amount <= 0) {
+                $errorMessage = "The voucher is no longer available.";
+            } else {
                 // Check if the voucher has already been used by this user
                 $checkQuery = "SELECT * FROM redeemed_vouchers WHERE volunteerId=? AND offerId=?";
                 $checkStmt = mysqli_prepare($link, $checkQuery);
@@ -119,7 +120,7 @@ if (isset($_GET['offerId'])) {
                         $code = substr(str_shuffle('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 12);
                     }
 
-                    $insertRedeemedQuery = "INSERT INTO redeemed_vouchers (volunteerId, offerId, code) VALUES (?, ?, ?)";
+                    $insertRedeemedQuery = "INSERT INTO redeemed_vouchers (volunteerId, offerId, code, redeem) VALUES (?, ?, ?, 'used')";
                     $insertRedeemedStmt = mysqli_prepare($link, $insertRedeemedQuery);
                     if (!$insertRedeemedStmt) {
                         die('mysqli_prepare failed for insert redeemed voucher: ' . mysqli_error($link));
@@ -143,8 +144,6 @@ if (isset($_GET['offerId'])) {
                             };
                           </script>";
                 }
-            } else {
-                $errorMessage = "The voucher is no longer available.";
             }
         }
     } else {
@@ -158,8 +157,9 @@ if (isset($_GET['offerId'])) {
 <head>
     <meta charset="UTF-8">
     <title>Voucher Information</title>
+    <link rel="icon" type="image/x-icon" href="images/logo.jpg">
     <style>
-                body {
+body {
             margin: 0;
             padding: 0;
         }
@@ -317,60 +317,39 @@ if (isset($_GET['offerId'])) {
     </style>
 </head>
 <body>
-    <div class="yellow-container">
-        <h1>Vouchers</h1>
-    </div>
-    
     <div class="container">
-        <?php if (!empty($row)) { ?>
-            <div class="card">
-                <img src="<?php echo $image; ?>" alt="Offer Image">
-                <h2><?php echo htmlspecialchars($title); ?></h2>
-                <p><b>Start Date:</b> <?php echo htmlspecialchars($dateTimeStart); ?></p>
-                <p><b>End Date:</b> <?php echo htmlspecialchars($dateTimeEnd); ?></p>
-                <br>
-                <p><b>Locations:</b> <?php echo htmlspecialchars($locations); ?></p>
-                <br>
-                <p><b>Terms and Conditions:</b> <?php echo htmlspecialchars($termsAndConditions); ?></p>
-                <br>
-                <p><b>Instructions:</b> <?php echo htmlspecialchars($instructions); ?></p>
-                <br>
-                <p><b>Points Required:</b> <?php echo htmlspecialchars($pointsRequired); ?></p>
-                <p><b>Available Amount:</b> <?php echo htmlspecialchars($amount); ?></p>
-
-                <div class="stores-card-content">
-                    <?php if ($voucherExpired) { ?>
-                        <button class="redeemed-btn" disabled>Expired</button>
-                    <?php } elseif ($amount <= 0 || $voucherUsed) { ?>
-                        <button class="redeemed-btn" disabled>Used
-                        <?php } else { ?>
-                        <form method="post">
-                            <button type="submit" name="redeem" class="redeem-btn">Use</button>
-                        </form>
-                    <?php } ?>
-                    <?php if (!empty($errorMessage)) { ?>
-                        <div class="error-message">
-                            <?php echo $errorMessage; ?>
-                        </div>
-                    <?php } ?>
+        <div class="card">
+            <div class="stores-card-content">
+                <h2><?php echo $title; ?></h2>
+                <img src="<?php echo $image; ?>" alt="Offer Image" class="store-image">
+                <p><strong>Start Date:</strong> <?php echo $dateTimeStart; ?></p>
+                <p><strong>End Date:</strong> <?php echo $dateTimeEnd; ?></p>
+                <p><strong>Locations:</strong> <?php echo $locations; ?></p>
+                <p><strong>Points Required:</strong> <?php echo $pointsRequired; ?></p>
+                <p><strong>Amount:</strong> <?php echo $amount; ?></p>
+                <div class="instructions">
+                    <h4>Instructions</h4>
+                    <p><?php echo $instructions; ?></p>
                 </div>
+                <?php if ($errorMessage): ?>
+                    <div class="error-message"><?php echo $errorMessage; ?></div>
+                <?php endif; ?>
+                <?php if ($voucherUsed): ?>
+                    <div class="redeemed-btn">Voucher Redeemed</div>
+                <?php else: ?>
+                    <form method="post">
+                        <button type="submit" name="redeem" class="redeem-btn">Use</button>
+                    </form>
+                <?php endif; ?>
             </div>
-        <?php } else { ?>
-            <div style="text-align: center;">
-                <p>Invalid offer ID. Please try again.</p>
-                <p><a href="vol_allVouchers.php">Back to Offers</a></p>
-            </div>
-        <?php } ?>
+        </div>
     </div>
-
-    <div id="popup">
+    <div id="popup" class="popup">
+        <span class="close-btn" onclick="document.getElementById('popup').style.display='none'">&times;</span>
         <h2 id="popup-title"></h2>
-        <p id="popup-code" style="font-weight: bold; font-size: 18px;"></p>
+        <p id="popup-code"></p>
         <p id="popup-message"></p>
-        <a id="popup-link" href="index.php">Click here to return back to home page!</a>
+        <a id="popup-link" href=""></a>
     </div>
-
-    <?php include "vol_footer.php"; ?>
 </body>
 </html>
-

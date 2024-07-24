@@ -176,13 +176,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <option value="Other" <?php if ($gender == 'Other') echo 'selected'; ?>>Other</option>
                 </select>
             </div>
-            <label for="password" class="form-label">Password :</label>
-            <div class="password-container">
-                <input type="password" id="password" name="password" value="<?php echo htmlspecialchars($password); ?>" required>
-                <span class="toggle-password" onclick="togglePassword()">
-                    <i class="fas fa-eye"></i>
-                </span>
-            </div>
+            <p class="form-text text-center mt-3"><a href="vol_forgotPassword.php">Forgot Password? Change Now!</a></p>
 
             <!-- Save button -->
             <div class="text-center">

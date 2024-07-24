@@ -157,13 +157,14 @@
 
         .popup button {
             padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
+            background-color: #FFD036;
+            color: black;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             margin: 0 auto;
             display: block;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .popup button:hover {

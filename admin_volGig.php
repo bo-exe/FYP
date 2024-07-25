@@ -114,9 +114,9 @@ include "admin_volunteerNavbar.php"; ?>
                 <?php if ($expired) { ?>
                     <p class="expired">This gig has expired.</p>
                 <?php } ?>
-                <a href="admin_volunteerDoDelete.php?eventID=<?php echo htmlspecialchars($eventID); ?>"
+                <a href="admin_volDoDelete.php?eventID=<?php echo htmlspecialchars($eventID); ?>"
                     class="del-btn">Delete</a>
-                <a href="admin_volunteerEdit.php?eventID=<?php echo htmlspecialchars($eventID); ?>" class="edit-btn">Edit</a>
+                <a href="admin_volEdit.php?eventID=<?php echo htmlspecialchars($eventID); ?>" class="edit-btn">Edit</a>
             </div>
         <?php } else { ?>
             <div style="text-align: center;">

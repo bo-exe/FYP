@@ -65,19 +65,4 @@ $stmt->close();
         </button>
     </div>
 </body>
-<footer class="footer">
-        <div class="footer-content">
-            <div class="logo-container">
-                <img src="images/admin_logo.jpg" alt="logo" style="width:100px;">
-            </div>
-        </div>
-        <div class="footer-content">
-            <h4>ABOUT</h4>
-            <ul>
-                <li><a href="index.html#about">About VOMO</a></li>
-            </ul>
-        </div>
-        <?php include "admin_footer.php"; ?>
-    </footer>
-    <script src="script.js"></script>
 </html>

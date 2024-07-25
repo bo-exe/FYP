@@ -47,21 +47,24 @@ if (isset($_GET['adminID']) && isset($_GET['requestNumber'])) {
 <head>
     <meta charset="UTF-8">
     <title>Approve Volunteer Admin Request</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="volunteer-approval-page">
     <h1>Volunteer Admin Request #<?php echo htmlspecialchars($requestNumber); ?></h1>
     <?php if ($volunteeradmin): ?>
-        <p>Company: <?php echo htmlspecialchars($volunteeradmin['company']); ?></p>
-        <p>Username: <?php echo htmlspecialchars($volunteeradmin['username']); ?></p>
-        <p>Password: <?php echo htmlspecialchars($volunteeradmin['password']); ?></p>
-        <p>Name: <?php echo htmlspecialchars($volunteeradmin['name']); ?></p>
-        <p>Number: <?php echo htmlspecialchars($volunteeradmin['number']); ?></p>
-        <p>Email: <?php echo htmlspecialchars($volunteeradmin['email']); ?></p>
-        <p>Role: <?php echo htmlspecialchars($volunteeradmin['role']); ?></p>
-        <form method="post">
-            <button type="submit" name="approve">Approve</button>
-            <button type="submit" name="reject">Reject</button>
-        </form>
+        <div class="req-card">
+            <p>Company: <?php echo htmlspecialchars($volunteeradmin['company']); ?></p>
+            <p>Username: <?php echo htmlspecialchars($volunteeradmin['username']); ?></p>
+            <p>Password: <?php echo htmlspecialchars($volunteeradmin['password']); ?></p>
+            <p>Name: <?php echo htmlspecialchars($volunteeradmin['name']); ?></p>
+            <p>Number: <?php echo htmlspecialchars($volunteeradmin['number']); ?></p>
+            <p>Email: <?php echo htmlspecialchars($volunteeradmin['email']); ?></p>
+            <p>Role: <?php echo htmlspecialchars($volunteeradmin['role']); ?></p>
+            <form method="post">
+                <button type="submit" name="approve">Approve</button>
+                <button type="submit" name="reject">Reject</button>
+            </form>
+        </div>
     <?php else: ?>
         <p>volunteer admin not found.</p>
     <?php endif; ?>

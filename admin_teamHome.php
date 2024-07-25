@@ -64,9 +64,8 @@ $stmt->close();
             </a>
         </button>
     </div>
-    
-    <!-- Footer Section -->
-    <footer class="footer">
+</body>
+<footer class="footer">
         <div class="footer-content">
             <div class="logo-container">
                 <img src="images/admin_logo.jpg" alt="logo" style="width:100px;">
@@ -81,5 +80,4 @@ $stmt->close();
         <?php include "admin_footer.php"; ?>
     </footer>
     <script src="script.js"></script>
-</body>
 </html>

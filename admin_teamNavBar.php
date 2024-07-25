@@ -182,7 +182,7 @@
                 <ul>
                     <li><a href="admin_teamManageGigs.php"><span class="nav-text">VOLUNTEER SIGNUPS</span><i
                                 class="bi bi-bicycle nav-icon"></i></a></li>
-                    <li><a href="admin_teamRetailReq.php"><span class="nav-text">RETAIL ORG SIGNUPS</span><i
+                    <li><a href="admin_RetailReq.php"><span class="nav-text">RETAIL ORG SIGNUPS</span><i
                                 class="bi bi-shop-window nav-icon"></i></a></li>
                 </ul>
             </li>

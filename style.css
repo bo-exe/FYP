@@ -328,20 +328,29 @@ label {
 }
 
 /* Volunteer Admin Manage Gigs */
-.event-card-container{
+.event-card-container {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    margin-top: 100px;
+    margin-top: 50px; /* Reduced top margin to fit more content vertically */
 }
-.event-card{
-    width:325px;
+
+.event-card {
+    width: 500px; /* Increased width for better content display */
     background-color: #ECECE7;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
     margin: 20px;
+    padding: 20px; /* Added padding for better content spacing */
+    box-sizing: border-box; /* Ensure padding is included in the width */
 }
+
+.event-card img.card-img-top {
+    width: 100%; /* Ensure image fits the card width */
+    height: auto; /* Maintain aspect ratio */
+}
+
 
 /* VOMO Home */
 .admin-team-home {

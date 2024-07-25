@@ -278,18 +278,13 @@ label {
 }
 
 /* Retail Admin Homepage */
-.retailbuttons-container {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin: 20px;
-}
 
 .retailbuttons-container {
     display: flex;
     justify-content: center;
     gap: 20px;
     margin: 20px;
+    padding-bottom: 350px;
 }
 
 .retailbutton {

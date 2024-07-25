@@ -12,9 +12,9 @@ $resultCheck = mysqli_query($link, $queryCheck) or die(mysqli_error($link));
 <head>
     <meta charset="UTF-8">
     <title>Retail Admin Approval Requests</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<body class="retail-approval-page">
+<body class="volunteer-approval-page">
 <?php include "admin_teamNavbar.php"; ?>
 <?php include "ft.php"; ?>
     <h1>Retail Approval Requests</h1>

@@ -23,7 +23,7 @@ if (isset($_GET['adminID']) && isset($_GET['requestNumber'])) {
             mysqli_stmt_bind_param($stmt, "s", $adminID);
             mysqli_stmt_execute($stmt);
             mysqli_stmt_close($stmt);
-            echo "<p>Retailer approved successfully.</p>";
+            header("Location: admin_volunteerReq.php");
         } elseif (isset($_POST['reject'])) {
             // Reject (delete) request
             $sql = "DELETE FROM admins WHERE adminID = ?";
@@ -31,7 +31,7 @@ if (isset($_GET['adminID']) && isset($_GET['requestNumber'])) {
             mysqli_stmt_bind_param($stmt, "s", $adminID);
             mysqli_stmt_execute($stmt);
             mysqli_stmt_close($stmt);
-            echo "<p>Request rejected and deleted successfully.</p>";
+            header("Location: admin_volunteerReq.php");
         }
         mysqli_close($link);
         exit();

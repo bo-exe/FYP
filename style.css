@@ -417,6 +417,66 @@ label {
     }
 }
 
+/* Vol Org Req*/
+.volunteer-approval-page {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+
+.volunteer-approval-page h1 {
+    text-align: center;
+    color: #333;
+}
+
+.volunteer-approval-page .req-card {
+    background-color: #FFD036;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.volunteer-approval-page .req-card h2,
+.volunteer-approval-page .req-card h3,
+.volunteer-approval-page .req-card p {
+    margin: 0 0 10px;
+}
+
+.volunteer-approval-page .req-card a {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.volunteer-approval-page .req-card a:hover {
+    background-color: #555;
+}
+
+@media (max-width: 600px) {
+    .volunteer-approval-page {
+        padding: 10px;
+    }
+
+    .volunteer-approval-page .req-card {
+        padding: 15px;
+    }
+
+    .volunteer-approval-page .req-card h2,
+    .volunteer-approval-page .req-card h3,
+    .volunteer-approval-page .req-card p {
+        font-size: 14px;
+    }
+
+    .volunteer-approval-page .req-card a {
+        padding: 8px 15px;
+    }
+}
 
 
 /* Retail Admin Manage Offers */

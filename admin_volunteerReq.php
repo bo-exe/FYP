@@ -14,7 +14,7 @@ $resultCheck = mysqli_query($link, $queryCheck) or die(mysqli_error($link));
     <title>Volunteer Admin Approval Requests</title>
     <link rel="stylesheet" type="text/css" href="volunteeradminstyle.css">
 </head>
-<body>
+<body class="volunteer-approval-page">
     <h1>Volunteer Approval Requests</h1>
     <?php
     if (mysqli_num_rows($resultCheck) > 0) {

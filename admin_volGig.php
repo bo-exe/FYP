@@ -46,10 +46,10 @@ if (isset($_GET['eventID'])) {
         // Decode image data to base64 format
         $image = 'data:image/jpeg;base64,' . base64_encode($imageData);
 
-        // Fetch QR code image
-        $qrQuery = "SELECT qrImage FROM QR WHERE adminID = ? ORDER BY qrID DESC LIMIT 1";
+        // Fetch QR code image using eventID
+        $qrQuery = "SELECT qrImage FROM QR WHERE eventID = ? ORDER BY qrID DESC LIMIT 1";
         $stmt = $link->prepare($qrQuery);
-        $stmt->bind_param("i", $adminID);
+        $stmt->bind_param("i", $eventID);
         $stmt->execute();
         $qrResult = $stmt->get_result();
         $qrRow = $qrResult->fetch_assoc();
@@ -99,6 +99,23 @@ if (isset($_GET['eventID'])) {
             color: #EF1E1E;
             font-weight: bold;
             font-size: 18px;
+        }
+
+        .del-btn, .edit-btn {
+            display: inline-block;
+            margin: 5px;
+            padding: 10px;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .del-btn {
+            background-color: #f44336;
+        }
+
+        .edit-btn {
+            background-color: #4CAF50;
         }
     </style>
 </head>

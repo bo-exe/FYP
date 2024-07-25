@@ -61,8 +61,8 @@ if (isset($_GET['adminID']) && isset($_GET['requestNumber'])) {
             <p>Email: <?php echo htmlspecialchars($volunteeradmin['email']); ?></p>
             <p>Role: <?php echo htmlspecialchars($volunteeradmin['role']); ?></p>
             <form method="post">
-                <button type="submit" name="approve">Approve</button>
-                <button type="submit" name="reject">Reject</button>
+                <button type="submit" name="approve" class="approve-button">APPROVE</button>
+                <button type="submit" name="reject" class="reject-button">REJECT</button>
             </form>
         </div>
     <?php else: ?>

@@ -1,8 +1,7 @@
 <?php
+include "dbFunctions.php"; // Adjust this to your actual database connection script
+include "ft.php"; // Assuming this is your footer include
 session_start();
-include "dbFunctions.php";
-include "ft.php";
-include "phpqrcode/qrlib.php"; // Ensure path is correct
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate and sanitize form data
@@ -10,14 +9,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $dateTimeStart = mysqli_real_escape_string($link, $_POST['dateTimeStart']);
     $dateTimeEnd = mysqli_real_escape_string($link, $_POST['dateTimeEnd']);
     $locations = mysqli_real_escape_string($link, $_POST['locations']);
-    $descs = isset($_POST['descs']) ? mysqli_real_escape_string($link, $_POST['descs']) : '';
+    $descs = mysqli_real_escape_string($link, $_POST['descs']);
     $points = intval($_POST['points']);
 
     // Handle image upload
     if (isset($_FILES['images']) && $_FILES['images']['error'] == UPLOAD_ERR_OK) {
         $imageTmpPath = $_FILES['images']['tmp_name'];
         $imageType = $_FILES['images']['type'];
-
+        
         // Check if the uploaded file is an image
         if ($imageType == 'image/jpeg' || $imageType == 'image/png' || $imageType == 'image/gif') {
             $imageData = addslashes(file_get_contents($imageTmpPath));  // Convert image to BLOB
@@ -46,34 +45,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     VALUES ('$title', '$dateTimeStart', '$dateTimeEnd', '$locations', '$descs', '$points', '$imageData', '$adminID')";
     
     if (mysqli_query($link, $insertQuery)) {
-        // Get the last inserted eventID
-        $eventID = mysqli_insert_id($link);
-
-        // Generate QR code
-        $qrData = "Event ID: $eventID";
-        $qrFileName = 'qrcodes/qr_' . $eventID . '.png'; // Save QR code image
-        QRcode::png($qrData, $qrFileName, QR_ECLEVEL_L, 4);
-
-        // Save QR code path to the database
-        $qrFileData = addslashes(file_get_contents($qrFileName));
-        $qrInsertQuery = "INSERT INTO qr (qrImage, eventID) VALUES ('$qrFileData', '$eventID')";
-        mysqli_query($link, $qrInsertQuery);
-
-        $message = "Gig added and QR code generated successfully.";
+        $message = "Gig added successfully.";
         header("Location: admin_volDoCreate.php?message=" . urlencode($message));
         exit();
     } else {
         $errorMessage = "Error adding gig: " . mysqli_error($link);
-        header("Location: admin_volCreate.php?error=" . urlencode($errorMessage));
+        header("Location: admin_volDoCreate.php?error=" . urlencode($errorMessage));
         exit();
     }
 }
 ?>
 
+
 <!DOCTYPE html>
 <html>
+<link rel="icon" type="image/x-icon" href="images/admin_logo.jpg">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Add Offer</title>
     <style>
         body {
@@ -153,6 +141,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     </style>
 </head>
+
 <body>
     <?php include "admin_volunteerNavbar.php"; ?>
     <div class="container">
@@ -173,15 +162,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="datetime-local" name="dateTimeEnd" required><br>
                 <label>Locations:</label><br>
                 <input type="text" name="locations" required><br>
-                <label>Description:</label><br>
-                <input type="text" name="descs" required><br>
+                <label>Gig Description:</label><br>
+                <input type="text" name="tandc" required><br>
                 <label>Points:</label><br>
-                <input type="number" name="points" required><br>
-                <label>Image:</label><br>
-                <input type="file" name="images" accept="image/jpeg, image/png, image/gif" required><br>
-                <input type="submit" value="Add Gig">
+                <input type="number" name="points" min="0" required><br>
+                <label>Images:</label><br>
+                <input type="file" name="images" accept="image/jpeg, image/png, image/gif" required><br><br>
+                <input type="submit" value="Add Offer">
             </form>
         <?php endif; ?>
     </div>
 </body>
+
 </html>

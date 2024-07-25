@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-    // Get adminID from session
+    // Get adminID from session (assuming you store it in session after login)
     $adminID = $_SESSION['adminID']; // Adjust according to your session variable name
 
     // Insert the new offer into the database

@@ -9,70 +9,77 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         body {
+            margin: 0;
+            padding: 0;
             font-family: 'Lato', sans-serif;
-        }
-
-        .btn-primary {
-            background-color: #FFD700;
-            color: black;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            border-radius: 20px; /* Increase border-radius for more rounded corners */
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .btn-primary:hover {
-            background-color: #e5c500;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            background-color: #f8f8f8;
         }
 
         .container {
             display: flex;
-            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
             padding: 20px;
         }
 
-        .image-container,
-        .details-container {
-            padding: 20px;
-            box-sizing: border-box;
+        .card {
+            background-color: #fff;
+            border-radius: 10px; /* Increased border-radius for a more rounded look */
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* Increased shadow for more emphasis */
+            padding: 30px; /* Increased padding for more space */
+            width: 600px; /* Increased width of the card */
+            max-width: 90%;
+            position: relative;
         }
 
-        .image-container {
+        .card img {
             width: 100%;
-            text-align: center;
-        }
-
-        .image-container img {
-            width: 100%;
-            max-width: 100%;
             height: auto;
+            border-radius: 10px; /* Increased border-radius for the image */
+            margin-bottom: 15px; /* Increased bottom margin */
         }
 
-        .details-container {
-            width: 100%;
+        .card h2 {
+            margin: 0 0 15px 0; /* Added margin below the heading */
+            font-size: 24px; /* Increased font size of the heading */
         }
 
-        .details-container p {
-            margin: 10px 0;
+        .card p {
+            margin-bottom: 10px; /* Increased bottom margin for paragraphs */
+            font-size: 16px; /* Increased font size for better readability */
         }
 
         .apply-button {
             text-align: center;
-            margin-top: 1.5rem;
+            margin-top: 2rem; /* Increased top margin */
         }
 
-        @media (min-width: 768px) {
-            .image-container {
-                width: 40%;
-            }
+        .btn-primary {
+            background-color: #FFD036;
+            color: #333;
+            border: none;
+            padding: 15px 30px; /* Increased padding for a larger button */
+            border-radius: 30px; /* Kept same rounded corners */
+            font-weight: bold;
+            text-align: center;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            font-size: 18px; /* Increased font size */
+        }
 
-            .details-container {
-                width: 60%;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
+        .btn-primary:hover {
+            background-color: #e6bb2e;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .card {
+                width: 100%; /* Make the card full width on smaller screens */
+                padding: 20px; /* Adjusted padding for smaller screens */
             }
         }
     </style>
@@ -97,12 +104,9 @@
         $image_data = base64_encode($event['images']); 
         ?>
         <div class="container">
-            <div class="image-container">
-                <h1><?php echo htmlspecialchars($event['title']); ?></h1>
-                <!-- Use the base64-encoded image data -->
+            <div class="card">
                 <img src="data:image/jpeg;base64,<?php echo $image_data; ?>" alt="<?php echo htmlspecialchars($event['title']); ?>-image">
-            </div>
-            <div class="details-container">
+                <h2><?php echo htmlspecialchars($event['title']); ?></h2>
                 <p><strong>Date and Time Start:</strong> <?php echo htmlspecialchars($event['dateTimeStart']); ?></p>
                 <p><strong>Date and Time End:</strong> <?php echo htmlspecialchars($event['dateTimeEnd']); ?></p>
                 <p><strong>Location:</strong> <?php echo htmlspecialchars($event['locations']); ?></p>
@@ -119,7 +123,7 @@
         </div>
         <?php
     } else {
-        echo "<p>Event not found.</p>";
+        echo "<div class='container'><p>Event not found.</p></div>";
     }
     ?>
 

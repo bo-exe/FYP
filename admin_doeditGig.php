@@ -24,12 +24,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (mysqli_stmt_affected_rows($stmt) > 0) {
         $message = "Gig edited successfully.";
-        header("Location: admin_allgigs.php?message=" . urlencode($message));
-        exit();
+        // Redirect to the previous page
+    $previousPage = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'admin_allgigs.php';
+    header("Location: " . $previousPage . "?message=" . urlencode($message));
+    exit();
     } else {
         $errormessage = "Gig edit unsuccessful.";
-        header("Location: admin_allgigs.php?message=" . urlencode($errormessage));
-        exit();
+        // Redirect to the previous page
+    $previousPage = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'admin_allgigs.php';
+    header("Location: " . $previousPage . "?message=" . urlencode($message));
+    exit();
     }
 }
 ?>

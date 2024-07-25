@@ -14,16 +14,22 @@ if (isset($_GET['eventID'])) {
 
     if ($result) {
         $message = "Gig deleted successfully.";
-        header("Location: admin_allgigs.php?message=" . urlencode($message));
-        exit();
+        // Redirect to the previous page
+    $previousPage = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'admin_allgigs.php';
+    header("Location: " . $previousPage . "?message=" . urlencode($message));
+    exit();
     } else {
         $errormessage = "Gig deletion unsuccessful.";
-        header("Location: admin_allgigs.php?message=" . urlencode($errormessage));
-        exit();
+        // Redirect to the previous page
+    $previousPage = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'admin_allgigs.php';
+    header("Location: " . $previousPage . "?message=" . urlencode($message));
+    exit();
     }
 } else {
     // Handle gracefully if EventID is not available
     $errormessage2 = "Event ID not provided. Gig deletion unsuccessful.";
-        header("Location: admin_allgigs.php?message=" . urlencode($errormessage2));
-        exit();
+        // Redirect to the previous page
+    $previousPage = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'admin_allgigs.php';
+    header("Location: " . $previousPage . "?message=" . urlencode($message));
+    exit();
 }

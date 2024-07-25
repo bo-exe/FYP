@@ -34,7 +34,7 @@ $resultCheck = mysqli_query($link, $queryCheck) or die(mysqli_error($link));
             echo "<a href='admin_volunteerApprove.php?adminID=" . urlencode($row["adminID"]) . "&requestNumber=" . $requestNumber . "'>Review Request</a>";
             echo "</div>";
             $requestNumber++;
-        }
+        }        
     } else {
         echo "<p>No volunteer admin requests awaiting approval.</p>";
     }

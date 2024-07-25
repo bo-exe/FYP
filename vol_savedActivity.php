@@ -110,12 +110,7 @@ mysqli_close($link);
                     <div class="activity-card">
                         <img src="data:image/jpeg;base64,<?= base64_encode($activity['images']) ?>" alt="<?= htmlspecialchars($activity['title']) ?>">
                         <h3><?= htmlspecialchars($activity['title']) ?></h3>
-                        <p><?= htmlspecialchars($activity['locations']) ?></p>
-                        <p>
-                            <?= date('d M Y, h:i A', strtotime($activity['dateTimeStart'])) ?>
-                            -
-                            <?= date('d M Y, h:i A', strtotime($activity['dateTimeEnd'])) ?>
-                        </p>
+                       
                         <p class="points">
                             <?= htmlspecialchars($activity['points']) ?> VOMOPoints
                         </p>

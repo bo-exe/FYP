@@ -8,6 +8,11 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 $volunteerID = $_SESSION['volunteerId'];
 
+// Redirect to home page if not logged in
+if (!isset($_SESSION['volunteerId'])) {
+    header("Location: index.php");
+    exit();
+}
 // Fetch events for the current volunteer
 $query = "
     SELECT e.eventID, e.title, e.dateTimeStart, e.dateTimeEnd, e.locations, e.descs, e.points

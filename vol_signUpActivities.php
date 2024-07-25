@@ -79,17 +79,17 @@
         }
 
         .signup-button {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            font-size: 1rem;
-            background-color: #FFD036;
-            color: black;
-            border: none;
-            cursor: pointer;
-            border-radius: 4px;
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
-        }
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 1rem;
+    background-color: #FFD036;
+    color: black;
+    border: none;
+    cursor: pointer;
+    border-radius: 12px; /* Increased border-radius for more rounded corners */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
 
         .signup-button:hover {
             background-color: #F7C600;
@@ -155,20 +155,21 @@
             border-radius: 5px;
         }
 
-        .popup button {
-            padding: 10px 20px;
-            background-color: #FFD036;
-            color: black;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin: 0 auto;
-            display: block;
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
+      
+.popup button {
+    padding: 10px 20px;
+    background-color: #FFD036;
+    color: black;
+    border: none;
+    border-radius: 12px; /* Increased border-radius for more rounded corners */
+    cursor: pointer;
+    margin: 0 auto;
+    display: block;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
         .popup button:hover {
-            background-color: #0056b3;
+            background-color: #F7C600;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
         /* Media Queries for Responsiveness */
@@ -397,10 +398,4 @@ document.querySelectorAll('.verification-code-inputs input').forEach((input, ind
 <?php include "vol_footer.php"; ?>
 </body>
 </html>
-
-
-
-
-
-
 

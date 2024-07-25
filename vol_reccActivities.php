@@ -1,6 +1,7 @@
 <?php
 session_start(); // Start the session
 
+
 if (!isset($_SESSION['volunteerId']) || empty($_SESSION['volunteerId'])) {
     echo "User not logged in.";
     exit();
@@ -67,32 +68,31 @@ if (isset($_SESSION['username'])) {
     }
 
     .points-container {
-        display: flex;
-        align-items: center;
-        justify-content: left;
-        font-size: 14px;
-        color: #333;
-        background-color: #ECECE7;
-        border-radius: .6rem;
-        box-shadow: 0 .2rem .5rem #333;
-        letter-spacing: .2rem;
-        font-weight: 800;
-        padding: 10px;
-        margin-top: 20px; /* Add margin-top for spacing */
-    }
+            display: flex;
+            align-items: center;
+            justify-content: left;
+            font-size: 14px;
+            color: #333;
+            background-color: #ECECE7;
+            border-radius: .6rem;
+            box-shadow: 0 .2rem .5rem #333;
+            letter-spacing: .2rem;
+            font-weight: 800;
+            padding: 10px;
+        }
 
-    .points-container i {
-        margin-right: 5px;
-    }
+        .points-container i {
+            margin-right: 5px;
+        }
 
-    .points-container .vomo-points {
-        display: flex;
-        align-items: center;
-    }
+        .points-container .vomo-points {
+            display: flex;
+            align-items: center;
+        }
 
-    .points-container .vomo-points span:first-child {
-        margin-right: 100px;
-    }
+        .points-container .vomo-points span:first-child {
+            margin-right: 100px;
+        }
 
     .card-content {
         padding: 20px;
@@ -148,24 +148,20 @@ if (isset($_SESSION['username'])) {
     }
 
     .header {
-        display: flex;
-        align-items: center;
-    }
+            display: flex;
+            align-items: center;
+        }
 
-    .row .greeting {
-        flex-grow: 1; 
-    }
+        .row .greeting {
+            flex-grow: 1; 
+        }
 
     body {
         background-color: #f8f9fa;
-        padding-top: 70px; /* Adjust this value based on the navbar height */
-        padding-bottom: 70px; /* Adjust this value based on the footer height */
     }
-
     .card {
         position: relative;
     }
-
     .save-activity {
         max-width: 40px;
         position: absolute;
@@ -192,24 +188,41 @@ if (isset($_SESSION['username'])) {
     <section class="header-section py-5">
         <div class="container">
             <div class="row">
-                <div class="greeting">
-                    <h1>Recommend Activities</h1>
+            <div class="greeting">
+                <h1>Recommend Activities</h1>
+            </div>
+            <div class="points-container">
+                <i class='bx bx-gift'></i>
+                <div class="vomo-points">
+                    <span>VOMOPoints</span>
+                    <span><?php echo $vomoPoints; ?></span>
                 </div>
-                <div class="points-container">
-                    <i class='bx bx-gift'></i>
-                    <div class="vomo-points">
-                        <span>VOMOPoints</span>
-                        <span><?php echo $vomoPoints; ?></span>
-                    </div>
+            </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- <section class="home" id="home">
+        <div class="header">
+            <div class="greeting">
+                <h1>Recommend Activities</h1>
+            </div>
+            <div class="points-container">
+                <i class='bx bx-gift'></i>
+                <div class="vomo-points">
+                    <span>VOMOPoints</span>
+                    <span><?php echo $vomoPoints; ?></span>
+                </div>
+            </div>
+        </div>
+</section> -->
+
 <section class="custom-container py-5">
     <div class="container">
         <div class="row justify-content-center">
             <?php
+            
             // Query to fetch all events
             $query = "SELECT * FROM events";
             $result = mysqli_query($link, $query);
@@ -229,9 +242,11 @@ if (isset($_SESSION['username'])) {
                                     <span>Obtainable VOMO Points:</span>
                                     <span><?php echo htmlspecialchars($event['points']); ?></span>
                                 </div>
+                               
                                 <a href="vol_moreInfoActivities.php?eventID=<?php echo $event['eventID']; ?>&volunteerID=<?php echo $volunteerId; ?>"><button>More</button></a>
                             </div>
                             <img src="images/save.svg" alt="" class="save-activity" data-event-id="<?php echo $event['eventID']; ?>" data-volunteer-id="<?php echo $volunteerId; ?>">
+
                         </div>
                     </div>
                     <?php
@@ -296,13 +311,19 @@ if (isset($_SESSION['username'])) {
     });
 </script>
 
-<?php include "vol_footer.php"; ?>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="script.js"></script>
+
+
+    <?php include "vol_footer.php"; ?>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
+
+
+
 
 

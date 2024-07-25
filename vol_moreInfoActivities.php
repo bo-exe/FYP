@@ -18,7 +18,7 @@
             border: none;
             padding: 10px 20px;
             cursor: pointer;
-            border-radius: 4px;
+            border-radius: 20px; /* Increase border-radius for more rounded corners */
             transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
 

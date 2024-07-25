@@ -1,3 +1,4 @@
+<?php include "vol_navbar.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,14 +21,14 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-wrap: wrap;
-            flex-direction: column;
+            flex-wrap: wrap; /* Ensures content wraps on smaller screens */
+            flex-direction: column; /* Arrange content in column */
         }
 
         .signup-heading {
             text-align: center;
             width: 100%;
-            margin-bottom: 20px;
+            margin-bottom: 20px; /* Spacing below the heading */
         }
 
         .signup-section {
@@ -35,7 +36,7 @@
             justify-content: center;
             align-items: center;
             width: 100%;
-            flex-wrap: wrap;
+            flex-wrap: wrap; /* Ensures content wraps on smaller screens */
         }
 
         .signup-image-container {
@@ -43,12 +44,12 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-right: 50px;
+            margin-right: 50px; /* Added margin for spacing */
         }
 
         .signup-image {
-            width: 870px;
-            max-width: 100%;
+            width: 870px; /* Adjusted size for better fit */
+            max-width: 100%; /* Ensures it doesn't overflow */
         }
 
         .signup-content {
@@ -63,58 +64,39 @@
             display: flex;
             justify-content: space-between;
             width: 100%;
-            margin-bottom: 10px;
+            margin-bottom: 10px; /* Small spacing between the name fields */
         }
 
         .signup-form input,
         .signup-form button {
             width: 100%;
             padding: 10px;
-            margin: 5px 0;
+            margin: 5px 0; /* Small spacing between each input */
             font-size: 1rem;
         }
 
         .name-fields input {
-            width: 48%;
+            width: 48%; /* Make sure both input fields fit side by side */
         }
 
         .signup-button {
             width: 50%;
-            padding: 10px;
-            margin: 10px 0;
+            padding: 8px;
+            margin: 10px 0; /* Adjusted margin for better spacing */
             font-size: 1rem;
-            background-color: #28a745; /* Green background color */
-            color: white;
+            background-color: #FFD036;
+            color: black;
             border: none;
             cursor: pointer;
-            text-align: center; /* Center the text */
-            border-radius: 4px; /* Rounded corners */
-            transition: background-color 0.3s ease;
         }
 
         .signup-button:hover {
-            background-color: #218838; /* Darker green on hover */
+            background-color: #0056b3;
         }
 
-        .calendar-button {
-    width: 50%;
-    padding: 10px;
-    margin: 10px 0;
-    font-size: 1rem;
-    background-color: #FFD036; /* Yellow background color */
-    color: black;
-    border: none;
-    cursor: pointer;
-    text-align: center; /* Center the text */
-    border-radius: 4px; /* Rounded corners */
-    transition: background-color 0.3s ease;
-}
-
-.calendar-button:hover {
-    background-color: #f7c600; /* Darker yellow on hover */
-}
+        /* Styles for the modal overlay */
         .modal {
-            display: none;
+            display: none; /* Hidden by default */
             position: fixed;
             z-index: 1;
             left: 0;
@@ -122,6 +104,7 @@
             width: 100%;
             height: 100%;
             overflow: auto;
+            background-color: rgb(0,0,0);
             background-color: rgba(0,0,0,0.4);
             justify-content: center;
             align-items: center;
@@ -167,20 +150,17 @@
 
         .verify-button {
             width: 50%;
-            padding: 10px;
+            padding: 8px;
             margin: 10px 0;
             font-size: 1rem;
-            background-color: #28a745; /* Green background color */
-            color: white;
+            background-color: #FFD036;
+            color: black;
             border: none;
             cursor: pointer;
-            text-align: center; /* Center the text */
-            border-radius: 4px; /* Rounded corners */
-            transition: background-color 0.3s ease;
         }
 
         .verify-button:hover {
-            background-color: #218838; /* Darker green on hover */
+            background-color: #0056b3;
         }
     </style>
 </head>
@@ -209,8 +189,6 @@
                         <input type="tel" name="phone" placeholder="Phone Number" required style="flex-grow: 1;">
                     </div>
                     <button class="signup-button" type="submit">Sign Up</button>
-                    <!-- Add a button to go to the calendar -->
-                    <button class="calendar-button" type="button" onclick="window.location.href='calendar.html'">Go to Calendar</button>
                 </form>
             </div>
         </div>
@@ -255,3 +233,5 @@
     </script>
 </body>
 </html>
+
+

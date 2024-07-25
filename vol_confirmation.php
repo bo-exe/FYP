@@ -27,6 +27,6 @@
     <a href="vol_allYourActivities.php" class="btn btn-primary">Go to Calendar</a>
 </div>
 
-<?php include "footer.php"; ?>
+<?php include "vol_footer.php"; ?>
 </body>
 </html>

@@ -30,10 +30,9 @@ if ($result->num_rows == 1) {
     if ($qrResult->num_rows == 1) {
         $qrData = $qrResult->fetch_assoc();
         $qrImageSrc = $qrData['qrImage'];
-    } else {
-        $qrImageSrc = 'path/to/default/qr_image.png'; // Default or placeholder QR code image
-    }
-
+        $imageData = base64_encode($eventData['images']);
+        $imageSrc = 'data:image/jpeg;base64,' . $imageData;
+    } 
     $qrStmt->close();
 } else {
     echo "Gig not found.";

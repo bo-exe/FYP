@@ -328,42 +328,20 @@ label {
 }
 
 /* Volunteer Admin Manage Gigs */
-.event-card-container {
+.event-card-container{
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    margin-top: 50px; /* Adjust margin as needed */
+    margin-top: 100px;
 }
-
-.event-card {
-    width: 500px; /* Adjust width as needed */
+.event-card{
+    width:325px;
     background-color: #ECECE7;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
     margin: 20px;
-    padding: 20px; /* Add padding for spacing */
-    box-sizing: border-box; /* Include padding in width calculation */
-    max-height: 100%; /* Ensure card height adjusts to content */
-    display: flex;
-    flex-direction: column; /* Arrange items vertically */
 }
-
-.event-card img.card-img-top {
-    width: 100%; /* Make image fit the card width */
-    height: auto; /* Maintain aspect ratio */
-}
-
-.event-card-content {
-    flex: 1; /* Allow content to expand and push QR code down */
-    overflow: auto; /* Handle overflow if content is too large */
-}
-
-.qr-code-container {
-    text-align: center;
-    margin-top: 20px;
-}
-
 
 /* VOMO Home */
 .admin-team-home {

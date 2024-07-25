@@ -13,6 +13,7 @@ if (!isset($_SESSION['volunteerId'])) {
     header("Location: index.php");
     exit();
 }
+
 // Fetch events for the current volunteer
 $query = "
     SELECT e.eventID, e.title, e.dateTimeStart, e.dateTimeEnd, e.locations, e.descs, e.points
@@ -62,6 +63,14 @@ $json_events = json_encode($events);
             margin: auto;
             padding: 20px;
         }
+        .calendar-container {
+            width: 80%; /* Adjust width as needed */
+            max-width: 600px; /* Set maximum width */
+            margin-bottom: 20px;
+        }
+        #calendar {
+            height: 400px; /* Adjust height as needed */
+        }
         .activity-list {
             margin-top: 20px;
         }
@@ -78,10 +87,18 @@ $json_events = json_encode($events);
         .activity-item:hover {
             background-color: #f0f0f0;
         }
+        :root {
+            --fc-button-bg-color: #F7C600;
+            --fc-button-border-color: #F7C600;
+            --fc-button-hover-bg-color: #F7C600;
+            --fc-button-hover-border-color: #F7C600;
+            --fc-button-active-bg-color: #F7C600;
+            --fc-button-active-border-color: #F7C600;
+        }
     </style>
 </head>
 <body>
-    <?php // include "vol_navbar.php"; ?>
+    <?php include "vol_navbar.php"; ?>
     <div class="calendar-container">
         <div id="calendar"></div>
     </div>
@@ -114,6 +131,9 @@ $json_events = json_encode($events);
 
             calendar.render();
         });
+        
     </script>
+
+
 </body>
 </html>

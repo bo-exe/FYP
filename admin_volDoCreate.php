@@ -32,15 +32,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-    // Get adminID from session (assuming you store it in session after login)
-    $adminID = $_SESSION['adminID']; // Adjust according to your session variable name
+    // Get adminID from session
+    $adminID = $_SESSION['adminID'];
 
     // Insert the new offer into the database
     $insertQuery = "INSERT INTO events (title, dateTimeStart, dateTimeEnd, locations, descs, points, images, adminID) 
                     VALUES ('$title', '$dateTimeStart', '$dateTimeEnd', '$locations', '$descs', '$points', '$images', '$adminID')";
     
     if (mysqli_query($link, $insertQuery)) {
-        $message = "Gig added successfully.";
+        // Get the last inserted event ID
+        $eventID = mysqli_insert_id($link);
+
+        // Generate QR code
+        $qrData = urlencode("https://yourdomain.com/volGig.php?eventID=$eventID");
+        $qrImageUrl = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=$qrData";
+        $qrImage = file_get_contents($qrImageUrl);
+
+        // Save QR code to database
+        $qrImageData = mysqli_real_escape_string($link, $qrImage);
+        $qrInsertQuery = "INSERT INTO QR (qrImage, adminID) VALUES ('$qrImageData', '$adminID')";
+        
+        if (mysqli_query($link, $qrInsertQuery)) {
+            $message = "Gig added and QR code generated successfully.";
+        } else {
+            $errorMessage = "Error adding QR code: " . mysqli_error($link);
+        }
     } else {
         $errorMessage = "Error adding gig: " . mysqli_error($link);
     }

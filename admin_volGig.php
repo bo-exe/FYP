@@ -4,13 +4,12 @@ include "ft.php";
 session_start();
 
 if (!isset($_SESSION['username'])) {
-    // Redirect to login page if not logged in
     header('Location: login.php');
     exit;
 }
 
 $username = $_SESSION['username'];
-$adminID = $_SESSION['adminID']; // Assuming you store adminID in session
+$adminID = $_SESSION['adminID'];
 
 $query = "SELECT * FROM events WHERE adminID = ?";
 $stmt = $link->prepare($query);
@@ -47,20 +46,26 @@ if (isset($_GET['eventID'])) {
         // Decode image data to base64 format
         $image = 'data:image/jpeg;base64,' . base64_encode($imageData);
 
+        // Fetch QR code image
+        $qrQuery = "SELECT qrImage FROM QR WHERE adminID = ? ORDER BY qrID DESC LIMIT 1";
+        $stmt = $link->prepare($qrQuery);
+        $stmt->bind_param("i", $adminID);
+        $stmt->execute();
+        $qrResult = $stmt->get_result();
+        $qrRow = $qrResult->fetch_assoc();
+        $qrImage = !empty($qrRow['qrImage']) ? 'data:image/png;base64,' . base64_encode($qrRow['qrImage']) : '';
+
         // Check if current date and time is after gig's end date
         $currentDateTime = date('Y-m-d H:i:s');
         $expired = ($currentDateTime > $dateTimeEnd);
     } else {
-        // Gig not found
         echo "Gig with ID $eventID not found.";
     }
 
 } else {
-    // Gig ID not provided
     echo "Gig ID not provided.";
 }
 ?>
-
 
 <html>
 
@@ -97,8 +102,7 @@ if (isset($_GET['eventID'])) {
         }
     </style>
 </head>
-<?php
-include "admin_volunteerNavbar.php"; ?>
+<?php include "admin_volunteerNavbar.php"; ?>
 <body>
     <h1>Welcome, <?php echo htmlspecialchars($username); ?>!</h1>
     <div class="container">
@@ -111,11 +115,13 @@ include "admin_volunteerNavbar.php"; ?>
                 <p><b>Locations:</b> <?php echo htmlspecialchars($locations); ?></p>
                 <p><b>Description:</b> <?php echo htmlspecialchars($descs); ?></p>
                 <p><b>Points:</b> <?php echo htmlspecialchars($points); ?></p>
+                <?php if ($qrImage) { ?>
+                    <img src="<?php echo $qrImage; ?>" alt="QR Code">
+                <?php } ?>
                 <?php if ($expired) { ?>
                     <p class="expired">This gig has expired.</p>
                 <?php } ?>
-                <a href="admin_volDoDelete.php?eventID=<?php echo htmlspecialchars($eventID); ?>"
-                    class="del-btn">Delete</a>
+                <a href="admin_volDoDelete.php?eventID=<?php echo htmlspecialchars($eventID); ?>" class="del-btn">Delete</a>
                 <a href="admin_volEdit.php?eventID=<?php echo htmlspecialchars($eventID); ?>" class="edit-btn">Edit</a>
             </div>
         <?php } else { ?>

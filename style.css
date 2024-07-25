@@ -417,7 +417,7 @@ label {
     }
 }
 
-/* Vol Org Req*/
+/* Vol Org Req + App Pages*/
 .volunteer-approval-page {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -429,6 +429,22 @@ label {
 .volunteer-approval-page h1 {
     text-align: center;
     color: #333;
+}
+
+.volunteer-approval-page .req-card .approve-button {
+    background-color: #28a745; /* Green */
+}
+
+.volunteer-approval-page .req-card .reject-button {
+    background-color: #dc3545; /* Red */
+}
+
+.volunteer-approval-page .req-card .approve-button:hover {
+    background-color: #218838;
+}
+
+.volunteer-approval-page .req-card .reject-button:hover {
+    background-color: #c82333;
 }
 
 .volunteer-approval-page .req-card {

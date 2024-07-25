@@ -50,9 +50,6 @@ $stmt->close();
                 <br>MANAGE CURRENT GIGS
             </a>
         </button>
-    </div>
-    <br>
-    <div class="retailbuttons-container">
         <button class="retailbutton" id="button2">
             <a href="admin_volunteerReq.php">
                 <img src="images/signup.png" alt="Icon 2">

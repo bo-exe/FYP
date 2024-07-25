@@ -1,6 +1,7 @@
 <?php
 include "dbFunctions.php";
 include "ft.php";
+include 'phpqrcode/qrlib.php';
 
 session_start();
 $volunteerId = $_SESSION['volunteerId'];
@@ -39,7 +40,7 @@ if (isset($_GET['offerId'])) {
         $pointsRequired = $row['points'];
         $amount = $row['amount_after_redemption'];
         $redeemedVouchers = $row['redeemed_vouchers'];
-        $type = $row['type'];
+        $type = isset($row['type']) ? $row['type'] : 'unknown';  // Default value if 'type' is not set
 
         $imageData = $row['images'];
         $image = 'data:image/jpeg;base64,' . base64_encode($imageData);
@@ -96,8 +97,9 @@ if (isset($_GET['offerId'])) {
                     die('mysqli_stmt_get_result failed for voucher check: ' . mysqli_stmt_error($checkStmt));
                 }
 
-                if (mysqli_num_rows($checkResult) > 0) {
-                    $errorMessage = "You have already used this voucher.";
+                $numRows = mysqli_num_rows($checkResult);
+                if ($numRows > 0) {
+                    $errorMessage = "You have already used this voucher. Rows found: " . $numRows;
                 } else {
                     // Update the redeemed_vouchers count in the offers table
                     $newRedeemedVouchers = $redeemedVouchers + 1;
@@ -133,16 +135,8 @@ if (isset($_GET['offerId'])) {
                     }
 
                     $voucherUsed = true;
-                    echo "<script type='text/javascript'>
-                            window.onload = function() {
-                                document.getElementById('popup').style.display = 'block';
-                                document.getElementById('popup-title').innerText = '".htmlspecialchars($title)."';
-                                document.getElementById('popup-code').innerText = '$code';
-                                document.getElementById('popup-message').innerText = '".($type == 'online' ? 'Use code upon checkout' : 'Scan to use voucher')."';
-                                document.getElementById('popup-link').innerText = 'Click here to see your vouchers!';
-                                document.getElementById('popup-link').href = 'vol_userVoucher.php';
-                            };
-                          </script>";
+                    header("Location: vol_QRGen.php?offerId=$offerId&code=$code");
+                    exit;
                 }
             }
         }
@@ -159,7 +153,7 @@ if (isset($_GET['offerId'])) {
     <title>Voucher Information</title>
     <link rel="icon" type="image/x-icon" href="images/logo.jpg">
     <style>
-body {
+        body {
             margin: 0;
             padding: 0;
         }
@@ -317,6 +311,7 @@ body {
     </style>
 </head>
 <body>
+    <?php include "vol_navbar.php"; ?>
     <div class="container">
         <div class="card">
             <div class="stores-card-content">
@@ -338,6 +333,7 @@ body {
                     <div class="redeemed-btn">Voucher Redeemed</div>
                 <?php else: ?>
                     <form method="post">
+                        <input type="hidden" name="offerId" value="<?php echo $offerId; ?>">
                         <button type="submit" name="redeem" class="redeem-btn">Use</button>
                     </form>
                 <?php endif; ?>

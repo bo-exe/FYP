@@ -36,7 +36,6 @@ if (isset($_SESSION['username'])) {
             o.title,
             o.points,
             o.images,
-            o.type,
             o.dateTimeEnd,
             rv.offerId
         FROM 
@@ -312,7 +311,6 @@ $conn->close();
             $image = base64_encode($row['images']);
             $redeemedDate = $row['redeemed_date'];
             $offerId = $row['offerId'];
-            $type = $row['type']; // Added type of voucher
             $dateTimeEnd = new DateTime($row['dateTimeEnd']);
             $formattedDateTimeEnd = $dateTimeEnd->format('F j, Y'); 
             ?>
@@ -321,10 +319,9 @@ $conn->close();
                 <div class="card-content">
                     <h3 class="card-title"><?php echo htmlspecialchars($title); ?></h3>
                     <p class="card-text">Points: <?php echo htmlspecialchars($points); ?></p>
-                    <p class="card-text">Type: <?php echo htmlspecialchars($type); ?></p> 
                     <p class="card-text">Redeemed Date: <?php echo htmlspecialchars($redeemedDate); ?></p>
                     <p class="card-text">Expires On: <?php echo htmlspecialchars($formattedDateTimeEnd); ?></p>
-                    <a href="vol_useVoucherOverview.php?offerId=<?php echo htmlspecialchars($offerId); ?>" class="btn">Use</a>
+                    <a href="vol_voucherSuccess.php?offerId=<?php echo htmlspecialchars($offerId); ?>" class="btn">Use</a>
                 </div>
             </div>
             <?php

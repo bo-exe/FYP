@@ -1,8 +1,8 @@
 <?php
+session_start();
 include "dbFunctions.php";
 include "ft.php";
-include "phpqrcode/qrlib.php"; // Include the QR code library
-session_start();
+include "phpqrcode/qrlib.php"; // Ensure path is correct
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate and sanitize form data
@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $dateTimeStart = mysqli_real_escape_string($link, $_POST['dateTimeStart']);
     $dateTimeEnd = mysqli_real_escape_string($link, $_POST['dateTimeEnd']);
     $locations = mysqli_real_escape_string($link, $_POST['locations']);
-    $descs = mysqli_real_escape_string($link, $_POST['descs']);
+    $descs = isset($_POST['descs']) ? mysqli_real_escape_string($link, $_POST['descs']) : '';
     $points = intval($_POST['points']);
 
     // Handle image upload
@@ -72,9 +72,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html>
-<link rel="icon" type="image/x-icon" href="images/admin_logo.jpg">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="UTF-8">
     <title>Add Offer</title>
     <style>
         body {
@@ -154,7 +153,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     </style>
 </head>
-
 <body>
     <?php include "admin_volunteerNavbar.php"; ?>
     <div class="container">
@@ -175,16 +173,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="datetime-local" name="dateTimeEnd" required><br>
                 <label>Locations:</label><br>
                 <input type="text" name="locations" required><br>
-                <label>Gig Description:</label><br>
+                <label>Description:</label><br>
                 <input type="text" name="descs" required><br>
                 <label>Points:</label><br>
-                <input type="number" name="points" min="0" required><br>
-                <label>Images:</label><br>
-                <input type="file" name="images" accept="image/jpeg, image/png, image/gif" required><br><br>
-                <input type="submit" value="Add Offer">
+                <input type="number" name="points" required><br>
+                <label>Image:</label><br>
+                <input type="file" name="images" accept="image/jpeg, image/png, image/gif" required><br>
+                <input type="submit" value="Add Gig">
             </form>
         <?php endif; ?>
     </div>
 </body>
-
 </html>

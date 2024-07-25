@@ -21,7 +21,7 @@ if ($result->num_rows == 1) {
     $eventData = $result->fetch_assoc();
 
     // Retrieve QR code path from QR table
-    $qrQuery = "SELECT QR FROM QR WHERE EventID = ?";
+    $qrQuery = "SELECT qrImage FROM QR WHERE EventID = ?";
     $qrStmt = $link->prepare($qrQuery);
     $qrStmt->bind_param("i", $eventID);
     $qrStmt->execute();
@@ -29,7 +29,7 @@ if ($result->num_rows == 1) {
 
     if ($qrResult->num_rows == 1) {
         $qrData = $qrResult->fetch_assoc();
-        $qrImageSrc = $qrData['QR'];
+        $qrImageSrc = $qrData['qrImage'];
     } else {
         $qrImageSrc = 'path/to/default/qr_image.png'; // Default or placeholder QR code image
     }

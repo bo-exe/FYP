@@ -4,12 +4,13 @@ include "ft.php";
 session_start();
 
 if (!isset($_SESSION['username'])) {
+    // Redirect to login page if not logged in
     header('Location: login.php');
     exit;
 }
 
 $username = $_SESSION['username'];
-$adminID = $_SESSION['adminID'];
+$adminID = $_SESSION['adminID']; // Assuming you store adminID in session
 
 $query = "SELECT * FROM events WHERE adminID = ?";
 $stmt = $link->prepare($query);
@@ -23,6 +24,7 @@ while ($row = $result->fetch_assoc()) {
 }
 
 $stmt->close();
+
 if (isset($_GET['eventID'])) {
     $eventID = $_GET['eventID'];
 
@@ -46,23 +48,27 @@ if (isset($_GET['eventID'])) {
         // Decode image data to base64 format
         $image = 'data:image/jpeg;base64,' . base64_encode($imageData);
 
-        // Fetch QR code image using eventID
-        $qrQuery = "SELECT qrImage FROM QR WHERE eventID = ? ORDER BY qrID DESC LIMIT 1";
-        $stmt = $link->prepare($qrQuery);
-        $stmt->bind_param("i", $eventID);
-        $stmt->execute();
-        $qrResult = $stmt->get_result();
-        $qrRow = $qrResult->fetch_assoc();
-        $qrImage = !empty($qrRow['qrImage']) ? 'data:image/png;base64,' . base64_encode($qrRow['qrImage']) : '';
-
         // Check if current date and time is after gig's end date
         $currentDateTime = date('Y-m-d H:i:s');
         $expired = ($currentDateTime > $dateTimeEnd);
+
+        // Fetch QR code for this event
+        $qrQuery = "SELECT * FROM qr WHERE eventID=?";
+        $qrStmt = mysqli_prepare($link, $qrQuery);
+        mysqli_stmt_bind_param($qrStmt, "i", $eventID);
+        mysqli_stmt_execute($qrStmt);
+        $qrResult = mysqli_stmt_get_result($qrStmt);
+        $qrRow = mysqli_fetch_array($qrResult);
+        if ($qrRow) {
+            $qrImageData = $qrRow['qrImage'];
+            $qrImage = 'data:image/png;base64,' . base64_encode($qrImageData);
+        }
     } else {
+        // Gig not found
         echo "Gig with ID $eventID not found.";
     }
-
 } else {
+    // Gig ID not provided
     echo "Gig ID not provided.";
 }
 ?>
@@ -100,23 +106,6 @@ if (isset($_GET['eventID'])) {
             font-weight: bold;
             font-size: 18px;
         }
-
-        .del-btn, .edit-btn {
-            display: inline-block;
-            margin: 5px;
-            padding: 10px;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-
-        .del-btn {
-            background-color: #f44336;
-        }
-
-        .edit-btn {
-            background-color: #4CAF50;
-        }
     </style>
 </head>
 <?php include "admin_volunteerNavbar.php"; ?>
@@ -132,13 +121,13 @@ if (isset($_GET['eventID'])) {
                 <p><b>Locations:</b> <?php echo htmlspecialchars($locations); ?></p>
                 <p><b>Description:</b> <?php echo htmlspecialchars($descs); ?></p>
                 <p><b>Points:</b> <?php echo htmlspecialchars($points); ?></p>
-                <?php if ($qrImage) { ?>
-                    <img src="<?php echo $qrImage; ?>" alt="QR Code">
-                <?php } ?>
                 <?php if ($expired) { ?>
                     <p class="expired">This gig has expired.</p>
                 <?php } ?>
-                <a href="admin_volDoDelete.php?eventID=<?php echo htmlspecialchars($eventID); ?>" class="del-btn">Delete</a>
+                <h3>QR Code:</h3>
+                <img src="<?php echo $qrImage; ?>" alt="QR Code">
+                <a href="admin_volDoDelete.php?eventID=<?php echo htmlspecialchars($eventID); ?>"
+                    class="del-btn">Delete</a>
                 <a href="admin_volEdit.php?eventID=<?php echo htmlspecialchars($eventID); ?>" class="edit-btn">Edit</a>
             </div>
         <?php } else { ?>

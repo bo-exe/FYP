@@ -1,6 +1,7 @@
 <?php
-include "dbFunctions.php"; // Adjust this to your actual database connection script
-include "ft.php"; // Assuming this is your footer include
+include "dbFunctions.php";
+include "ft.php";
+include "phpqrcode/qrlib.php"; // Include the QR code library
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -16,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_FILES['images']) && $_FILES['images']['error'] == UPLOAD_ERR_OK) {
         $imageTmpPath = $_FILES['images']['tmp_name'];
         $imageType = $_FILES['images']['type'];
-        
+
         // Check if the uploaded file is an image
         if ($imageType == 'image/jpeg' || $imageType == 'image/png' || $imageType == 'image/gif') {
             $imageData = addslashes(file_get_contents($imageTmpPath));  // Convert image to BLOB
@@ -45,17 +46,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     VALUES ('$title', '$dateTimeStart', '$dateTimeEnd', '$locations', '$descs', '$points', '$imageData', '$adminID')";
     
     if (mysqli_query($link, $insertQuery)) {
-        $message = "Gig added successfully.";
+        // Get the last inserted eventID
+        $eventID = mysqli_insert_id($link);
+
+        // Generate QR code
+        $qrData = "Event ID: $eventID";
+        $qrFileName = 'qrcodes/qr_' . $eventID . '.png'; // Save QR code image
+        QRcode::png($qrData, $qrFileName, QR_ECLEVEL_L, 4);
+
+        // Save QR code path to the database
+        $qrFileData = addslashes(file_get_contents($qrFileName));
+        $qrInsertQuery = "INSERT INTO qr (qrImage, eventID) VALUES ('$qrFileData', '$eventID')";
+        mysqli_query($link, $qrInsertQuery);
+
+        $message = "Gig added and QR code generated successfully.";
         header("Location: admin_volDoCreate.php?message=" . urlencode($message));
         exit();
     } else {
         $errorMessage = "Error adding gig: " . mysqli_error($link);
-        header("Location: admin_volDoCreate.php?error=" . urlencode($errorMessage));
+        header("Location: admin_volCreate.php?error=" . urlencode($errorMessage));
         exit();
     }
 }
 ?>
-
 
 <!DOCTYPE html>
 <html>
@@ -163,7 +176,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <label>Locations:</label><br>
                 <input type="text" name="locations" required><br>
                 <label>Gig Description:</label><br>
-                <input type="text" name="tandc" required><br>
+                <input type="text" name="descs" required><br>
                 <label>Points:</label><br>
                 <input type="number" name="points" min="0" required><br>
                 <label>Images:</label><br>

@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Save QR code to database
         $qrImageData = mysqli_real_escape_string($link, $qrImage);
-        $qrInsertQuery = "INSERT INTO QR (qrImage, adminID) VALUES ('$qrImageData', '$adminID')";
+        $qrInsertQuery = "INSERT INTO QR (eventID, qrImage) VALUES ('$eventID', '$qrImageData')";
         
         if (mysqli_query($link, $qrInsertQuery)) {
             $message = "Gig added and QR code generated successfully.";

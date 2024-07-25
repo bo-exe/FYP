@@ -49,7 +49,7 @@ if (isset($_GET['adminID']) && isset($_GET['requestNumber'])) {
     <title>Approve Retail Admin Request</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="retail-approval-page">
+<body class="volunteer-approval-page">
     <h1>Retail Admin Request #<?php echo htmlspecialchars($requestNumber); ?></h1>
     <?php if ($retailer): ?>
         <div class="req-card">

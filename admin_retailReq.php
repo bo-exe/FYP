@@ -14,7 +14,7 @@ $resultCheck = mysqli_query($link, $queryCheck) or die(mysqli_error($link));
     <title>Retail Admin Approval Requests</title>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<body class="volunteer-approval-page">
+<body class="retail-approval-page">
 <?php include "admin_teamNavbar.php"; ?>
 <?php include "ft.php"; ?>
     <h1>Retail Approval Requests</h1>
@@ -41,7 +41,7 @@ $resultCheck = mysqli_query($link, $queryCheck) or die(mysqli_error($link));
     mysqli_close($link);
     ?>
 
-<footer class="footer">
+    <footer class="footer">
         <div class="footer-content">
             <div class="logo-container">
                 <img src="images/admin_logo.jpg" alt="logo" style="width:100px;">

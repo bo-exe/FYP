@@ -20,7 +20,7 @@ while ($row = mysqli_fetch_array($result)) {
     <link rel="stylesheet" type="text/css" href="volunteeradminstyle.css">
 </head>
 <br>
-<?php include "admin_volunteerNavbar.php"; ?>
+<?php include "admin_teamNavbar.php"; ?>
 <?php include "ft.php"; ?>
 <br></br>
 

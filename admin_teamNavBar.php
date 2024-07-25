@@ -173,14 +173,14 @@
                 <ul>
                     <li><a href="admin_teamManageOffers.php"><span class="nav-text">MANAGE CURRENT OFFERS</span><i
                                 class="bi bi-ticket-perforated nav-icon"></i></a></li>
-                    <li><a href="admin_teamManageGigs.php"><span class="nav-text">MANAGE CURRENT GIGS</span><i
+                    <li><a href="admin_allGigs.php.php"><span class="nav-text">MANAGE CURRENT GIGS</span><i
                                 class="bi bi-calendar nav-icon"></i></a></li>
                 </ul>
             </li>
             <li>
                 <a href="#"><span class="nav-text">SIGN UPS</span><i class="bi bi-person-check nav-icon"></i></a>
                 <ul>
-                    <li><a href="admin_teamManageGigs.php"><span class="nav-text">VOLUNTEER SIGNUPS</span><i
+                    <li><a href="admin_volunteerReq.php"><span class="nav-text">VOLUNTEER SIGNUPS</span><i
                                 class="bi bi-bicycle nav-icon"></i></a></li>
                     <li><a href="admin_RetailReq.php"><span class="nav-text">RETAIL ORG SIGNUPS</span><i
                                 class="bi bi-shop-window nav-icon"></i></a></li>

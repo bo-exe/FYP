@@ -66,7 +66,7 @@ if (isset($_GET['eventID'])) {
     <div class="container">
         <h2>Delete Gig</h2>
         <div class="message"><?php echo $msg; ?></div>
-        <p><a href="admin_retailManage.php" class="back-link">Back to Gigs</a></p>
+        <p><a href="admin_volManage.php" class="back-link">Back to Gigs</a></p>
     </div>
 </body>
 </html>

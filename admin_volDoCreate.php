@@ -40,7 +40,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     VALUES ('$title', '$dateTimeStart', '$dateTimeEnd', '$locations', '$descs', '$points', '$images', '$adminID')";
     
     if (mysqli_query($link, $insertQuery)) {
-        $message = "Gig added successfully.";
+        $eventID = mysqli_insert_id($link); // Get the last inserted eventID
+        
+        // Generate QR code
+        $qrData = "EventID:" . $eventID;
+        $qrSize = '150x150';
+        $qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=$qrSize&data=" . urlencode($qrData);
+        $qrImage = file_get_contents($qrUrl);
+
+        // Save QR code image
+        $qrImagePath = 'qr_codes/qr_' . $eventID . '.png'; // Path to save QR code image
+        file_put_contents($qrImagePath, $qrImage);
+
+        // Insert QR code details into QR table
+        $insertQRQuery = "INSERT INTO QR (qrImage, eventID) VALUES ('$qrImagePath', '$eventID')";
+        if (!mysqli_query($link, $insertQRQuery)) {
+            $errorMessage = "Error adding QR code to database: " . mysqli_error($link);
+        }
+        
+        $message = "Gig added and QR code generated successfully.";
     } else {
         $errorMessage = "Error adding gig: " . mysqli_error($link);
     }

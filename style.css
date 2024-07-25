@@ -417,8 +417,9 @@ label {
     }
 }
 
-/* Vol Org Req + App Pages*/
-.volunteer-approval-page {
+/* Common Styles for Volunteer and Retail Org Req + App Pages */
+.volunteer-approval-page,
+.retail-approval-page {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 20px;
@@ -426,28 +427,34 @@ label {
     background-color: #f4f4f4;
 }
 
-.volunteer-approval-page h1 {
+.volunteer-approval-page h1,
+.retail-approval-page h1 {
     text-align: center;
     color: #333;
 }
 
-.volunteer-approval-page .req-card .approve-button {
+.volunteer-approval-page .req-card .approve-button,
+.retail-approval-page .req-card .approve-button {
     background-color: #28a745; /* Green */
 }
 
-.volunteer-approval-page .req-card .reject-button {
+.volunteer-approval-page .req-card .reject-button,
+.retail-approval-page .req-card .reject-button {
     background-color: #FF6961; /* Red */
 }
 
-.volunteer-approval-page .req-card .approve-button:hover {
+.volunteer-approval-page .req-card .approve-button:hover,
+.retail-approval-page .req-card .approve-button:hover {
     background-color: #218838;
 }
 
-.volunteer-approval-page .req-card .reject-button:hover {
+.volunteer-approval-page .req-card .reject-button:hover,
+.retail-approval-page .req-card .reject-button:hover {
     background-color: #8B0000;
 }
 
-.volunteer-approval-page .req-card {
+.volunteer-approval-page .req-card,
+.retail-approval-page .req-card {
     background-color: #FFD036; /* Yellow background */
     border-radius: 10px;       /* Rounded corners */
     padding: 20px;             /* Padding inside the box */
@@ -457,11 +464,15 @@ label {
 
 .volunteer-approval-page .req-card h2,
 .volunteer-approval-page .req-card h3,
-.volunteer-approval-page .req-card p {
+.volunteer-approval-page .req-card p,
+.retail-approval-page .req-card h2,
+.retail-approval-page .req-card h3,
+.retail-approval-page .req-card p {
     margin: 0 0 10px;
 }
 
-.volunteer-approval-page .req-card a {
+.volunteer-approval-page .req-card a,
+.retail-approval-page .req-card a {
     display: inline-block;
     margin-top: 10px;
     padding: 10px 20px;
@@ -471,26 +482,33 @@ label {
     border-radius: 5px;
 }
 
-.volunteer-approval-page .req-card a:hover {
+.volunteer-approval-page .req-card a:hover,
+.retail-approval-page .req-card a:hover {
     background-color: #555;
 }
 
 @media (max-width: 600px) {
-    .volunteer-approval-page {
+    .volunteer-approval-page,
+    .retail-approval-page {
         padding: 10px;
     }
 
-    .volunteer-approval-page .req-card {
+    .volunteer-approval-page .req-card,
+    .retail-approval-page .req-card {
         padding: 15px;
     }
 
     .volunteer-approval-page .req-card h2,
     .volunteer-approval-page .req-card h3,
-    .volunteer-approval-page .req-card p {
+    .volunteer-approval-page .req-card p,
+    .retail-approval-page .req-card h2,
+    .retail-approval-page .req-card h3,
+    .retail-approval-page .req-card p {
         font-size: 14px;
     }
 
-    .volunteer-approval-page .req-card a {
+    .volunteer-approval-page .req-card a,
+    .retail-approval-page .req-card a {
         padding: 8px 15px;
     }
 }

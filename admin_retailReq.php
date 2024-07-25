@@ -12,9 +12,9 @@ $resultCheck = mysqli_query($link, $queryCheck) or die(mysqli_error($link));
 <head>
     <meta charset="UTF-8">
     <title>Retail Admin Approval Requests</title>
-    <link rel="stylesheet" type="text/css" href="volunteeradminstyle.css">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="retail-approval-page">
     <h1>Retail Approval Requests</h1>
     <?php
     if (mysqli_num_rows($resultCheck) > 0) {

@@ -1,35 +1,72 @@
 <?php
 include "dbFunctions.php";
-include "admin_volunteerNavbar.php";
+include "admin_teamNavbar.php";
 include "ft.php";
 
-if (isset($_GET['eventID'])) {
-    $EventID = $_GET['eventID'];
+$msg = "";
 
-    $msg = "";
+if (isset($_GET['eventID'])) {
+    $eventID = $_GET['eventID'];
+
     $query = "DELETE FROM events WHERE eventID=?";
     $stmt = mysqli_prepare($link, $query);
-    mysqli_stmt_bind_param($stmt, "i", $EventID);
+    mysqli_stmt_bind_param($stmt, "i", $eventID);
     $result = mysqli_stmt_execute($stmt);
 
     if ($result) {
-        $message = "Gig deleted successfully.";
-        // Redirect to the previous page
-    $previousPage = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'admin_allgigs.php';
-    header("Location: " . $previousPage . "?message=" . urlencode($message));
-    exit();
+        $msg = "Gig successfully deleted";
     } else {
-        $errormessage = "Gig deletion unsuccessful.";
-        // Redirect to the previous page
-    $previousPage = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'admin_allgigs.php';
-    header("Location: " . $previousPage . "?message=" . urlencode($message));
-    exit();
+        $msg = "Gig could not be deleted. Error: " . mysqli_error($link);
     }
 } else {
-    // Handle gracefully if EventID is not available
-    $errormessage2 = "Event ID not provided. Gig deletion unsuccessful.";
-        // Redirect to the previous page
-    $previousPage = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'admin_allgigs.php';
-    header("Location: " . $previousPage . "?message=" . urlencode($message));
-    exit();
+    // Handle gracefully if eventID is not available
+    $msg = "Gig ID not provided. Gig has not been deleted.";
 }
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Gig</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+        .container {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .message {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        .back-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #FFD036;
+            text-decoration: none;
+            color: #fff;
+            border-radius: 30px;
+            font-weight: bold;
+        }
+        .back-link:hover {
+            background-color: #FFC300;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Delete Gig</h2>
+        <div class="message"><?php echo $msg; ?></div>
+        <p><a href="admin_allGigs.php" class="back-link">Back to Gigs</a></p>
+    </div>
+</body>
+</html>

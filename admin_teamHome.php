@@ -63,7 +63,6 @@ $stmt->close();
             </a>
         </button>
     </div>
-
     <!-- Footer Section -->
     <footer class="footer">
         <div class="footer-content">

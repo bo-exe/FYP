@@ -436,7 +436,7 @@ label {
 }
 
 .volunteer-approval-page .req-card .reject-button {
-    background-color: #dc3545; /* Red */
+    background-color: #FF6961; /* Red */
 }
 
 .volunteer-approval-page .req-card .approve-button:hover {
@@ -444,7 +444,7 @@ label {
 }
 
 .volunteer-approval-page .req-card .reject-button:hover {
-    background-color: #c82333;
+    background-color: #8B0000;
 }
 
 .volunteer-approval-page .req-card {

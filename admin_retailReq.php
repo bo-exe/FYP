@@ -15,6 +15,8 @@ $resultCheck = mysqli_query($link, $queryCheck) or die(mysqli_error($link));
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="retail-approval-page">
+<?php include "admin_teamNavbar.php"; ?>
+<?php include "ft.php"; ?>
     <h1>Retail Approval Requests</h1>
     <?php
     if (mysqli_num_rows($resultCheck) > 0) {
@@ -38,5 +40,21 @@ $resultCheck = mysqli_query($link, $queryCheck) or die(mysqli_error($link));
 
     mysqli_close($link);
     ?>
+
+<footer class="footer">
+        <div class="footer-content">
+            <div class="logo-container">
+                <img src="images/admin_logo.jpg" alt="logo" style="width:100px;">
+            </div>
+        </div>
+        <div class="footer-content">
+            <h4>ABOUT</h4>
+            <ul>
+                <li><a href="index.html#about">About VOMO</a></li>
+            </ul>
+        </div>
+        <?php include "admin_footer.php"; ?>
+    </footer>
+    <script src="script.js"></script>
 </body>
 </html>

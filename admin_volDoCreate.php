@@ -2,7 +2,10 @@
 include "dbFunctions.php";
 session_start();
 
-// Check if the form is submitted
+// Enable error reporting for debugging
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate and sanitize form data
     $title = mysqli_real_escape_string($link, $_POST['title']);
@@ -11,12 +14,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $locations = mysqli_real_escape_string($link, $_POST['locations']);
     $descs = mysqli_real_escape_string($link, $_POST['descs']);
     $points = intval($_POST['points']);
-    
+
     // Handle image upload
     if (isset($_FILES['images']) && $_FILES['images']['error'] == UPLOAD_ERR_OK) {
         $imageTmpPath = $_FILES['images']['tmp_name'];
         $imageType = $_FILES['images']['type'];
-        
+
         // Check if the uploaded file is an image
         if ($imageType == 'image/jpeg' || $imageType == 'image/png' || $imageType == 'image/gif') {
             $imageData = file_get_contents($imageTmpPath);
@@ -32,27 +35,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-    // Get adminID from session (assuming you store it in session after login)
-    $adminID = $_SESSION['adminID']; // Adjust according to your session variable name
+    // Get adminID from session
+    $adminID = $_SESSION['adminID'];
 
-    // Insert the new offer into the database
+    // Insert the new event into the database
     $insertQuery = "INSERT INTO events (title, dateTimeStart, dateTimeEnd, locations, descs, points, images, adminID) 
                     VALUES ('$title', '$dateTimeStart', '$dateTimeEnd', '$locations', '$descs', '$points', '$images', '$adminID')";
-    
+
     if (mysqli_query($link, $insertQuery)) {
-        $message = "Gig added successfully.";
+        // Get the last inserted event ID
+        $eventID = mysqli_insert_id($link);
+
+        // Generate QR code
+        $qrData = urlencode("https://yourdomain.com/volGig.php?eventID=$eventID");
+        $qrImageUrl = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=$qrData";
+        $qrImage = file_get_contents($qrImageUrl);
+
+        // Save QR code to database
+        $qrImageData = mysqli_real_escape_string($link, $qrImage);
+        $qrInsertQuery = "INSERT INTO QR (qrImage, eventID) VALUES ('$qrImageData', '$eventID')";
+
+        if (mysqli_query($link, $qrInsertQuery)) {
+            $message = "Gig added and QR code generated successfully.";
+        } else {
+            $errorMessage = "Error adding QR code: " . mysqli_error($link);
+        }
     } else {
         $errorMessage = "Error adding gig: " . mysqli_error($link);
     }
-}
 
-// Redirect back to the form page with a success or error messsage
-if (isset($message)) {
-    header("Location: admin_volCreate.php?message=" . urlencode($message));
-} elseif (isset($errorMessage)) {
-    header("Location: admin_volCreate.php?error=" . urlencode($errorMessage));
-} else {
-    header("Location: admin_volCreate.php");
+    // Redirect back to the form page with a success or error message
+    if (isset($message)) {
+        header("Location: admin_volCreate.php?message=" . urlencode($message));
+    } elseif (isset($errorMessage)) {
+        header("Location: admin_volCreate.php?error=" . urlencode($errorMessage));
+    } else {
+        header("Location: admin_volCreate.php");
+    }
+    exit();
 }
-exit();
 ?>

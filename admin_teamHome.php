@@ -33,6 +33,7 @@ $stmt->close();
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="icon" type="image/x-icon" href="images/admin_logo.jpg">
 </head>
+
 <body class="admin-team-home">
     <?php include "admin_teamNavbar.php"; ?>
     <?php include "ft.php"; ?>
@@ -63,6 +64,7 @@ $stmt->close();
             </a>
         </button>
     </div>
+    
     <!-- Footer Section -->
     <footer class="footer">
         <div class="footer-content">

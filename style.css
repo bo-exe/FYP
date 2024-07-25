@@ -593,15 +593,12 @@ label {
 /* Volunteer Profile */
 .profile-container {
     max-width: 500px;
-    margin: 100px auto;
     background-color: #ffffff;
-    padding: 20px;
     border-radius: 28px;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
 }
 
 .profile-heading {
-    text-align: center;
     margin-bottom: 20px;
 }
 
@@ -655,4 +652,26 @@ label {
 .profile-logo {
     display: block;
     margin: 0 auto 20px auto;
+}
+
+/* Responsive Styles */
+@media (max-width: 767.98px) {
+    .profile-container {
+        padding: 15px;
+        margin-top: 20px;
+    }
+
+    .profile-heading {
+        font-size: 1.5rem;
+    }
+
+    .profile-picture {
+        width: 120px;
+        height: 120px;
+    }
+
+    .btn-save-profile, .btn-edit-profile, .btn-logout {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
 }

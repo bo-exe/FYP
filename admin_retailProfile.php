@@ -38,64 +38,63 @@ if (mysqli_num_rows($result) == 1) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
-<style>
-    /* Existing styles for .btn-edit-profile */
-    .btn-edit-profile {
-        display: inline-block;
-        padding: 10px 20px;
-        font-size: 16px;
-        color: #fff;
-        background-color: #ffc107;
-        border: none;
-        border-radius: 5px;
-        text-decoration: none;
-        transition: background-color 0.3s ease;
-    }
-
-    .btn-edit-profile:hover {
-        background-color: #e0a800; /* Darker yellow on hover */
-    }
-
-    /* New styles for .btn-logout */
-    .btn-logout {
-        display: inline-block;
-        padding: 10px 20px;
-        font-size: 16px;
-        color: #fff;
-        background-color: #dc3545; /* Red */
-        border: none;
-        border-radius: 30px;
-        text-decoration: none;
-        transition: background-color 0.3s ease;
-    }
-
-    .btn-logout:hover {
-        background-color: #c82333; /* Darker red on hover */
-    }
-</style>
-
 <body>
-<?php include "admin_retailNavBar.php"; ?>
-<?php include "ft.php"; ?>
-    <div class="profile-container">
-        <img src="images/admin_logo.jpg" alt="Admin Logo" class="profile-logo">
-        <h1 class="profile-heading">User Profile</h1>
-        
-        <div class="profile-details">
-            <img src="images/<?php echo htmlspecialchars($profile_pic); ?>" alt="Profile Picture" class="profile-picture">
-            <p><strong>Username:</strong> <?php echo htmlspecialchars($username); ?></p>
-            <p><strong>Email:</strong> <?php echo htmlspecialchars($email); ?></p>
-        </div>
-        
-        <div class="text-center">
-            <a href="admin_retailEditProfile.php" class="btn-edit-profile">Edit Profile</a>
-            <a href="vol_forgotPassword.php" class="btn-edit-profile">Change Password</a>
-        </div>
+    <style>
+        .btn-edit-profile {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #ffc107;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
 
-        <div class="text-center mt-3">
-            <form action="admin_logout.php" method="post">
-                <button type="submit" class="btn-logout">Logout</button>
-            </form>
+        .btn-edit-profile:hover {
+            background-color: #e0a800; /* Darker yellow on hover */
+        }
+
+        .btn-logout {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #dc3545; /* Red */
+            border: none;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-logout:hover {
+            background-color: #c82333; /* Darker red on hover */
+        }
+    </style>
+    <?php include "admin_retailNavBar.php"; ?>
+    <?php include "ft.php"; ?>
+    <div class="container mt-5">
+        <div class="profile-container mx-auto p-4">
+            <img src="images/admin_logo.jpg" alt="Admin Logo" class="profile-logo mb-4">
+            <h1 class="profile-heading text-center mb-4">User Profile</h1>
+            
+            <div class="profile-details text-center mb-4">
+                <img src="images/<?php echo htmlspecialchars($profile_pic); ?>" alt="Profile Picture" class="profile-picture mb-3">
+                <p><strong>Username:</strong> <?php echo htmlspecialchars($username); ?></p>
+                <p><strong>Email:</strong> <?php echo htmlspecialchars($email); ?></p>
+            </div>
+            
+            <div class="text-center mb-4">
+                <a href="admin_retailEditProfile.php" class="btn-edit-profile me-2">Edit Profile</a>
+                <a href="vol_forgotPassword.php" class="btn-edit-profile">Change Password</a>
+            </div>
+
+            <div class="text-center">
+                <form action="admin_logout.php" method="post">
+                    <button type="submit" class="btn-logout">Logout</button>
+                </form>
+            </div>
         </div>
     </div>
 </body>

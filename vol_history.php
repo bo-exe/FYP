@@ -1,351 +1,124 @@
 <?php
-include "dbFunctions.php";
-include "ft.php";
+// Include your database connection file
+include 'dbFunctions.php';
 
-session_start();
-$volunteerId = $_SESSION['volunteerId'];
-
-// Check if the volunteerId is set and valid
-if (!$volunteerId) {
-    die("User not logged in or invalid volunteer ID.");
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
 }
 
-
-// Prepare the SQL query
-$query = "SELECT o.title, o.images, r.redeemed_date, o.points
-          FROM redeemed_vouchers r 
-          JOIN offers o ON r.offerId = o.offerId 
-          WHERE r.volunteerId=?";
-$stmt = mysqli_prepare($link, $query);
-
-// Check if statement preparation was successful
-if ($stmt === false) {
-    die("MySQL prepare error: " . mysqli_error($link));
+if (!isset($_SESSION['volunteerId'])) {
+    header("Location: index.php");
+    exit();
 }
 
-// Bind parameters
-mysqli_stmt_bind_param($stmt, "i", $volunteerId);
+$volunteerID = $_SESSION['volunteerId'];
 
-// Execute the statement
-mysqli_stmt_execute($stmt);
+// Fetch redeemed vouchers
+$query = "
+    SELECT rv.redeemed_date, o.title AS offerTitle, o.points AS offerPoints
+    FROM redeemed_vouchers rv
+    JOIN offers o ON rv.offerId = o.offerId
+    WHERE rv.volunteerId = ? AND rv.redeem = 'used'
+    ORDER BY rv.redeemed_date DESC
+";
+$stmt = $link->prepare($query); // Use $link instead of $conn
+$stmt->bind_param('i', $volunteerID);
+$stmt->execute();
+$result_vouchers = $stmt->get_result();
 
-// Get the result
-$result = mysqli_stmt_get_result($stmt);
+// Fetch completed activities
+$query = "
+    SELECT ev.registration_date, e.title AS eventTitle, e.points AS eventPoints
+    FROM event_volunteers ev
+    JOIN events e ON ev.eventID = e.eventID
+    WHERE ev.volunteerID = ? AND ev.status = 'completed'
+    ORDER BY ev.registration_date DESC
+";
+$stmt = $link->prepare($query); // Use $link instead of $conn
+$stmt->bind_param('i', $volunteerID);
+$stmt->execute();
+$result_activities = $stmt->get_result();
 
-// Fetch data
-$redeemedVouchers = [];
-while ($row = mysqli_fetch_array($result)) {
-    $redeemedVouchers[] = $row;
-}
-
-$conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-mysqli_autocommit($conn, TRUE);
-
-if (isset($_SESSION['username'])) {
-    $username = $_SESSION['username'];
-
-    // Fetch volunteer's VOMOPoints
-    $sql = "SELECT points FROM volunteers WHERE username = '$username'";
-    $result = $conn->query($sql);
-
-    if ($result) {
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            $vomoPoints = $row['points'];
-        } else {
-            $vomoPoints = 0;
-        }
-    } else {
-        error_log("SQL error: " . $conn->error); 
-        $vomoPoints = 0;
-    }
-}
-
-// Close the statement
-mysqli_stmt_close($stmt);
 ?>
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Redemption History</title>
-    <link rel="icon" type="image/x-icon" href="images/logo.jpg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My History</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/main.min.css">
     <style>
-        /* Navbar styling */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-        }
-
-        /* Homepage */
-        .home {
-            margin-top: 100px;
-        }
-
-        .home h1 {
-            margin-right: 800px;
-            text-align: left;
-            text-shadow: 0 .1rem 0.05rem #333;
-        }
-
-        .container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-
-        .card {
-            width: 325px;
-            background-color: #ECECE7;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-            margin: 20px;
-            height: 275px;
-            text-decoration: none;
-            color: inherit;
-            position: relative;
-        }
-
-        .card img {
-            width: 100%;
-            height: 125px;
-            object-fit: cover;
-        }
-
-        .card-content {
-            padding: 1px;
-        }
-
-        .card-content h3 {
-            font-size: 28px;
-            margin-bottom: 10px;
-            margin-top: 10px;
-        }
-
-        .card-content p {
-            color: #333333;
-            font-size: 15px;
-            line-height: 1.3;
-            margin-left: 10px;
-        }
-
-        .card-content .btn {
-            display: inline-block;
-            padding: 8px 16px;
-            background-color: #FFD036;
-            text-decoration: none;
-            border-radius: 30px;
-            margin-top: 16px;
-            font-weight: bold;
-            margin-left: auto;
-            margin-right: 10px;
-            width: fit-content;
-            color: #333333;
-        }
-
-        .card-content .btn:hover {
-            background-color: #e6bb2e;
-        }
-
-        .header {
-            display: flex;
-            align-items: center;
-        }
-
-        .greeting {
-            flex-grow: 1;
-        }
-
-        .points-container {
-            display: flex;
-            align-items: center;
-            justify-content: left;
-            font-size: 14px;
-            color: #333;
-            background-color: #ECECE7;
-            border-radius: .6rem;
-            box-shadow: 0 .2rem .5rem #333;
-            letter-spacing: .2rem;
-            font-weight: 800;
-            padding: 10px;
-        }
-
-        .points-container i {
-            margin-right: 5px;
-        }
-
-        .points-container .vomo-points {
-            display: flex;
-            align-items: center;
-        }
-
-        .points-container .vomo-points span:first-child {
-            margin-right: 100px;
-        }
-
-        /* Yellow Container */
-        .yellow-container {
-            background-color: #FFD036;
-            color: #333;
-            text-align: left;
-            padding: 15px;
-            box-sizing: border-box;
-            margin-bottom: 20px;
-            display: none;
-        }
-
-        .yellow-container h1 {
+        /* Add your styles here */
+        body {
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            font-size: 24px;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .history-item.completed {
+            border-left: 5px solid green;
+        }
+        .history-item.redeemed {
+            border-left: 5px solid red;
+        }
+        .history-item .details {
+            flex: 1;
+            margin-left: 10px;
+        }
+        .history-item .points {
             font-weight: bold;
-            padding-left: 20px;
         }
-
-        .yellow-container .points-container {
-            display: none;
-        }
-
-        @media screen and (max-width: 768px) {
-            body {
-                padding-bottom: 20px;
-                margin: 100px;
-            }
-
-            .voucher-card-container {
-                margin-bottom: 150px;
-            }
-
-            .offer-card {
-                width: 100%;
-            }
-
-            .offer-card img {
-                height: 200px;
-            }
-
-            .yellow-container {
-                display: block;
-                width: 100%;
-                text-align: center;
-                padding: 10px 0;
-            }
-
-            .yellow-container h1, .yellow-container p {
-                text-align: left;
-                padding-left: 20px;
-            }
-
-        
-                .home {
-                    display: none;
-                }
-
-                .points-container {
-                    display: flex;
-                    align-items: center;
-                    justify-content: left;
-                    font-size: 14px;
-                    color: #333;
-                    background-color: #ECECE7;
-                    border-radius: 0.6rem;
-                    box-shadow: 0 0.2rem 0.5rem #333;
-                    letter-spacing: 0.1rem;
-                    font-weight: 800;
-                    padding: 10px;
-                    max-width: 300px;
-                    white-space: nowrap;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    margin-left: 20px;
-                }
-
-                .points-container i {
-                    margin-right: 5px;
-                }
-
-                .points-container .vomo-points {
-                    display: flex;
-                    align-items: center;
-                }
-
-                .points-container .vomo-points span:first-child {
-                    margin-right: 10px;
-                }
-
-                .yellow-container .points-container {
-                    display: flex;
-                    align-items: center;
-                    justify-content: left;
-                    font-size: 14px;
-                    color: #333;
-                    background-color: #ECECE7;
-                    border-radius: 0.6rem;
-                    box-shadow: 0 0.2rem 0.5rem #333;
-                    letter-spacing: 0.2rem;
-                    font-weight: 800;
-                    padding: 10px;
-                }
+        .history-item .date {
+            font-size: 0.9em;
+            color: #888;
         }
     </style>
 </head>
 <body>
-<?php include "vol_navbar.php"; ?>
-
-<div class="yellow-container">
-        <h1>History</h1>
-        <br>
-        <div class="points-container">
-            <i class='bx bx-gift'></i>
-            <div class="vomo-points">
-                <span>VOMOPoints</span>
-                <span><?php echo $vomoPoints; ?></span>
+    <?php include "vol_navbar.php"; ?>
+    
+    <div class="container">
+        <h2>My History</h2>
+        
+        <?php while($row = $result_vouchers->fetch_assoc()): ?>
+            <div class="history-item redeemed">
+                <div class="details">
+                    <div class="title">Voucher Redemption</div>
+                    <div class="description"><?= htmlspecialchars($row['offerTitle']) ?></div>
+                    <div class="date"><?= date('m/d/Y', strtotime($row['redeemed_date'])) ?></div>
+                </div>
+                <div class="points">-<?= $row['offerPoints'] ?> Points</div>
             </div>
-        </div>
+        <?php endwhile; ?>
+        
+        <?php while($row = $result_activities->fetch_assoc()): ?>
+            <div class="history-item completed">
+                <div class="details">
+                    <div class="title">Activity Completion</div>
+                    <div class="description"><?= htmlspecialchars($row['eventTitle']) ?></div>
+                    <div class="date"><?= date('m/d/Y', strtotime($row['registration_date'])) ?></div>
+                </div>
+                <div class="points">+<?= $row['eventPoints'] ?> Points</div>
+            </div>
+        <?php endwhile; ?>
+        
     </div>
-
-    <section class="home" id="home">
-        <div class="header">
-            <div class="greeting">
-                <h1>History</h1>
-            </div>
-            <div class="points-container">
-                <i class='bx bx-gift'></i>
-                <div class="vomo-points">
-                    <span>VOMOPoints</span>
-                    <span><?php echo $vomoPoints; ?></span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-<div class="container">
-    <?php if (!empty($redeemedVouchers)) { ?>
-        <div class="history-list">
-            <?php foreach ($redeemedVouchers as $voucher) { ?>
-                <div class="card">
-                    <img src="data:image/jpeg;base64,<?php echo base64_encode($voucher['images']); ?>" alt="Offer Image">
-                    <h2><?php echo htmlspecialchars($voucher['title']); ?></h2>
-                    <p><b>Date Redeemed:</b> <?php echo htmlspecialchars($voucher['redeemed_date']); ?></p>
-                    <p><b>Points Deducted:</b> <?php echo htmlspecialchars($voucher['points']); ?></p>
-                </div>
-            <?php } ?>
-        </div>
-    <?php } else { ?>
-        <p>No redeemed vouchers found.</p>
-    <?php } ?>
-</div>
-
-<?php include "vol_footer.php"; ?>
+    
+    <?php include "vol_footer.php"; ?>
 </body>
 </html>

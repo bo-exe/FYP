@@ -79,6 +79,6 @@ $stmt->close();
         </div>
         <?php include "admin_footer.php"; ?>
     </footer>
+    <script src="script.js"></script>
 </body>
-
 </html>

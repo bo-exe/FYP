@@ -148,7 +148,7 @@ $stmt->close();
         <?php endforeach; ?>
     </div>
     <div class="add-btn-container">
-        <a href="admin_addGig.php" class="add-btn">Add More</a>
+        <a href="admin_volCreate.php" class="add-btn">Add More</a>
     </div>
     <br></br><br></br><br></br><br></br>
     <?php include "admin_footer.php"; ?>

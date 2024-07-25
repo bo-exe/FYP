@@ -670,7 +670,7 @@ label {
         height: 120px;
     }
 
-    .btn-save-profile, .btn-edit-profile, .btn-logout {
+    .btn-save-profile, .btn-edit-profile{
         padding: 10px 15px;
         font-size: 14px;
     }

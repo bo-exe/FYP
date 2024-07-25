@@ -20,6 +20,10 @@ $result = $stmt->get_result();
 if ($result->num_rows == 1) {
     $eventData = $result->fetch_assoc();
 
+    // Retrieve event image
+    $imageData = base64_encode($eventData['images']);
+    $imageSrc = 'data:image/jpeg;base64,' . $imageData;
+
     // Retrieve QR code path from QR table
     $qrQuery = "SELECT qrImage FROM QR WHERE EventID = ?";
     $qrStmt = $link->prepare($qrQuery);
@@ -30,9 +34,10 @@ if ($result->num_rows == 1) {
     if ($qrResult->num_rows == 1) {
         $qrData = $qrResult->fetch_assoc();
         $qrImageSrc = $qrData['qrImage'];
-        $imageData = base64_encode($eventData['images']);
-        $imageSrc = 'data:image/jpeg;base64,' . $imageData;
-    } 
+    } else {
+        $qrImageSrc = 'path/to/default/qr_image.png'; // Default or placeholder QR code image
+    }
+
     $qrStmt->close();
 } else {
     echo "Gig not found.";
@@ -61,6 +66,7 @@ $link->close();
             <br>
             <h1 style="text-align: center;"><?php echo htmlspecialchars($eventData['title']); ?></h1>
             <br>
+            <!-- Display the event image -->
             <img src="<?php echo htmlspecialchars($imageSrc); ?>" alt="<?php echo htmlspecialchars($eventData['title']); ?>" class="card-img-top">
             <div class="event-card-content">
                 <p class="card-text"><b>Start Date:</b> <?php echo htmlspecialchars($eventData['dateTimeStart']); ?></p>
@@ -75,6 +81,7 @@ $link->close();
             </div>
             <div class="qr-code-container" style="text-align: center; margin-top: 20px;">
                 <p><b>QR Code:</b></p>
+                <!-- Display the QR code image -->
                 <img src="<?php echo htmlspecialchars($qrImageSrc); ?>" alt="QR Code for <?php echo htmlspecialchars($eventData['title']); ?>" class="card-img-top" style="width: 150px; height: 150px;">
             </div>
         </div>

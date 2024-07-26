@@ -32,6 +32,7 @@ if (isset($_GET['offerId'])) {
         // Check if the voucher is expired
         $currentDate = date("Y-m-d H:i:s");
         $voucherExpired = ($currentDate > $dateTimeEnd);
+        $voucherRedeemed = false;
         
         if (isset($_POST['redeem']) && !$voucherExpired && $amount > 0) {
             // Generate a 6-digit random code
@@ -49,6 +50,7 @@ if (isset($_GET['offerId'])) {
                 $stmt->execute();
 
                 if ($stmt->affected_rows > 0) {
+                    $voucherRedeemed = true;
                     // Show modal with success message
                     echo "<script>
                         window.onload = function() {
@@ -240,40 +242,41 @@ if (isset($_GET['offerId'])) {
     </div>
 
     <div class="container">
-        <?php if (!empty($offerId)) { ?>
-            <div class="card">
-                <img src="<?php echo $image; ?>" alt="Offer Image">
-                <h2><?php echo htmlspecialchars($title); ?></h2>
-                <p><b>Start Date:</b> <?php echo htmlspecialchars($dateTimeStart); ?></p>
-                <p><b>End Date:</b> <?php echo htmlspecialchars($dateTimeEnd); ?></p>
-                <p><b>Locations:</b> <?php echo htmlspecialchars($locations); ?></p>
-                <p><b>Terms and Conditions:</b> <?php echo htmlspecialchars($termsAndConditions); ?></p>
-                <p><b>Instructions:</b> <?php echo htmlspecialchars($instructions); ?></p>
-                <p><b>Points Required:</b> <?php echo htmlspecialchars($pointsRequired); ?></p>
-                <p><b>Available Amount:</b> <?php echo htmlspecialchars($amount); ?></p>
+    <?php if (!empty($offerId)) { ?>
+        <div class="card">
+            <img src="<?php echo $image; ?>" alt="Offer Image">
+            <h2><?php echo htmlspecialchars($title); ?></h2>
+            <p><b>Start Date:</b> <?php echo htmlspecialchars($dateTimeStart); ?></p>
+            <p><b>End Date:</b> <?php echo htmlspecialchars($dateTimeEnd); ?></p>
+            <p><b>Locations:</b> <?php echo htmlspecialchars($locations); ?></p>
+            <p><b>Terms and Conditions:</b> <?php echo htmlspecialchars($termsAndConditions); ?></p>
+            <p><b>Instructions:</b> <?php echo htmlspecialchars($instructions); ?></p>
+            <p><b>Points Required:</b> <?php echo htmlspecialchars($pointsRequired); ?></p>
+            <p><b>Available Amount:</b> <?php echo htmlspecialchars($amount); ?></p>
 
-                <div class="stores-card-content">
-                    <?php if ($amount <= 0  || $voucherExpired) { ?>
-                        <button class="redeemed-btn" disabled><?php echo $voucherExpired ? 'Expired' : 'Redeemed'; ?></button>
-                    <?php } else { ?>
-                        <form method="post">
-                            <button type="submit" name="redeem" class="redeem-btn">Redeem Now</button>
-                        </form>
-                    <?php } ?>
-                    <?php if (!empty($errorMessage)) { ?>
-                        <div class="error-message">
-                            <?php echo $errorMessage; ?>
-                        </div>
-                    <?php } ?>
-                </div>
+            <div class="stores-card-content">
+                <?php if ($amount <= 0 || $voucherRedeemed || $voucherExpired) { ?>
+                    <button class="redeemed-btn" disabled><?php echo $voucherExpired ? 'Expired' : 'Redeemed'; ?></button>
+                <?php } else { ?>
+                    <form method="post">
+                        <button type="submit" name="redeem" class="redeem-btn">Redeem Now</button>
+                    </form>
+                <?php } ?>
+                <?php if (!empty($errorMessage)) { ?>
+                    <div class="error-message">
+                        <?php echo $errorMessage; ?>
+                    </div>
+                <?php } ?>
             </div>
-        <?php } else { ?>
-            <div style="text-align: center;">
-                <p>Invalid offer ID. Please try again.</p>
-                <p><a href="vol_userVouchers.php">Back to Offers</a></p>
-            </div>
-        <?php } ?>
-    </div>
+        </div>
+    <?php } else { ?>
+        <div style="text-align: center;">
+            <p>Invalid offer ID. Please try again.</p>
+            <p><a href="vol_userVouchers.php">Back to Offers</a></p>
+        </div>
+    <?php } ?>
+</div>
+
 
     <div id="popup">
         <p id="popup-message"></p>

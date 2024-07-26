@@ -69,19 +69,23 @@ $conn->close();
             margin-bottom: 20px;
             border-radius: 8px;
         }
-        .btn-custom {
-            background-color: #343A40; 
-            border-color: #343A40;
-            color: #FFFFFF;
-            padding: 10px 20px; 
+        .redeem-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: ;
             text-decoration: none;
-            display: inline-block; 
-            transition: background-color 0.3s ease; 
+            border-radius: 30px;
+            background-color: #333;
+            color: #fff;
+            font-weight: bold;
+            text-align: center;
+            transition: background-color 0.3s ease;
         }
-        .btn-custom:hover {
-            background-color: #23272B; 
-            border-color: #23272B;
-            color: #FFFFFF; 
+
+        .redeem-btn:hover {
+            background-color: #555;
+            color: #fff;
         }
     </style>
 </head>
@@ -93,7 +97,7 @@ $conn->close();
         <div style="text-align: center;">
             <?php echo $msg; ?>
             <br>
-            <a href="vol_userVoucher.php" class="btn-custom">Back to Vouchers</a>
+            <a href="vol_userVoucher.php" class="redeem-btn">Back to Vouchers</a>
         </div>
     </div>
 </body>

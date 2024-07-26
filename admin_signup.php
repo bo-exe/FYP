@@ -74,7 +74,6 @@ h2 {
 }
 </style>
 <body>
-<?php include "ft.php"; ?>
     <br>
     <br>
     <div class="signup-container">
@@ -122,20 +121,4 @@ h2 {
     <p class="form-text text-center mt-3">Already a member? <a href="admin_login.php">Login</a> now!</p>
     <br></br>
 </body>
-
-<footer class="footer">
-        <div class="footer-content">
-            <div class="logo-container">
-                <img src="images/admin_logo.jpg" alt="logo" style="width:100px;">
-            </div>
-        </div>
-        <div class="footer-content">
-            <h4>ABOUT</h4>
-            <ul>
-                <li><a href="index.html#about">About VOMO</a></li>
-            </ul>
-        </div>
-        <?php include "admin_footer.php"; ?>
-    </footer>
-    <script src="script.js"></script>
 </html>

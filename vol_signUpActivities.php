@@ -20,6 +20,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            margin-top: 50px;
         }
 
         .signup-heading {
@@ -169,10 +170,35 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
+        .yellow-container {
+            background-color: #FFD036;
+            color: #333;
+            text-align: left;
+            padding: 15px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .yellow-container h1 {
+            margin: 0;
+            padding: 0;
+            font-size: 24px;
+            font-weight: bold;
+            padding-left: 20px;
+        }
+
+        .yellow-container .points-container {
+            display: none;
+        }
+
+
         @media (max-width: 768px) {
             .signup-section {
                 flex-direction: column;
                 align-items: center;
+                margin-top: 10px;
+                padding-bottom: 80px;
             }
 
             .signup-image-container {
@@ -211,6 +237,30 @@
             .popup-overlay {
                 display: block;
             }
+
+            body {
+                padding-bottom: 20px; 
+            }
+
+            .yellow-container {
+                display: block;
+                width: 100%;
+                text-align: center;
+                padding: 10px 0;
+            }
+
+            .yellow-container h1, .yellow-container p {
+                text-align: left;
+                padding-left: 20px;
+            }
+
+            .header-section {
+                display: none;
+            }
+        
+                .home {
+                    display: none;
+                }
         }
 
         @media (max-width: 480px) {
@@ -229,6 +279,10 @@
 </head>
 <body>
     <?php include "vol_navbar.php"; ?>
+    <div class="yellow-container">
+        <h1>Sign Up for Activity</h1>
+        <br>
+    </div>
 
     <div class="main-content">
         <?php

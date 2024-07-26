@@ -176,7 +176,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <option value="Other" <?php if ($gender == 'Other') echo 'selected'; ?>>Other</option>
                 </select>
             </div>
-            <p class="form-text text-center mt-3"><a href="vol_forgotPassword.php">Forgot Password? Change Now!</a></p>
+            <p class="form-text text-center mt-3"><a href="vol_forgotPassword.php">Forgot Your Password? Change Now!</a></p>
 
             <!-- Save button -->
             <div class="text-center">

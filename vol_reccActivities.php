@@ -171,6 +171,100 @@ if (isset($_SESSION['username'])) {
         cursor: pointer;
     }
 
+    .yellow-container {
+            background-color: #FFD036;
+            color: #333;
+            text-align: left;
+            padding: 15px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .yellow-container h1 {
+            margin: 0;
+            padding: 0;
+            font-size: 24px;
+            font-weight: bold;
+            padding-left: 20px;
+        }
+
+        .yellow-container .points-container {
+            display: none;
+        }
+
+        @media screen and (max-width: 768px) {
+            body {
+                padding-bottom: 20px; 
+            }
+
+            .yellow-container {
+                display: block;
+                width: 100%;
+                text-align: center;
+                padding: 10px 0;
+            }
+
+            .yellow-container h1, .yellow-container p {
+                text-align: left;
+                padding-left: 20px;
+            }
+
+            .header-section {
+                display: none;
+            }
+        
+                .home {
+                    display: none;
+                }
+
+                .points-container {
+                    display: flex;
+                    align-items: center;
+                    justify-content: left;
+                    font-size: 14px;
+                    color: #333;
+                    background-color: #ECECE7;
+                    border-radius: 0.6rem;
+                    box-shadow: 0 0.2rem 0.5rem #333;
+                    letter-spacing: 0.1rem;
+                    font-weight: 800;
+                    padding: 10px;
+                    max-width: 300px;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    margin-left: 20px;
+                }
+
+                .points-container i {
+                    margin-right: 5px;
+                }
+
+                .points-container .vomo-points {
+                    display: flex;
+                    align-items: center;
+                }
+
+                .points-container .vomo-points span:first-child {
+                    margin-right: 10px;
+                }
+
+                .yellow-container .points-container {
+                    display: flex;
+                    align-items: center;
+                    justify-content: left;
+                    font-size: 14px;
+                    color: #333;
+                    background-color: #ECECE7;
+                    border-radius: 0.6rem;
+                    box-shadow: 0 0.2rem 0.5rem #333;
+                    letter-spacing: 0.2rem;
+                    font-weight: 800;
+                    padding: 10px;
+                }
+        }
+
     /* Custom CSS for more spacing between cards */
     .mb-5 {
         margin-bottom: 60px !important; /* Adjust margin-bottom as needed */
@@ -190,6 +284,18 @@ if (isset($_SESSION['username'])) {
 </head>
 <body>
     <?php include "vol_navbar.php"; ?>
+
+    <div class="yellow-container">
+        <h1>Recommend Activities</h1>
+        <br>
+        <div class="points-container">
+            <i class='bx bx-gift'></i>
+            <div class="vomo-points">
+                <span>VOMOPoints</span>
+                <span><?php echo $vomoPoints; ?></span>
+            </div>
+        </div>
+    </div>
 
     <section class="header-section py-5">
         <div class="container">

@@ -1,6 +1,7 @@
 <?php
 session_start();
 $msg = "";
+$showLogout = false;
 
 // Debugging: Check the current session status
 echo '<pre>';
@@ -10,6 +11,7 @@ echo '</pre>';
 // Check whether session variable 'adminID' is set (i.e., check whether the user is already logged in)
 if (isset($_SESSION['adminID'])) {
     $msg = "You are already logged in.";
+    $showLogout = true;
 } else {
     // Check whether all form inputs contain values
     if (isset($_POST['company']) && isset($_POST['username']) && isset($_POST['password']) && isset($_POST['name']) && isset($_POST['number']) && isset($_POST['email']) && isset($_POST['role'])) {
@@ -67,8 +69,36 @@ if (isset($_SESSION['adminID'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup Status</title>
+    <style>
+        .message-box {
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: yellow;
+            text-align: center;
+            width: 300px;
+        }
+        .logout-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .logout-button:hover {
+            background-color: #d32f2f;
+        }
+    </style>
 </head>
 <body>
-    <?php echo $msg; ?>
+    <div class="message-box">
+        <?php echo $msg; ?>
+        <?php if ($showLogout): ?>
+            <form action="admin_logout.php" method="post">
+                <input type="submit" class="logout-button" value="Log out">
+            </form>
+        <?php endif; ?>
+    </div>
 </body>
 </html>

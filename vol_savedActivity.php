@@ -99,10 +99,72 @@ mysqli_close($link);
                 border: 0.2rem solid transparent;
                 transition: 0.5s ease;
             }
+
+            .yellow-container {
+            background-color: #FFD036;
+            color: #333;
+            text-align: left;
+            padding: 15px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .yellow-container h1 {
+            margin: 0;
+            padding: 0;
+            font-size: 24px;
+            font-weight: bold;
+            padding-left: 20px;
+        }
+
+        .yellow-container .points-container {
+            display: none;
+        }
+
+        @media screen and (max-width: 768px) {
+            body {
+                padding-bottom: 20px; 
+                margin-bottom: 50px;
+            }
+
+            .saved-activity-page h1{
+                display: none;
+            }
+
+            /* .saved-activity-page{
+                padding-top: 25px;
+            } */
+
+            .yellow-container {
+                display: block;
+                width: 100%;
+                text-align: center;
+                padding: 10px 0;
+            }
+
+            .yellow-container h1, .yellow-container p {
+                text-align: left;
+                padding-left: 20px;
+                display: block;
+            }
+
+            .header-section {
+                display: none;
+            }
+        
+                .home {
+                    display: none;
+                }
+            }
         </style>
     </head>
     <body class="saved-activity-page">
         <?php include "vol_navbar.php"; ?>
+        <div class="yellow-container">
+        <h1>Saved Activities</h1>
+        <br>
+    </div>
         <h1>Saved Activities</h1>
         <div class="activities-container">
             <?php if (count($saved_activities) > 0): ?>

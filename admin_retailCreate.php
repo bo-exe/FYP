@@ -7,6 +7,7 @@
     <style>
         body {
             background-color: #f4f4f4;
+            padding-top:200px;
         }
 
         .container {
@@ -116,12 +117,10 @@
                 <input type="text" name="company" required><br>
                 <label>Images:</label><br>
                 <input type="file" name="images" accept="image/jpeg, image/png, image/gif" required><br>
-                <label>QR Code:</label><br>
-                <input type="file" name="QR" accept="image/jpeg, image/png, image/gif" required><br><br>
-                <input type="submit" value="Add Offer">
+                <input type="submit" value="Create Offer">
             </form>
         <?php endif; ?>
     </div>
+    <?php include "admin_footer.php"; ?>
 </body>
-
 </html>

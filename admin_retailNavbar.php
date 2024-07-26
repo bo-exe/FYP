@@ -58,10 +58,6 @@
             display: none;
         }
 
-        .nav-scanner {
-            display: none;
-        }
-
         @media (max-width: 768px) {
             .navbar-main {
                 top: auto;
@@ -123,7 +119,7 @@
         <ul>
             <li><a href="admin_retailHome.php"><span class="nav-text">HOME</span><i class="bi bi-house nav-icon"></i></a></li>
             <li><a href="admin_retailManage.php"><span class="nav-text">MANAGE</span><i class="bi bi-ticket-perforated nav-icon"></i></i></a></li>
-            <li class="nav-scanner"><a href="admin_retailScanQR.php"><span class="nav-text">SCANNER</span><i class="bi bi-upc-scan nav-icon"></i></a></li>
+            <li class="nav-scanner"><a href="admin_retailPinVerification.php"><span class="nav-text">PIN</span><i class="bi bi-keyboard nav-icon"></i></a></li>
             <li><a href="admin_retailProfile.php"><span class="nav-text">PROFILE</span><i class="bi bi-person nav-icon"></i></a></li>
         </ul>
     </nav>

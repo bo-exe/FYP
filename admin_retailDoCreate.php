@@ -34,25 +34,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-    // Handle QR code upload
-    if (isset($_FILES['QR']) && $_FILES['QR']['error'] == UPLOAD_ERR_OK) {
-        $qrTmpPath = $_FILES['QR']['tmp_name'];
-        $qrType = $_FILES['QR']['type'];
-        
-        // Check if the uploaded file is an image
-        if ($qrType == 'image/jpeg' || $qrType == 'image/png' || $qrType == 'image/gif') {
-            $qrData = addslashes(file_get_contents($qrTmpPath));  // Convert image to BLOB
-        } else {
-            $errorMessage = "Unsupported QR code format. Please upload JPEG, PNG, or GIF.";
-            header("Location: admin_retailCreate.php?error=" . urlencode($errorMessage));
-            exit();
-        }
-    } else {
-        $errorMessage = "No QR code uploaded.";
-        header("Location: admin_retailCreate.php?error=" . urlencode($errorMessage));
-        exit();
-    }
-
     // Retrieve adminID from session
     if (isset($_SESSION['adminID'])) {
         $adminID = $_SESSION['adminID'];

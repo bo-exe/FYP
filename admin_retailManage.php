@@ -33,11 +33,15 @@ $stmt->close();
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="icon" type="image/x-icon" href="images/admin_logo.jpg">
     <style>
+        .body{
+            padding-top : 20px;
+        }
         .offer-card-container {
+            padding-top: 50px;
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            margin-top: 20px;
+            margin-top: 0px;
         }
         .offer-card {
             width: 325px;
@@ -111,9 +115,9 @@ $stmt->close();
         }
     </style>
 </head>
+<?php include "ft.php"; ?>
+<?php include "admin_retailNavBar.php"; ?>
 <body>
-    <?php include "admin_retailNavBar.php"; ?>
-    <?php include "ft.php"; ?>
     <h1>Welcome, <?php echo htmlspecialchars($username); ?>!</h1>
     <h1>Organisation Vouchers</h1>
     <div class="offer-card-container">

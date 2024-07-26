@@ -39,24 +39,30 @@ $stmt->close();
 <?php include "ft.php"; ?>
 <br></br>
 <h1>Welcome, <?php echo htmlspecialchars($username); ?>!</h1>
-    <div class="retailbuttons-container">
-        <button class="retailbutton" id="button1">
-            <a href="admin_retailManage.php">
-                <img src="images/coin.jpg" alt="Icon 1">
-                <br>MANAGE CURRENT OFFERS
-            </a>
-        </button>
-        <button class="retailbutton" id="button2">
-            <a href="admin_retailCreate.php">
-                <img src="images/wand.jpg" alt="Icon 2">
-                <br>CREATE CURRENT OFFERS
-            </a>
-        </button>
+<div class="retailbuttons-container">
+    <button class="retailbutton" id="button1">
+        <a href="admin_retailManage.php">
+            <img src="images/coin.jpg" alt="Icon 1">
+            <br>MANAGE CURRENT OFFERS
+        </a>
+    </button>
+    <button class="retailbutton" id="button2">
+        <a href="admin_retailCreate.php">
+            <img src="images/wand.jpg" alt="Icon 2">
+            <br>CREATE CURRENT OFFERS
+        </a>
+    </button>
+    <button class="retailbutton" id="button2">
+        <a href="admin_retailPinVerification.php">
+            <img src="images/pin.png" alt="Icon 2">
+            <br>PIN
+        </a>
+    </button>
 </div>
 
 
 <!-- Footer Section -->
-    <?php include "admin_footer.php"; ?>
+<?php include "admin_footer.php"; ?>
 <script src="script.js"></script>
 </body>
 

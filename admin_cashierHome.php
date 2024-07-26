@@ -45,28 +45,13 @@ while ($row = mysqli_fetch_array($result)) {
             </a>
         </button>
         <button class="retailbutton" id="button2">
-            <a href="admin_cashierScanner.php">
-                <img src="images/navscan.png" alt="Icon 2">
-                <br>SCANNER
+            <a href="admin_cashierPinVerification.php">
+                <img src="images/pin.png" alt="Icon 2">
+                <br>PIN
             </a>
         </button>
-    </div>
-
-    <!-- Footer Section -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="logo-container">
-                <img src="images/admin_logo.jpg" alt="logo" style="width:100px;">
-            </div>
-        </div>
-        <div class="footer-content">
-            <h4>ABOUT</h4>
-            <ul>
-                <li><a href="index.html#about">About VOMO</a></li>
-            </ul>
-        </div>
+    </div>  
         <?php include "admin_footer.php"; ?>
-    </footer>
 
     <script src="script.js"></script>
 </body>

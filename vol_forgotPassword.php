@@ -46,7 +46,7 @@
     <br>
     <div class="container">
     <img src="images/logo.jpg" alt="Description of the image" width="300" height="200">
-        <form method="post" action="doForgotPassword.php">
+        <form method="post" action="vol_doForgotPassword.php">
             <h2 class="text-center mb-4">Forgot Your Password?</h2>
             <br><br>
             <p class="form-text text-center mt-3">Not to worry! We will send a link to your email for you to change your password</p>

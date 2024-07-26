@@ -2,12 +2,6 @@
 session_start();
 $msg = "";
 $showLogout = false;
-
-// Debugging: Check the current session status
-echo '<pre>';
-print_r($_SESSION);
-echo '</pre>';
-
 // Check whether session variable 'adminID' is set (i.e., check whether the user is already logged in)
 if (isset($_SESSION['adminID'])) {
     $msg = "You are already logged in.";

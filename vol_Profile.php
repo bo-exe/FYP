@@ -336,7 +336,7 @@ if (isset($username)) {
     </style>
 </head>
 <body>
-    <?php include "vol_navBar.php"; ?>
+    <?php include "vol_navbar.php"; ?>
     <?php include "ft.php"; ?>
 
 <div class="profile-section">

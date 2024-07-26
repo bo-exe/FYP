@@ -321,11 +321,7 @@ $conn->close();
                     <p class="card-text">Points: <?php echo htmlspecialchars($points); ?></p>
                     <p class="card-text">Redeemed Date: <?php echo htmlspecialchars($redeemedDate); ?></p>
                     <p class="card-text">Expires On: <?php echo htmlspecialchars($formattedDateTimeEnd); ?></p>
-<<<<<<< HEAD
                     <a href="vol_useVoucherOverview.php?offerId=<?php echo htmlspecialchars($offerId); ?>" class="btn">Use</a>
-=======
-                    <a href="vol_voucherSuccess.php?offerId=<?php echo htmlspecialchars($offerId); ?>" class="btn">Use</a>
->>>>>>> parent of 3f8b42e (.)
                 </div>
             </div>
             <?php
@@ -334,9 +330,7 @@ $conn->close();
         echo '<p>No vouchers redeemed yet.</p>';
     }
     ?>
-
-    <?php include "vol_footer.php"; ?>
 </div>
-
+<?php include "vol_footer.php"; ?>
 </body>
 </html>

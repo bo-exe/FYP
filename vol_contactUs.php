@@ -47,7 +47,7 @@
     <br>
     <div class="container">
     <img src="images/logo.jpg" alt="Description of the image" width="300" height="200">
-        <form method="post" action="vol_doContactUs_success.php">
+        <form method="post" action="vol_doContactUs.php">
             <h2 class="text-center mb-4">Contact Us!</h2>
             <div class="form-group">
                 <label for="date">Date of Issue</label>

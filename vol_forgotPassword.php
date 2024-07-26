@@ -18,11 +18,11 @@
 
         .btn {
             padding: 0.3rem 0.7rem;
-            background: #FFD036 !important;
+            background: #FFD036;
             border-radius: .6rem;
             box-shadow: 0 .2rem .5rem #333;
             font-size: 0.8rem;
-            color: #333 !important;
+            color: #333;
             letter-spacing: .1rem;
             font-weight: 600;
             border: .2rem solid transparent;
@@ -40,39 +40,27 @@
         .text-center {
             text-align: center;
         }
-        .yellow-container{
-                background-color: #FFD036;
-                padding: 30px 10px;
-                margin-bottom: 100px;
-            }
-            .yellow-container img {
-                display: block;
-                max-width: 300px;
-                margin: auto;
-
-            }
     </style>
 </head>
 <body>
-   <?php include "vol_navbar.php"; ?>
+    <br>
     <div class="container">
-    <div class="yellow-container" >
-                    <img src="./images/logo.jpg" alt="">
-                </div>
+    <img src="images/logo.jpg" alt="Description of the image" width="300" height="200">
         <form method="post" action="vol_doForgotPassword.php">
             <h2 class="text-center mb-4">Forgot Your Password?</h2>
-            
+            <br><br>
             <p class="form-text text-center mt-3">Not to worry! We will send a link to your email for you to change your password</p>
-            
+            <br><br>    
             <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" class="form-control" placeholder="Enter Email" name="email" required>
+                <label for="uname">Email</label>
+                <input type="text" class="form-control" placeholder="Enter Email" name="email" required>
             </div>
             <div class="text-center">
                 <button type="submit" class="btn btn-block">Get Link!</button>
             </div>
         </form>
     </div>
-    <?php include "vol_footer.php"; ?>
 </body>
 </html>
+
+   

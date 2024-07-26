@@ -1,136 +1,80 @@
 <?php
 include "dbFunctions.php";
 include "ft.php";
-require_once 'vendor/autoload.php';
-
 session_start();
 $volunteerId = $_SESSION['volunteerId'];
 
 if (isset($_GET['offerId'])) {
     $offerId = $_GET['offerId'];
 
+    // Fetch voucher details
     $query = "SELECT *, amount - redeemed_vouchers AS amount_after_redemption FROM offers WHERE offerId=?";
     $stmt = mysqli_prepare($link, $query);
-    
-    if ($stmt) {
-        mysqli_stmt_bind_param($stmt, "i", $offerId);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
-        $row = mysqli_fetch_array($result);
+    mysqli_stmt_bind_param($stmt, "i", $offerId);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    $row = mysqli_fetch_array($result);
 
-        if (!empty($row)) {
-            $offerId = $row['offerId'];
-            $title = $row['title'];
-            $dateTimeStart = $row['dateTimeStart'];
-            $dateTimeEnd = $row['dateTimeEnd'];
-            $locations = $row['locations'];
-            $termsAndConditions = $row['tandc'];
-            $instructions = $row['instructions'];
-            $pointsRequired = $row['points'];
-            $amount = $row['amount_after_redemption'];
-            $redeemedVouchers = $row['redeemed_vouchers'];
+    if (!empty($row)) {
+        $title = $row['title'];
+        $dateTimeStart = $row['dateTimeStart'];
+        $dateTimeEnd = $row['dateTimeEnd'];
+        $locations = $row['locations'];
+        $termsAndConditions = $row['tandc'];
+        $instructions = $row['instructions'];
+        $pointsRequired = $row['points'];
+        $amount = $row['amount_after_redemption'];
+        $redeemedVouchers = $row['redeemed_vouchers'];
 
-            $imageData = $row['images'];
-            $image = 'data:image/jpeg;base64,' . base64_encode($imageData);
+        $imageData = $row['images'];
+        $image = 'data:image/jpeg;base64,' . base64_encode($imageData);
 
-            // Check if the voucher is expired
-            $currentDate = date("Y-m-d H:i:s");
-            $voucherExpired = ($currentDate > $dateTimeEnd);
+        // Check if the voucher is expired
+        $currentDate = date("Y-m-d H:i:s");
+        $voucherExpired = ($currentDate > $dateTimeEnd);
+        
+        if (isset($_POST['redeem']) && !$voucherExpired && $amount > 0) {
+            // Generate a 6-digit random code
+            $code = rand(100000, 999999);
+        
+            // Update the voucher in the database
+            $updateQuery = "
+                UPDATE redeemed_vouchers
+                SET redeem = 'used', code = ?
+                WHERE volunteerId = ? AND offerId = ? AND redeem = 'use'
+            ";
+            $stmt = $link->prepare($updateQuery);
+            if ($stmt) {
+                $stmt->bind_param('sii', $code, $volunteerId, $offerId);
+                $stmt->execute();
 
-            // Fetch user's current points
-            $userQuery = "SELECT points FROM volunteers WHERE volunteerId=?";
-            $userStmt = mysqli_prepare($link, $userQuery);
-            
-            if ($userStmt) {
-                mysqli_stmt_bind_param($userStmt, "i", $volunteerId);
-                mysqli_stmt_execute($userStmt);
-                $userResult = mysqli_stmt_get_result($userStmt);
-                $userRow = mysqli_fetch_array($userResult);
-                $userPoints = $userRow['points'];
-
-                // Handle voucher redemption
-                $voucherRedeemed = false;
-                $errorMessage = '';
-                if (isset($_POST['redeem'])) {
-                    if ($voucherExpired) {
-                        $errorMessage = "This voucher has expired.";
-                        echo "<script type='text/javascript'>
-                                window.onload = function() {
-                                    document.getElementById('popup').style.display = 'block';
-                                    document.getElementById('popup-message').innerText = 'Voucher has expired!';
-                                    document.getElementById('popup-link').innerText = 'Click here to return back to home page!';
-                                    document.getElementById('popup-link').href = 'index.php';
-                                };
-                            </script>";
-                    } elseif ($userPoints >= $pointsRequired && $amount > 0) {
-                        // Generate a random 6-digit/alphabet PIN
-                        $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                        $pin = '';
-                        for ($i = 0; $i < 6; $i++) {
-                            $pin .= $characters[mt_rand(0, strlen($characters) - 1)];
-                        }
-
-                        // Insert redemption record into database
-                        $redeemDate = date("Y-m-d H:i:s");
-                        $redeemQuery = "INSERT INTO redeemed_vouchers (volunteerId, offerId, redeemed_date, code, redeem) VALUES (?, ?, ?, ?, 'used')";
-                        $redeemStmt = mysqli_prepare($link, $redeemQuery);
-                        
-                        if ($redeemStmt) {
-                            mysqli_stmt_bind_param($redeemStmt, "iiss", $volunteerId, $offerId, $redeemDate, $pin);
-                            mysqli_stmt_execute($redeemStmt);
-
-                            // Update the amount of available vouchers in the 'offers' table
-                            $updateQuery = "UPDATE offers SET redeemed_vouchers = redeemed_vouchers + 1, amount = amount - 1 WHERE offerId=?";
-                            $updateStmt = mysqli_prepare($link, $updateQuery);
-
-                            if ($updateStmt) {
-                                mysqli_stmt_bind_param($updateStmt, "i", $offerId);
-                                mysqli_stmt_execute($updateStmt);
-                            } else {
-                                echo "Error updating offer: " . mysqli_error($link);
-                            }
-
-                            // Redirect after a short delay to ensure the modal can be seen
-                            echo "<script type='text/javascript'>
-                                    window.onload = function() {
-                                        var modal = document.getElementById('pinModal');
-                                        var pinText = document.getElementById('pinText');
-                                        pinText.innerText = '$pin';
-                                        modal.style.display = 'block';
-
-                                        // Redirect after a few seconds
-                                        setTimeout(function() {
-                                            window.location.href = 'vol_userVoucher.php';
-                                        }, 5000); // Adjust the delay as needed
-                                    };
-                                </script>";
-                        } else {
-                            echo "Error preparing redeem statement: " . mysqli_error($link);
-                        }
-                    } else {
-                        $errorMessage = "You do not have enough points or the voucher is no longer available.";
-                    }
+                if ($stmt->affected_rows > 0) {
+                    // Show modal with success message
+                    echo "<script>
+                        window.onload = function() {
+                            document.getElementById('popup-message').innerText = 'Voucher redeemed successfully!';
+                            document.getElementById('popup-code').innerText = 'Code: $code';
+                            document.getElementById('popup').style.display = 'block';
+                            document.getElementById('popup-link').href = 'vol_voucherSuccess.php?offerId=$offerId&code=$code';
+                        };
+                    </script>";
+                } else {
+                    $errorMessage = "Failed to redeem voucher.";
                 }
             } else {
-                echo "Error preparing user statement: " . mysqli_error($link);
+                die("Prepare statement failed: " . $link->error);
             }
-        } else {
-            echo "Offer not found.";
         }
-    } else {
-        echo "Error preparing offer statement: " . mysqli_error($link);
     }
-} else {
-    echo "Offer ID not provided.";
 }
 ?>
+<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <title>Voucher Information</title>
     <link rel="icon" type="image/x-icon" href="images/logo.jpg">
     <style>
-        /* Your existing styles */
         body {
             margin: 0;
             padding: 0;
@@ -286,99 +230,57 @@ if (isset($_GET['offerId'])) {
             color: #FFD036;
             font-weight: bold;
         }
-
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.4);
-        }
-
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 500px;
-            text-align: center;
-        }
-
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="card">
-            <img src="<?php echo $image; ?>" alt="Voucher Image">
-            <div class="stores-card-content">
-                <h3><?php echo $title; ?></h3>
-                <p>Starts: <?php echo $dateTimeStart; ?></p>
-                <p>Ends: <?php echo $dateTimeEnd; ?></p>
-                <p>Locations: <?php echo $locations; ?></p>
-                <p>Points Required: <?php echo $pointsRequired; ?></p>
-                <p>Terms and Conditions: <?php echo $termsAndConditions; ?></p>
-                <p>Instructions: <?php echo $instructions; ?></p>
-                <p>Available Amount: <?php echo $amount; ?></p>
-                <?php if ($amount <= 0 || $voucherExpired): ?>
-                    <div class="redeemed-btn">Voucher not available</div>
-                <?php else: ?>
-                    <form method="post">
-                        <button type="submit" name="redeem" class="redeem-btn">Redeem</button>
-                    </form>
-                <?php endif; ?>
-                <div class="error-message"><?php echo $errorMessage; ?></div>
-            </div>
-        </div>
+<?php include "vol_navbar.php"; ?>
+
+    <div class="yellow-container">
+        <h1>Vouchers</h1>
     </div>
 
-    <!-- Popup Modal -->
+    <div class="container">
+        <?php if (!empty($offerId)) { ?>
+            <div class="card">
+                <img src="<?php echo $image; ?>" alt="Offer Image">
+                <h2><?php echo htmlspecialchars($title); ?></h2>
+                <p><b>Start Date:</b> <?php echo htmlspecialchars($dateTimeStart); ?></p>
+                <p><b>End Date:</b> <?php echo htmlspecialchars($dateTimeEnd); ?></p>
+                <p><b>Locations:</b> <?php echo htmlspecialchars($locations); ?></p>
+                <p><b>Terms and Conditions:</b> <?php echo htmlspecialchars($termsAndConditions); ?></p>
+                <p><b>Instructions:</b> <?php echo htmlspecialchars($instructions); ?></p>
+                <p><b>Points Required:</b> <?php echo htmlspecialchars($pointsRequired); ?></p>
+                <p><b>Available Amount:</b> <?php echo htmlspecialchars($amount); ?></p>
+
+                <div class="stores-card-content">
+                    <?php if ($amount <= 0  || $voucherExpired) { ?>
+                        <button class="redeemed-btn" disabled><?php echo $voucherExpired ? 'Expired' : 'Redeemed'; ?></button>
+                    <?php } else { ?>
+                        <form method="post">
+                            <button type="submit" name="redeem" class="redeem-btn">Redeem Now</button>
+                        </form>
+                    <?php } ?>
+                    <?php if (!empty($errorMessage)) { ?>
+                        <div class="error-message">
+                            <?php echo $errorMessage; ?>
+                        </div>
+                    <?php } ?>
+                </div>
+            </div>
+        <?php } else { ?>
+            <div style="text-align: center;">
+                <p>Invalid offer ID. Please try again.</p>
+                <p><a href="vol_userVouchers.php">Back to Offers</a></p>
+            </div>
+        <?php } ?>
+    </div>
+
     <div id="popup">
         <p id="popup-message"></p>
-        <a id="popup-link" href="#">Link</a>
+        <p id="popup-code"></p>
+        <a id="popup-link" href="#">Use Code Upon Checkout</a>
     </div>
 
-    <!-- PIN Modal -->
-    <div id="pinModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="document.getElementById('pinModal').style.display='none'">&times;</span>
-            <h2><?php echo $title; ?></h2>
-            <p>Your PIN: <span id="pinText"></span></p>
-            <p>Use Code Upon Checkout!</p>
-        </div>
-    </div>
-
-    <script>
-        var modal = document.getElementById('pinModal');
-        var span = document.getElementsByClassName('close')[0];
-
-        span.onclick = function() {
-            modal.style.display = 'none';
-        }
-
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = 'none';
-            }
-        }
-    </script>
+    <?php include "vol_footer.php"; ?>
 </body>
 </html>

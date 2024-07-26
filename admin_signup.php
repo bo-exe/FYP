@@ -121,8 +121,9 @@ h2 {
     </div>
     <p class="form-text text-center mt-3">Already a member? <a href="admin_login.php">Login</a> now!</p>
     <br></br>
+</body>
 
-    <footer class="footer">
+<footer class="footer">
         <div class="footer-content">
             <div class="logo-container">
                 <img src="images/admin_logo.jpg" alt="logo" style="width:100px;">
@@ -137,5 +138,4 @@ h2 {
         <?php include "admin_footer.php"; ?>
     </footer>
     <script src="script.js"></script>
-</body>
 </html>

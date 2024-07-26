@@ -394,7 +394,7 @@ if (isset($username)) {
                 <div class="slider" id="activity-slider">
                     <img src="images/volunteer-booth.jpg" alt="activity 1">
                 </div>
-                <a href="vol_userActivities.php" class="about-btn">See More</a>
+                <a href="vol_allYourActivities.php" class="about-btn">See More</a>
             </section>
 
             <section class="slider-wrapper">

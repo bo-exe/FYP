@@ -2,12 +2,15 @@
 session_start();
 include "dbFunctions.php";
 
+// Connect to the database
 $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
 
+// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+// Fetch VOMOPoints for the logged-in user
 if (isset($_SESSION['username'])) {
     $username = $_SESSION['username'];
     $sql = "SELECT points FROM volunteers WHERE username = '$username'";
@@ -27,7 +30,6 @@ if (isset($_SESSION['username'])) {
     $vomoPoints = 0;
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -55,14 +57,12 @@ if (isset($_SESSION['username'])) {
 
             .home h1,
             p {
-                
                 text-align: left;
             }
 
             .container {
                 padding: 2rem;
                 margin-top: 20px;
-               
             }
 
             .container h2 {
@@ -83,7 +83,9 @@ if (isset($_SESSION['username'])) {
             }
 
             .slider img {
-                width: 100%;
+                width: 100%; 
+                height: 300px; 
+                object-fit: cover; 
                 flex: 0 0 100%;
                 transition: transform 0.5s ease;
             }
@@ -137,7 +139,7 @@ if (isset($_SESSION['username'])) {
                 border: 0.2rem solid transparent;
                 transition: 0.5s ease;
                 margin-top: 30px;
-                margin-left: 300px;
+                margin-left: 480px;
                 text-decoration: none;
             }
 
@@ -152,8 +154,8 @@ if (isset($_SESSION['username'])) {
                 align-items: center;
             }
 
-            .greeting {
-                flex-grow: 1;
+            .home .greeting {
+                margin-right: 650px;
             }
 
             .points-container {
@@ -182,65 +184,164 @@ if (isset($_SESSION['username'])) {
             .points-container .vomo-points span:first-child {
                 margin-right: 100px;
             }
+
             .main-container {
                 display: flex;
                 justify-content: space-between;
             }
+
             .main-container section {
                 flex: 1;
             }
+
             .fc-toolbar-chunk {
                 display: flex !important;
             }
 
-            @media(max-width: 1200px) {
-                .home h1,
-                p {
-                    margin-right: 20px;
-                }
-                .container {
-                    margin-right: 20px;
-                }
-                .about-btn {
-                    margin-left: 20px;
-                }
+            /* Yellow Container */
+            .yellow-container {
+                background-color: #FFD036;
+                color: #333;
+                text-align: left;
+                padding: 15px;
+                box-sizing: border-box;
+                margin-bottom: 20px;
+                display: none; /* Initially hidden */
             }
 
-            @media(max-width: 768px) {
-                .home h1 {
-                    font-size: 1.5rem;
+            .yellow-container h1,
+            .yellow-container h2,
+            .yellow-container p {
+                text-align: left;
+                padding-left: 20px;
+                margin: 0;
+            }
+
+            .yellow-container .points-container {
+                display: flex;
+                align-items: center;
+                justify-content: left;
+                font-size: 14px;
+                color: #333;
+                background-color: #ECECE7;
+                border-radius: 0.6rem;
+                box-shadow: 0 0.2rem 0.5rem #333;
+                letter-spacing: 0.2rem;
+                font-weight: 800;
+                padding: 10px;
+                margin-top: 10px;
+                display: none; 
+            }
+
+            @media (max-width: 768px) {
+                .home h1, p {
+                    margin-right: 20px;
                 }
-                .home p {
-                    font-size: 0.875rem;
-                }
+
                 .container {
                     padding: 1rem;
+                    padding-bottom: 115px;
                 }
+
                 .container h2 {
                     font-size: 1.25rem;
                 }
+
                 .slider img {
                     width: 100%;
                 }
+
                 .about-btn {
                     padding: 0.5rem 1rem;
                     margin-top: 10px;
+                    display: inline-block;
+                    padding: 0.3rem 0.7rem;
+                    background: #FFD036;
+                    border-radius: 0.6rem;
+                    box-shadow: 0 0.1rem 0.25rem #333;
+                    font-size: 0.8rem;
+                    color: #333;
+                    letter-spacing: 0.1rem;
+                    font-weight: 600;
+                    border: 0.2rem solid transparent;
+                    transition: 0.5s ease;
+                    margin-top: 30px;
+                    margin-left: 450px;
+                    text-decoration: none;
                 }
+
+                .yellow-container {
+                display: block;
+                width: 100%;
+                text-align: center;
+                padding: 10px 0;
+            }
+
+            .yellow-container h1, .yellow-container p {
+                text-align: left;
+                padding-left: 20px;
+            }
+        
+                .home {
+                    display: none;
+                }
+
                 .points-container {
-                    font-size: 0.875rem;
-                    padding: 8px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: left;
+                    font-size: 14px;
+                    color: #333;
+                    background-color: #ECECE7;
+                    border-radius: 0.6rem;
+                    box-shadow: 0 0.2rem 0.5rem #333;
+                    letter-spacing: 0.1rem;
+                    font-weight: 800;
+                    padding: 10px;
+                    max-width: 300px;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    margin-left: 20px;
                 }
+
+                .points-container i {
+                    margin-right: 5px;
+                }
+
+                .points-container .vomo-points {
+                    display: flex;
+                    align-items: center;
+                }
+
                 .points-container .vomo-points span:first-child {
                     margin-right: 10px;
                 }
+
+                .yellow-container .points-container {
+                    display: flex;
+                    align-items: center;
+                    justify-content: left;
+                    font-size: 14px;
+                    color: #333;
+                    background-color: #ECECE7;
+                    border-radius: 0.6rem;
+                    box-shadow: 0 0.2rem 0.5rem #333;
+                    letter-spacing: 0.2rem;
+                    font-weight: 800;
+                    padding: 10px;
+                }
+                .calendar {
+                    display: none;
+                }
             }
-          
         </style>
     </head>
     <body>
         <?php include "vol_navbar.php"; ?>
         <?php include "ft.php"; ?>
-            <section class="home" id="home"> <div class="header">
+        <section class="home" id="home"> 
+            <div class="header">
                 <div class="greeting">
                     <h1>Good Morning,</h1>
                 </div>
@@ -255,15 +356,28 @@ if (isset($_SESSION['username'])) {
             <p>@<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'Guest'; ?></p>
         </section>
 
+        <div class="yellow-container">
+            <h1><b>Explore!</b></h1>
+            <h2>Good Morning,</h2>
+            <p>@<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'Guest'; ?></p>
+            <div class="points-container">
+                <i class='bx bx-gift'></i>
+                <div class="vomo-points">
+                    <span>VOMOPoints</span>
+                    <span><?php echo $vomoPoints; ?></span>
+                </div>
+            </div>
+        </div>
+
        <main class="main-container">
        <section class="left">
        <section class="container">
             <h2>Recommended Activities</h2>
             <div class="slider-wrapper">
                 <div class="slider" id="activity-slider">
-                    <img src="images/volunteer-booth.jpg" alt="activity 1">
-                    <img src="images/education.jpg" alt="activity 2">
-                    <img src="images/clean.jpg" alt="activity 3">
+                    <img src="images/volunteer-booth.jpg" alt="activity">
+                    <img src="images/work2.jpg" alt="activity">
+                    <img src="images/clean.jpg" alt="activity">
                 </div>
                 <div class="slider-nav" id="activity-slider-nav">
                     <span class="dot" onclick="currentSlide(1, 'activity-slider')"></span>
@@ -301,7 +415,7 @@ if (isset($_SESSION['username'])) {
             <a href="vol_allYourActivities.php" class="about-btn">See More</a>
         </section>
        </main>
-        <?php include "footer.php"; ?>
+        <?php include "vol_footer.php"; ?>
 
         <script>
             let slideIndex = 1;

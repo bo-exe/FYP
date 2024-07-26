@@ -27,6 +27,8 @@ if (isset($_GET['offerId'])) {
         $amount = $row['amount'];
         $imageData = $row['images'];
         $imageType = $row['imageType'];
+        $company = $row['company'];
+        $qrCodeData = $row['QR']; // QR code BLOB data
     } else {
         $msg = "Offer not found.";
     }
@@ -127,7 +129,19 @@ if (isset($_GET['offerId'])) {
                     <input type="file" name="image" accept="image/*">
                 </div>
                 <div class="form-group">
-                    <label>Name:</label>
+                    <label>Company:</label>
+                    <input type="text" name="company" value="<?php echo htmlspecialchars($company); ?>">
+                </div>
+                <div class="form-group">
+                    <label>QR Code:</label>
+                    <?php if (!empty($qrCodeData)) { ?>
+                        <img src="data:image/png;base64,<?php echo base64_encode($qrCodeData); ?>" alt="QR Code" style="max-width: 100%; height: auto;">
+                    <?php } else { ?>
+                        <p>No QR code available.</p>
+                    <?php } ?>
+                </div>
+                <div class="form-group">
+                    <label>Title:</label>
                     <textarea name="title"><?php echo htmlspecialchars($title); ?></textarea>
                 </div>
                 <div class="form-group">

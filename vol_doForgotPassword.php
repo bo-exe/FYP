@@ -1,118 +1,82 @@
 <?php
 session_start();
-include "dbFunctions.php"; 
+include "dbFunctions.php";
 
-$message = ""; // Variable to store message
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
-// Check if form data has been submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = mysqli_real_escape_string($link, $_POST['email']);
+require 'vendor/phpmailer/phpmailer/src/Exception.php';
+require 'vendor/phpmailer/phpmailer/src/PHPMailer.php';
+require 'vendor/phpmailer/phpmailer/src/SMTP.php';
 
-    // Check if email exists in the admins table
-    $query = "SELECT * FROM admins WHERE email = '$email'";
-    $result = mysqli_query($link, $query);
-
-    if (!$result) {
-        die("Query Failed: " . mysqli_error($link));
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $email = $_POST['email'];
+    if (empty($email)) {
+        echo json_encode(['success' => false, 'message' => 'Email is required.']);
+        exit;
     }
 
-    // If not found in admins, check volunteers table
-    if (mysqli_num_rows($result) == 0) {
-        $query = "SELECT * FROM volunteers WHERE email = '$email'";
-        $result = mysqli_query($link, $query);
+    // Check if the email exists in the volunteers table and get the volunteerID
+    $query = "SELECT volunteerId AS id, 'volunteer' AS role FROM volunteers WHERE email = ?
+              UNION
+              SELECT adminID AS id, 'admin' AS role FROM admins WHERE email = ?";
+    $stmt = $link->prepare($query);
+    $stmt->bind_param("ss", $email, $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $user = $result->fetch_assoc();
+    $stmt->close();
 
-        if (!$result) {
-            die("Query Failed: " . mysqli_error($link));
-        }
+    if (!$user) {
+        echo json_encode(['success' => false, 'message' => 'Email does not exist.']);
+        exit;
     }
 
-    // If email is found in either table
-    if (mysqli_num_rows($result) > 0) {
-        $token = bin2hex(random_bytes(50));
-        $expiry = date("Y-m-d H:i:s", strtotime('+1 hour')); 
-        $query = "INSERT INTO password_resets (email, token, expires_at) VALUES ('$email', '$token', '$expiry')";
-        if (mysqli_query($link, $query)) {
-            $resetLink = "http://localhost/resetPassword.php?token=" . $token;
+    $userID = $user['id'];
+    $userRole = $user['role'];
 
-            $subject = "Password Reset Request";
-            $message = "Hello, you requested a password reset. Click the link below to reset your password:\n\n";
-            $message .= $resetLink;
-            $headers = "From: no-reply@yourwebsite.com";
+    // Generate a random token
+    $token = bin2hex(random_bytes(32));
+    $expires_at = date('Y-m-d H:i:s', strtotime('+1 day'));
 
-            if (mail($email, $subject, $message, $headers)) {
-                $message = "A password reset link has been sent to your email.";
-            } else {
-                $message = "Failed to send email.";
-            }
-        } else {
-            $message = "Failed to insert token into the database: " . mysqli_error($link);
-        }
-    } else {
-        $message = "No account found with that email address.";
+    // Insert token and expiry into password_resets table
+    $query = "INSERT INTO password_resets (volunteerID, email, token, expires_at) VALUES (?, ?, ?, ?)
+              ON DUPLICATE KEY UPDATE token=?, expires_at=?";
+    $stmt = $link->prepare($query);
+    $stmt->bind_param("isssss", $userID, $email, $token, $expires_at, $token, $expires_at);
+    $stmt->execute();
+    $stmt->close();
+
+    // Send the reset link to the user's email using PHPMailer
+    $mail = new PHPMailer(true);
+    try {
+        // Server settings
+        $mail->isSMTP();
+        $mail->Host       = 'sandbox.smtp.mailtrap.io'; // Mailtrap SMTP server
+        $mail->SMTPAuth   = true;
+        $mail->Username   = '171e781cafa9b9'; // Mailtrap username
+        $mail->Password   = 'b06e4a81923958'; // Mailtrap password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port       = 587;
+
+        // Recipients
+        $mail->setFrom('leia@ng.com', 'Your Name');
+        $mail->addAddress($email);
+
+        // Content
+        $mail->isHTML(true);
+        $mail->Subject = 'Password Reset Request';
+        $mail->Body    = "Click the link to reset your password: <a href='http://localhost/Github/FYP/vol_resetpassword.php?token=$token'>Reset Password</a>";
+
+        $mail->send();
+        
+        // Redirect to login page after email is sent
+        header("Location: vol_login.php");
+        exit();
+    } catch (Exception $e) {
+        echo json_encode(['success' => false, 'message' => "Message could not be sent. Mailer Error: {$mail->ErrorInfo}"]);
     }
-
-    mysqli_close($link);
 } else {
-    $message = "Invalid request method.";
+    echo json_encode(['success' => false, 'message' => 'Invalid request method.']);
 }
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forgot Password</title>
-    <link rel="icon" type="image/x-icon" href="images/logo.jpg">
-    <link rel="stylesheet" href="style.css">
-    <style>
-        .container {
-            background: #FFFFFF;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .btn {
-            padding: 0.3rem 0.7rem;
-            background: #FFD036;
-            border-radius: .6rem;
-            box-shadow: 0 .2rem .5rem #333;
-            font-size: 0.8rem;
-            color: #333;
-            letter-spacing: .1rem;
-            font-weight: 600;
-            border: .2rem solid transparent;
-            margin-top: 16px;
-            text-decoration: none;
-            text-align: center;
-        }
-
-        .btn:hover {
-            background: #FFD036;
-            color: #333; 
-            border: .2rem solid transparent;
-        }
-        
-        .text-center {
-            text-align: center;
-        }
-    </style>
-</head>
-<body>
-    <br>
-    <div class="container">
-    <img src="images/logo.jpg" alt="Description of the image" width="300" height="200">
-        <form method="post" action="doForgotPassword.php">
-            <h2 class="text-center mb-4">Forgot Your Password?</h2>
-            <br><br>
-            <?php
-            if (!empty($message)) {
-                echo "<p class='text-center'>$message</p>";
-            }
-            ?>
-        </form>
-    </div>
-</body>
-</html>

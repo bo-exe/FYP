@@ -235,9 +235,7 @@
                 border-radius: 0;
             }
 
-            .popup-overlay {
-                display: block;
-            }
+
 
             body {
                 padding-bottom: 20px; 

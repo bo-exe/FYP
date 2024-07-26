@@ -134,7 +134,8 @@ $json_events = json_encode($events);
             height: 400px; /* Adjust height as needed */
         }
         .activity-list {
-            margin-top: 20px;
+            margin-top: -100px;
+            padding-bottom: 150px;
         }
         .activity-item {
             display: flex;
@@ -199,6 +200,8 @@ $json_events = json_encode($events);
             </div>
         <?php } ?>
     </div>
+
+    <?php include "vol_footer.php"; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js"></script>
     <script>

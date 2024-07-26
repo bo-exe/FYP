@@ -201,7 +201,6 @@ $json_events = json_encode($events);
         <?php } ?>
     </div>
 
-    <?php include "vol_footer.php"; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js"></script>
     <script>

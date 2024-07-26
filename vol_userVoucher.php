@@ -321,7 +321,7 @@ $conn->close();
                     <p class="card-text">Points: <?php echo htmlspecialchars($points); ?></p>
                     <p class="card-text">Redeemed Date: <?php echo htmlspecialchars($redeemedDate); ?></p>
                     <p class="card-text">Expires On: <?php echo htmlspecialchars($formattedDateTimeEnd); ?></p>
-                    <a href="vol_QR.php?offerId=<?php echo htmlspecialchars($offerId); ?>" class="btn">Use</a>
+                    <a href="vol_useVoucherOverview.php?offerId=<?php echo htmlspecialchars($offerId); ?>" class="btn">Use</a>
                 </div>
             </div>
             <?php

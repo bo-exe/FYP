@@ -98,9 +98,58 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             background-color: red;
             color: white;
         }
+
+        /* Yellow Container */
+        .yellow-container {
+            background-color: #FFD036;
+            color: #333;
+            text-align: left;
+            padding: 15px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .yellow-container h1 {
+            margin: 0;
+            padding: 0;
+            font-size: 24px;
+            font-weight: bold;
+            padding-left: 20px;
+        }
+
+        @media screen and (max-width: 768px) {
+            body {
+                padding-bottom: 20px;
+            }
+
+            .yellow-container {
+                display: block;
+                width: 100%;
+                text-align: center;
+                padding: 10px 0;
+                margin-top: -360px;
+            }
+
+            .yellow-container h1, .yellow-container p {
+                text-align: left;
+                padding-left: 20px;
+            }
+
+        
+                .home {
+                    display: none;
+                }
+        }
     </style>
 </head>
 <body>
+<?php include "vol_navbar.php"; ?>
+<?php include "ft.php"; ?>
+<div class="yellow-container">
+        <h1>Cancel Activity</h1>
+        <br>
+    </div>
     <div class="event-container">
         <div class="event-header">
             <img src="<?php //echo $event['images']; ?>" alt="Event Image">
@@ -120,3 +169,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </body>
 </html>
+
+
+

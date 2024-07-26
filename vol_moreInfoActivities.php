@@ -21,6 +21,8 @@
             align-items: center;
             min-height: 100vh;
             padding: 20px;
+            margin-top: 100px;
+            margin-bottom: 50px;
         }
 
         .card {
@@ -72,9 +74,52 @@
             background-color: #e6bb2e;
         }
 
-        @media (max-width: 768px) {
+        .yellow-container {
+            background-color: #FFD036;
+            color: #333;
+            text-align: left;
+            padding: 15px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .yellow-container h1 {
+            margin: 0;
+            padding: 0;
+            font-size: 24px;
+            font-weight: bold;
+            padding-left: 20px;
+        }
+
+        @media screen and (max-width: 768px) {
+            body {
+                padding-bottom: 20px; 
+            }
+
+            .yellow-container {
+                display: block;
+                width: 100%;
+                text-align: center;
+                padding: 10px 0;
+            }
+
+            .yellow-container h1, .yellow-container p {
+                text-align: left;
+                padding-left: 20px;
+            }
+
+            .header-section {
+                display: none;
+            }
+        
+                .home {
+                    display: none;
+                }
+              
             .container {
                 padding: 20px;
+                margin-top: -20px;
             }
             
             .card {
@@ -86,7 +131,10 @@
 </head>
 <body>
     <?php include "vol_navbar.php"; ?>
-
+    <div class="yellow-container">
+        <h1>Activities Overview</h1>
+        <br>
+    </div>
     <?php
     include "dbFunctions.php";
 

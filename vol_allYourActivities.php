@@ -62,6 +62,8 @@ $json_events = json_encode($events);
             max-width: 900px;
             margin: auto;
             padding: 20px;
+            margin-top: 100px;
+            margin-bottom: 50px;
         }
         .calendar-container {
             width: 80%; /* Adjust width as needed */
@@ -95,10 +97,93 @@ $json_events = json_encode($events);
             --fc-button-active-bg-color: #F7C600;
             --fc-button-active-border-color: #F7C600;
         }
+
+            /* Yellow Container */
+        .yellow-container {
+            background-color: #FFD036;
+            color: #333;
+            text-align: left;
+            padding: 15px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .yellow-container h1 {
+            margin: 0;
+            padding: 0;
+            font-size: 24px;
+            font-weight: bold;
+            padding-left: 20px;
+        }
+
+
+        @media screen and (max-width: 768px) {
+            body {
+                padding-bottom: 50px;
+                margin: 100px;
+            }
+
+            .calendar-container {
+                width: 80%; /* Adjust width as needed */
+                max-width: 600px; /* Set maximum width */
+                margin-bottom: 100px;
+            }
+
+            #calendar {
+            height: 400px; /* Adjust height as needed */
+        }
+        .activity-list {
+            margin-top: 20px;
+        }
+        .activity-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        .activity-item:hover {
+            background-color: #f0f0f0;
+        }
+        :root {
+            --fc-button-bg-color: #F7C600;
+            --fc-button-border-color: #F7C600;
+            --fc-button-hover-bg-color: #F7C600;
+            --fc-button-hover-border-color: #F7C600;
+            --fc-button-active-bg-color: #F7C600;
+            --fc-button-active-border-color: #F7C600;
+        }
+
+
+            .yellow-container {
+                display: block;
+                width: 100%;
+                text-align: center;
+                padding: 10px 0;
+            }
+
+            .yellow-container h1, .yellow-container p {
+                text-align: left;
+                padding-left: 20px;
+            }
+
+        
+                .home {
+                    display: none;
+                }
+        }
     </style>
 </head>
 <body>
     <?php include "vol_navbar.php"; ?>
+    <div class="yellow-container">
+        <h1>Calendar</h1>
+        <br>
+    </div>
     <div class="calendar-container">
         <div id="calendar"></div>
     </div>

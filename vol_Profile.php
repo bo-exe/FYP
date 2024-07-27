@@ -284,6 +284,11 @@ if (isset($username)) {
         }
 
         @media (max-width: 768px) {
+            .profile-section {
+                padding-bottom: 50px;
+                padding-top: 50px;
+                margin-bottom: 100px;
+            }
             .header {
                 flex-direction: column;
                 align-items: center;
@@ -296,6 +301,7 @@ if (isset($username)) {
             .profile-container {
                 flex-direction: column;
                 align-items: center;
+                margin-bottom: 80px;
             }
 
             .profile-details img.profile-logo,

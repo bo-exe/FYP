@@ -385,7 +385,7 @@ if (isset($_SESSION['username'])) {
                     <span class="dot" onclick="currentSlide(3, 'activity-slider')"></span>
                 </div>
             </div>
-            <a href="all_activities.php" class="about-btn">See More</a>
+            <a href="vol_reccActivities.php" class="about-btn">See More</a>
         </section>
 
         <section class="container">
@@ -402,7 +402,7 @@ if (isset($_SESSION['username'])) {
                     <span class="dot" onclick="currentSlide(3, 'store-slider')"></span>
                 </div>
             </div>
-            <a href="all_stores.php" class="about-btn">See More</a>
+            <a href="vol_allStores.php" class="about-btn">See More</a>
         </section>
        </section>
 

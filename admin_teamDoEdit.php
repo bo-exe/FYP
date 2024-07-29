@@ -1,11 +1,11 @@
 <?php
+session_start(); // Start session to maintain state
+
 include "dbFunctions.php";
 include "ft.php";
 include "admin_teamNavbar.php";
 
 $msg = "";
-
-session_start(); // Start session to maintain state
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve form data
@@ -50,7 +50,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 } else {
     $msg = "Method not allowed.";
-
 }
 ?>
 

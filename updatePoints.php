@@ -4,13 +4,13 @@ session_start();
 
 // Check if the user is logged in
 if (!isset($_SESSION['username'])) {
-    header("Location: vol_scanQR.php?error=not_logged_in");
+    echo "User not logged in.";
     exit();
 }
 
 // Ensure eventID is provided and is numeric
 if (!isset($_GET['eventID']) || !is_numeric($_GET['eventID'])) {
-    header("Location: vol_scanQR.php?error=invalid_event_id");
+    echo "Invalid event ID.";
     exit();
 }
 
@@ -27,9 +27,9 @@ $result = $stmt->get_result();
 if ($result->num_rows == 1) {
     $eventData = $result->fetch_assoc();
     $eventPoints = $eventData['points'];
-    echo "Event points: $eventPoints<br>";
+    echo "Event points: $eventPoints<br>"; // Debugging line
 } else {
-    header("Location: vol_scanQR.php?error=event_not_found");
+    echo "Event not found.";
     $stmt->close();
     $link->close();
     exit();
@@ -47,9 +47,9 @@ $volunteerResult = $volunteerStmt->get_result();
 if ($volunteerResult->num_rows == 1) {
     $volunteerData = $volunteerResult->fetch_assoc();
     $currentPoints = $volunteerData['points'];
-    echo "Current points: $currentPoints<br>";
+    echo "Current points: $currentPoints<br>"; // Debugging line
 } else {
-    header("Location: vol_scanQR.php?error=volunteer_not_found");
+    echo "Volunteer not found.";
     $volunteerStmt->close();
     $link->close();
     exit();
@@ -59,7 +59,7 @@ $volunteerStmt->close();
 
 // Calculate new total points
 $newPoints = $currentPoints + $eventPoints;
-echo "New points total: $newPoints<br>";
+echo "New points total: $newPoints<br>"; // Debugging line
 
 // Update user's points
 $updateQuery = "UPDATE volunteers SET points = ? WHERE username = ?";
@@ -67,9 +67,9 @@ $updateStmt = $link->prepare($updateQuery);
 $updateStmt->bind_param("is", $newPoints, $username);
 
 if ($updateStmt->execute()) {
-    header("Location: index.php");
+    echo "Points updated successfully.";
 } else {
-    header("Location: vol_scanQR.php?error=update_failed");
+    echo "Error updating points.";
 }
 
 $updateStmt->close();

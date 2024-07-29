@@ -93,26 +93,7 @@ $link->close();
         }
         
         .form {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        .form input[type="text"] {
-            padding: 10px;
-            width: 70%;
-            margin-right: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        .form button {
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            background-color: #007bff;
-            color: white;
-            cursor: pointer;
+            display: none; /* Hide the manual input form */
         }
 
         .qr-code img {
@@ -144,31 +125,13 @@ $link->close();
         </div>
 
         <div class="qr-code-container">
-            <div class="form">
-                <input type="text" id="qr-text" placeholder="Enter text or URL">
-                <button onclick="generateQRCode()">Generate QR Code</button>
-            </div>
             <div class="qr-code">
-                <img id="qr-img" src="" alt="qr-code">
+                <img id="qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=<?php echo urlencode($eventID); ?>" alt="QR Code">
             </div>
         </div>
     </div>
 
     <?php include "admin_footer.php"; ?>
-    <script src="script.js"></script>
-    <script>
-        function generateQRCode() {
-            const qrText = document.getElementById('qr-text').value;
-            const qrImg = document.getElementById('qr-img');
-
-            if (qrText.trim() === '') {
-                alert('Please enter some text or URL');
-                return;
-            }
-
-            qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(qrText)}`;
-        }
-    </script>
 </body>
 
 </html>

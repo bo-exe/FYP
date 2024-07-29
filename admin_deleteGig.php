@@ -23,11 +23,15 @@ if (isset($_GET['eventID'])) {
         $points = $row['points'];
         // Fetch image blob data and convert to base64
         $imageData = $row['images'];
+        $image = 'data:image/jpeg;base64,' . base64_encode($imageData); // Assuming JPEG format
+    } else {
+        echo "Gig not found.";
+        exit;
     }
-
 } else {
     // Gig ID not provided
     echo "Gig ID not provided.";
+    exit;
 }
 ?>
 
@@ -98,6 +102,4 @@ if (isset($_GET['eventID'])) {
     <?php } ?>
 </div>
 </body>
-
 </html>
-        

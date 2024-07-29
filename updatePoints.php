@@ -4,13 +4,13 @@ session_start();
 
 // Check if the user is logged in
 if (!isset($_SESSION['username'])) {
-    echo "User not logged in.";
+    header("Location: vol_scanQR.php?error=not_logged_in");
     exit();
 }
 
 // Ensure eventID is provided and is numeric
 if (!isset($_GET['eventID']) || !is_numeric($_GET['eventID'])) {
-    echo "Invalid event ID.";
+    header("Location: vol_scanQR.php?error=invalid_event_id");
     exit();
 }
 
@@ -28,7 +28,7 @@ if ($result->num_rows == 1) {
     $eventData = $result->fetch_assoc();
     $eventPoints = $eventData['points'];
 } else {
-    echo "Event not found.";
+    header("Location: vol_scanQR.php?error=event_not_found");
     $stmt->close();
     $link->close();
     exit();
@@ -47,7 +47,7 @@ if ($volunteerResult->num_rows == 1) {
     $volunteerData = $volunteerResult->fetch_assoc();
     $currentPoints = $volunteerData['points'];
 } else {
-    echo "Volunteer not found.";
+    header("Location: vol_scanQR.php?error=volunteer_not_found");
     $volunteerStmt->close();
     $link->close();
     exit();
@@ -64,9 +64,9 @@ $updateStmt = $link->prepare($updateQuery);
 $updateStmt->bind_param("is", $newPoints, $username);
 
 if ($updateStmt->execute()) {
-    echo "Points updated successfully.";
+    header("Location: index.php");
 } else {
-    echo "Error updating points.";
+    header("Location: vol_scanQR.php?error=update_failed");
 }
 
 $updateStmt->close();

@@ -9,6 +9,8 @@ function w3_close() {
 }
 
 // QR Scanner
+let isScanning = false; // Flag to prevent multiple scans
+
 function domReady(fn) {
     if (
         document.readyState === "complete" ||
@@ -22,6 +24,9 @@ function domReady(fn) {
 
 domReady(function () {
     function onScanSuccess(decodedText) {
+        if (isScanning) return; // Ignore scans if one is already in progress
+
+        isScanning = true; // Set flag to true to prevent multiple scans
         const eventID = decodedText.trim();
         
         // Redirect to updatePoints.php with the eventID
@@ -29,7 +34,9 @@ domReady(function () {
             window.location.href = `updatePoints.php?eventID=${eventID}`;
         }
 
-        html5QrcodeScanner.clear(); // QR Code Scanner closes after scanning a QR
+        // Clear the QR code scanner and reset the flag
+        html5QrcodeScanner.clear();
+        isScanning = false;
     }
 
     // Ensure the QR scanner is initialized only once

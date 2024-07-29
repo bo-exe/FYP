@@ -17,6 +17,8 @@ $resultCheck = mysqli_query($link, $queryCheck) or die(mysqli_error($link));
     <link rel="stylesheet" type="text/css" href="volunteeradminstyle.css">
 </head>
 <body>
+<?php include "admin_volunteerNavbar.php"; ?>
+<?php include "ft.php"; ?>
     <h1>Retail Approval Requests</h1>
     <?php
     if (mysqli_num_rows($resultCheck) > 0) {
@@ -40,5 +42,7 @@ $resultCheck = mysqli_query($link, $queryCheck) or die(mysqli_error($link));
 
     mysqli_close($link);
     ?>
+    <?php include "admin_footer.php"; ?>
+    <script src="script.js"></script>
 </body>
 </html>

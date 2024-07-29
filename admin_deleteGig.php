@@ -23,7 +23,6 @@ if (isset($_GET['eventID'])) {
         $points = $row['points'];
         // Fetch image blob data and convert to base64
         $imageData = $row['images'];
-        $image = 'data:image/' . $imageType . ';base64,' . base64_encode($imageData);
     }
 
 } else {

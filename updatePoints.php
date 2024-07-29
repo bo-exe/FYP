@@ -27,6 +27,7 @@ $result = $stmt->get_result();
 if ($result->num_rows == 1) {
     $eventData = $result->fetch_assoc();
     $eventPoints = $eventData['points'];
+    echo "Event points: $eventPoints<br>";
 } else {
     header("Location: vol_scanQR.php?error=event_not_found");
     $stmt->close();
@@ -46,6 +47,7 @@ $volunteerResult = $volunteerStmt->get_result();
 if ($volunteerResult->num_rows == 1) {
     $volunteerData = $volunteerResult->fetch_assoc();
     $currentPoints = $volunteerData['points'];
+    echo "Current points: $currentPoints<br>";
 } else {
     header("Location: vol_scanQR.php?error=volunteer_not_found");
     $volunteerStmt->close();
@@ -57,6 +59,7 @@ $volunteerStmt->close();
 
 // Calculate new total points
 $newPoints = $currentPoints + $eventPoints;
+echo "New points total: $newPoints<br>";
 
 // Update user's points
 $updateQuery = "UPDATE volunteers SET points = ? WHERE username = ?";

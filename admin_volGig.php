@@ -93,7 +93,7 @@ $link->close();
 </head>
 
 <body>
-    <?php include "admin_teamNavBar.php"; ?>
+    <?php include "admin_volunteerNavBar.php"; ?>
     <?php include "ft.php"; ?>
 
     <h1>Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!</h1>

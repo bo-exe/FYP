@@ -343,6 +343,11 @@ label {
     margin: 20px;
 }
 
+.event-qr-code-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
 /* VOMO Home */
 .admin-team-home {
     font-family: Arial, sans-serif;
@@ -670,4 +675,41 @@ label {
         padding: 10px 15px;
         font-size: 14px;
     }
+}
+
+/* QR Code Generator Styles */
+.wrapper {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.wrapper header {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.wrapper .form input {
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.wrapper .form button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.wrapper .qr-code {
+    margin-top: 20px;
+}
+
+.wrapper .qr-code img {
+    max-width: 100%;
+    height: auto;
 }

@@ -8,7 +8,7 @@ function w3_close() {
     document.getElementById("mySidebar").style.display = "none";
 }
 
-// QR
+// QR Scanner
 function domReady(fn) {
     if (
         document.readyState === "complete" ||
@@ -58,3 +58,24 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+// QR Code Generator
+function generateQRCode() {
+    var input = document.getElementById("qrInput").value;
+    if (input.trim() === "") {
+        alert("Please enter some text or a URL to generate the QR code.");
+        return;
+    }
+
+    var qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(input)}&size=150x150`;
+    document.getElementById("qrImage").src = qrCodeUrl;
+}
+
+// Existing JavaScript functions
+function w3_open() {
+    document.getElementById("mySidebar").style.display = "block";
+}
+
+function w3_close() {
+    document.getElementById("mySidebar").style.display = "none";
+}

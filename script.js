@@ -22,19 +22,26 @@ function domReady(fn) {
 
 domReady(function () {
     function onScanSuccess(decodedText) {
-        window.location.href = decodedText;
-        html5QrcodeScanner.clear(); /* QR Code Scanner closes after scanning a QR */
+        const eventID = decodedText.trim();
+        
+        // Redirect to updatePoints.php with the eventID
+        if (eventID) {
+            window.location.href = `updatePoints.php?eventID=${eventID}`;
+        }
+
+        html5QrcodeScanner.clear(); // QR Code Scanner closes after scanning a QR
     }
 
     // Ensure the QR scanner is initialized only once
     if (!window.htmlscanner) {
         window.htmlscanner = new Html5QrcodeScanner(
             "qr-scanner",
-            { fps: 10, qrbos: 250 }
+            { fps: 10, qrbox: 250 }
         );
         window.htmlscanner.render(onScanSuccess);
     }
 });
+
 
 //Slider Homepage
 document.addEventListener('DOMContentLoaded', function () {

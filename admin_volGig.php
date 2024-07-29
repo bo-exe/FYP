@@ -23,8 +23,6 @@ if ($result->num_rows == 1) {
     // Retrieve event image
     $imageData = base64_encode($eventData['images']);
     $imageSrc = 'data:image/jpeg;base64,' . $imageData;
-
-    $qrStmt->close();
 } else {
     echo "Gig not found.";
     exit();

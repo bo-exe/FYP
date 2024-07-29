@@ -3,7 +3,7 @@ include "dbFunctions.php";
 session_start();
 
 // Check if the user is logged in
-if (!isset($_SESSION['username'])) {
+if (!isset($_SESSION['volunteerId'])) {
     echo "User not logged in.";
     exit();
 }
@@ -15,7 +15,7 @@ if (!isset($_GET['eventID']) || !is_numeric($_GET['eventID'])) {
 }
 
 $eventID = $_GET['eventID'];
-$username = $_SESSION['username'];
+$volunteerId = $_SESSION['volunteerId'];
 
 // Fetch points for the event
 $query = "SELECT points FROM events WHERE eventID = ?";
@@ -38,9 +38,9 @@ if ($result->num_rows == 1) {
 $stmt->close();
 
 // Fetch current points of the volunteer
-$volunteerQuery = "SELECT points FROM volunteers WHERE username = ?";
+$volunteerQuery = "SELECT points FROM volunteers WHERE volunteerId = ?";
 $volunteerStmt = $link->prepare($volunteerQuery);
-$volunteerStmt->bind_param("s", $username);
+$volunteerStmt->bind_param("i", $volunteerId);
 $volunteerStmt->execute();
 $volunteerResult = $volunteerStmt->get_result();
 
@@ -62,9 +62,9 @@ $newPoints = $currentPoints + $eventPoints;
 echo "New points total: $newPoints<br>"; // Debugging line
 
 // Update user's points
-$updateQuery = "UPDATE volunteers SET points = ? WHERE username = ?";
+$updateQuery = "UPDATE volunteers SET points = ? WHERE volunteerId = ?";
 $updateStmt = $link->prepare($updateQuery);
-$updateStmt->bind_param("is", $newPoints, $username);
+$updateStmt->bind_param("ii", $newPoints, $volunteerId);
 
 if ($updateStmt->execute()) {
     echo "Points updated successfully.";

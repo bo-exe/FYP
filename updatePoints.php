@@ -29,15 +29,39 @@ if ($result->num_rows == 1) {
     $eventPoints = $eventData['points'];
 } else {
     echo "Event not found.";
+    $stmt->close();
+    $link->close();
     exit();
 }
 
 $stmt->close();
 
+// Fetch current points of the volunteer
+$volunteerQuery = "SELECT points FROM volunteers WHERE username = ?";
+$volunteerStmt = $link->prepare($volunteerQuery);
+$volunteerStmt->bind_param("s", $username);
+$volunteerStmt->execute();
+$volunteerResult = $volunteerStmt->get_result();
+
+if ($volunteerResult->num_rows == 1) {
+    $volunteerData = $volunteerResult->fetch_assoc();
+    $currentPoints = $volunteerData['points'];
+} else {
+    echo "Volunteer not found.";
+    $volunteerStmt->close();
+    $link->close();
+    exit();
+}
+
+$volunteerStmt->close();
+
+// Calculate new total points
+$newPoints = $currentPoints + $eventPoints;
+
 // Update user's points
-$updateQuery = "UPDATE volunteers SET points = points + ? WHERE username = ?";
+$updateQuery = "UPDATE volunteers SET points = ? WHERE username = ?";
 $updateStmt = $link->prepare($updateQuery);
-$updateStmt->bind_param("is", $eventPoints, $username);
+$updateStmt->bind_param("is", $newPoints, $username);
 
 if ($updateStmt->execute()) {
     echo "Points updated successfully.";

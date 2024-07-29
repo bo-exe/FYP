@@ -122,10 +122,6 @@ $link->close();
             <p><b>Locations:</b> <?php echo htmlspecialchars($eventData['locations']); ?></p>
             <p><b>Event Description:</b> <?php echo htmlspecialchars($eventData['descs']); ?></p>
             <p><b>Points:</b> <?php echo htmlspecialchars($eventData['points']); ?></p>
-            <div class="event-qr-code-container">
-                <p><b>QR Code:</b></p>
-                <img src="<?php echo htmlspecialchars($qrImageSrc); ?>" alt="QR Code for <?php echo htmlspecialchars($eventData['title']); ?>" style="width: 150px; height: 150px;">
-            </div>
             <a href="admin_retailDelete.php?eventID=<?php echo htmlspecialchars($eventData['eventID']); ?>" class="del-btn">Delete</a>
             <a href="admin_retailEdit.php?eventID=<?php echo htmlspecialchars($eventData['eventID']); ?>" class="edit-btn">Edit</a>
         </div>

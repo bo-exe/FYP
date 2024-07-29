@@ -27,7 +27,6 @@ $result = $stmt->get_result();
 if ($result->num_rows == 1) {
     $eventData = $result->fetch_assoc();
     $eventPoints = $eventData['points'];
-    echo "Event points: $eventPoints<br>"; // Debugging line
 } else {
     echo "Event not found.";
     $stmt->close();
@@ -47,7 +46,6 @@ $volunteerResult = $volunteerStmt->get_result();
 if ($volunteerResult->num_rows == 1) {
     $volunteerData = $volunteerResult->fetch_assoc();
     $currentPoints = $volunteerData['points'];
-    echo "Current points: $currentPoints<br>"; // Debugging line
 } else {
     echo "Volunteer not found.";
     $volunteerStmt->close();
@@ -67,9 +65,11 @@ $updateStmt = $link->prepare($updateQuery);
 $updateStmt->bind_param("ii", $newPoints, $volunteerId);
 
 if ($updateStmt->execute()) {
-    echo "Points updated successfully.";
+    error_log("Points updated successfully for username $username");
+    header("Location: index.php");
 } else {
-    echo "Error updating points.";
+    error_log("Update failed: " . $updateStmt->error);
+    header("Location: vol_scanQR.php?error=update_failed");
 }
 
 $updateStmt->close();

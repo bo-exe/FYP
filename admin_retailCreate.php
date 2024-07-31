@@ -18,6 +18,8 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             max-width: 600px;
             margin: 0 auto;
+            margin-bottom: 100px;
+            margin-top: 100px;
         }
         .message {
             margin-bottom: 20px;
@@ -80,6 +82,13 @@
 
         .error {
             color: red;
+        }
+
+        @media screen and (max-width: 768px) {
+            .container {
+                margin-bottom: 200px;
+                margin-top: 100px; 
+            }
         }
     </style>
 </head>

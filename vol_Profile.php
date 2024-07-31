@@ -163,7 +163,8 @@ if (isset($username)) {
         .profile-section {
             flex: 1;
             min-width: 300px;
-            margin-bottom: 20px;
+            margin-bottom: 80px;
+            padding-top: 100px;
         }
 
         .slider-container {

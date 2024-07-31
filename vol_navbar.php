@@ -54,11 +54,19 @@
             display: inline;
         }
 
+        .navbar-main ul li .nav-text-activity {
+            display: inline;
+        }
+
         .navbar-main ul li .nav-icon {
             display: none;
         }
 
         .nav-scanner {
+            display: none;
+        }
+
+        .nav-calendar {
             display: none;
         }
 
@@ -85,7 +93,8 @@
                 width: 100%;
             }
 
-            .navbar-main ul li .nav-text {
+            .navbar-main ul li .nav-text,
+            .navbar-main ul li .nav-text-activity {
                 display: none;
             }
 
@@ -105,6 +114,14 @@
             .nav-scanner {
                 display: inline;
             }
+
+            .nav-calendar {
+                display: inline;
+            }
+
+            .nav-text-activity {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -115,7 +132,8 @@
         </div>
         <ul>
             <li><a href="index.php"><span class="nav-text">HOME</span><i class="bi bi-house nav-icon"></i></a></li>
-            <li><a href="vol_reccActivities.php"><span class="nav-text">ACTIVITIES</span><i class="bi bi-calendar nav-icon"></i></a></li>
+            <li class="nav-text-activity"><a href="vol_reccActivities.php"><span class="nav-text">ACTIVITIES</span><i class="bi bi-calendar nav-icon"></i></a></li>
+            <li class="nav-calendar"><a href="vol_allYourActivities.php"><span class="nav-text">ACTIVITIES</span><i class="bi bi-calendar nav-icon"></i></a></li>
             <li class="nav-scanner"><a href="vol_scanQR.php"><span class="nav-text">SCANNER</span><i class="bi bi-upc-scan nav-icon"></i></a></li>
             <li><a href="vol_allVouchers.php"><span class="nav-text">REDEEM</span><i class="bi bi-gift nav-icon"></i></a></li>
             <li class="nav-stores"><a href="vol_allStores.php"><span class="nav-text">STORES</span><i class="bi bi-shop nav-icon"></i></a></li>

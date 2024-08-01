@@ -3,6 +3,7 @@ include "dbFunctions.php"; // Adjust this to your actual database connection scr
 include "ft.php"; // Assuming this is your footer include
 session_start();
 
+// Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate and sanitize form data
     $title = mysqli_real_escape_string($link, $_POST['title']);
@@ -19,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_FILES['images']) && $_FILES['images']['error'] == UPLOAD_ERR_OK) {
         $imageTmpPath = $_FILES['images']['tmp_name'];
         $imageType = $_FILES['images']['type'];
-        
+
         // Check if the uploaded file is an image
         if ($imageType == 'image/jpeg' || $imageType == 'image/png' || $imageType == 'image/gif') {
             $imageData = addslashes(file_get_contents($imageTmpPath));  // Convert image to BLOB
@@ -44,17 +45,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Insert the new offer into the database
-    $insertQuery = "INSERT INTO offers (title, dateTimeStart, dateTimeEnd, locations, tandc, instructions, points, amount, images, QR, adminID, company) 
-                    VALUES ('$title', '$dateTimeStart', '$dateTimeEnd', '$locations', '$tandc', '$instructions', '$points', '$amount', '$imageData', '$qrData', '$adminID', '$company')";
-    
+    $insertQuery = "INSERT INTO offers (title, dateTimeStart, dateTimeEnd, locations, tandc, instructions, points, amount, images, adminID, company) 
+                    VALUES ('$title', '$dateTimeStart', '$dateTimeEnd', '$locations', '$tandc', '$instructions', '$points', '$amount', '$imageData', '$adminID', '$company')";
+
     if (mysqli_query($link, $insertQuery)) {
         $message = "Offer added successfully.";
         header("Location: admin_retailManage.php?message=" . urlencode($message));
         exit();
     } else {
         $errorMessage = "Error adding offer: " . mysqli_error($link);
-        header("Location: admin_retailDoCreate.php?error=" . urlencode($errorMessage));
+        header("Location: admin_retailCreate.php?error=" . urlencode($errorMessage));
         exit();
     }
 }
+
+// Redirect back to the form page with a success or error message
+if (isset($message)) {
+    header("Location: admin_retailCreate.php?message=" . urlencode($message));
+} elseif (isset($errorMessage)) {
+    header("Location: admin_retailCreate.php?error=" . urlencode($errorMessage));
+} else {
+    header("Location: admin_retailCreate.php");
+}
+exit();
 ?>

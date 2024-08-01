@@ -23,22 +23,6 @@ if ($result->num_rows == 1) {
     // Retrieve event image
     $imageData = base64_encode($eventData['images']);
     $imageSrc = 'data:image/jpeg;base64,' . $imageData;
-
-    // Retrieve QR code path from QR table
-    $qrQuery = "SELECT qrImage FROM QR WHERE EventID = ?";
-    $qrStmt = $link->prepare($qrQuery);
-    $qrStmt->bind_param("i", $eventID);
-    $qrStmt->execute();
-    $qrResult = $qrStmt->get_result();
-
-    if ($qrResult->num_rows == 1) {
-        $qrData = $qrResult->fetch_assoc();
-        $qrImageSrc = $qrData['qrImage'];
-    } else {
-        $qrImageSrc = 'path/to/default/qr_image.png'; // Default or placeholder QR code image
-    }
-
-    $qrStmt->close();
 } else {
     echo "Gig not found.";
     exit();
@@ -59,6 +43,7 @@ $link->close();
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
             height: 100vh;
         }
 
@@ -68,6 +53,7 @@ $link->close();
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
             width: 400px;
+            margin-bottom: 20px;
         }
 
         .card img {
@@ -105,11 +91,23 @@ $link->close();
             text-align: center;
             margin-top: 20px;
         }
+        
+        .form {
+            display: none; /* Hide the manual input form */
+        }
+
+        .qr-code img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
     </style>
 </head>
 
 <body>
-    <?php include "admin_teamNavBar.php"; ?>
+    <?php include "admin_volunteerNavBar.php"; ?>
     <?php include "ft.php"; ?>
 
     <h1>Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!</h1>
@@ -124,6 +122,12 @@ $link->close();
             <p><b>Points:</b> <?php echo htmlspecialchars($eventData['points']); ?></p>
             <a href="admin_retailDelete.php?eventID=<?php echo htmlspecialchars($eventData['eventID']); ?>" class="del-btn">Delete</a>
             <a href="admin_retailEdit.php?eventID=<?php echo htmlspecialchars($eventData['eventID']); ?>" class="edit-btn">Edit</a>
+        </div>
+
+        <div class="qr-code-container">
+            <div class="qr-code">
+                <img id="qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=<?php echo urlencode($eventID); ?>" alt="QR Code">
+            </div>
         </div>
     </div>
 

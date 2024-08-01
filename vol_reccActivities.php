@@ -164,9 +164,9 @@ if (isset($_SESSION['username'])) {
     }
 
     .save-activity {
-        max-width: 40px;
+        max-width: 50px;
         position: absolute;
-        top: 20px;
+        bottom: 20px;
         right: 20px;
         cursor: pointer;
     }

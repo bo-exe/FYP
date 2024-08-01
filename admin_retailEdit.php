@@ -1,7 +1,7 @@
 <?php
 include "dbFunctions.php";
-include "admin_retailNavbar.php";
 include "ft.php";
+
 
 $msg = "";
 
@@ -53,7 +53,7 @@ if (isset($_GET['offerId'])) {
             background-color: #fff;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
+            padding: 60px;
             width: 400px;
             text-align: center;
         }
@@ -112,12 +112,30 @@ if (isset($_GET['offerId'])) {
         .edit-btn:hover {
             background-color: #E7BC32;
         }
+
+        @media (max-width: 768px) {
+            .body {
+                padding-top: 60px; 
+            }
+
+            .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding-bottom:60px ;
+        }
+
+        }
     </style>
 </head>
 <body>
+    <?php
+    include "admin_retailNavbar.php"; 
+    ?>
 <div class="container">
     <?php if (!empty($offerId) && empty($msg)) { ?>
-        <div class="card">
+        < class="card">
             <?php if (!empty($imageData)) { ?>
                 <img src="data:image/<?php echo htmlspecialchars($imageType); ?>;base64,<?php echo base64_encode($imageData); ?>" alt="Offer Image">
             <?php } ?>
@@ -177,12 +195,13 @@ if (isset($_GET['offerId'])) {
                 </div>
             </form>
         </div>
+        <br></br><br></br><br></br>
     <?php } else { ?>
         <div class="card">
             <p><?php echo htmlspecialchars($msg); ?></p>
             <a href="admin_retailManage.php" class="edit-btn">Back to Offers</a>
         </div>
     <?php } ?>
-</div>
+</>
 </body>
 </html>

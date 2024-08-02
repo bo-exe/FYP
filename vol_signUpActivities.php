@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NTUC Charity Run 2024 Sign Up</title>
-    <link rel="icon" type="image/x-icon" href="images/logo.jpg">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
     <style>
-        body {
+
+
+body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
             margin: 0;
@@ -235,8 +236,6 @@
                 border-radius: 0;
             }
 
-
-
             body {
                 padding-bottom: 20px; 
             }
@@ -274,163 +273,169 @@
                 font-size: 18px;
             }
         }
+
     </style>
 </head>
 <body>
-    <?php include "vol_navbar.php"; ?>
-    <div class="yellow-container">
-        <h1>Sign Up for Activity</h1>
-        <br>
-    </div>
+<?php  include "vol_navbar.php"; ?>
+<div class="main-content">
+    <?php
+    include "dbFunctions.php";
 
-    <div class="main-content">
-        <?php
-        include "dbFunctions.php";
+    // Get the eventID from the URL parameter
+    $eventID = isset($_GET['eventID']) ? intval($_GET['eventID']) : 0;
 
-        // Get the eventID from the URL parameter
-        $eventID = isset($_GET['eventID']) ? intval($_GET['eventID']) : 0;
+    // Query to fetch event with the specified eventID
+    $query = "SELECT * FROM events WHERE eventID = $eventID";
+    $result = mysqli_query($link, $query);
 
-        // Query to fetch event with the specified eventID
-        $query = "SELECT * FROM events WHERE eventID = $eventID";
-        $result = mysqli_query($link, $query);
-
-        if ($result && mysqli_num_rows($result) > 0) {
-            $event = mysqli_fetch_assoc($result);
+    if ($result && mysqli_num_rows($result) > 0) {
+        $event = mysqli_fetch_assoc($result);
         ?>
-            <h2 class="signup-heading"><?php echo htmlspecialchars($event['title']); ?> Sign Up</h2>
-            <div class="signup-section">
-                <div class="signup-image-container">
-                    <?php
-                    if (!empty($event['images'])) {
-                        echo '<img src="data:image/jpeg;base64,' . base64_encode($event['images']) . '" alt="' . htmlspecialchars($event['title']) . '" class="signup-image">';
-                    } else {
-                        echo '<img src="https://placehold.co/600" alt="' . htmlspecialchars($event['title']) . '" class="signup-image">';
-                    }
-                    ?>
-                </div>
-                <div class="signup-content">
-                    <form class="signup-form" id="signup-form" action="vol_sendVerificationCode.php" method="POST">
-                        <input type="hidden" name="eventID" value="<?php echo $eventID; ?>">
-                        <div class="name-fields">
-                            <input type="text" name="first_name" placeholder="First Name" required>
-                            <input type="text" name="last_name" placeholder="Last Name" required>
-                        </div>
-                        <input type="email" name="email" placeholder="Email Address" required>
-                        <div style="display: flex; align-items: center;">
-                            <select name="country_code" required>
-                                <option value="+65">+65</option>
-                                <option value="+1">+1</option>
-                                <option value="+44">+44</option>
-                                <option value="+91">+91</option>
-                                <!-- Add more country codes as needed -->
-                            </select>
-                            <input type="tel" name="phone" placeholder="Phone Number" required style="flex-grow: 1;">
-                        </div>
-                        <button class="signup-button" type="button" onclick="showVerificationPopup()">Sign Up</button>
-                    </form>
-                </div>
+        <h2 class="signup-heading"><?php echo htmlspecialchars($event['title']); ?> Sign Up</h2>
+        <div class="signup-section">
+            <div class="signup-image-container">
+                <?php
+                if (!empty($event['images'])) {
+                    echo '<img src="data:image/jpeg;base64,' . base64_encode($event['images']) . '" alt="' . htmlspecialchars($event['title']) . '" class="signup-image">';
+                } else {
+                    echo '<img src="https://placehold.co/600" alt="' . htmlspecialchars($event['title']) . '" class="signup-image">';
+                }
+                ?>
             </div>
+            <div class="signup-content">
+                <form class="signup-form" id="signup-form" action="vol_sendVerificationCode.php" method="POST">
+                    <input type="hidden" name="eventID" value="<?php echo $eventID; ?>">
+                    <div class="name-fields">
+                        <input type="text" name="first_name" placeholder="First Name" required>
+                        <input type="text" name="last_name" placeholder="Last Name" required>
+                    </div>
+                    <input type="email" name="email" placeholder="Email Address" required>
+                    <div style="display: flex; align-items: center;">
+                        <select name="country_code" required>
+                            <option value="+65">+65</option>
+                            <option value="+1">+1</option>
+                            <option value="+44">+44</option>
+                            <option value="+91">+91</option>
+                            <!-- Add more country codes as needed -->
+                        </select>
+                        <input type="tel" name="phone" placeholder="Phone Number" required style="flex-grow: 1;">
+                    </div>
+                    <button class="signup-button" type="button" onclick="showVerificationPopup()">Sign Up</button>
+                </form>
+            </div>
+        </div>
         <?php
+    } else {
+        echo "<p>Event not found.</p>";
+    }
+    ?>
+</div>
+
+
+<div class="popup-overlay" id="popup-overlay"></div>
+<div class="popup" id="verification-popup">
+    <h3>Application Successful!</h3>
+    <p>
+        A verification code has been sent to your email. Please check your inbox and enter the verification code below to verify your email address. The code will expire in 15 minutes.
+    </p>
+    <form id="verification-form" action="vol_verificationCode.php" method="POST">
+    <input type="hidden" name="eventID" value="<?php echo $eventID; ?>">
+    <div class="verification-code-inputs">
+        <input type="text" name="verification_code[]" id="verification-digit-1" maxlength="1" required>
+        <input type="text" name="verification_code[]" id="verification-digit-2" maxlength="1" required>
+        <input type="text" name="verification_code[]" id="verification-digit-3" maxlength="1" required>
+        <span><strong>&dash;</strong></span>
+        <input type="text" name="verification_code[]" id="verification-digit-4" maxlength="1" required>
+        <input type="text" name="verification_code[]" id="verification-digit-5" maxlength="1" required>
+        <input type="text" name="verification_code[]" id="verification-digit-6" maxlength="1" required>
+    </div>
+    <button type="submit">Verify</button>
+</form>
+
+</div>
+
+
+<script>
+function showVerificationPopup() {
+    const form = document.getElementById('signup-form');
+    const formData = new FormData(form);
+
+    fetch('vol_sendVerificationCode.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            document.getElementById('popup-overlay').classList.add('active');
+            document.getElementById('verification-popup').classList.add('active');
         } else {
-            echo "<p>Event not found.</p>";
+            alert('Failed to send verification code. Please try again.');
         }
-        ?>
-    </div>
+    })
+    .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+        alert('Failed to send verification code. Please try again.');
+    });
+}
 
-    <div class="popup-overlay" id="popup-overlay"></div>
-    <div class="popup" id="verification-popup">
-        <h3>Application Successful!</h3>
-        <p>A verification code has been sent to your email. Please check your inbox and enter the verification code below to verify your email address. The code will expire in 15 minutes.</p>
-        <form id="verification-form" action="vol_verificationCode.php" method="POST">
-            <input type="hidden" name="eventID" value="<?php echo $eventID; ?>">
-            <div class="verification-code-inputs">
-                <input type="text" name="verification_code[]" maxlength="1" required>
-                <input type="text" name="verification_code[]" maxlength="1" required>
-                <input type="text" name="verification_code[]" maxlength="1" required>
-                <span><strong>&dash;</strong></span>
-                <input type="text" name="verification_code[]" maxlength="1" required>
-                <input type="text" name="verification_code[]" maxlength="1" required>
-                <input type="text" name="verification_code[]" maxlength="1" required>
-            </div>
-            <button type="submit">Verify</button>
-        </form>
-    </div>
+document.getElementById('popup-overlay').addEventListener('click', function() {
+    this.classList.remove('active');
+    document.getElementById('verification-popup').classList.remove('active');
+});
 
-    <script>
-        function showVerificationPopup() {
-            const form = document.getElementById('signup-form');
-            const formData = new FormData(form);
-
-            fetch('vol_sendVerificationCode.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    document.getElementById('popup-overlay').classList.add('active');
-                    document.getElementById('verification-popup').classList.add('active');
-                } else {
-                    alert('Failed to send verification code. Please try again.');
-                }
-            })
-            .catch(error => {
-                console.error('There was a problem with the fetch operation:', error);
-                alert('Failed to send verification code. Please try again.');
-            });
+const inputs = document.querySelectorAll('.verification-code-inputs input');
+inputs.forEach((input, index) => {
+    input.addEventListener('input', () => {
+        if (input.value.length === 1 && index < inputs.length - 1) {
+            inputs[index + 1].focus();
         }
+    });
+});
 
-        document.getElementById('popup-overlay').addEventListener('click', function() {
-            this.classList.remove('active');
-            document.getElementById('verification-popup').classList.remove('active');
-        });
+document.getElementById('verification-form').addEventListener('submit', function(event) {
+    event.preventDefault();
 
-        document.getElementById('verification-form').addEventListener('submit', function(event) {
-            event.preventDefault();
+    const form = event.target;
+    const formData = new FormData(form);
+    const verificationCodeArray = formData.getAll('verification_code[]');
+    const verificationCode = verificationCodeArray.join('');
 
-            const form = event.target;
-            const formData = new FormData(form);
-            const verificationCodeArray = formData.getAll('verification_code[]');
-            const verificationCode = verificationCodeArray.join('');
+    // Add the concatenated verification code to the form data
+    formData.delete('verification_code[]');
+    formData.append('verification_code', verificationCode);
 
-            formData.delete('verification_code[]');
-            formData.append('verification_code', verificationCode);
+    fetch('vol_verificationCode.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text())
+    .then(data => {
+        console.log(data); // Debug: Output the response from the server
+        if (data.includes("Session verification code")) {
+            // Server-side success handling
+            window.location.href = 'vol_confirmation.php';
+        } else {
+            alert('Verification failed. Please try again.');
+        }
+    })
+    .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+        alert('Failed to verify the code. Please try again.');
+    });
+});
+</script>
 
-            fetch('vol_verificationCode.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.text())
-            .then(data => {
-                if (data.includes("Session verification code")) {
-                    window.location.href = 'vol_confirmation.php';
-                } else {
-                    alert(data);
-                }
-            })
-            .catch(error => {
-                console.error('There was a problem with the fetch operation:', error);
-                alert('Failed to verify the code. Please try again.');
-            });
-        });
 
-        document.querySelectorAll('.verification-code-inputs input').forEach((input, index, inputs) => {
-            input.addEventListener('input', () => {
-                if (input.value.length === 1 && index < inputs.length - 1) {
-                    inputs[index + 1].focus();
-                }
-            });
+    <?php  include "vol_footer.php"; ?>
 
-            input.addEventListener('keydown', (e) => {
-                if (e.key === 'Backspace' && input.value === '' && index > 0) {
-                    inputs[index - 1].focus();
-                }
-            });
-        });
-    </script>
-
-    <?php include "vol_footer.php"; ?>
+ 
 </body>
 </html>
+
+
+
+
 
 

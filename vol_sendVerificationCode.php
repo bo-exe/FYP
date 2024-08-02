@@ -31,13 +31,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $mail->isSMTP();
         $mail->Host       = 'sandbox.smtp.mailtrap.io'; // Mailtrap SMTP server
         $mail->SMTPAuth   = true;
-        $mail->Username   = '171e781cafa9b9'; // Mailtrap username
-        $mail->Password   = 'b06e4a81923958'; // Mailtrap password
+        $mail->Username   = '575ca53a082483'; // Mailtrap username
+        $mail->Password   = '67cabb660a1621'; // Mailtrap password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port       = 587;
 
         //Recipients
-        $mail->setFrom('hashim@influencelead.com', 'Your Name');
+        $mail->setFrom('leia@ng.com', 'Your Name');
         $mail->addAddress($email);
 
         // Content
@@ -53,3 +53,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 } else {
     echo json_encode(['success' => false, 'message' => 'Invalid request method.']);
 }
+

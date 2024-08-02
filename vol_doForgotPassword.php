@@ -52,10 +52,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     try {
         // Server settings
         $mail->isSMTP();
+        
         $mail->Host       = 'sandbox.smtp.mailtrap.io'; // Mailtrap SMTP server
         $mail->SMTPAuth   = true;
-        $mail->Username   = '171e781cafa9b9'; // Mailtrap username
-        $mail->Password   = 'b06e4a81923958'; // Mailtrap password
+        $mail->Username   = '575ca53a082483'; // Mailtrap username
+        $mail->Password   = '67cabb660a1621'; // Mailtrap password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port       = 587;
 
@@ -66,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Content
         $mail->isHTML(true);
         $mail->Subject = 'Password Reset Request';
-        $mail->Body    = "Click the link to reset your password: <a href='http://localhost/Github/FYP/vol_resetpassword.php?token=$token'>Reset Password</a>";
+        $mail->Body    = "Click the link to reset your password: <a href='http://localhost/fypmod/vol_resetpassword.php?token=$token'>Reset Password</a>";
 
         $mail->send();
         

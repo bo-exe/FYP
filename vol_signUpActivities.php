@@ -6,10 +6,8 @@
     <title>NTUC Charity Run 2024 Sign Up</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
-    <style>
-
-
-body {
+     <style>
+        body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
             margin: 0;
@@ -236,6 +234,8 @@ body {
                 border-radius: 0;
             }
 
+
+
             body {
                 padding-bottom: 20px; 
             }
@@ -273,7 +273,6 @@ body {
                 font-size: 18px;
             }
         }
-
     </style>
 </head>
 <body>
@@ -385,14 +384,15 @@ document.getElementById('popup-overlay').addEventListener('click', function() {
     document.getElementById('verification-popup').classList.remove('active');
 });
 
-const inputs = document.querySelectorAll('.verification-code-inputs input');
-inputs.forEach((input, index) => {
-    input.addEventListener('input', () => {
-        if (input.value.length === 1 && index < inputs.length - 1) {
-            inputs[index + 1].focus();
-        }
-    });
-});
+// const inputs = document.querySelectorAll('.verification-code-inputs input');
+// inputs.forEach((input, index) => {
+//     input.addEventListener('input', () => {
+//         if (input.value.length === 1 && index < inputs.length - 1) {
+//             inputs[index + 1].focus();
+//         }
+//     });
+// });
+
 
 document.getElementById('verification-form').addEventListener('submit', function(event) {
     event.preventDefault();
@@ -417,7 +417,7 @@ document.getElementById('verification-form').addEventListener('submit', function
             // Server-side success handling
             window.location.href = 'vol_confirmation.php';
         } else {
-            alert('Verification failed. Please try again.');
+           
         }
     })
     .catch(error => {
@@ -425,8 +425,11 @@ document.getElementById('verification-form').addEventListener('submit', function
         alert('Failed to verify the code. Please try again.');
     });
 });
-</script>
 
+
+
+
+</script>
 
     <?php  include "vol_footer.php"; ?>
 
